@@ -3,20 +3,23 @@
 SR_CONFIG_EXAMPLES=`sr_subscribe list | awk '  / examples:/ { print $4; }; '`
 export SR_CONFIG_EXAMPLES=`dirname ${SR_CONFIG_EXAMPLES}`
 
+if [ ! "${SR_DEV_APPNAME}" ]; then
+  export SR_DEV_APPNAME=sarra
+fi
 
 function application_dirs {
 python3 << EOF
 import appdirs
 
-cachedir  = appdirs.user_cache_dir('sarra','science.gc.ca')
+cachedir  = appdirs.user_cache_dir('${SR_DEV_APPNAME}','science.gc.ca')
 cachedir  = cachedir.replace(' ','\ ')
 print('export CACHEDIR=%s'% cachedir)
 
-confdir = appdirs.user_config_dir('sarra','science.gc.ca')
+confdir = appdirs.user_config_dir('${SR_DEV_APPNAME}','science.gc.ca')
 confdir = confdir.replace(' ','\ ')
 print('export CONFDIR=%s'% confdir)
 
-logdir  = appdirs.user_log_dir('sarra','science.gc.ca')
+logdir  = appdirs.user_log_dir('${SR_DEV_APPNAME}','science.gc.ca')
 logdir  = logdir.replace(' ','\ ')
 print('export LOGDIR=%s'% logdir)
 

@@ -131,7 +131,7 @@ posttest " " "-c ${DR}/sr_post.conf -b amqp://tsource@localhost -to alta -path t
 todel="$todel sr_post.conf"
 echo
 
-mkdir -p ~/.config/sarra 2> /dev/null
+mkdir -p ~/.config/${SR_DEV_APPNAME} 2> /dev/null
 
 posttest "sr_post using ~/.config/sarra/credentials.conf " " -pbu file: -b amqp://tsource@localhost -to alta -path toto " 0
 posttest " using log file " " -pbu file: -l toto.log -b amqp://tsource@localhost -to alta -path toto" 0

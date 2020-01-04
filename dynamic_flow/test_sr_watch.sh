@@ -23,7 +23,7 @@
 #./rabbitmqadmin -u guest -p guest declare exchange \
 #    name=xs_guest type=topic auto_delete=false durable=true
 
-#rm ~/.config/sarra/credentials.conf 2>/dev/null
+#rm ~/.config/${SR_DEV_APPNAME}/credentials.conf 2>/dev/null
 
 cat << EOF > toto
 0 123456789abcde
@@ -82,8 +82,8 @@ kill -9 $PID
 echo
 
 
-#mkdir -p ~/.config/sarra 2> /dev/null
-#cat << EOF > ~/.config/sarra/credentials.conf
+#mkdir -p ~/.config/${SR_DEV_APPNAME} 2> /dev/null
+#cat << EOF > ~/.config/${SR_DEV_APPNAME}/credentials.conf
 #amqp://tester:testerpw@localhost
 #EOF
 

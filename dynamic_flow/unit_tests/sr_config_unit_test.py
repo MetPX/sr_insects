@@ -215,15 +215,15 @@ class SrConfigGeneralTestCase(SrConfigTestCase):
         self.cfg.option(opt1.split())
 
     def test_user_cache_dir(self):
-        test_cache_path = os.path.join(os.path.expanduser('~'), '.cache', 'sarra', self.cfg.program_name, 'aaa')
+        test_cache_path = os.path.join(os.path.expanduser('~'), '.cache', os.getenv('SR_DEV_APPNAME'), self.cfg.program_name, 'aaa')
         self.assertEqual(self.cfg.user_cache_dir, test_cache_path)
 
     def test_user_log_dir(self):
-        test_cache_path = os.path.join(os.path.expanduser('~'), '.cache', 'sarra', 'log')
+        test_cache_path = os.path.join(os.path.expanduser('~'), '.cache', os.getenv('SR_DEV_APPNAME'), 'log')
         self.assertEqual(self.cfg.user_log_dir, test_cache_path)
 
     def test_user_config_dir(self):
-        test_cache_path = os.path.join(os.path.expanduser('~'), '.config', 'sarra')
+        test_cache_path = os.path.join(os.path.expanduser('~'), '.config', os.getenv('SR_DEV_APPNAME'))
         self.assertEqual(self.cfg.user_config_dir, test_cache_path)
 
     def test_randomize(self):
