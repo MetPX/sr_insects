@@ -21,5 +21,14 @@ except:
     sys.exit(10)
 
 
+try:
+    import paramiko
+
+except: 
+    print('missing python paramiko library (for scp/sftp testing)')
+    sys.exit(10)
+
+
+
 print('OK requisite python modules for testing seem to be present')
 sys.exit(0)

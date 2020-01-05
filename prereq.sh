@@ -24,6 +24,13 @@ if [ ! "${awk_binary}" ]; then
 fi
 echo "awk is there."
 
+sshd_binary="`which sshd`"
+if [ ! "${sshd_binary}" ]; then
+   echo "No sshd! test scripts use awk"
+   exit 22
+fi
+echo "sshd is there."
+
 
 python_binary="`which python3`"
 if [ ! "${python_binary}" ]; then
