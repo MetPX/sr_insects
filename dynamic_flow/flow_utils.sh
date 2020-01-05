@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-SR_CONFIG_EXAMPLES=`sr_subscribe list | awk '  / examples:/ { print $4; }; '`
-export SR_CONFIG_EXAMPLES=`dirname ${SR_CONFIG_EXAMPLES}`
+#SR_TEST_CONFIGS=`sr_subscribe list | awk '  / examples:/ { print $4; }; '`
+#export SR_TEST_CONFIGS=`dirname ${SR_TEST_CONFIGS}`
+
+SR_TEST_CONFIGS=${TESTDIR}/config
 
 if [ ! "${SR_DEV_APPNAME}" ]; then
   export SR_DEV_APPNAME=sarra

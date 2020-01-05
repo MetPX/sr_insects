@@ -54,7 +54,8 @@ done
 
 mkdir -p "$CONFDIR" 2> /dev/null
 
-flow_configs="`cd ${SR_CONFIG_EXAMPLES}; ls */*f[0-9][0-9].conf; ls */*f[0-9][0-9].inc`"
+#flow_configs="`cd ${SR_CONFIG_EXAMPLES}; ls */*f[0-9][0-9].conf; ls */*f[0-9][0-9].inc`"
+flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf; ls */*f[0-9][0-9].inc`"
 sr_action "Adding flow test configurations..." add " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
 
 passed_checks=0
@@ -83,7 +84,7 @@ testrundir="`pwd`"
 
 echo "Starting trivial http server on: $testdocroot, saving pid in .httpserverpid"
 cd $testdocroot
-$testrundir/trivialserver.py >>$trivialhttplog 2>&1 &
+$testrundir/../trivialserver.py >>$trivialhttplog 2>&1 &
 httpserverpid=$!
 
 
@@ -120,39 +121,38 @@ nbr_fail=0
 
 count_of_checks=$((${count_of_checks}+1))
 
-echo "======= Testing: sr_config"  >>  $unittestlog
-nbr_test=$(( ${nbr_test}+1 ))
-python3 -m unittest -v ${TESTDIR}/unit_tests/sr_config_unit_test.py >> $unittestlog 2>&1
-status=${?}
-if [ $status -ne 0 ]; then
-   echo "======= Testing sr_config: Failed"
-else
-   echo "======= Testing sr_config: Succeeded"
-fi
+# Unit testing should be upstream of these
+#echo "======= Testing: sr_config"  >>  $unittestlog
+#nbr_test=$(( ${nbr_test}+1 ))
+#python3 -m unittest -v ${TESTDIR}/unit_tests/sr_config_unit_test.py >> $unittestlog 2>&1
+#status=${?}
+#if [ $status -ne 0 ]; then
+#   echo "======= Testing sr_config: Failed"
+#else
+#   echo "======= Testing sr_config: Succeeded"
+#fi
+#nbr_fail=$(( ${nbr_fail}+${status} ))
+#for t in sr_util sr_credentials sr_cache sr_retry sr_consumer sr_http sr_sftp sr_instances sr_pattern_match; do
+#    echo "======= Testing: "${t}  >>  $unittestlog
+#    nbr_test=$(( ${nbr_test}+1 ))
+#    ${TESTDIR}/unit_tests/${t}_unit_test.py >> $unittestlog 2>&1
+#    status=${?}
+#    if [ $status -ne 0 ]; then
+#       echo "======= Testing "${t}": Failed"
+#    else
+#       echo "======= Testing "${t}": Succeeded"
+#    fi
 
-nbr_fail=$(( ${nbr_fail}+${status} ))
+#    nbr_fail=$(( ${nbr_fail}+${status} ))
+#done
 
-for t in sr_util sr_credentials sr_cache sr_retry sr_consumer sr_http sr_sftp sr_instances sr_pattern_match; do
-    echo "======= Testing: "${t}  >>  $unittestlog
-    nbr_test=$(( ${nbr_test}+1 ))
-    ${TESTDIR}/unit_tests/${t}_unit_test.py >> $unittestlog 2>&1
-    status=${?}
-    if [ $status -ne 0 ]; then
-       echo "======= Testing "${t}": Failed"
-    else
-       echo "======= Testing "${t}": Succeeded"
-    fi
-
-    nbr_fail=$(( ${nbr_fail}+${status} ))
-done
-
-if [ $nbr_fail -ne 0 ]; then
-   echo "FAILED: "${nbr_fail}" self test did not work"
-   echo "        Have a look in file "$unittestlog
-else
-   echo "OK, as expected "${nbr_test}" tests passed"
-   passed_checks=$((${passed_checks}+1))
-fi
+#if [ $nbr_fail -ne 0 ]; then
+#   echo "FAILED: "${nbr_fail}" self test did not work"
+#   echo "        Have a look in file "$unittestlog
+#else
+#   echo "OK, as expected "${nbr_test}" tests passed"
+#   passed_checks=$((${passed_checks}+1))
+#fi
 
 cd $testrundir
 
@@ -171,7 +171,7 @@ echo $MAX_MESSAGES
 fi
 
 # Start everything but sr_post
-flow_configs="audit/ `cd ${SR_CONFIG_EXAMPLES}; ls */*f[0-9][0-9].conf | grep -v '^post'; ls poll/pulse.conf`"
+flow_configs="audit/ `cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf | grep -v '^post'; ls poll/pulse.conf`"
 sr_action "Starting up all components..." start " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
 echo "Done."
 
