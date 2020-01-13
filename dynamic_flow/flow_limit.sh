@@ -53,10 +53,10 @@ while [ $totsarra -lt $smin ]; do
        fi
    fi
  
-   sleep 10
+   sleep 45
    countall
 
-   printf  "Sample now: %6d Missed_dispositions:%d"  "$totsarra" "$missed_dispositions"
+   printf  "Sample now: %6d Missed_dispositions:%d\n"  "$totsarra" "$missed_dispositions"
 
 done
 printf  "\nSufficient!\n" 
