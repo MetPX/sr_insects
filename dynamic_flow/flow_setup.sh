@@ -67,9 +67,9 @@ count_of_checks=0
 
 echo "Initializing with sr_audit... takes a minute or two"
 if [ ! "$SARRA_LIB" ]; then
-    sr_audit --users foreground >>$flowsetuplog 2>&1
+    sr_audit --debug --users foreground >>$flowsetuplog 2>&1
 else
-    "$SARRA_LIB"/sr_audit.py --users foreground >>$flowsetuplog 2>&1
+    "$SARRA_LIB"/sr_audit.py --debug --users foreground >>$flowsetuplog 2>&1
 fi
 
 # Check queues and exchanges
