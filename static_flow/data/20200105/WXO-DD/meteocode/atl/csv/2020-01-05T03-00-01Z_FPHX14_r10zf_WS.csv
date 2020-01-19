@@ -1,0 +1,6 @@
+"Kent County | comté de Kent; CMML : 'TRANSMIT.FPHX14.01.05.0255Z.AMD.xml'; Time zone | Fuseau horaire : Canada/Atlantic","Start | Début;End | Fin;Wind speed min (km/h) | Vitesse du vent min (km/h);Wind speed max (km/h) | Vitesse du vent max (km/h);Wind direction | Direction du vent",""
+2020-01-05T02:00:00Z,2020-01-05T06:00:00Z,5,5,nil
+2020-01-05T06:00:00Z,2020-01-05T10:00:00Z,10,10,east
+2020-01-05T10:00:00Z,2020-01-05T19:00:00Z,20,20,north
+2020-01-05T19:00:00Z,2020-01-06T02:00:00Z,40,40,north
+2020-01-06T02:00:00Z,2020-01-06T10:00:00Z,20,20,northwest

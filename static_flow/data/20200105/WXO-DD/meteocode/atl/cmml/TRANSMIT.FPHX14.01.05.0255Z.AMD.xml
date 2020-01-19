@@ -1,0 +1,2796 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<cmml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="/apps/scribe-xml/Config/schema/cmml.xsd" version="3.04">
+  <head>
+    <product operational-mode="developmental">
+      <title>FPHX14</title>
+      <field>meteorological</field>
+      <category>forecast</category>
+      <creation-date refresh-frequency="PT6H">2020-01-05T03:00:01Z</creation-date>
+      <current-issue>2020-01-05T02:55:00Z</current-issue>
+      <valid-begin-time>2020-01-05T02:00:00Z</valid-begin-time>
+      <valid-end-time>2020-01-06T10:00:00Z</valid-end-time>
+      <next-issue>2020-01-05T09:00:00Z</next-issue>
+      <timezone>Canada/Atlantic</timezone>
+      <type>modification</type>
+      <amended-regions>
+        <location>
+          <msc-zone-code>r10zf</msc-zone-code>
+          <msc-zone-name lang="fr">comté de Kent</msc-zone-name>
+          <msc-zone-name lang="en">Kent County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r11zf</msc-zone-code>
+          <msc-zone-name lang="fr">parc national Kouchibouguac</msc-zone-name>
+          <msc-zone-name lang="en">Kouchibouguac National Park</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r12zf</msc-zone-code>
+          <msc-zone-name lang="fr">région de Stanley - Doaktown - Blackville</msc-zone-name>
+          <msc-zone-name lang="en">Stanley - Doaktown - Blackville Area</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r14zf</msc-zone-code>
+          <msc-zone-name lang="fr">Woodstock et comté de Carleton</msc-zone-name>
+          <msc-zone-name lang="en">Woodstock and Carleton County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r1zf</msc-zone-code>
+          <msc-zone-name lang="fr">Saint John et le comté</msc-zone-name>
+          <msc-zone-name lang="en">Saint John and County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r2zf</msc-zone-code>
+          <msc-zone-name lang="fr">Sussex - vallée de Kennebecasis et comté de Kings</msc-zone-name>
+          <msc-zone-name lang="en">Sussex - Kennebecasis Valley and Kings County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r3zf</msc-zone-code>
+          <msc-zone-name lang="fr">Grand Manan et le littoral du comté de Charlotte</msc-zone-name>
+          <msc-zone-name lang="en">Grand Manan and Coastal Charlotte County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r4zf</msc-zone-code>
+          <msc-zone-name lang="fr">St. Stephen et le nord du comté de Charlotte</msc-zone-name>
+          <msc-zone-name lang="en">St. Stephen and Northern Charlotte County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r5zf</msc-zone-code>
+          <msc-zone-name lang="fr">Fredericton et sud du comté de York</msc-zone-name>
+          <msc-zone-name lang="en">Fredericton and Southern York County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r6zf</msc-zone-code>
+          <msc-zone-name lang="fr">Oromocto et comté de Sunbury</msc-zone-name>
+          <msc-zone-name lang="en">Oromocto and Sunbury County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r7zf</msc-zone-code>
+          <msc-zone-name lang="fr">Grand Lac et comté de Queens</msc-zone-name>
+          <msc-zone-name lang="en">Grand Lake and Queens County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r8zf</msc-zone-code>
+          <msc-zone-name lang="fr">Moncton et sud-est du Nouveau-Brunswick</msc-zone-name>
+          <msc-zone-name lang="en">Moncton and Southeast New Brunswick</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r9zf</msc-zone-code>
+          <msc-zone-name lang="fr">parc national Fundy</msc-zone-name>
+          <msc-zone-name lang="en">Fundy National Park</msc-zone-name>
+        </location>
+      </amended-regions>
+    </product>
+    <source>
+      <more-information>http://weatheroffice.ec.gc.ca</more-information>
+      <production-center>Meteorological Service of Canada<sub-center>CWHX</sub-center></production-center>
+      <feedback/>
+      <credit/>
+      <credit-logo/>
+      <disclaimer>http://www.weatheroffice.ec.gc.ca/mainmenu/disclaimer_e.html</disclaimer>
+    </source>
+  </head>
+  <data>
+    <forecast>
+      <meteocode-forecast>
+        <location>
+          <msc-zone-code>r10zf</msc-zone-code>
+          <msc-zone-name lang="fr">comté de Kent</msc-zone-name>
+          <msc-zone-name lang="en">Kent County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r11zf</msc-zone-code>
+          <msc-zone-name lang="fr">parc national Kouchibouguac</msc-zone-name>
+          <msc-zone-name lang="en">Kouchibouguac National Park</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r8zf</msc-zone-code>
+          <msc-zone-name lang="fr">Moncton et sud-est du Nouveau-Brunswick</msc-zone-name>
+          <msc-zone-name lang="en">Moncton and Southeast New Brunswick</msc-zone-name>
+        </location>
+        <parameters>
+          <warning-list/>
+          <cloud-list units="deci">
+            <cloud-cover start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" ceiling-code="6">10</cloud-cover>
+            <cloud-cover start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" ceiling-code="9">7</cloud-cover>
+            <cloud-cover start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" ceiling-code="9">7</cloud-cover>
+            <cloud-cover start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" ceiling-code="9">5</cloud-cover>
+          </cloud-list>
+          <precipitation-list>
+            <precipitation-event start="2020-01-05T02:00:00Z" end="2020-01-05T09:00:00Z" type="flurries" frequency="continuous" intensity="nil" occurrence="certain"/>
+            <precipitation-event start="2020-01-05T09:00:00Z" end="2020-01-05T22:00:00Z" type="snow" frequency="frequent" intensity="nil" occurrence="certain"/>
+            <precipitation-event start="2020-01-05T22:00:00Z" end="2020-01-06T02:00:00Z" type="flurries" frequency="frequent" intensity="nil" occurrence="possible"/>
+          </precipitation-list>
+          <probability-of-precipitation-list units="%">
+            <probability-of-precipitation start="2020-01-05T02:00:00Z" end="2020-01-05T09:00:00Z"> 60</probability-of-precipitation>
+            <probability-of-precipitation start="2020-01-05T09:00:00Z" end="2020-01-06T02:00:00Z">100</probability-of-precipitation>
+            <probability-of-precipitation start="2020-01-06T02:00:00Z" end="2020-01-06T10:00:00Z">  0</probability-of-precipitation>
+          </probability-of-precipitation-list>
+          <accum-list units="mm">
+            <accum-amount start="2020-01-05T02:00:00Z" end="2020-01-05T13:00:00Z" type="N/A">
+              <lower-limit cumul-inf="0.00">0.00</lower-limit>
+              <upper-limit cumul-sup="0.00">0.00</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T13:00:00Z" end="2020-01-05T14:00:00Z" type="snow">
+              <lower-limit cumul-inf="16.67">16.67</lower-limit>
+              <upper-limit cumul-sup="16.67">16.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T14:00:00Z" end="2020-01-05T15:00:00Z" type="snow">
+              <lower-limit cumul-inf="33.33">16.67</lower-limit>
+              <upper-limit cumul-sup="33.33">16.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T15:00:00Z" end="2020-01-05T16:00:00Z" type="snow">
+              <lower-limit cumul-inf="50.00">16.67</lower-limit>
+              <upper-limit cumul-sup="50.00">16.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T16:00:00Z" end="2020-01-06T10:00:00Z" type="N/A">
+              <lower-limit cumul-inf="50.00">0.00</lower-limit>
+              <upper-limit cumul-sup="50.00">0.00</upper-limit>
+            </accum-amount>
+          </accum-list>
+          <snow-level-list units="m"/>
+          <temperature-list type="air" units="celsius">
+            <temperature-value start="2020-01-05T01:00:00Z" end="2020-01-05T01:00:00Z" trend="interpolated">
+              <lower-limit>-9999.00</lower-limit>
+              <upper-limit>-9999.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" trend="intermediate point">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" trend="intermediate point">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" trend="interpolated">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" trend="interpolated">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" trend="intermediate point">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" trend="interpolated">
+              <lower-limit>-1.33</lower-limit>
+              <upper-limit>-1.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" trend="interpolated">
+              <lower-limit>-1.67</lower-limit>
+              <upper-limit>-1.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" trend="min">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" trend="stationary">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" trend="interpolated">
+              <lower-limit>-2.33</lower-limit>
+              <upper-limit>-2.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" trend="interpolated">
+              <lower-limit>-2.67</lower-limit>
+              <upper-limit>-2.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" trend="intermediate point">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" trend="interpolated">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" trend="interpolated">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" trend="intermediate point">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" trend="interpolated">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" trend="interpolated">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" trend="intermediate point">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" trend="interpolated">
+              <lower-limit>-3.67</lower-limit>
+              <upper-limit>-3.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" trend="interpolated">
+              <lower-limit>-4.33</lower-limit>
+              <upper-limit>-4.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" trend="intermediate point">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" trend="interpolated">
+              <lower-limit>-5.67</lower-limit>
+              <upper-limit>-5.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" trend="interpolated">
+              <lower-limit>-6.33</lower-limit>
+              <upper-limit>-6.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" trend="interpolated">
+              <lower-limit>-7.67</lower-limit>
+              <upper-limit>-7.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" trend="interpolated">
+              <lower-limit>-8.33</lower-limit>
+              <upper-limit>-8.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" trend="intermediate point">
+              <lower-limit>-9.00</lower-limit>
+              <upper-limit>-9.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T10:00:00Z" end="2020-01-06T10:00:00Z" trend="interpolated">
+              <lower-limit>-10.00</lower-limit>
+              <upper-limit>-10.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T11:00:00Z" end="2020-01-06T11:00:00Z" trend="interpolated">
+              <lower-limit>-11.00</lower-limit>
+              <upper-limit>-11.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T12:00:00Z" end="2020-01-06T12:00:00Z" trend="min">
+              <lower-limit>-12.00</lower-limit>
+              <upper-limit>-12.00</upper-limit>
+            </temperature-value>
+          </temperature-list>
+          <temperature-list type="dew-point" units="celsius">
+            <temperature-value start="2020-01-05T01:00:00Z" end="2020-01-05T01:00:00Z" trend="interpolated">
+              <lower-limit>-9999.00</lower-limit>
+              <upper-limit>-9999.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" trend="interpolated">
+              <lower-limit>-2.33</lower-limit>
+              <upper-limit>-2.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" trend="interpolated">
+              <lower-limit>-2.67</lower-limit>
+              <upper-limit>-2.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" trend="intermediate point">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" trend="interpolated">
+              <lower-limit>-3.67</lower-limit>
+              <upper-limit>-3.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" trend="interpolated">
+              <lower-limit>-4.33</lower-limit>
+              <upper-limit>-4.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" trend="intermediate point">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" trend="interpolated">
+              <lower-limit>-5.67</lower-limit>
+              <upper-limit>-5.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" trend="interpolated">
+              <lower-limit>-6.33</lower-limit>
+              <upper-limit>-6.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" trend="interpolated">
+              <lower-limit>-7.67</lower-limit>
+              <upper-limit>-7.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" trend="interpolated">
+              <lower-limit>-8.33</lower-limit>
+              <upper-limit>-8.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" trend="intermediate point">
+              <lower-limit>-9.00</lower-limit>
+              <upper-limit>-9.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" trend="interpolated">
+              <lower-limit>-9.33</lower-limit>
+              <upper-limit>-9.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" trend="interpolated">
+              <lower-limit>-9.67</lower-limit>
+              <upper-limit>-9.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" trend="intermediate point">
+              <lower-limit>-10.00</lower-limit>
+              <upper-limit>-10.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" trend="interpolated">
+              <lower-limit>-10.67</lower-limit>
+              <upper-limit>-10.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" trend="interpolated">
+              <lower-limit>-11.33</lower-limit>
+              <upper-limit>-11.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" trend="intermediate point">
+              <lower-limit>-12.00</lower-limit>
+              <upper-limit>-12.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T10:00:00Z" end="2020-01-06T10:00:00Z" trend="interpolated">
+              <lower-limit>-12.67</lower-limit>
+              <upper-limit>-12.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T11:00:00Z" end="2020-01-06T11:00:00Z" trend="interpolated">
+              <lower-limit>-13.33</lower-limit>
+              <upper-limit>-13.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T12:00:00Z" end="2020-01-06T12:00:00Z" trend="intermediate point">
+              <lower-limit>-14.00</lower-limit>
+              <upper-limit>-14.00</upper-limit>
+            </temperature-value>
+          </temperature-list>
+          <temperature-list type="climatology" units="celsius">
+            <temperature-value start="2020-01-04T20:00:00Z" end="2020-01-05T10:00:00Z" trend="min">
+              <limit>-12.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T20:00:00Z" trend="max">
+              <limit>-3.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-06T10:00:00Z" trend="min">
+              <limit>-13.00</limit>
+            </temperature-value>
+          </temperature-list>
+          <wind-list units="kmh">
+            <wind start="2020-01-05T02:00:00Z" end="2020-01-05T06:00:00Z" direction="nil">
+              <wind-speed>
+                <lower-limit>5</lower-limit>
+                <upper-limit>5</upper-limit>
+              </wind-speed>
+            </wind>
+            <wind start="2020-01-05T06:00:00Z" end="2020-01-05T10:00:00Z" direction="east">
+              <wind-speed>
+                <lower-limit>10</lower-limit>
+                <upper-limit>10</upper-limit>
+              </wind-speed>
+            </wind>
+            <wind start="2020-01-05T10:00:00Z" end="2020-01-05T19:00:00Z" direction="north">
+              <wind-speed>
+                <lower-limit>20</lower-limit>
+                <upper-limit>20</upper-limit>
+              </wind-speed>
+              <gust-speed>
+                <lower-limit>40</lower-limit>
+                <upper-limit>40</upper-limit>
+              </gust-speed>
+            </wind>
+            <wind start="2020-01-05T19:00:00Z" end="2020-01-06T02:00:00Z" direction="north">
+              <wind-speed>
+                <lower-limit>40</lower-limit>
+                <upper-limit>40</upper-limit>
+              </wind-speed>
+              <gust-speed>
+                <lower-limit>60</lower-limit>
+                <upper-limit>60</upper-limit>
+              </gust-speed>
+            </wind>
+            <wind start="2020-01-06T02:00:00Z" end="2020-01-06T10:00:00Z" direction="northwest">
+              <wind-speed>
+                <lower-limit>20</lower-limit>
+                <upper-limit>20</upper-limit>
+              </wind-speed>
+              <gust-speed>
+                <lower-limit>40</lower-limit>
+                <upper-limit>40</upper-limit>
+              </gust-speed>
+            </wind>
+          </wind-list>
+          <visibility-list>
+            <visibility start="2020-01-05T19:00:00Z" end="2020-01-06T00:00:00Z" type="blowing snow" frequency="continuous">
+              <exception start="2020-01-05T19:00:00Z" end="2020-01-06T00:00:00Z">
+                <excep-category excep-type="only" excep-code="topo">
+                  <excep-description lang="fr">sur les endroits à découvert</excep-description>
+                  <excep-description lang="en">over exposed areas</excep-description>
+                </excep-category>
+                <visibility start="2020-01-05T19:00:00Z" end="2020-01-06T00:00:00Z" type="blowing snow" frequency="continuous"/>
+              </exception>
+            </visibility>
+          </visibility-list>
+          <temperature-list type="sea-surface" units="celsius"/>
+          <freezing-spray-list/>
+          <wave-height-list units="m"/>
+          <ice-cover-list units="%"/>
+        </parameters>
+      </meteocode-forecast>
+      <meteocode-forecast>
+        <location>
+          <msc-zone-code>r13zf</msc-zone-code>
+          <msc-zone-name lang="fr">Miramichi et région</msc-zone-name>
+          <msc-zone-name lang="en">Miramichi and area</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r19zf</msc-zone-code>
+          <msc-zone-name lang="fr">Bathurst et la région Chaleur</msc-zone-name>
+          <msc-zone-name lang="en">Bathurst and Chaleur Region</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r20zf</msc-zone-code>
+          <msc-zone-name lang="fr">péninsule acadienne</msc-zone-name>
+          <msc-zone-name lang="en">Acadian Peninsula</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r21zf</msc-zone-code>
+          <msc-zone-name lang="fr">Campbellton et moitié est du comté de Restigouche</msc-zone-name>
+          <msc-zone-name lang="en">Campbellton and eastern half of Restigouche County</msc-zone-name>
+        </location>
+        <parameters>
+          <warning-list/>
+          <cloud-list units="deci">
+            <cloud-cover start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" ceiling-code="9">5</cloud-cover>
+          </cloud-list>
+          <precipitation-list>
+            <precipitation-event start="2020-01-05T06:00:00Z" end="2020-01-05T10:00:00Z" type="flurries" frequency="frequent" intensity="nil" occurrence="certain"/>
+            <precipitation-event start="2020-01-05T10:00:00Z" end="2020-01-05T22:00:00Z" type="snow" frequency="frequent" intensity="nil" occurrence="certain"/>
+          </precipitation-list>
+          <probability-of-precipitation-list units="%">
+            <probability-of-precipitation start="2020-01-05T02:00:00Z" end="2020-01-05T06:00:00Z">  0</probability-of-precipitation>
+            <probability-of-precipitation start="2020-01-05T06:00:00Z" end="2020-01-05T10:00:00Z"> 30</probability-of-precipitation>
+            <probability-of-precipitation start="2020-01-05T10:00:00Z" end="2020-01-05T22:00:00Z"> 80</probability-of-precipitation>
+            <probability-of-precipitation start="2020-01-05T22:00:00Z" end="2020-01-06T10:00:00Z">  0</probability-of-precipitation>
+          </probability-of-precipitation-list>
+          <accum-list units="mm">
+            <accum-amount start="2020-01-05T02:00:00Z" end="2020-01-05T14:00:00Z" type="N/A">
+              <lower-limit cumul-inf="0.00">0.00</lower-limit>
+              <upper-limit cumul-sup="0.00">0.00</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T14:00:00Z" end="2020-01-05T15:00:00Z" type="snow">
+              <lower-limit cumul-inf="6.67">6.67</lower-limit>
+              <upper-limit cumul-sup="6.67">6.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T15:00:00Z" end="2020-01-05T16:00:00Z" type="snow">
+              <lower-limit cumul-inf="13.33">6.67</lower-limit>
+              <upper-limit cumul-sup="13.33">6.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T16:00:00Z" end="2020-01-05T17:00:00Z" type="snow">
+              <lower-limit cumul-inf="20.00">6.67</lower-limit>
+              <upper-limit cumul-sup="20.00">6.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T17:00:00Z" end="2020-01-06T10:00:00Z" type="N/A">
+              <lower-limit cumul-inf="20.00">0.00</lower-limit>
+              <upper-limit cumul-sup="20.00">0.00</upper-limit>
+            </accum-amount>
+          </accum-list>
+          <snow-level-list units="m"/>
+          <temperature-list type="air" units="celsius">
+            <temperature-value start="2020-01-05T01:00:00Z" end="2020-01-05T01:00:00Z" trend="interpolated">
+              <lower-limit>-9999.00</lower-limit>
+              <upper-limit>-9999.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" trend="intermediate point">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" trend="intermediate point">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" trend="interpolated">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" trend="interpolated">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" trend="intermediate point">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" trend="interpolated">
+              <lower-limit>-3.33</lower-limit>
+              <upper-limit>-3.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" trend="interpolated">
+              <lower-limit>-3.67</lower-limit>
+              <upper-limit>-3.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" trend="min">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" trend="intermediate point">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" trend="interpolated">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" trend="intermediate point">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" trend="interpolated">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" trend="interpolated">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" trend="stationary">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" trend="interpolated">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" trend="interpolated">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" trend="intermediate point">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" trend="interpolated">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" trend="interpolated">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" trend="intermediate point">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" trend="interpolated">
+              <lower-limit>-4.33</lower-limit>
+              <upper-limit>-4.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" trend="interpolated">
+              <lower-limit>-4.67</lower-limit>
+              <upper-limit>-4.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" trend="intermediate point">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" trend="interpolated">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" trend="intermediate point">
+              <lower-limit>-8.00</lower-limit>
+              <upper-limit>-8.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" trend="interpolated">
+              <lower-limit>-8.33</lower-limit>
+              <upper-limit>-8.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" trend="interpolated">
+              <lower-limit>-8.67</lower-limit>
+              <upper-limit>-8.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" trend="intermediate point">
+              <lower-limit>-9.00</lower-limit>
+              <upper-limit>-9.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" trend="interpolated">
+              <lower-limit>-10.00</lower-limit>
+              <upper-limit>-10.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" trend="interpolated">
+              <lower-limit>-11.00</lower-limit>
+              <upper-limit>-11.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" trend="intermediate point">
+              <lower-limit>-12.00</lower-limit>
+              <upper-limit>-12.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T10:00:00Z" end="2020-01-06T10:00:00Z" trend="interpolated">
+              <lower-limit>-13.00</lower-limit>
+              <upper-limit>-13.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T11:00:00Z" end="2020-01-06T11:00:00Z" trend="interpolated">
+              <lower-limit>-14.00</lower-limit>
+              <upper-limit>-14.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T12:00:00Z" end="2020-01-06T12:00:00Z" trend="min">
+              <lower-limit>-15.00</lower-limit>
+              <upper-limit>-15.00</upper-limit>
+            </temperature-value>
+            <exception start="2020-01-06T09:00:00Z" end="2020-01-06T12:00:00Z">
+              <excep-category excep-type="except" excep-code="topo">
+                <excep-description lang="fr">en terrains bas</excep-description>
+                <excep-description lang="en">in low lying areas</excep-description>
+              </excep-category>
+              <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T12:00:00Z" trend="min">
+                <lower-limit>-19.00</lower-limit>
+                <upper-limit>-19.00</upper-limit>
+              </temperature-value>
+            </exception>
+          </temperature-list>
+          <temperature-list type="dew-point" units="celsius">
+            <temperature-value start="2020-01-05T01:00:00Z" end="2020-01-05T01:00:00Z" trend="interpolated">
+              <lower-limit>-9999.00</lower-limit>
+              <upper-limit>-9999.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" trend="intermediate point">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" trend="intermediate point">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" trend="interpolated">
+              <lower-limit>-5.33</lower-limit>
+              <upper-limit>-5.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" trend="interpolated">
+              <lower-limit>-5.67</lower-limit>
+              <upper-limit>-5.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" trend="intermediate point">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" trend="interpolated">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" trend="interpolated">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" trend="intermediate point">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" trend="intermediate point">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" trend="interpolated">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" trend="intermediate point">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" trend="interpolated">
+              <lower-limit>-5.33</lower-limit>
+              <upper-limit>-5.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" trend="interpolated">
+              <lower-limit>-4.67</lower-limit>
+              <upper-limit>-4.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" trend="intermediate point">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" trend="interpolated">
+              <lower-limit>-4.67</lower-limit>
+              <upper-limit>-4.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" trend="interpolated">
+              <lower-limit>-5.33</lower-limit>
+              <upper-limit>-5.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" trend="intermediate point">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" trend="interpolated">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" trend="interpolated">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" trend="intermediate point">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" trend="interpolated">
+              <lower-limit>-8.00</lower-limit>
+              <upper-limit>-8.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" trend="intermediate point">
+              <lower-limit>-9.00</lower-limit>
+              <upper-limit>-9.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" trend="interpolated">
+              <lower-limit>-9.67</lower-limit>
+              <upper-limit>-9.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" trend="interpolated">
+              <lower-limit>-10.33</lower-limit>
+              <upper-limit>-10.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" trend="intermediate point">
+              <lower-limit>-11.00</lower-limit>
+              <upper-limit>-11.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" trend="interpolated">
+              <lower-limit>-11.67</lower-limit>
+              <upper-limit>-11.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" trend="interpolated">
+              <lower-limit>-12.33</lower-limit>
+              <upper-limit>-12.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" trend="intermediate point">
+              <lower-limit>-13.00</lower-limit>
+              <upper-limit>-13.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" trend="interpolated">
+              <lower-limit>-13.33</lower-limit>
+              <upper-limit>-13.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" trend="interpolated">
+              <lower-limit>-13.67</lower-limit>
+              <upper-limit>-13.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" trend="intermediate point">
+              <lower-limit>-14.00</lower-limit>
+              <upper-limit>-14.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T10:00:00Z" end="2020-01-06T10:00:00Z" trend="interpolated">
+              <lower-limit>-14.33</lower-limit>
+              <upper-limit>-14.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T11:00:00Z" end="2020-01-06T11:00:00Z" trend="interpolated">
+              <lower-limit>-14.67</lower-limit>
+              <upper-limit>-14.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T12:00:00Z" end="2020-01-06T12:00:00Z" trend="intermediate point">
+              <lower-limit>-15.00</lower-limit>
+              <upper-limit>-15.00</upper-limit>
+            </temperature-value>
+          </temperature-list>
+          <temperature-list type="climatology" units="celsius">
+            <temperature-value start="2020-01-04T20:00:00Z" end="2020-01-05T10:00:00Z" trend="min">
+              <limit>-15.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T13:00:00Z" trend="max">
+              <limit>-4.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T20:00:00Z" trend="max">
+              <limit>-6.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-06T10:00:00Z" trend="min">
+              <limit>-15.00</limit>
+            </temperature-value>
+          </temperature-list>
+          <wind-list units="kmh">
+            <wind start="2020-01-05T02:00:00Z" end="2020-01-05T15:00:00Z" direction="nil">
+              <wind-speed>
+                <lower-limit>5</lower-limit>
+                <upper-limit>5</upper-limit>
+              </wind-speed>
+            </wind>
+            <wind start="2020-01-05T15:00:00Z" end="2020-01-06T03:00:00Z" direction="northwest">
+              <wind-speed>
+                <lower-limit>30</lower-limit>
+                <upper-limit>30</upper-limit>
+              </wind-speed>
+              <gust-speed>
+                <lower-limit>50</lower-limit>
+                <upper-limit>50</upper-limit>
+              </gust-speed>
+            </wind>
+            <wind start="2020-01-06T03:00:00Z" end="2020-01-06T10:00:00Z" direction="northwest">
+              <wind-speed>
+                <lower-limit>20</lower-limit>
+                <upper-limit>20</upper-limit>
+              </wind-speed>
+              <gust-speed>
+                <lower-limit>40</lower-limit>
+                <upper-limit>40</upper-limit>
+              </gust-speed>
+            </wind>
+          </wind-list>
+          <visibility-list/>
+          <temperature-list type="sea-surface" units="celsius"/>
+          <freezing-spray-list/>
+          <wave-height-list units="m"/>
+          <ice-cover-list units="%"/>
+        </parameters>
+      </meteocode-forecast>
+      <meteocode-forecast>
+        <location>
+          <msc-zone-code>r12zf</msc-zone-code>
+          <msc-zone-name lang="fr">région de Stanley - Doaktown - Blackville</msc-zone-name>
+          <msc-zone-name lang="en">Stanley - Doaktown - Blackville Area</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r14zf</msc-zone-code>
+          <msc-zone-name lang="fr">Woodstock et comté de Carleton</msc-zone-name>
+          <msc-zone-name lang="en">Woodstock and Carleton County</msc-zone-name>
+        </location>
+        <parameters>
+          <warning-list/>
+          <cloud-list units="deci">
+            <cloud-cover start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" ceiling-code="9">5</cloud-cover>
+          </cloud-list>
+          <precipitation-list>
+            <precipitation-event start="2020-01-05T02:00:00Z" end="2020-01-05T18:00:00Z" type="snow" frequency="frequent" intensity="light" occurrence="certain"/>
+          </precipitation-list>
+          <probability-of-precipitation-list units="%">
+            <probability-of-precipitation start="2020-01-05T02:00:00Z" end="2020-01-05T18:00:00Z">100</probability-of-precipitation>
+            <probability-of-precipitation start="2020-01-05T18:00:00Z" end="2020-01-06T10:00:00Z">  0</probability-of-precipitation>
+          </probability-of-precipitation-list>
+          <accum-list units="mm">
+            <accum-amount start="2020-01-05T02:00:00Z" end="2020-01-05T06:00:00Z" type="N/A">
+              <lower-limit cumul-inf="0.00">0.00</lower-limit>
+              <upper-limit cumul-sup="0.00">0.00</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T06:00:00Z" end="2020-01-05T07:00:00Z" type="snow">
+              <lower-limit cumul-inf="0.00">0.00</lower-limit>
+              <upper-limit cumul-sup="6.67">6.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T07:00:00Z" end="2020-01-05T08:00:00Z" type="snow">
+              <lower-limit cumul-inf="0.00">0.00</lower-limit>
+              <upper-limit cumul-sup="13.33">6.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T08:00:00Z" end="2020-01-05T09:00:00Z" type="snow">
+              <lower-limit cumul-inf="0.00">0.00</lower-limit>
+              <upper-limit cumul-sup="20.00">6.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T09:00:00Z" end="2020-01-05T12:00:00Z" type="N/A">
+              <lower-limit cumul-inf="0.00">0.00</lower-limit>
+              <upper-limit cumul-sup="20.00">0.00</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T12:00:00Z" end="2020-01-05T13:00:00Z" type="snow">
+              <lower-limit cumul-inf="6.67">6.67</lower-limit>
+              <upper-limit cumul-sup="26.67">6.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T13:00:00Z" end="2020-01-05T14:00:00Z" type="snow">
+              <lower-limit cumul-inf="13.33">6.67</lower-limit>
+              <upper-limit cumul-sup="33.33">6.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T14:00:00Z" end="2020-01-05T15:00:00Z" type="snow">
+              <lower-limit cumul-inf="20.00">6.67</lower-limit>
+              <upper-limit cumul-sup="40.00">6.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T15:00:00Z" end="2020-01-06T10:00:00Z" type="N/A">
+              <lower-limit cumul-inf="20.00">0.00</lower-limit>
+              <upper-limit cumul-sup="40.00">0.00</upper-limit>
+            </accum-amount>
+          </accum-list>
+          <snow-level-list units="m"/>
+          <temperature-list type="air" units="celsius">
+            <temperature-value start="2020-01-05T01:00:00Z" end="2020-01-05T01:00:00Z" trend="interpolated">
+              <lower-limit>-9999.00</lower-limit>
+              <upper-limit>-9999.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" trend="intermediate point">
+              <lower-limit>0.00</lower-limit>
+              <upper-limit>0.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" trend="intermediate point">
+              <lower-limit>0.00</lower-limit>
+              <upper-limit>0.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" trend="interpolated">
+              <lower-limit>-0.33</lower-limit>
+              <upper-limit>-0.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" trend="interpolated">
+              <lower-limit>-0.67</lower-limit>
+              <upper-limit>-0.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" trend="intermediate point">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" trend="interpolated">
+              <lower-limit>-1.67</lower-limit>
+              <upper-limit>-1.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" trend="interpolated">
+              <lower-limit>-2.33</lower-limit>
+              <upper-limit>-2.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" trend="min">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" trend="intermediate point">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" trend="interpolated">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" trend="intermediate point">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" trend="interpolated">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" trend="interpolated">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" trend="intermediate point">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" trend="interpolated">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" trend="interpolated">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" trend="intermediate point">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" trend="interpolated">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" trend="interpolated">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" trend="stationary">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" trend="interpolated">
+              <lower-limit>-3.33</lower-limit>
+              <upper-limit>-3.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" trend="interpolated">
+              <lower-limit>-3.67</lower-limit>
+              <upper-limit>-3.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" trend="intermediate point">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" trend="interpolated">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" trend="interpolated">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" trend="interpolated">
+              <lower-limit>-7.67</lower-limit>
+              <upper-limit>-7.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" trend="interpolated">
+              <lower-limit>-8.33</lower-limit>
+              <upper-limit>-8.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" trend="intermediate point">
+              <lower-limit>-9.00</lower-limit>
+              <upper-limit>-9.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" trend="interpolated">
+              <lower-limit>-9.33</lower-limit>
+              <upper-limit>-9.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" trend="interpolated">
+              <lower-limit>-9.67</lower-limit>
+              <upper-limit>-9.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" trend="intermediate point">
+              <lower-limit>-10.00</lower-limit>
+              <upper-limit>-10.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T10:00:00Z" end="2020-01-06T10:00:00Z" trend="interpolated">
+              <lower-limit>-11.00</lower-limit>
+              <upper-limit>-11.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T11:00:00Z" end="2020-01-06T11:00:00Z" trend="interpolated">
+              <lower-limit>-12.00</lower-limit>
+              <upper-limit>-12.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T12:00:00Z" end="2020-01-06T12:00:00Z" trend="min">
+              <lower-limit>-13.00</lower-limit>
+              <upper-limit>-13.00</upper-limit>
+            </temperature-value>
+            <exception start="2020-01-06T09:00:00Z" end="2020-01-06T12:00:00Z">
+              <excep-category excep-type="except" excep-code="topo">
+                <excep-description lang="fr">en terrains bas</excep-description>
+                <excep-description lang="en">in low lying areas</excep-description>
+              </excep-category>
+              <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T12:00:00Z" trend="min">
+                <lower-limit>-17.00</lower-limit>
+                <upper-limit>-17.00</upper-limit>
+              </temperature-value>
+            </exception>
+          </temperature-list>
+          <temperature-list type="dew-point" units="celsius">
+            <temperature-value start="2020-01-05T01:00:00Z" end="2020-01-05T01:00:00Z" trend="interpolated">
+              <lower-limit>-9999.00</lower-limit>
+              <upper-limit>-9999.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" trend="intermediate point">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" trend="intermediate point">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" trend="interpolated">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" trend="interpolated">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" trend="intermediate point">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" trend="interpolated">
+              <lower-limit>-1.67</lower-limit>
+              <upper-limit>-1.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" trend="interpolated">
+              <lower-limit>-2.33</lower-limit>
+              <upper-limit>-2.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" trend="intermediate point">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" trend="intermediate point">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" trend="interpolated">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" trend="intermediate point">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" trend="interpolated">
+              <lower-limit>-5.67</lower-limit>
+              <upper-limit>-5.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" trend="interpolated">
+              <lower-limit>-5.33</lower-limit>
+              <upper-limit>-5.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" trend="intermediate point">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" trend="interpolated">
+              <lower-limit>-5.67</lower-limit>
+              <upper-limit>-5.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" trend="interpolated">
+              <lower-limit>-6.33</lower-limit>
+              <upper-limit>-6.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" trend="interpolated">
+              <lower-limit>-8.00</lower-limit>
+              <upper-limit>-8.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" trend="interpolated">
+              <lower-limit>-9.00</lower-limit>
+              <upper-limit>-9.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" trend="intermediate point">
+              <lower-limit>-10.00</lower-limit>
+              <upper-limit>-10.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" trend="interpolated">
+              <lower-limit>-11.00</lower-limit>
+              <upper-limit>-11.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" trend="interpolated">
+              <lower-limit>-12.00</lower-limit>
+              <upper-limit>-12.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" trend="intermediate point">
+              <lower-limit>-13.00</lower-limit>
+              <upper-limit>-13.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" trend="interpolated">
+              <lower-limit>-13.33</lower-limit>
+              <upper-limit>-13.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" trend="interpolated">
+              <lower-limit>-13.67</lower-limit>
+              <upper-limit>-13.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" trend="intermediate point">
+              <lower-limit>-14.00</lower-limit>
+              <upper-limit>-14.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" trend="interpolated">
+              <lower-limit>-14.67</lower-limit>
+              <upper-limit>-14.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" trend="interpolated">
+              <lower-limit>-15.33</lower-limit>
+              <upper-limit>-15.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" trend="intermediate point">
+              <lower-limit>-16.00</lower-limit>
+              <upper-limit>-16.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T10:00:00Z" end="2020-01-06T10:00:00Z" trend="interpolated">
+              <lower-limit>-16.00</lower-limit>
+              <upper-limit>-16.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T11:00:00Z" end="2020-01-06T11:00:00Z" trend="interpolated">
+              <lower-limit>-16.00</lower-limit>
+              <upper-limit>-16.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T12:00:00Z" end="2020-01-06T12:00:00Z" trend="intermediate point">
+              <lower-limit>-16.00</lower-limit>
+              <upper-limit>-16.00</upper-limit>
+            </temperature-value>
+          </temperature-list>
+          <temperature-list type="climatology" units="celsius">
+            <temperature-value start="2020-01-04T22:00:00Z" end="2020-01-05T10:00:00Z" trend="min">
+              <limit>-13.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T13:00:00Z" trend="max">
+              <limit>-3.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T20:00:00Z" trend="max">
+              <limit>-4.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-06T10:00:00Z" trend="min">
+              <limit>-15.00</limit>
+            </temperature-value>
+          </temperature-list>
+          <wind-list units="kmh">
+            <wind start="2020-01-05T02:00:00Z" end="2020-01-05T06:00:00Z" direction="nil">
+              <wind-speed>
+                <lower-limit>0</lower-limit>
+                <upper-limit>0</upper-limit>
+              </wind-speed>
+            </wind>
+            <wind start="2020-01-05T06:00:00Z" end="2020-01-05T15:00:00Z" direction="north">
+              <wind-speed>
+                <lower-limit>10</lower-limit>
+                <upper-limit>10</upper-limit>
+              </wind-speed>
+            </wind>
+            <wind start="2020-01-05T15:00:00Z" end="2020-01-06T03:00:00Z" direction="north">
+              <wind-speed>
+                <lower-limit>20</lower-limit>
+                <upper-limit>20</upper-limit>
+              </wind-speed>
+              <gust-speed>
+                <lower-limit>40</lower-limit>
+                <upper-limit>40</upper-limit>
+              </gust-speed>
+            </wind>
+            <wind start="2020-01-06T03:00:00Z" end="2020-01-06T09:00:00Z" direction="nil">
+              <wind-speed>
+                <lower-limit>5</lower-limit>
+                <upper-limit>5</upper-limit>
+              </wind-speed>
+            </wind>
+            <wind start="2020-01-06T09:00:00Z" end="2020-01-06T10:00:00Z" direction="northwest">
+              <wind-speed>
+                <lower-limit>10</lower-limit>
+                <upper-limit>10</upper-limit>
+              </wind-speed>
+            </wind>
+          </wind-list>
+          <visibility-list/>
+          <temperature-list type="sea-surface" units="celsius"/>
+          <freezing-spray-list/>
+          <wave-height-list units="m"/>
+          <ice-cover-list units="%"/>
+        </parameters>
+      </meteocode-forecast>
+      <meteocode-forecast>
+        <location>
+          <msc-zone-code>r15zf</msc-zone-code>
+          <msc-zone-name lang="fr">Grand-Sault et comté de Victoria</msc-zone-name>
+          <msc-zone-name lang="en">Grand Falls and Victoria County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r16zf</msc-zone-code>
+          <msc-zone-name lang="fr">Mont Carleton - route Renous</msc-zone-name>
+          <msc-zone-name lang="en">Mount Carleton - Renous Highway</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r17zf</msc-zone-code>
+          <msc-zone-name lang="fr">Edmundston et comté de Madawaska</msc-zone-name>
+          <msc-zone-name lang="en">Edmundston and Madawaska County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r18zf</msc-zone-code>
+          <msc-zone-name lang="fr">moitié ouest du comté de Restigouche</msc-zone-name>
+          <msc-zone-name lang="en">western half of Restigouche County</msc-zone-name>
+        </location>
+        <parameters>
+          <warning-list/>
+          <cloud-list units="deci">
+            <cloud-cover start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" ceiling-code="5">8</cloud-cover>
+            <cloud-cover start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" ceiling-code="9">5</cloud-cover>
+          </cloud-list>
+          <precipitation-list>
+            <precipitation-event start="2020-01-05T06:00:00Z" end="2020-01-05T19:00:00Z" type="flurries" frequency="frequent" intensity="nil" occurrence="certain"/>
+          </precipitation-list>
+          <probability-of-precipitation-list units="%">
+            <probability-of-precipitation start="2020-01-05T02:00:00Z" end="2020-01-05T06:00:00Z">  0</probability-of-precipitation>
+            <probability-of-precipitation start="2020-01-05T06:00:00Z" end="2020-01-05T10:00:00Z"> 60</probability-of-precipitation>
+            <probability-of-precipitation start="2020-01-05T10:00:00Z" end="2020-01-05T19:00:00Z"> 80</probability-of-precipitation>
+            <probability-of-precipitation start="2020-01-05T19:00:00Z" end="2020-01-06T10:00:00Z">  0</probability-of-precipitation>
+          </probability-of-precipitation-list>
+          <accum-list units="mm">
+            <accum-amount start="2020-01-05T02:00:00Z" end="2020-01-06T10:00:00Z" type="N/A">
+              <lower-limit cumul-inf="0.00">0.00</lower-limit>
+              <upper-limit cumul-sup="0.00">0.00</upper-limit>
+            </accum-amount>
+          </accum-list>
+          <snow-level-list units="m"/>
+          <temperature-list type="air" units="celsius">
+            <temperature-value start="2020-01-05T01:00:00Z" end="2020-01-05T01:00:00Z" trend="interpolated">
+              <lower-limit>-9999.00</lower-limit>
+              <upper-limit>-9999.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" trend="intermediate point">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" trend="intermediate point">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" trend="interpolated">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" trend="interpolated">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" trend="intermediate point">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" trend="interpolated">
+              <lower-limit>-5.33</lower-limit>
+              <upper-limit>-5.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" trend="interpolated">
+              <lower-limit>-5.67</lower-limit>
+              <upper-limit>-5.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" trend="min">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" trend="intermediate point">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" trend="interpolated">
+              <lower-limit>-5.50</lower-limit>
+              <upper-limit>-5.50</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" trend="intermediate point">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" trend="interpolated">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" trend="interpolated">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" trend="intermediate point">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" trend="interpolated">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" trend="interpolated">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" trend="stationary">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" trend="interpolated">
+              <lower-limit>-5.67</lower-limit>
+              <upper-limit>-5.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" trend="interpolated">
+              <lower-limit>-6.33</lower-limit>
+              <upper-limit>-6.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" trend="interpolated">
+              <lower-limit>-7.33</lower-limit>
+              <upper-limit>-7.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" trend="interpolated">
+              <lower-limit>-7.67</lower-limit>
+              <upper-limit>-7.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" trend="intermediate point">
+              <lower-limit>-8.00</lower-limit>
+              <upper-limit>-8.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" trend="interpolated">
+              <lower-limit>-8.33</lower-limit>
+              <upper-limit>-8.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" trend="interpolated">
+              <lower-limit>-8.67</lower-limit>
+              <upper-limit>-8.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" trend="intermediate point">
+              <lower-limit>-9.00</lower-limit>
+              <upper-limit>-9.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" trend="interpolated">
+              <lower-limit>-9.67</lower-limit>
+              <upper-limit>-9.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" trend="interpolated">
+              <lower-limit>-10.33</lower-limit>
+              <upper-limit>-10.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" trend="intermediate point">
+              <lower-limit>-11.00</lower-limit>
+              <upper-limit>-11.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" trend="interpolated">
+              <lower-limit>-11.67</lower-limit>
+              <upper-limit>-11.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" trend="interpolated">
+              <lower-limit>-12.33</lower-limit>
+              <upper-limit>-12.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" trend="intermediate point">
+              <lower-limit>-13.00</lower-limit>
+              <upper-limit>-13.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T10:00:00Z" end="2020-01-06T10:00:00Z" trend="interpolated">
+              <lower-limit>-14.00</lower-limit>
+              <upper-limit>-14.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T11:00:00Z" end="2020-01-06T11:00:00Z" trend="interpolated">
+              <lower-limit>-15.00</lower-limit>
+              <upper-limit>-15.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T12:00:00Z" end="2020-01-06T12:00:00Z" trend="min">
+              <lower-limit>-16.00</lower-limit>
+              <upper-limit>-16.00</upper-limit>
+            </temperature-value>
+            <exception start="2020-01-06T09:00:00Z" end="2020-01-06T12:00:00Z">
+              <excep-category excep-type="except" excep-code="topo">
+                <excep-description lang="fr">en terrains bas</excep-description>
+                <excep-description lang="en">in low lying areas</excep-description>
+              </excep-category>
+              <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T12:00:00Z" trend="min">
+                <lower-limit>-20.00</lower-limit>
+                <upper-limit>-20.00</upper-limit>
+              </temperature-value>
+            </exception>
+          </temperature-list>
+          <temperature-list type="dew-point" units="celsius">
+            <temperature-value start="2020-01-05T01:00:00Z" end="2020-01-05T01:00:00Z" trend="interpolated">
+              <lower-limit>-9999.00</lower-limit>
+              <upper-limit>-9999.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" trend="intermediate point">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" trend="intermediate point">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" trend="interpolated">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" trend="interpolated">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" trend="intermediate point">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" trend="interpolated">
+              <lower-limit>-6.33</lower-limit>
+              <upper-limit>-6.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" trend="interpolated">
+              <lower-limit>-6.67</lower-limit>
+              <upper-limit>-6.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" trend="interpolated">
+              <lower-limit>-8.33</lower-limit>
+              <upper-limit>-8.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" trend="interpolated">
+              <lower-limit>-9.67</lower-limit>
+              <upper-limit>-9.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" trend="intermediate point">
+              <lower-limit>-11.00</lower-limit>
+              <upper-limit>-11.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" trend="interpolated">
+              <lower-limit>-11.67</lower-limit>
+              <upper-limit>-11.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" trend="interpolated">
+              <lower-limit>-12.33</lower-limit>
+              <upper-limit>-12.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" trend="intermediate point">
+              <lower-limit>-13.00</lower-limit>
+              <upper-limit>-13.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" trend="interpolated">
+              <lower-limit>-13.00</lower-limit>
+              <upper-limit>-13.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" trend="interpolated">
+              <lower-limit>-13.00</lower-limit>
+              <upper-limit>-13.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" trend="intermediate point">
+              <lower-limit>-13.00</lower-limit>
+              <upper-limit>-13.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" trend="interpolated">
+              <lower-limit>-13.33</lower-limit>
+              <upper-limit>-13.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" trend="interpolated">
+              <lower-limit>-13.67</lower-limit>
+              <upper-limit>-13.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" trend="intermediate point">
+              <lower-limit>-14.00</lower-limit>
+              <upper-limit>-14.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" trend="interpolated">
+              <lower-limit>-15.00</lower-limit>
+              <upper-limit>-15.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" trend="interpolated">
+              <lower-limit>-16.00</lower-limit>
+              <upper-limit>-16.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" trend="intermediate point">
+              <lower-limit>-17.00</lower-limit>
+              <upper-limit>-17.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T10:00:00Z" end="2020-01-06T10:00:00Z" trend="interpolated">
+              <lower-limit>-18.00</lower-limit>
+              <upper-limit>-18.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T11:00:00Z" end="2020-01-06T11:00:00Z" trend="interpolated">
+              <lower-limit>-19.00</lower-limit>
+              <upper-limit>-19.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T12:00:00Z" end="2020-01-06T12:00:00Z" trend="intermediate point">
+              <lower-limit>-20.00</lower-limit>
+              <upper-limit>-20.00</upper-limit>
+            </temperature-value>
+          </temperature-list>
+          <temperature-list type="climatology" units="celsius">
+            <temperature-value start="2020-01-04T20:00:00Z" end="2020-01-05T10:00:00Z" trend="min">
+              <limit>-17.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T13:00:00Z" trend="max">
+              <limit>-6.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T20:00:00Z" trend="max">
+              <limit>-7.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-06T10:00:00Z" trend="min">
+              <limit>-16.00</limit>
+            </temperature-value>
+          </temperature-list>
+          <wind-list units="kmh">
+            <wind start="2020-01-05T02:00:00Z" end="2020-01-05T12:00:00Z" direction="nil">
+              <wind-speed>
+                <lower-limit>5</lower-limit>
+                <upper-limit>5</upper-limit>
+              </wind-speed>
+            </wind>
+            <wind start="2020-01-05T12:00:00Z" end="2020-01-05T23:00:00Z" direction="northwest">
+              <wind-speed>
+                <lower-limit>20</lower-limit>
+                <upper-limit>20</upper-limit>
+              </wind-speed>
+              <gust-speed>
+                <lower-limit>40</lower-limit>
+                <upper-limit>40</upper-limit>
+              </gust-speed>
+            </wind>
+            <wind start="2020-01-05T23:00:00Z" end="2020-01-06T06:00:00Z" direction="northwest">
+              <wind-speed>
+                <lower-limit>15</lower-limit>
+                <upper-limit>15</upper-limit>
+              </wind-speed>
+            </wind>
+            <wind start="2020-01-06T06:00:00Z" end="2020-01-06T10:00:00Z" direction="northwest">
+              <wind-speed>
+                <lower-limit>10</lower-limit>
+                <upper-limit>10</upper-limit>
+              </wind-speed>
+            </wind>
+          </wind-list>
+          <visibility-list/>
+          <temperature-list type="sea-surface" units="celsius"/>
+          <freezing-spray-list/>
+          <wave-height-list units="m"/>
+          <ice-cover-list units="%"/>
+        </parameters>
+      </meteocode-forecast>
+      <meteocode-forecast>
+        <location>
+          <msc-zone-code>r1zf</msc-zone-code>
+          <msc-zone-name lang="fr">Saint John et le comté</msc-zone-name>
+          <msc-zone-name lang="en">Saint John and County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r3zf</msc-zone-code>
+          <msc-zone-name lang="fr">Grand Manan et le littoral du comté de Charlotte</msc-zone-name>
+          <msc-zone-name lang="en">Grand Manan and Coastal Charlotte County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r9zf</msc-zone-code>
+          <msc-zone-name lang="fr">parc national Fundy</msc-zone-name>
+          <msc-zone-name lang="en">Fundy National Park</msc-zone-name>
+        </location>
+        <parameters>
+          <warning-list/>
+          <cloud-list units="deci">
+            <cloud-cover start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" ceiling-code="8">8</cloud-cover>
+            <cloud-cover start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" ceiling-code="8">8</cloud-cover>
+            <cloud-cover start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" ceiling-code="8">8</cloud-cover>
+            <cloud-cover start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" ceiling-code="4">8</cloud-cover>
+            <cloud-cover start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" ceiling-code="4">7</cloud-cover>
+            <cloud-cover start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" ceiling-code="4">6</cloud-cover>
+            <cloud-cover start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" ceiling-code="4">5</cloud-cover>
+            <cloud-cover start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" ceiling-code="4">3</cloud-cover>
+            <cloud-cover start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" ceiling-code="4">2</cloud-cover>
+            <cloud-cover start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z">0</cloud-cover>
+          </cloud-list>
+          <precipitation-list>
+            <precipitation-event start="2020-01-05T02:00:00Z" end="2020-01-05T09:00:00Z" type="flurries" frequency="frequent" intensity="nil" occurrence="possible"/>
+            <precipitation-event start="2020-01-05T09:00:00Z" end="2020-01-05T20:00:00Z" type="snow" frequency="frequent" intensity="nil" occurrence="certain"/>
+            <precipitation-event start="2020-01-06T00:00:00Z" end="2020-01-06T03:00:00Z" type="flurries" frequency="frequent" intensity="nil" occurrence="certain"/>
+          </precipitation-list>
+          <probability-of-precipitation-list units="%">
+            <probability-of-precipitation start="2020-01-05T02:00:00Z" end="2020-01-05T09:00:00Z"> 60</probability-of-precipitation>
+            <probability-of-precipitation start="2020-01-05T09:00:00Z" end="2020-01-05T20:00:00Z">100</probability-of-precipitation>
+            <probability-of-precipitation start="2020-01-05T20:00:00Z" end="2020-01-06T10:00:00Z">  0</probability-of-precipitation>
+          </probability-of-precipitation-list>
+          <accum-list units="mm">
+            <accum-amount start="2020-01-05T02:00:00Z" end="2020-01-05T14:00:00Z" type="N/A">
+              <lower-limit cumul-inf="0.00">0.00</lower-limit>
+              <upper-limit cumul-sup="0.00">0.00</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T14:00:00Z" end="2020-01-05T15:00:00Z" type="snow">
+              <lower-limit cumul-inf="6.67">6.67</lower-limit>
+              <upper-limit cumul-sup="13.33">13.33</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T15:00:00Z" end="2020-01-05T16:00:00Z" type="snow">
+              <lower-limit cumul-inf="13.33">6.67</lower-limit>
+              <upper-limit cumul-sup="26.67">13.33</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T16:00:00Z" end="2020-01-05T17:00:00Z" type="snow">
+              <lower-limit cumul-inf="20.00">6.67</lower-limit>
+              <upper-limit cumul-sup="40.00">13.33</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T17:00:00Z" end="2020-01-06T10:00:00Z" type="N/A">
+              <lower-limit cumul-inf="20.00">0.00</lower-limit>
+              <upper-limit cumul-sup="40.00">0.00</upper-limit>
+            </accum-amount>
+          </accum-list>
+          <snow-level-list units="m"/>
+          <temperature-list type="air" units="celsius">
+            <temperature-value start="2020-01-05T01:00:00Z" end="2020-01-05T01:00:00Z" trend="interpolated">
+              <lower-limit>-9999.00</lower-limit>
+              <upper-limit>-9999.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" trend="intermediate point">
+              <lower-limit>0.00</lower-limit>
+              <upper-limit>0.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" trend="intermediate point">
+              <lower-limit>0.00</lower-limit>
+              <upper-limit>0.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" trend="interpolated">
+              <lower-limit>0.00</lower-limit>
+              <upper-limit>0.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" trend="interpolated">
+              <lower-limit>0.00</lower-limit>
+              <upper-limit>0.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" trend="intermediate point">
+              <lower-limit>0.00</lower-limit>
+              <upper-limit>0.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" trend="interpolated">
+              <lower-limit>-0.33</lower-limit>
+              <upper-limit>-0.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" trend="interpolated">
+              <lower-limit>-0.67</lower-limit>
+              <upper-limit>-0.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" trend="min">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <exception start="2020-01-05T06:00:00Z" end="2020-01-05T09:00:00Z">
+              <excep-category excep-type="except" excep-code="topo">
+                <excep-description lang="fr">dans certain secteurs le long de la côte</excep-description>
+                <excep-description lang="en">along parts of the coast</excep-description>
+              </excep-category>
+              <temperature-value start="2020-01-05T06:00:00Z" end="2020-01-05T09:00:00Z" trend="stationary">
+                <lower-limit>2.00</lower-limit>
+                <upper-limit>2.00</upper-limit>
+              </temperature-value>
+            </exception>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" trend="intermediate point">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" trend="interpolated">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" trend="intermediate point">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" trend="interpolated">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" trend="interpolated">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" trend="intermediate point">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" trend="interpolated">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" trend="interpolated">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" trend="stationary">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" trend="interpolated">
+              <lower-limit>-1.33</lower-limit>
+              <upper-limit>-1.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" trend="interpolated">
+              <lower-limit>-1.67</lower-limit>
+              <upper-limit>-1.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" trend="interpolated">
+              <lower-limit>-2.67</lower-limit>
+              <upper-limit>-2.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" trend="interpolated">
+              <lower-limit>-3.33</lower-limit>
+              <upper-limit>-3.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" trend="intermediate point">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" trend="interpolated">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" trend="interpolated">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" trend="intermediate point">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" trend="interpolated">
+              <lower-limit>-4.67</lower-limit>
+              <upper-limit>-4.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" trend="interpolated">
+              <lower-limit>-5.33</lower-limit>
+              <upper-limit>-5.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" trend="intermediate point">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" trend="interpolated">
+              <lower-limit>-6.67</lower-limit>
+              <upper-limit>-6.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" trend="interpolated">
+              <lower-limit>-7.33</lower-limit>
+              <upper-limit>-7.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" trend="intermediate point">
+              <lower-limit>-8.00</lower-limit>
+              <upper-limit>-8.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T10:00:00Z" end="2020-01-06T10:00:00Z" trend="interpolated">
+              <lower-limit>-8.67</lower-limit>
+              <upper-limit>-8.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T11:00:00Z" end="2020-01-06T11:00:00Z" trend="interpolated">
+              <lower-limit>-9.33</lower-limit>
+              <upper-limit>-9.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T12:00:00Z" end="2020-01-06T12:00:00Z" trend="min">
+              <lower-limit>-10.00</lower-limit>
+              <upper-limit>-10.00</upper-limit>
+            </temperature-value>
+            <exception start="2020-01-06T09:00:00Z" end="2020-01-06T12:00:00Z">
+              <excep-category excep-type="except" excep-code="topo">
+                <excep-description lang="fr">à l'intérieur des terres</excep-description>
+                <excep-description lang="en">inland</excep-description>
+              </excep-category>
+              <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T12:00:00Z" trend="min">
+                <lower-limit>-14.00</lower-limit>
+                <upper-limit>-14.00</upper-limit>
+              </temperature-value>
+            </exception>
+          </temperature-list>
+          <temperature-list type="dew-point" units="celsius">
+            <temperature-value start="2020-01-05T01:00:00Z" end="2020-01-05T01:00:00Z" trend="interpolated">
+              <lower-limit>-9999.00</lower-limit>
+              <upper-limit>-9999.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" trend="intermediate point">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" trend="intermediate point">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" trend="interpolated">
+              <lower-limit>-1.33</lower-limit>
+              <upper-limit>-1.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" trend="interpolated">
+              <lower-limit>-1.67</lower-limit>
+              <upper-limit>-1.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" trend="interpolated">
+              <lower-limit>-2.33</lower-limit>
+              <upper-limit>-2.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" trend="interpolated">
+              <lower-limit>-2.67</lower-limit>
+              <upper-limit>-2.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" trend="intermediate point">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" trend="interpolated">
+              <lower-limit>-3.33</lower-limit>
+              <upper-limit>-3.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" trend="interpolated">
+              <lower-limit>-3.67</lower-limit>
+              <upper-limit>-3.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" trend="intermediate point">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" trend="interpolated">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" trend="interpolated">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" trend="interpolated">
+              <lower-limit>-8.00</lower-limit>
+              <upper-limit>-8.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" trend="interpolated">
+              <lower-limit>-9.00</lower-limit>
+              <upper-limit>-9.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" trend="intermediate point">
+              <lower-limit>-10.00</lower-limit>
+              <upper-limit>-10.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" trend="interpolated">
+              <lower-limit>-10.00</lower-limit>
+              <upper-limit>-10.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" trend="interpolated">
+              <lower-limit>-10.00</lower-limit>
+              <upper-limit>-10.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" trend="intermediate point">
+              <lower-limit>-10.00</lower-limit>
+              <upper-limit>-10.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T10:00:00Z" end="2020-01-06T10:00:00Z" trend="interpolated">
+              <lower-limit>-10.67</lower-limit>
+              <upper-limit>-10.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T11:00:00Z" end="2020-01-06T11:00:00Z" trend="interpolated">
+              <lower-limit>-11.33</lower-limit>
+              <upper-limit>-11.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T12:00:00Z" end="2020-01-06T12:00:00Z" trend="intermediate point">
+              <lower-limit>-12.00</lower-limit>
+              <upper-limit>-12.00</upper-limit>
+            </temperature-value>
+          </temperature-list>
+          <temperature-list type="climatology" units="celsius">
+            <temperature-value start="2020-01-04T20:00:00Z" end="2020-01-05T10:00:00Z" trend="min">
+              <limit>-11.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T20:00:00Z" trend="max">
+              <limit>-1.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-06T10:00:00Z" trend="min">
+              <limit>-11.00</limit>
+            </temperature-value>
+          </temperature-list>
+          <wind-list units="kmh">
+            <wind start="2020-01-05T02:00:00Z" end="2020-01-05T08:00:00Z" direction="nil">
+              <wind-speed>
+                <lower-limit>5</lower-limit>
+                <upper-limit>5</upper-limit>
+              </wind-speed>
+            </wind>
+            <wind start="2020-01-05T08:00:00Z" end="2020-01-05T10:00:00Z" direction="north">
+              <wind-speed>
+                <lower-limit>20</lower-limit>
+                <upper-limit>20</upper-limit>
+              </wind-speed>
+            </wind>
+            <wind start="2020-01-05T10:00:00Z" end="2020-01-05T19:00:00Z" direction="north">
+              <wind-speed>
+                <lower-limit>20</lower-limit>
+                <upper-limit>20</upper-limit>
+              </wind-speed>
+              <gust-speed>
+                <lower-limit>40</lower-limit>
+                <upper-limit>40</upper-limit>
+              </gust-speed>
+            </wind>
+            <wind start="2020-01-05T19:00:00Z" end="2020-01-05T22:00:00Z" direction="northwest">
+              <wind-speed>
+                <lower-limit>30</lower-limit>
+                <upper-limit>30</upper-limit>
+              </wind-speed>
+              <gust-speed>
+                <lower-limit>50</lower-limit>
+                <upper-limit>50</upper-limit>
+              </gust-speed>
+            </wind>
+            <wind start="2020-01-05T22:00:00Z" end="2020-01-06T06:00:00Z" direction="north">
+              <wind-speed>
+                <lower-limit>20</lower-limit>
+                <upper-limit>20</upper-limit>
+              </wind-speed>
+              <gust-speed>
+                <lower-limit>40</lower-limit>
+                <upper-limit>40</upper-limit>
+              </gust-speed>
+            </wind>
+            <wind start="2020-01-06T06:00:00Z" end="2020-01-06T10:00:00Z" direction="northwest">
+              <wind-speed>
+                <lower-limit>10</lower-limit>
+                <upper-limit>10</upper-limit>
+              </wind-speed>
+            </wind>
+          </wind-list>
+          <visibility-list/>
+          <temperature-list type="sea-surface" units="celsius"/>
+          <freezing-spray-list/>
+          <wave-height-list units="m"/>
+          <ice-cover-list units="%"/>
+        </parameters>
+      </meteocode-forecast>
+      <meteocode-forecast>
+        <location>
+          <msc-zone-code>r2zf</msc-zone-code>
+          <msc-zone-name lang="fr">Sussex - vallée de Kennebecasis et comté de Kings</msc-zone-name>
+          <msc-zone-name lang="en">Sussex - Kennebecasis Valley and Kings County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r4zf</msc-zone-code>
+          <msc-zone-name lang="fr">St. Stephen et le nord du comté de Charlotte</msc-zone-name>
+          <msc-zone-name lang="en">St. Stephen and Northern Charlotte County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r5zf</msc-zone-code>
+          <msc-zone-name lang="fr">Fredericton et sud du comté de York</msc-zone-name>
+          <msc-zone-name lang="en">Fredericton and Southern York County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r6zf</msc-zone-code>
+          <msc-zone-name lang="fr">Oromocto et comté de Sunbury</msc-zone-name>
+          <msc-zone-name lang="en">Oromocto and Sunbury County</msc-zone-name>
+        </location>
+        <location>
+          <msc-zone-code>r7zf</msc-zone-code>
+          <msc-zone-name lang="fr">Grand Lac et comté de Queens</msc-zone-name>
+          <msc-zone-name lang="en">Grand Lake and Queens County</msc-zone-name>
+        </location>
+        <parameters>
+          <warning-list/>
+          <cloud-list units="deci">
+            <cloud-cover start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" ceiling-code="7">10</cloud-cover>
+            <cloud-cover start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" ceiling-code="9">5</cloud-cover>
+            <cloud-cover start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" ceiling-code="9">5</cloud-cover>
+          </cloud-list>
+          <precipitation-list>
+            <precipitation-event start="2020-01-05T02:00:00Z" end="2020-01-05T18:00:00Z" type="snow" frequency="frequent" intensity="light" occurrence="certain"/>
+          </precipitation-list>
+          <probability-of-precipitation-list units="%">
+            <probability-of-precipitation start="2020-01-05T02:00:00Z" end="2020-01-05T18:00:00Z">100</probability-of-precipitation>
+            <probability-of-precipitation start="2020-01-05T18:00:00Z" end="2020-01-06T10:00:00Z">  0</probability-of-precipitation>
+          </probability-of-precipitation-list>
+          <accum-list units="mm">
+            <accum-amount start="2020-01-05T02:00:00Z" end="2020-01-05T06:00:00Z" type="N/A">
+              <lower-limit cumul-inf="0.00">0.00</lower-limit>
+              <upper-limit cumul-sup="0.00">0.00</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T06:00:00Z" end="2020-01-05T07:00:00Z" type="snow">
+              <lower-limit cumul-inf="6.67">6.67</lower-limit>
+              <upper-limit cumul-sup="6.67">6.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T07:00:00Z" end="2020-01-05T08:00:00Z" type="snow">
+              <lower-limit cumul-inf="13.33">6.67</lower-limit>
+              <upper-limit cumul-sup="13.33">6.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T08:00:00Z" end="2020-01-05T09:00:00Z" type="snow">
+              <lower-limit cumul-inf="20.00">6.67</lower-limit>
+              <upper-limit cumul-sup="20.00">6.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T09:00:00Z" end="2020-01-05T12:00:00Z" type="N/A">
+              <lower-limit cumul-inf="20.00">0.00</lower-limit>
+              <upper-limit cumul-sup="20.00">0.00</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T12:00:00Z" end="2020-01-05T13:00:00Z" type="snow">
+              <lower-limit cumul-inf="26.67">6.67</lower-limit>
+              <upper-limit cumul-sup="26.67">6.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T13:00:00Z" end="2020-01-05T14:00:00Z" type="snow">
+              <lower-limit cumul-inf="33.33">6.67</lower-limit>
+              <upper-limit cumul-sup="33.33">6.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T14:00:00Z" end="2020-01-05T15:00:00Z" type="snow">
+              <lower-limit cumul-inf="40.00">6.67</lower-limit>
+              <upper-limit cumul-sup="40.00">6.67</upper-limit>
+            </accum-amount>
+            <accum-amount start="2020-01-05T15:00:00Z" end="2020-01-06T10:00:00Z" type="N/A">
+              <lower-limit cumul-inf="40.00">0.00</lower-limit>
+              <upper-limit cumul-sup="40.00">0.00</upper-limit>
+            </accum-amount>
+          </accum-list>
+          <snow-level-list units="m"/>
+          <temperature-list type="air" units="celsius">
+            <temperature-value start="2020-01-05T01:00:00Z" end="2020-01-05T01:00:00Z" trend="interpolated">
+              <lower-limit>-9999.00</lower-limit>
+              <upper-limit>-9999.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" trend="intermediate point">
+              <lower-limit>0.00</lower-limit>
+              <upper-limit>0.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" trend="intermediate point">
+              <lower-limit>0.00</lower-limit>
+              <upper-limit>0.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" trend="interpolated">
+              <lower-limit>0.00</lower-limit>
+              <upper-limit>0.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" trend="interpolated">
+              <lower-limit>0.00</lower-limit>
+              <upper-limit>0.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" trend="intermediate point">
+              <lower-limit>0.00</lower-limit>
+              <upper-limit>0.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" trend="interpolated">
+              <lower-limit>-0.67</lower-limit>
+              <upper-limit>-0.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" trend="interpolated">
+              <lower-limit>-1.33</lower-limit>
+              <upper-limit>-1.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" trend="min">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" trend="stationary">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" trend="interpolated">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" trend="interpolated">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" trend="interpolated">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" trend="intermediate point">
+              <lower-limit>-5.00</lower-limit>
+              <upper-limit>-5.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" trend="interpolated">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" trend="interpolated">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" trend="intermediate point">
+              <lower-limit>-8.00</lower-limit>
+              <upper-limit>-8.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" trend="interpolated">
+              <lower-limit>-8.33</lower-limit>
+              <upper-limit>-8.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" trend="interpolated">
+              <lower-limit>-8.67</lower-limit>
+              <upper-limit>-8.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" trend="intermediate point">
+              <lower-limit>-9.00</lower-limit>
+              <upper-limit>-9.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" trend="interpolated">
+              <lower-limit>-9.33</lower-limit>
+              <upper-limit>-9.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" trend="interpolated">
+              <lower-limit>-9.67</lower-limit>
+              <upper-limit>-9.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" trend="intermediate point">
+              <lower-limit>-10.00</lower-limit>
+              <upper-limit>-10.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T10:00:00Z" end="2020-01-06T10:00:00Z" trend="interpolated">
+              <lower-limit>-10.67</lower-limit>
+              <upper-limit>-10.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T11:00:00Z" end="2020-01-06T11:00:00Z" trend="interpolated">
+              <lower-limit>-11.33</lower-limit>
+              <upper-limit>-11.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T12:00:00Z" end="2020-01-06T12:00:00Z" trend="min">
+              <lower-limit>-12.00</lower-limit>
+              <upper-limit>-12.00</upper-limit>
+            </temperature-value>
+            <exception start="2020-01-06T09:00:00Z" end="2020-01-06T12:00:00Z">
+              <excep-category excep-type="except" excep-code="topo">
+                <excep-description lang="fr">en terrains bas</excep-description>
+                <excep-description lang="en">in low lying areas</excep-description>
+              </excep-category>
+              <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T12:00:00Z" trend="min">
+                <lower-limit>-17.00</lower-limit>
+                <upper-limit>-17.00</upper-limit>
+              </temperature-value>
+            </exception>
+          </temperature-list>
+          <temperature-list type="dew-point" units="celsius">
+            <temperature-value start="2020-01-05T01:00:00Z" end="2020-01-05T01:00:00Z" trend="interpolated">
+              <lower-limit>-9999.00</lower-limit>
+              <upper-limit>-9999.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T02:00:00Z" end="2020-01-05T02:00:00Z" trend="intermediate point">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T03:00:00Z" end="2020-01-05T03:00:00Z" trend="intermediate point">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T04:00:00Z" end="2020-01-05T04:00:00Z" trend="interpolated">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T05:00:00Z" end="2020-01-05T05:00:00Z" trend="interpolated">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T06:00:00Z" end="2020-01-05T06:00:00Z" trend="intermediate point">
+              <lower-limit>-1.00</lower-limit>
+              <upper-limit>-1.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T07:00:00Z" end="2020-01-05T07:00:00Z" trend="interpolated">
+              <lower-limit>-1.33</lower-limit>
+              <upper-limit>-1.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T08:00:00Z" end="2020-01-05T08:00:00Z" trend="interpolated">
+              <lower-limit>-1.67</lower-limit>
+              <upper-limit>-1.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T09:00:00Z" end="2020-01-05T09:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T10:00:00Z" trend="intermediate point">
+              <lower-limit>-2.00</lower-limit>
+              <upper-limit>-2.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T11:00:00Z" end="2020-01-05T11:00:00Z" trend="interpolated">
+              <lower-limit>-2.50</lower-limit>
+              <upper-limit>-2.50</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T12:00:00Z" end="2020-01-05T12:00:00Z" trend="intermediate point">
+              <lower-limit>-3.00</lower-limit>
+              <upper-limit>-3.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T13:00:00Z" trend="interpolated">
+              <lower-limit>-3.33</lower-limit>
+              <upper-limit>-3.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T14:00:00Z" end="2020-01-05T14:00:00Z" trend="interpolated">
+              <lower-limit>-3.67</lower-limit>
+              <upper-limit>-3.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T15:00:00Z" end="2020-01-05T15:00:00Z" trend="intermediate point">
+              <lower-limit>-4.00</lower-limit>
+              <upper-limit>-4.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T16:00:00Z" end="2020-01-05T16:00:00Z" trend="interpolated">
+              <lower-limit>-4.67</lower-limit>
+              <upper-limit>-4.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T17:00:00Z" end="2020-01-05T17:00:00Z" trend="interpolated">
+              <lower-limit>-5.33</lower-limit>
+              <upper-limit>-5.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T18:00:00Z" end="2020-01-05T18:00:00Z" trend="intermediate point">
+              <lower-limit>-6.00</lower-limit>
+              <upper-limit>-6.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T19:00:00Z" end="2020-01-05T19:00:00Z" trend="interpolated">
+              <lower-limit>-6.33</lower-limit>
+              <upper-limit>-6.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-05T20:00:00Z" trend="interpolated">
+              <lower-limit>-6.67</lower-limit>
+              <upper-limit>-6.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T21:00:00Z" end="2020-01-05T21:00:00Z" trend="intermediate point">
+              <lower-limit>-7.00</lower-limit>
+              <upper-limit>-7.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T22:00:00Z" end="2020-01-05T22:00:00Z" trend="interpolated">
+              <lower-limit>-7.67</lower-limit>
+              <upper-limit>-7.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T23:00:00Z" end="2020-01-05T23:00:00Z" trend="interpolated">
+              <lower-limit>-8.33</lower-limit>
+              <upper-limit>-8.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T00:00:00Z" end="2020-01-06T00:00:00Z" trend="intermediate point">
+              <lower-limit>-9.00</lower-limit>
+              <upper-limit>-9.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T01:00:00Z" end="2020-01-06T01:00:00Z" trend="interpolated">
+              <lower-limit>-9.67</lower-limit>
+              <upper-limit>-9.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T02:00:00Z" end="2020-01-06T02:00:00Z" trend="interpolated">
+              <lower-limit>-10.33</lower-limit>
+              <upper-limit>-10.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T03:00:00Z" end="2020-01-06T03:00:00Z" trend="intermediate point">
+              <lower-limit>-11.00</lower-limit>
+              <upper-limit>-11.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T04:00:00Z" end="2020-01-06T04:00:00Z" trend="interpolated">
+              <lower-limit>-11.00</lower-limit>
+              <upper-limit>-11.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T05:00:00Z" end="2020-01-06T05:00:00Z" trend="interpolated">
+              <lower-limit>-11.00</lower-limit>
+              <upper-limit>-11.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T06:00:00Z" end="2020-01-06T06:00:00Z" trend="intermediate point">
+              <lower-limit>-11.00</lower-limit>
+              <upper-limit>-11.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T07:00:00Z" end="2020-01-06T07:00:00Z" trend="interpolated">
+              <lower-limit>-11.33</lower-limit>
+              <upper-limit>-11.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T08:00:00Z" end="2020-01-06T08:00:00Z" trend="interpolated">
+              <lower-limit>-11.67</lower-limit>
+              <upper-limit>-11.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T09:00:00Z" end="2020-01-06T09:00:00Z" trend="intermediate point">
+              <lower-limit>-12.00</lower-limit>
+              <upper-limit>-12.00</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T10:00:00Z" end="2020-01-06T10:00:00Z" trend="interpolated">
+              <lower-limit>-12.33</lower-limit>
+              <upper-limit>-12.33</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T11:00:00Z" end="2020-01-06T11:00:00Z" trend="interpolated">
+              <lower-limit>-12.67</lower-limit>
+              <upper-limit>-12.67</upper-limit>
+            </temperature-value>
+            <temperature-value start="2020-01-06T12:00:00Z" end="2020-01-06T12:00:00Z" trend="intermediate point">
+              <lower-limit>-13.00</lower-limit>
+              <upper-limit>-13.00</upper-limit>
+            </temperature-value>
+          </temperature-list>
+          <temperature-list type="climatology" units="celsius">
+            <temperature-value start="2020-01-04T22:00:00Z" end="2020-01-05T10:00:00Z" trend="min">
+              <limit>-13.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T10:00:00Z" end="2020-01-05T13:00:00Z" trend="max">
+              <limit>-3.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T13:00:00Z" end="2020-01-05T20:00:00Z" trend="max">
+              <limit>-4.00</limit>
+            </temperature-value>
+            <temperature-value start="2020-01-05T20:00:00Z" end="2020-01-06T10:00:00Z" trend="min">
+              <limit>-15.00</limit>
+            </temperature-value>
+          </temperature-list>
+          <wind-list units="kmh">
+            <wind start="2020-01-05T02:00:00Z" end="2020-01-05T06:00:00Z" direction="nil">
+              <wind-speed>
+                <lower-limit>0</lower-limit>
+                <upper-limit>0</upper-limit>
+              </wind-speed>
+            </wind>
+            <wind start="2020-01-05T06:00:00Z" end="2020-01-05T12:00:00Z" direction="north">
+              <wind-speed>
+                <lower-limit>10</lower-limit>
+                <upper-limit>10</upper-limit>
+              </wind-speed>
+            </wind>
+            <wind start="2020-01-05T12:00:00Z" end="2020-01-06T03:00:00Z" direction="northwest">
+              <wind-speed>
+                <lower-limit>20</lower-limit>
+                <upper-limit>20</upper-limit>
+              </wind-speed>
+              <gust-speed>
+                <lower-limit>40</lower-limit>
+                <upper-limit>40</upper-limit>
+              </gust-speed>
+            </wind>
+            <wind start="2020-01-06T03:00:00Z" end="2020-01-06T09:00:00Z" direction="northwest">
+              <wind-speed>
+                <lower-limit>10</lower-limit>
+                <upper-limit>10</upper-limit>
+              </wind-speed>
+            </wind>
+            <wind start="2020-01-06T09:00:00Z" end="2020-01-06T10:00:00Z" direction="nil">
+              <wind-speed>
+                <lower-limit>5</lower-limit>
+                <upper-limit>5</upper-limit>
+              </wind-speed>
+            </wind>
+          </wind-list>
+          <visibility-list/>
+          <temperature-list type="sea-surface" units="celsius"/>
+          <freezing-spray-list/>
+          <wave-height-list units="m"/>
+          <ice-cover-list units="%"/>
+        </parameters>
+      </meteocode-forecast>
+    </forecast>
+  </data>
+</cmml>

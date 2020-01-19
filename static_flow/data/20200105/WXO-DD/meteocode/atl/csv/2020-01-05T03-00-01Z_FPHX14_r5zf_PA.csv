@@ -1,0 +1,10 @@
+"Fredericton and Southern York County | Fredericton et sud du comté de York; CMML : 'TRANSMIT.FPHX14.01.05.0255Z.AMD.xml'; Time zone | Fuseau horaire : Canada/Atlantic","Start | Début;End | Fin;Total accumulation min (mm) | Accumulation totale min (mm);Total accumulation max (mm | Accumulation totale max (mm);Hourly accumulation min (mm) | Accumulation horaire min (mm);Hourly accumulation max (mm) | Accumulation horaire max (mm);Precipitation type | Type de précipitation","","","","",""
+2020-01-05T02:00:00Z,2020-01-05T06:00:00Z,0.00,0.00,0.00,0.00,N/A
+2020-01-05T06:00:00Z,2020-01-05T07:00:00Z,6.67,6.67,6.67,6.67,snow
+2020-01-05T07:00:00Z,2020-01-05T08:00:00Z,13.33,13.33,6.67,6.67,snow
+2020-01-05T08:00:00Z,2020-01-05T09:00:00Z,20.00,20.00,6.67,6.67,snow
+2020-01-05T09:00:00Z,2020-01-05T12:00:00Z,20.00,20.00,0.00,0.00,N/A
+2020-01-05T12:00:00Z,2020-01-05T13:00:00Z,26.67,26.67,6.67,6.67,snow
+2020-01-05T13:00:00Z,2020-01-05T14:00:00Z,33.33,33.33,6.67,6.67,snow
+2020-01-05T14:00:00Z,2020-01-05T15:00:00Z,40.00,40.00,6.67,6.67,snow
+2020-01-05T15:00:00Z,2020-01-06T10:00:00Z,40.00,40.00,0.00,0.00,N/A
