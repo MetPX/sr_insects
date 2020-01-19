@@ -11,7 +11,7 @@ stalled=0
 stalled_value=-1
 retry_msgcnt="`cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2>/dev/null | sort -u | wc -l`"
 while [ $retry_msgcnt -gt 0 ]; do
-        printf "Still %4s messages to retry, waiting...\r" "$retry_msgcnt"
+        printf "Still %4s messages to retry, waiting...\n" "$retry_msgcnt"
         sleep 10
         retry_msgcnt="`cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2> /dev/null | sort -u | wc -l`"
 
@@ -36,9 +36,11 @@ while [ $queued_msgcnt -gt 0 ]; do
         sleep 10
         queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };'`"
 done
-echo "No messages left in queues..."
 
-#sleep 60
+need_to_wait="`grep heartbeat config/*/*.conf| awk ' BEGIN { h=0; } { if ( $2 > h ) h=$2;  } END { print h*2; }; '`"
+echo "No messages left in queues... wait 2* maximum heartbeat of any configuration to be sure it is finished."
+
+sleep ${need_to_wait}
 
 
 printf "\n\nflow test stopped. \n\n"

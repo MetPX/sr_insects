@@ -162,7 +162,7 @@ fi
 #sr_action "Starting up all components..." start " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
 #echo "Done."
 
-
+echo "starting to post: `date +${SR_DATE_FMT}`"
 if [ ! "$SARRA_LIB" ]; then
     sr_post -config t_dd1_f00.conf >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
     sr_post -config t_dd2_f00.conf >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
@@ -174,8 +174,9 @@ fi
 sr_cpost -config pelle_dd1_f04.conf >$LOGDIR/sr_cpost_pelle_dd1_f04_01.log 2>&1 &
 sr_cpost -config pelle_dd2_f05.conf >$LOGDIR/sr_cpost_pelle_dd2_f05_01.log 2>&1 &
 
+echo "posting complete: `date +${SR_DATE_FMT}`"
 
-echo "sr start..."
+echo "sr starting "
 sr start
 ret=$?
 

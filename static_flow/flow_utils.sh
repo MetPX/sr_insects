@@ -3,6 +3,7 @@
 #SR_TEST_CONFIGS=`sr_subscribe list | awk '  / examples:/ { print $4; }; '`
 #export SR_TEST_CONFIGS=`dirname ${SR_TEST_CONFIGS}`
 
+
 ../prereq.sh  >/tmp/prereq.log
 if [ $? -ne 0 ]; then
    cat /tmp/prereq.log
@@ -16,6 +17,9 @@ export SR_TEST_CONFIGS=${TESTDIR}/config
 if [ ! "${SR_DEV_APPNAME}" ]; then
   export SR_DEV_APPNAME=sarra
 fi
+
+export SR_DATE_FMT='%Y%m%dT%H%M%s'
+
 
 function application_dirs {
 python3 << EOF
