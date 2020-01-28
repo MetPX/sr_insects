@@ -20,7 +20,6 @@ testdocroot="$HOME/sarra_devdocroot"
 testhost=localhost
 sftpuser=`whoami`
 flowsetuplog="$LOGDIR/flowsetup_f00.log"
-unittestlog="$LOGDIR/unit_tests_f00.log"
 
 
 if [ -d $LOGDIR ]; then
@@ -56,7 +55,11 @@ mkdir -p "$CONFDIR" 2> /dev/null
 
 #flow_configs="`cd ${SR_CONFIG_EXAMPLES}; ls */*f[0-9][0-9].conf; ls */*f[0-9][0-9].inc`"
 flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf; ls */*f[0-9][0-9].inc`"
-sr_action "Adding flow test configurations..." add " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
+#sr_action "Adding flow test configurations..." add " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
+
+cd ${SR_TEST_CONFIGS} ; cp -r *  ${CONFDIR}
+cd ..
+
 
 passed_checks=0
 count_of_checks=0
@@ -131,10 +134,11 @@ echo $MAX_MESSAGES
 fi
 
 # Start everything but sr_post
-flow_configs="audit/ `cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf | grep -v '^post'; ls poll/pulse.conf`"
-sr_action "Starting up all components..." start " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
-echo "Done."
+#flow_configs="audit/ `cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf | grep -v '^post'; ls poll/pulse.conf`"
+#sr_action "Starting up all components..." start " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
+#echo "Done."
 
+sr start
 ret=$?
 
 count_of_checks=$((${count_of_checks}+1))
