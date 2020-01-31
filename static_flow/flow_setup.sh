@@ -37,6 +37,7 @@ if [ ! -d "$testdocroot" ]; then
   cp -r testree/* $testdocroot
   mkdir $testdocroot/downloaded_by_sub_amqp
   mkdir $testdocroot/downloaded_by_sub_u
+  mkdir $testdocroot/downloaded_from_shim_cp
   mkdir $testdocroot/sent_by_tsource2send
   mkdir $testdocroot/recd_by_srpoll_test1
   mkdir $testdocroot/posted_by_srpost_test2
@@ -94,7 +95,7 @@ else
 fi
 
 # Check queues and exchanges
-qchk 21 "queues existing after 1st audit"
+qchk 22 "queues existing after 1st audit"
 xchk "exchanges for flow test created"
 
 if [ "$1" = "declare" ]; then
