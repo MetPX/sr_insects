@@ -162,25 +162,14 @@ function countall {
   sumlogs msg_total $LOGDIR/sr_report_tsarra_f20_*.log
   totsarra="${tot}"
 
-  sumlogs msg_total $LOGDIR/sr_report_twinnow00_f10_*.log
-  totwinnow00="${tot}"
-
-  sumlogs msg_total $LOGDIR/sr_report_twinnow01_f10_*.log
-  totwinnow01="${tot}"
-
-  totwinnow=$(( ${totwinnow00} + ${totwinnow01} ))
-
   countthem "`grep post_log $LOGDIR/sr_post_t_dd1_f00_*.log| wc -l`"
   totshovel1="${tot}"
 
   countthem "`grep post_log $LOGDIR/sr_post_t_dd2_f00_*.log| wc -l`"
   totshovel2="${tot}"
 
-  countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_winnow*.log | wc -l`"
-  totwinpost="${tot}"
-
-  countthem "`grep truncating "$LOGDIR"/sr_sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
-  totshortened="${tot}"
+  countthem "`grep rejected  "$LOGDIR"/sr_sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
+  totrejected="${tot}"
 
   countthem "`grep '\[INFO\] post_log' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
   totwatch="${tot}"

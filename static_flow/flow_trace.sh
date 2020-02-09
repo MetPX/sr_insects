@@ -12,8 +12,8 @@ printf "FLOW f0x messages from data mart\n\n"
 grep $1  $LOGDIR/sr_shovel_t_dd1_f00_01.log
 grep $1  $LOGDIR/sr_shovel_t_dd2_f00_01.log
 
-printf "\n\nFLOW f1x winnowing\n\n"
-grep $1  $LOGDIR/sr_winnow*
+#printf "\n\nFLOW f1x winnowing\n\n"
+#grep $1  $LOGDIR/sr_winnow*
 
 printf "\n\nFLOW f2x download to local mirror\n\n"
 grep $1  $LOGDIR/sr_sarra_* 
