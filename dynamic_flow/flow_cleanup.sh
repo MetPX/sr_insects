@@ -117,3 +117,4 @@ if [ -f .httpdocroot ]; then
    fi
 fi
 echo "Done!"
+exit 0
