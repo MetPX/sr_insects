@@ -162,11 +162,11 @@ fi
 
 echo "starting to post: `date +${SR_DATE_FMT}`"
 if [ ! "$SARRA_LIB" ]; then
-    sr_post -config t_dd1_f00.conf >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
-    sr_post -config t_dd2_f00.conf >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
+    sr_post -config t_dd1_f00.conf  ${TESTSTATICDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
+    sr_post -config t_dd2_f00.conf  ${TESTSTATICDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
 else
-    "$SARRA_LIB"/sr_post.py -config t_dd1_f00.conf >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
-    "$SARRA_LIB"/sr_post.py -config t_dd2_f00.conf >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
+    "$SARRA_LIB"/sr_post.py -config t_dd1_f00.conf  ${TESTSTATICDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
+    "$SARRA_LIB"/sr_post.py -config t_dd2_f00.conf  ${TESTSTATICDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
 fi
 
 sr_cpost -config pelle_dd1_f04.conf >$LOGDIR/sr_cpost_pelle_dd1_f04_01.log 2>&1 &
@@ -185,6 +185,10 @@ else
    echo "OK: sr start was successful"
    passed_checks=$((${passed_checks}+1))
 fi
+
+abit=20
+echo "waiting a bit $abit to let processing get started..."
+sleep $abit
 
 if [ $passed_checks = $count_of_checks ]; then
    echo "Overall: PASSED $passed_checks/$count_of_checks checks passed!"
