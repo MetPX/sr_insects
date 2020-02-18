@@ -12,7 +12,6 @@
 #export SARRAC_LIB=""
 
 
-export TESTDIR="`pwd`"
 #export PYTHONPATH="`pwd`/../"
 . ./flow_utils.sh
 
