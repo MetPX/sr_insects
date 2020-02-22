@@ -2,6 +2,26 @@
 
 . ./flow_include.sh
 
+echo "stopping rabbitmq"
+sudo systemctl stop rabbitmq-server
+sleep 10
+echo "starting rabbitmq"
+sudo systemctl start rabbitmq-server
+sleep 10
+
+echo "stopping rabbitmq"
+sudo systemctl stop rabbitmq-server
+sleep 10
+echo "starting rabbitmq"
+sudo systemctl start rabbitmq-server
+sleep 10
+
+echo "stopping rabbitmq"
+sudo systemctl stop rabbitmq-server
+sleep 10
+echo "starting rabbitmq"
+sudo systemctl start rabbitmq-server
+
 countall
 
 #optional... look for posting processes to still be running?
