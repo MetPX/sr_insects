@@ -183,7 +183,7 @@ else
    passed_checks=$((${passed_checks}+1))
 fi
 
-abit=5
+abit=45
 echo "waiting a bit $abit to let processing get started..."
 sleep $abit
 
