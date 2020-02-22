@@ -79,8 +79,6 @@ cd ..
 passed_checks=0
 count_of_checks=0
 
-#xchk 8 "only rabbitmq default systems exchanges should be present."
-
 # ensure users have exchanges:
 
 echo "Initializing with sr_audit... takes a minute or two"
@@ -185,7 +183,7 @@ else
    passed_checks=$((${passed_checks}+1))
 fi
 
-abit=20
+abit=5
 echo "waiting a bit $abit to let processing get started..."
 sleep $abit
 
