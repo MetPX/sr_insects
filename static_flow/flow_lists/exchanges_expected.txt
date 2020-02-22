@@ -8,12 +8,11 @@ xlog	topic
 xl_tsource	topic
 xl_tsub	topic
 xpublic	topic
-xr_anonymous	topic
 xreport	topic
+xr_anonymous	topic
 xr_tsource	topic
 xr_tsub	topic
 xs_anonymous	topic
-xsarra	topic
 xs_mqtt_public  topic
 xs_tsource_clean_f90	topic
 xs_tsource_clean_f92	topic
@@ -23,6 +22,5 @@ xs_tsource_post	topic
 xs_tsource_shim	topic
 xs_tsource	topic
 xs_tsub	topic
-xwinnow00	topic
-xwinnow01	topic
+xsarra	topic
 xwinnow	topic
