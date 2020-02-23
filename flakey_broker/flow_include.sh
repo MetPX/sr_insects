@@ -210,7 +210,7 @@ function countall {
   if [[ ! "$C_ALSO" && ! -d "$SARRAC_LIB" ]]; then
      return
   fi
-  staticfilecount="`ls -lR ${TESTSTATICDATA} | grep '^-r' | wc -l`"
+  staticfilecount="`ls -lR ${SAMPLEDATA} | grep '^-r' | wc -l`"
 
   countthem "`grep '\[INFO\] published:' $LOGDIR/sr_cpost_pelle_dd1_f04_*.log | wc -l`"
   totcpelle04p="${tot}"

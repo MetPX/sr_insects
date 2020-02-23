@@ -32,7 +32,7 @@ count=0
 while [ $running -gt 0 ]; do
   running="`ps ax | grep sr_post | grep t_dd | wc -l`"
   printf "Still posting... %d\n" $count
-  count=${count}+1
+  count=$((${count}+1))
   sleep 10
 done
 printf "posting completed..."

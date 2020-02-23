@@ -98,8 +98,8 @@ fi
 
 testrundir="`pwd`"
 
-echo "Starting trivial upstream http server on: $TESTSTATICDATA, saving pid in .upstreamhttpserverpid"
-cd $TESTSTATICDATA
+echo "Starting trivial upstream http server on: $SAMPLEDATA, saving pid in .upstreamhttpserverpid"
+cd ${SAMPLEDATA}
 $testrundir/../trivialserver.py 8090 >>$trivialupstreamhttplog   2>&1 &
 upstreamhttpserverpid=$!
 
@@ -159,11 +159,11 @@ fi
 
 echo "starting to post: `date +${SR_DATE_FMT}`"
 if [ ! "$SARRA_LIB" ]; then
-    sr_post -config t_dd1_f00.conf  ${TESTSTATICDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
-    sr_post -config t_dd2_f00.conf  ${TESTSTATICDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
+    sr_post -config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
+    sr_post -config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
 else
-    "$SARRA_LIB"/sr_post.py -config t_dd1_f00.conf  ${TESTSTATICDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
-    "$SARRA_LIB"/sr_post.py -config t_dd2_f00.conf  ${TESTSTATICDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
+    "$SARRA_LIB"/sr_post.py -config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
+    "$SARRA_LIB"/sr_post.py -config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
 fi
 
 sr_cpost -config pelle_dd1_f04.conf >$LOGDIR/sr_cpost_pelle_dd1_f04_01.log 2>&1 &

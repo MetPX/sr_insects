@@ -12,8 +12,8 @@ if [ $? -ne 0 ]; then
 fi
 
 export TESTDIR="`pwd`"
-TESTSTATICDATA="`dirname $TESTDIR`"
-export TESTSTATICDATA=${TESTSTATICDATA}/samples/data
+SAMPLEDATA="`dirname $TESTDIR`"
+export SAMPLEDATA=${SAMPLEDATA}/samples/data
 export SR_TEST_CONFIGS=${TESTDIR}/config
 
 if [ ! "${SR_DEV_APPNAME}" ]; then
