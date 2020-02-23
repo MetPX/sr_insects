@@ -162,7 +162,7 @@ echo "                 | C          routing |"
 
 fi
 
-tallyres ${tno} ${passedno} "Overall ${passedno} of ${tno} passed (sample size: $totsarra) !"
+tallyres ${tno} ${passedno} "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 results=$?
 
 if (("${missed_dispositions}">0)); then
