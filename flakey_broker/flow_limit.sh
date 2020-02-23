@@ -25,7 +25,17 @@ sudo systemctl start rabbitmq-server
 countall
 
 #optional... look for posting processes to still be running?
-
+#15647 pts/0    S      0:00 /usr/bin/python3 /usr/bin/sr_post -config t_dd1_f00.conf /local/home/peter/src/sr_insects/samples/data
+#15648 pts/0    S      0:00 /usr/bin/python3 /usr/bin/sr_post -config t_dd2_f00.conf /local/home/peter/src/sr_insects/samples/data
+running=1
+count=0
+while [ $running -gt 0 ]; do
+  running="`ps ax | grep sr_post | grep t_dd | wc -l`"
+  printf "Still posting... %d\n" $count
+  count=${count}+1
+  sleep 10
+done
+printf "posting completed..."
 
 stalled=0
 stalled_value=-1
