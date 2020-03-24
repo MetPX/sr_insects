@@ -70,13 +70,13 @@ sarra_py_version="`sr_subscribe -h |& awk ' /^version: / { print $2; };'`"
 echo "sr_subscribe is: ${sarra_subscribe_binary}, version: ${sarra_py_version[*]} "
 IFS=.; read -a sarra_py_version <<<"${sarra_py_version}"
 
-if [ ${sarra_py_version[0]} -lt 2 ];  then
-   echo "metpx-sarracenia Python package must be >= 2.20"
-   exit 3
-elif [ "${sarra_py_version[0]}" -eq 2 -a "${sarra_py_version[1]}" -lt 20 ];  then
-   echo "metpx-sarracenia Python package must >= 2.20.b2"
-   exit 4
-fi
+#if [ ${sarra_py_version[0]} -lt 2 ];  then
+#   echo "metpx-sarracenia Python package must be >= 2.20"
+#   exit 3
+#elif [ "${sarra_py_version[0]}" -eq 2 -a "${sarra_py_version[1]}" -lt 20 ];  then
+#   echo "metpx-sarracenia Python package must >= 2.20.b2"
+#   exit 4
+#fi
 
 sarra_c_version="`sr_cpump -h |& awk ' (NR==1) { print $3; };'`"
 echo "sr_cpump is: ${sarra_cpump_binary}, version: ${sarra_c_version} "

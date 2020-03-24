@@ -9,18 +9,18 @@ echo "starting rabbitmq"
 sudo systemctl start rabbitmq-server
 sleep 10
 
-#echo "stopping rabbitmq"
-#sudo systemctl stop rabbitmq-server
-#sleep 10
-#echo "starting rabbitmq"
-#sudo systemctl start rabbitmq-server
-#sleep 10
+echo "stopping rabbitmq"
+sudo systemctl stop rabbitmq-server
+sleep 10
+echo "starting rabbitmq"
+sudo systemctl start rabbitmq-server
+sleep 10
 
-#echo "stopping rabbitmq"
-#sudo systemctl stop rabbitmq-server
-#sleep 10
-#echo "starting rabbitmq"
-#sudo systemctl start rabbitmq-server
+echo "stopping rabbitmq"
+sudo systemctl stop rabbitmq-server
+sleep 10
+echo "starting rabbitmq"
+sudo systemctl start rabbitmq-server
 
 countall
 
