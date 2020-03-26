@@ -10,12 +10,16 @@ echo "bash is there."
 
 min_rel="16.04"
 rel="`lsb_release -rs`"
-if [[ "${rel}" < "${min_rel}" ]]; then
+relid="`lsb_release -is`"
+if [[ "${relid}" != "Ubuntu" ]]; then
+   echo "Testing on ${relid}"	
+elif [[ "${rel}" < "${min_rel}" ]]; then
    echo "Require ubuntu at least ${min_rel}.  Comment this part out of prereq.sh if running in other environments."
    echo "it is a shorthand to avoid running on environments that are too old."
    exit 30
+else
+   echo "Ubuntu is modern."
 fi
-echo "Ubuntu is modern."
  
 awk_binary="`which awk`"
 if [ ! "${awk_binary}" ]; then
@@ -24,7 +28,7 @@ if [ ! "${awk_binary}" ]; then
 fi
 echo "awk is there."
 
-sshd_binary="`which sshd`"
+sshd_binary="`ps -ef | grep sshd`"
 if [ ! "${sshd_binary}" ]; then
    echo "No sshd! test scripts use awk"
    exit 22
@@ -81,10 +85,11 @@ fi
 sarra_c_version="`sr_cpump -h |& awk ' (NR==1) { print $3; };'`"
 echo "sr_cpump is: ${sarra_cpump_binary}, version: ${sarra_c_version} "
 IFS=.; read -a sarra_c_version <<<"${sarra_c_version}"
-if [ "${sarra_c_version[0]}" -lt 2 ];  then
+echo ${sarra_c_version[0]},${sarra_c_version[1]}
+if [ ${sarra_c_version[0]} -lt 2 ];  then
    echo "sarrac C-binary package must be >= 2.20"
    exit 5
-elif [  "${sarra_c_version[0]}" -eq 2 -a "${sarra_c_version[1]}" -lt 20 ];  then
+elif [  ${sarra_c_version[0]} -eq 2 -a ${sarra_c_version[1]} -lt 20 ];  then
    echo "sarrac C-binary package must >= 2.20.b3"
    exit 6
 fi
