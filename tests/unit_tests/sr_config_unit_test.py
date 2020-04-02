@@ -12,11 +12,17 @@ Code contributed by:
 import _io
 import tempfile
 import unittest
+from io import StringIO
+from logging import StreamHandler, Formatter
+
+from sarra.sr_subscribe import sr_subscribe
 
 try:
     from sr_config import *
+    from sr_xattr import *
 except ImportError:
     from sarra.sr_config import *
+    from sarra.sr_xattr import *
 
 
 class SrConfigTestCase(unittest.TestCase):
@@ -54,7 +60,81 @@ class SrConfigTestCase(unittest.TestCase):
         os.removedirs(cls.cfg.user_cache_dir)
 
 
-class SrConfigDeliveryOptionsTestCase(SrConfigTestCase):
+class OptionsTestCase(unittest.TestCase):
+    def setUp(self) -> None:
+        self.cfg = sr_config()
+        self.cfg.configure()
+        self.REMOVED_MSG = 'Option has been removed'
+        self.NOTEST_MSG = 'Cannot test'
+        self.log_stream = StringIO()
+        self.test_loghandler = StreamHandler(self.log_stream)
+        self.test_loghandler.setFormatter(Formatter('%(levelname)s'))
+        self.cfg.logger.addHandler(self.test_loghandler)
+        
+    def tearDown(self) -> None:
+        self.cfg.logger.removeHandler(self.test_loghandler)
+
+    def test_set_value_true(self):
+        for option_tuple in list_options(r'.*?boolean.*?'):
+            name = option_tuple[0]
+            removed = option_tuple[4]
+            self.cfg.option([name, 'true'])
+            self.assertNotEqual(self.log_stream.getvalue(), 'ERROR\n')
+            with self.subTest('test_set_true_{}'.format(name)):
+                if removed:
+                    self.skipTest(self.REMOVED_MSG)
+                elif name in ['use_amqplib', 'use_pika', 'xattr_disable']:
+                    self.skipTest(self.NOTEST_MSG)
+                elif name == 'debug':
+                    self.assertEqual(self.cfg.loglevel, logging.DEBUG)
+                elif name == 'suppress_duplicates':
+                    self.assertTrue(self.cfg.caching)
+                else:
+                    self.assertTrue(getattr(self.cfg, name))
+
+    def test_set_value_false(self):
+        for option_tuple in list_options(r'.*?boolean.*?'):
+            name = option_tuple[0]
+            removed = option_tuple[4]
+            self.cfg.option([name, 'false'])
+            self.assertNotEqual(self.log_stream.getvalue(), 'ERROR\n')
+            with self.subTest('test_set_false_{}'.format(name)):
+                if removed:
+                    self.skipTest(self.REMOVED_MSG)
+                elif name in ['use_amqplib', 'use_pika', 'xattr_disable']:
+                    self.skipTest(self.NOTEST_MSG)
+                elif name == 'debug':
+                    self.assertEqual(self.cfg.loglevel, logging.INFO)
+                elif name == 'suppress_duplicates':
+                    self.assertFalse(self.cfg.caching)
+                else:
+                    self.assertFalse(getattr(self.cfg, name))
+
+    def test_set_value_keyword(self):
+        for option_tuple in list_options(r'.*?keyword.*?'):
+            name = option_tuple[0]
+            removed = option_tuple[4]
+            if removed:
+                self.skipTest(self.REMOVED_MSG)
+            else:
+                for value in option_tuple[-1].split('|'):
+                    testvalue = value
+                    with self.subTest('test_set_{}_{}'.format(value, name)):
+                        if name == 'filename':
+                            testname = 'currentFileOption'
+                        elif name == 'loglevel':
+                            if value.upper() == 'NONE':
+                                testvalue = 'NOTSET'
+                            testvalue = getattr(logging, testvalue.upper())
+                            testname = name
+                        else:
+                            testname = name
+                        self.cfg.option([name, value])
+                        self.assertNotEqual(self.log_stream.getvalue(), 'ERROR\n')
+                        self.assertEqual(getattr(self.cfg, testname), testvalue)
+
+
+class DeliveryOptionsTestCase(SrConfigTestCase):
     """ Test cases related to delivery options
 
     see: https://github.com/MetPX/sarracenia/blob/master/doc/sr_subscribe.1.rst#delivery-specifications
@@ -93,7 +173,7 @@ class SrConfigDeliveryOptionsTestCase(SrConfigTestCase):
         self.assertFalse(self.cfg.notify_only, "notify_only False option does not work properly")
 
 
-class SrConfigRandomizeTestCase(SrConfigTestCase):
+class RandomizeTestCase(SrConfigTestCase):
     def test_include_inc(self):
         self.assertTrue(self.cfg.randomize, "test 01a: problem with include")
 
@@ -103,7 +183,7 @@ class SrConfigRandomizeTestCase(SrConfigTestCase):
         self.assertTrue(self.cfg.isTrue('true') or not self.cfg.isTrue('false'), "test 01b: problem with module isTrue")
 
 
-class SrConfigChecksumTestCase(SrConfigTestCase):
+class ChecksumTestCase(SrConfigTestCase):
     """ Test cases related to checksum handling
 
     """
@@ -117,7 +197,7 @@ class SrConfigChecksumTestCase(SrConfigTestCase):
 
         :return:
         """
-        super(SrConfigChecksumTestCase, cls).setUpClass()
+        super(ChecksumTestCase, cls).setUpClass()
         cls.tmpdir = tempfile.TemporaryDirectory()
         cls.tmpfilname = 'test_chksum_file'
         cls.tmppath = os.path.join(cls.tmpdir.name, cls.tmpfilname)
@@ -133,7 +213,7 @@ class SrConfigChecksumTestCase(SrConfigTestCase):
 
         :return:
         """
-        super(SrConfigChecksumTestCase, cls).tearDownClass()
+        super(ChecksumTestCase, cls).tearDownClass()
         os.unlink(cls.tmppath)
         cls.tmpdir.cleanup()
 
@@ -194,7 +274,7 @@ class SrConfigChecksumTestCase(SrConfigTestCase):
         self.assertEqual(chks.get_value(), long_chksum, "test 02f: checksum_s did not work")
 
 
-class SrConfigPluginScriptTestCase(SrConfigTestCase):
+class PluginScriptTestCase(SrConfigTestCase):
     """ Test cases related to plugin interfacing """
     def setUp(self) -> None:
         """ Creating a dummy script plugin which will be tested
@@ -224,15 +304,15 @@ class SrConfigPluginScriptTestCase(SrConfigTestCase):
 
     def test_load_script(self):
         self.cfg.execfile("on_message", self.path)
-        self.assertIsNotNone(self.cfg.on_message, "test 04: problem with module execfile script not loaded")
+        self.assertIsNotNone(getattr(self.cfg, "on_message"), "test 04: problem with module execfile script not loaded")
 
     def test_run_script(self):
         self.cfg.this_value = 0
-        self.cfg.on_message(self.cfg)
+        getattr(self.cfg, "on_message")(self.cfg)
         self.assertEqual(self.cfg.this_value, 1, "test 05: problem to run the script ")
 
 
-class SrConfigGeneralTestCase(SrConfigTestCase):
+class GeneralConfigTestCase(SrConfigTestCase):
     """ Test cases related to general config parsing an interpretation logic """
     def setUp(self) -> None:
         """ Creates configuration which are generic to all test cases
@@ -502,7 +582,7 @@ class SrConfigGeneralTestCase(SrConfigTestCase):
         self.cfg.option(opt4.split())
         # modify this test... causes error to be printed out ... which is ok... but annoying for conformity tests
         # if self.cfg.check_extended():
-        self.assertEqual(self.cfg.extended_bad[0], 'TITI',
+        self.assertEqual(getattr(self.cfg, "extended_bad")[0], 'TITI',
                          "test 41:  extend with new option, option not declared, value should still be ok")
 
     def test_extended_list(self):
@@ -510,8 +590,10 @@ class SrConfigGeneralTestCase(SrConfigTestCase):
         self.cfg.option(opt1.split())
         opt1 = "surplus_opt surplus_value2"
         self.cfg.option(opt1.split())
-        self.assertEqual(self.cfg.surplus_opt[0], "surplus_value", "test 43a: extend option list did not work")
-        self.assertEqual(self.cfg.surplus_opt[1], "surplus_value2", "test 43b: extend option list did not work")
+        self.assertEqual(getattr(self.cfg, "surplus_opt")[0], "surplus_value",
+                         "test 43a: extend option list did not work")
+        self.assertEqual(getattr(self.cfg, "surplus_opt")[1], "surplus_value2",
+                         "test 43b: extend option list did not work")
 
     def test_base_dir(self):
         opt1 = "base_dir /home/aspymjg/dev/metpx-sarracenia/sarra"
@@ -617,6 +699,7 @@ class SrConfigGeneralTestCase(SrConfigTestCase):
     def test_sanity_log_dead(self):
         opt1 = "sanity_log_dead 1D"
         self.cfg.option(opt1.split())
+        # TODO should add test duration_from_str instead of testing it implicitly
         self.assertEqual(self.cfg.sanity_log_dead, 86400,
                          "test 60: option sanity_log_dead or module duration_from_str did not work")
 
@@ -627,15 +710,22 @@ class SrConfigGeneralTestCase(SrConfigTestCase):
         self.cfg.option(opt1.split())
         self.assertEqual(self.cfg.heartbeat, 86400, "test 61: option heartbeat did not work")
 
-    def test_subtopic(self):
+    def test_backslash_space(self):
         opt1 = 'subtopic aaa.vv\ ww.hh##bb.aaa.#'
+        w = opt1.split()
+        self.assertEqual(len(w), 3, "the test is biased")
+        w = self.cfg.backslash_space(w)
+        self.assertEqual(len(w), 2, "test 62a: method backslash_space did not work")
+
+    def test_subtopic(self):
+        opt1 = 'subtopic aaa.vv ww.hh##bb.aaa.#'
         w = opt1.split()
         w = self.cfg.backslash_space(w)
         self.cfg.option(w)
         self.assertEqual(self.cfg.heartbeat, 86400, "test 62: option subtopic did not work")
 
 
-class SrConfigStdFilesRedirection(unittest.TestCase):
+class StdFileRedirectionTestCase(unittest.TestCase):
     """ Base class for stream redirection test cases
 
     These test stands for both out/err redirection in a single write (_io.TextIOWrapper) stream
@@ -661,7 +751,7 @@ class SrConfigStdFilesRedirection(unittest.TestCase):
         os.remove(self.stdoutpath)
 
 
-class SrConfigStdFileStreams(SrConfigStdFilesRedirection):
+class FileStreamsTestCase(StdFileRedirectionTestCase):
     def test_fake_stdout(self):
         """ test that the fake stdout is from the same type as python sys.stdout (in cmdline context) """
         self.assertEqual(type(self.fake_stdout), _io.TextIOWrapper)
@@ -698,7 +788,7 @@ class SrConfigStdFileStreams(SrConfigStdFilesRedirection):
         self.assertEqual(fake_stdout.stream, fake_stdout.handler.stream)
 
 
-class SrConfigStdFilesFileDescriptors(SrConfigStdFilesRedirection):
+class FileDescriptorsTestCase(StdFileRedirectionTestCase):
     """ Test cases over file descriptors consistency """
     def test_fds_before(self):
         """ test that file descriptor is different before redirection """
@@ -716,7 +806,7 @@ class SrConfigStdFilesFileDescriptors(SrConfigStdFilesRedirection):
         self.assertEqual(self.handler.stream.fileno(), fake_stdout.handler.stream.fileno())
 
 
-class SrConfigStdFilesOutput(SrConfigStdFilesRedirection):
+class FileOutputTestCase(StdFileRedirectionTestCase):
     """ Test cases that validate that the output is printed where it should be before and after redirection """
     def test_logging(self):
         """ test that log file still receive log after redirection """
@@ -745,20 +835,34 @@ class SrConfigStdFilesOutput(SrConfigStdFilesRedirection):
         self.assertEqual(lines[0], 'test_stdout\n')
 
 
+def list_options(option_value_type, default_value=r'.*?'):
+    with open(os.path.join(os.path.dirname(__file__), '../../doc/sr_subscribe.1.rst')) as f:
+        s = f.read()
+    p1 = re.compile(r"([a-zA-Z_]+)"                                             # name (words0)
+                    r"\s+<({})>"                                                # value type (words1)
+                    r"\s+\((no )?default:\s+({})\)"                                        # default value
+                    r"\s*(\(removed\))?"                                                   # option removed
+                    r"\s*(\(options:\s*(.*)\))?".format(option_value_type, default_value), # options with keyword
+                    re.VERBOSE)
+    results = re.findall(p1, s)
+    return sorted(set(results))
+
+
 def suite():
     """ Create the test suite that include all sr_config test cases
 
     :return: sr_config test suite
     """
     sr_config_suite = unittest.TestSuite()
-    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(SrConfigChecksumTestCase))
-    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(SrConfigDeliveryOptionsTestCase))
-    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(SrConfigGeneralTestCase))
-    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(SrConfigPluginScriptTestCase))
-    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(SrConfigRandomizeTestCase))
-    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(SrConfigStdFilesFileDescriptors))
-    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(SrConfigStdFilesOutput))
-    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(SrConfigStdFileStreams))
+    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(ChecksumTestCase))
+    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(DeliveryOptionsTestCase))
+    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(GeneralConfigTestCase))
+    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(OptionsTestCase))
+    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(PluginScriptTestCase))
+    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(RandomizeTestCase))
+    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(FileDescriptorsTestCase))
+    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(FileOutputTestCase))
+    sr_config_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(FileStreamsTestCase))
     return sr_config_suite
 
 
