@@ -70,7 +70,7 @@ nbr_fail=0
 
 count_of_checks=$((${count_of_checks}+1))
 
-for t in sr_config sr_sarra sr_subscribe; do
+for t in sr_cache sr_config sr_sarra sr_subscribe; do
     echo "======= Testing: "${t}" (unittest)"  >>  $unittestlog
     nbr_test=$(( ${nbr_test}+1 ))
     python3 -m unittest -v ${TESTDIR}/unit_tests/${t}_unit_test.py >> $unittestlog 2>&1
@@ -80,12 +80,11 @@ for t in sr_config sr_sarra sr_subscribe; do
     else
        echo "======= Testing "${t}" (unittest): Succeeded"
     fi
-
     nbr_fail=$(( ${nbr_fail}+${status} ))
 done
 
 
-for t in sr_cache sr_consumer sr_credentials sr_instances sr_http sr_pattern_match sr_retry sr_sftp sr_util; do
+for t in sr_consumer sr_credentials sr_instances sr_http sr_pattern_match sr_retry sr_sftp sr_util; do
     echo "======= Testing: "${t}  >>  $unittestlog
     nbr_test=$(( ${nbr_test}+1 ))
     ${TESTDIR}/unit_tests/${t}_unit_test.py >> $unittestlog 2>&1
