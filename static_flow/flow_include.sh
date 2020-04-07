@@ -40,7 +40,8 @@ function calcres {
    # 
    # logic:
    # increment test number (tno)
-   # compare first and second totals, and report agreement if within 10% of one another.
+   # compare first and second totals, and report agreement if within some percent of one another.
+   # see maxerr calculation... 
    # emit description based on agreement.  Arguments:
    # 1 - first total
    # 2 - second total 
@@ -58,7 +59,7 @@ function calcres {
    res=0
 
    mean=$(( (${1} + ${2}) / 2 ))
-   maxerr=$(( $mean / 10 ))
+   maxerr=$(( $mean / 1000 ))
 
    min=$(( $mean - $maxerr ))
    max=$(( $mean + $maxerr ))
