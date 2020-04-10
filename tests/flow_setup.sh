@@ -70,7 +70,7 @@ nbr_fail=0
 
 count_of_checks=$((${count_of_checks}+1))
 
-for t in sr_cache sr_sarra ; do
+for t in sr_cache sr_config sr_sarra ; do
     echo "======= Testing: "${t}" (unittest)"  >>  $unittestlog
     nbr_test=$(( ${nbr_test}+1 ))
     python3 -m unittest -v ${TESTDIR}/unit_tests/${t}_unit_test.py >> $unittestlog 2>&1
@@ -115,6 +115,8 @@ fi
 
 if [ $passed_checks = $count_of_checks ]; then
    echo "Overall: PASSED $passed_checks/$count_of_checks checks passed!"
+   exit 0
 else
    echo "Overall: FAILED $passed_checks/$count_of_checks passed."
+   exit 1
 fi
