@@ -70,7 +70,7 @@ nbr_fail=0
 
 count_of_checks=$((${count_of_checks}+1))
 
-for t in sr_cache sr_config sr_sarra ; do
+for t in sr_cache sr_sarra ; do
     echo "======= Testing: "${t}" (unittest)"  >>  $unittestlog
     nbr_test=$(( ${nbr_test}+1 ))
     python3 -m unittest -v ${TESTDIR}/unit_tests/${t}_unit_test.py >> $unittestlog 2>&1
