@@ -214,9 +214,13 @@ function countall {
 
   countthem "`grep '\[INFO\] published:' $LOGDIR/sr_cpost_pelle_dd1_f04_*.log | wc -l`"
   totcpelle04p="${tot}"
+  countthem "`grep 'post_rate_limit' $LOGDIR/sr_cpost_pelle_dd1_f04_*.log | wc -l`"
+  totcpelle04_rl="${tot}"
 
   countthem "`grep '\[INFO\] published:' $LOGDIR/sr_cpost_pelle_dd2_f05_*.log | wc -l`"
   totcpelle05p="${tot}"
+  countthem "`grep 'post_rate_limit' $LOGDIR/sr_cpost_pelle_dd2_f05_*.log | wc -l`"
+  totcpelle05_rl="${tot}"
 
   countthem "`grep '\[INFO\] published:' $LOGDIR/sr_cpump_xvan_f14_*.log | wc -l`"
   totcvan14p="${tot}"
