@@ -122,7 +122,9 @@ echo "                 | dd.weather routing |"
 calcres ${totshovel1} ${totshovel2} "sr_shovel\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
 calcres ${totwinnow}  ${tot2shov}   "sr_winnow\t (${totwinnow}) should have the same of the number of items of shovels\t (${tot2shov})"
 calcres ${totsarp}    ${totwinpost} "sr_sarra\t (${totsarp}) should have the same number of items as winnows'post\t (${totwinpost})"
-calcres ${totfileamqp}   ${totsarp}    "sr_subscribe\t (${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
+# since v2.20.04b3... the time comparison is working properly, and subscribe is rejecting unmodified files.
+# so this test now... correctly... fails.  commenting out for now.
+#calcres ${totfileamqp}   ${totsarp}    "sr_subscribe\t (${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
 echo "                 | watch      routing |"
 calcres ${totwatch}   ${t4}         "sr_watch\t\t (${totwatch}) should be 4 times subscribe amqp_f30\t\t  (${totfileamqp})"
 calcres ${totsent}    ${totwatch}   "sr_sender\t\t (${totsent}) should have the same number of items as sr_watch  (${totwatch})"
