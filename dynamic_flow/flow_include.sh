@@ -136,7 +136,12 @@ function sumlogs {
   shift
   tot=0
   for l in $*; do
-     to_add="`grep "\[INFO\] $pat" $l | tail -1 | awk ' { print $5; }; '`"
+     if [ ${sarra_py_version%%.*} == '3' ]; then
+         to_add="`grep "$pat" $l | tail -1 | awk ' { if ( $6 == "msg_total:" ) print $7; else print $5; }; '`"
+     else
+         echo 'v2'
+         to_add="`grep "\[INFO\] $pat" $l | tail -1 | awk ' { print $5; }; '`"
+     fi
      if [ "$to_add" ]; then
         tot=$((${tot}+${to_add}))
      fi
@@ -178,6 +183,8 @@ function countall {
 
   countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_winnow*.log | wc -l`"
   totwinpost="${tot}"
+  countthem "`grep ' published ' "$LOGDIR"/sr_winnow*.log | wc -l`"
+  totwinpost=$(( (${totwinpost} + ${tot}) ))
 
   countthem "`grep truncating "$LOGDIR"/sr_sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
   totshortened="${tot}"
@@ -256,14 +263,23 @@ function countall {
   totcfile="${tot}"
 
   if [[ $(ls "$LOGDIR"/sr_shovel_pclean_f90*.log 2>/dev/null) ]]; then
-      countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_shovel_pclean_f90*.log | wc -l`"
+      if [ ${sarra_py_version%%.*} == '3' ]; then
+          countthem "`grep 'published' "$LOGDIR"/sr_shovel_pclean_f90*.log | wc -l`"
+      else 
+          countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_shovel_pclean_f90*.log | wc -l`"
+      fi
+
       totpropagated="${tot}"
   else
       totpropagated="0"
   fi
 
   if [[ $(ls "$LOGDIR"/sr_shovel_pclean_f92*.log 2>/dev/null) ]]; then
-      countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_shovel_pclean_f92*.log | wc -l`"
+      if [ ${sarra_py_version%%.*} == '3' ]; then
+          countthem "`grep 'published' "$LOGDIR"/sr_shovel_pclean_f92*.log | wc -l`"
+      else
+          countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_shovel_pclean_f92*.log | wc -l`"
+      fi
       totremoved="${tot}"
   else
       totremoved="0"

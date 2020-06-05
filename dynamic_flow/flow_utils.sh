@@ -10,6 +10,8 @@ if [ $? -ne 0 ]; then
    exit 1
 fi
 
+export sarra_py_version="`sr_subscribe -h |& awk ' /^version: / { print $2; };'`"
+
 SR_TEST_CONFIGS=${TESTDIR}/config
 
 if [ ! "${SR_DEV_APPNAME}" ]; then
@@ -66,7 +68,7 @@ function qchk {
     #
     queue_cnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=1; }; END { print t; };'`"
 
-    if [ "$queue_cnt" = $1 ]; then
+    if [ "$queue_cnt" > $1 ]; then
         echo "OK, as expected $1 $2"
         passed_checks=$((${passed_checks}+1))
     else
