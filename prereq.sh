@@ -45,7 +45,7 @@ fi
 pyver="`python3 -V|awk '{ print $2; };'`"
 echo "python3 is is: ${python_binary}, version: ${pyver} "
 
-IFS=.;  read -a pyver <<<"${pyver}"
+IFS=.; read -a pyver <<<"${pyver}"
 
 if [ ${pyver[0]} -lt 3 ];  then
    echo "Python3 interpreter must be >= 3.5"

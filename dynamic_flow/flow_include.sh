@@ -139,7 +139,6 @@ function sumlogs {
      if [ ${sarra_py_version%%.*} == '3' ]; then
          to_add="`grep "$pat" $l | tail -1 | awk ' { if ( $6 == "msg_total:" ) print $7; else print $5; }; '`"
      else
-         echo 'v2'
          to_add="`grep "\[INFO\] $pat" $l | tail -1 | awk ' { print $5; }; '`"
      fi
      if [ "$to_add" ]; then
@@ -190,7 +189,12 @@ function countall {
   totshortened="${tot}"
 
   countthem "`grep '\[INFO\] post_log' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
-  totwatch="${tot}"
+  totv2watch="${tot}"
+  # v3
+  countthem "`grep 'post message:' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+  totwatch=$((${tot}+${totv2watch}))
+
+
 
   sumlogs msg_total $LOGDIR/sr_subscribe_amqp_f30_*.log
   totmsgamqp="${tot}"
