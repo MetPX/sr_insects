@@ -63,7 +63,6 @@ EOF
 
 # Manage RabbitMQ
 echo "-- Configuring the RabbitMQ broker --"
-#sudo systemctl restart rabbitmq-server
 sudo rabbitmq-plugins enable rabbitmq_management
 
 sudo rabbitmqctl delete_user guest
