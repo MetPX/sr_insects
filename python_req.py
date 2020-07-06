@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 
 """
   insert tests for modules python required to run tests (that are not 
