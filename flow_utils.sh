@@ -49,18 +49,27 @@ function sr_action {
     options=$3
     logpipe=$4
     files=$5
-
+    
     echo $msg
-    if [ "$SARRAC_LIB" ]; then
-      echo $files | sed 's/ / ; sr_/g' | sed 's/$/ ;/' | sed 's/^/ sr_/' | sed "s+/+ $action +g" | grep -Po "sr_c[\w]* $action [\w\_\. ]* ;" | sed 's~^~"$SARRAC_LIB"/~' | sh
+    if [ "${sarra_py_version:0:1}" == "3" ]; then
+        if [ "$SARRA_LIB" ]; then
+            ${SARRA_LIB}/sr.py --dangerWillRobinson $action $files 
+        else
+            echo sr $action $files
+            sr --dangerWillRobinson $action $files 
+        fi
     else
-      echo $files | sed 's/ / ; sr_/g' | sed 's/$/ ;/' | sed 's/^/ sr_/' | sed "s+/+ $action +g" |
-      sed "s+ ;+ $logpipe ;+g" | grep -Po "sr_c[\w]* $action [\w\_\. ]* $logpipe ;" | sed 's/ \{2,\}/ /g' | sh
-    fi
-    if [ "$SARRA_LIB" ]; then
-      echo $files | sed 's/ / ; sr_/g' | sed 's/$/ ;/' | sed 's/^/ sr_/' | sed "s+/+ $action +g" | grep -Po "sr_[^c][\w]* $action [\w\_\. ]* ;" | sed 's/ /.py /' | sed 's~^~"$SARRA_LIB"/~' | sh
-    else
-      echo $files | sed 's/ / ; sr_/g' | sed 's/$/ ;/' | sed 's/^/ sr_/' | sed "s+/+ $options $action +g" | sed "s+ ;+ $logpipe ;+g" | grep -Po "sr_[^c][\w]* $options $action [\w\_\. ]* $logpipe ;" | sed 's/ \{2,\}/ /g' | sh
+        if [ "$SARRAC_LIB" ]; then
+          echo $files | sed 's/ / ; sr_/g' | sed 's/$/ ;/' | sed 's/^/ sr_/' | sed "s+/+ $action +g" | grep -Po "sr_c[\w]* $action [\w\_\. ]* ;" | sed 's~^~"$SARRAC_LIB"/~' | sh
+        else
+          echo $files | sed 's/ / ; sr_/g' | sed 's/$/ ;/' | sed 's/^/ sr_/' | sed "s+/+ $action +g" |
+          sed "s+ ;+ $logpipe ;+g" | grep -Po "sr_c[\w]* $action [\w\_\. ]* $logpipe ;" | sed 's/ \{2,\}/ /g' | sh
+        fi
+        if [ "$SARRA_LIB" ]; then
+          echo $files | sed 's/ / ; sr_/g' | sed 's/$/ ;/' | sed 's/^/ sr_/' | sed "s+/+ $action +g" | grep -Po "sr_[^c][\w]* $action [\w\_\. ]* ;" | sed 's/ /.py /' | sed 's~^~"$SARRA_LIB"/~' | sh
+        else
+          echo $files | sed 's/ / ; sr_/g' | sed 's/$/ ;/' | sed 's/^/ sr_/' | sed "s+/+ $options $action +g" | sed "s+ ;+ $logpipe ;+g" | grep -Po "sr_[^c][\w]* $options $action [\w\_\. ]* $logpipe ;" | sed 's/ \{2,\}/ /g' | sh
+        fi
     fi
 }
 
