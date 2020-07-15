@@ -3,7 +3,7 @@
 
 export TESTDIR="`pwd`"
 
-. ./flow_utils.sh
+. ../flow_utils.sh
 
 flowlogcleanup="$LOGDIR/flowcleanup_f99.log"
 touch $flowlogcleanup

@@ -14,7 +14,7 @@
 
 export TESTDIR="`pwd`"
 #export PYTHONPATH="`pwd`/../"
-. ./flow_utils.sh
+. ../flow_utils.sh
 
 testdocroot="$HOME/sarra_devdocroot"
 testhost=localhost

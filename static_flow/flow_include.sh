@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./flow_utils.sh
+. ../flow_utils.sh
 
 C_ALSO="`which sr_cpost`"
 # The directory we run the flow test scripts in...

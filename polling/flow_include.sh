@@ -1,11 +1,13 @@
 #!/bin/bash
 
-. ./flow_utils.sh
+. ../flow_utils.sh
 
 C_ALSO="`which sr_cpost`"
 # The directory we run the flow test scripts in...
 tstdir="`pwd`"
 httpdocroot=`cat $tstdir/.httpdocroot`
+
+export sarra_py_version="`sr_subscribe -h |& awk ' /^version: / { print $2; };'`"
 
 function countthem {
    if [ ! "${1}" ]; then

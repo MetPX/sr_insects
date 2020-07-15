@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./flow_utils.sh
+. ../flow_utils.sh
 
 if [ ! "$1" ]; then
   printf "\n\nflow_trace.sh <filename>\n"

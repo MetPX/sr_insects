@@ -12,11 +12,17 @@ fi
 
 export sarra_py_version="`sr_subscribe -h |& awk ' /^version: / { print $2; };'`"
 
+export TESTDIR="`pwd`"
+SAMPLEDATA="`dirname $TESTDIR`"
+export SAMPLEDATA=${SAMPLEDATA}/samples/data
+
 SR_TEST_CONFIGS=${TESTDIR}/config
 
 if [ ! "${SR_DEV_APPNAME}" ]; then
   export SR_DEV_APPNAME=sarra
 fi
+
+export SR_DATE_FMT='%Y%m%dT%H%M%s'
 
 function application_dirs {
 python3 << EOF
@@ -163,3 +169,4 @@ exnow=$LOGDIR/flow_setup.exchanges.txt
 missedreport="$LOGDIR/missed_dispositions.report"
 trivialhttplog="$LOGDIR/trivialhttpserver_f00.log"
 trivialftplog="$LOGDIR/trivialftpserver_f00.log"
+trivialupstreamhttplog="$LOGDIR/trivialupstreamhttpserver_f00.log"
