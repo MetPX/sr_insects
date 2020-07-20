@@ -15,10 +15,7 @@ echo "-- Installing dependencies --"
 sudo apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-keys "0x6B73A36E6026DFCA"
 sudo add-apt-repository -y ppa:ssc-hpc-chp-spc/metpx
 sudo apt-get update
-sudo apt -y install --no-install-recommends rabbitmq-server erlang-nox sarrac librabbitmq4 libsarrac libsarrac-dev openssh-server net-tools
-
-pip install -U pip
-pip install pyftpdlib paramiko
+sudo apt -y install --no-install-recommends rabbitmq-server erlang-nox sarrac librabbitmq4 libsarrac libsarrac-dev openssh-server net-tools python3-pyftpdlib python3-paramiko
 
 # Setup autossh login
 echo "-- Enabling autossh login on localhost --"
