@@ -101,6 +101,8 @@ done
 if [ $nbr_fail -ne 0 ]; then
    echo "FAILED: "${nbr_fail}" self test did not work"
    echo "        Have a look in file "$unittestlog
+   echo " ok here it is: "
+   cat $unittestlog
 else
    echo "OK, as expected "${nbr_test}" tests passed"
    passed_checks=$((${passed_checks}+1))
