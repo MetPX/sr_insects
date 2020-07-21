@@ -20,6 +20,8 @@ testhost=localhost
 sftpuser=`whoami`
 flowsetuplog="$LOGDIR/flowsetup_f00.log"
 
+echo "pwd" >>${flowsetuplog}
+
 
 if [ -d $LOGDIR ]; then
     logs2remove=$(find "$LOGDIR" -iname "*.txt" -o -iname "*f[0-9][0-9]*.log")

@@ -117,6 +117,7 @@ tot2shov=$(( ${totshovel1} + ${totshovel2} ))
 t4=$(( ${totfileamqp}*4 ))
 
 echo "                 | dd.weather routing |"
+
 calcres ${staticfilecount} ${totshovel2} "sr_post\t count of posted files (${totshovel2}) should be same those in the static data directory\t (${staticfilecount})"
 calcres ${totshovel1} ${totshovel2} "sr_post\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
 calcres ${totsarp}    ${totshovel1} "sr_sarra\t (${totsarp}) should have the same number of items as one post\t (${totshovel1})"
@@ -137,6 +138,7 @@ calcres ${totsubftp}  ${totpost1}   "sr_subscribe ftp_f70\t (${totsubftp}) shoul
 calcres ${totpost1} ${totshimpost1} "sr_post test2_f61\t (${totpost1}) should have about the same number of items as shim_f63\t (${totshimpost1})"
 
 echo "                 | py infos   routing |"
+zerowanted ${totauditkills} ${CONFIG_COUNT} "sr_audit should not have killed anything. It killed ${totauditkills} processes" 
 zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."
 # check removed because of issue #294
 #calcres ${totshortened} ${totfileamqp} \

@@ -16,6 +16,8 @@ SAMPLEDATA="`dirname $TESTDIR`"
 export SAMPLEDATA=${SAMPLEDATA}/samples/data
 export SR_TEST_CONFIGS=${TESTDIR}/config
 
+CONFIG_COUNT="`find ${SR_TEST_CONFIGS} -type f -name '*.conf' | wc -l`"
+
 if [ ! "${SR_DEV_APPNAME}" ]; then
   export SR_DEV_APPNAME=sarra
 fi
