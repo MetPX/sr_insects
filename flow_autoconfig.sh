@@ -17,8 +17,7 @@ sudo add-apt-repository -y ppa:ssc-hpc-chp-spc/metpx
 sudo apt-get update
 sudo apt -y install --no-install-recommends rabbitmq-server erlang-nox sarrac librabbitmq4 libsarrac libsarrac-dev openssh-server net-tools
 
-pip install -U pip
-pip install pyftpdlib paramiko
+pip3 install pyftpdlib paramiko
 
 # Setup autossh login
 echo "-- Enabling autossh login on localhost --"
