@@ -234,6 +234,9 @@ function countall {
   countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cdnld_f21_*.log | wc -l`"
   totcdnld="${tot}"
 
+  countthem "`grep -a 'does not match any configured instance'  $LOGDIR/sr_audit_01.log | wc -l`"
+  totauditkills=${tot}
+
   countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cfile_f44_*.log | wc -l`"
   totcfile="${tot}"
 

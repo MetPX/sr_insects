@@ -20,6 +20,7 @@ testhost=localhost
 sftpuser=`whoami`
 flowsetuplog="$LOGDIR/flowsetup_f00.log"
 
+echo "pwd" >>${flowsetuplog}
 
 if [ -d $LOGDIR ]; then
     logs2remove=$(find "$LOGDIR" -iname "*.txt" -o -iname "*f[0-9][0-9]*.log")
@@ -98,7 +99,7 @@ fi
 
 testrundir="`pwd`"
 
-echo "Starting trivial upstream http server on: $SAMPLEDATA, saving pid in .upstreamhttpserverpid"
+echo "Starting trivial upstream http server on: ${SAMPLEDATA}, saving pid in .upstreamhttpserverpid"
 cd ${SAMPLEDATA}
 $testrundir/../trivialserver.py 8090 >>$trivialupstreamhttplog   2>&1 &
 upstreamhttpserverpid=$!
