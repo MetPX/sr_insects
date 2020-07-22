@@ -164,7 +164,7 @@ EOT
 fi
 
 # Shared variables by more than 1 flow test script
-adminpw="`awk ' /bunnymaster:.*\@localhost/ { sub(/^.*:/,""); sub(/\@.*$/,""); print $1; exit }; ' "$CONFDIR"/credentials.conf`"
+adminpw="`awk ' /bunnymaster:.*@localhost/ { sub(/^.*:/,""); sub(/@.*$/,""); print $1; exit }; ' "$CONFDIR"/credentials.conf`"
 srposterlog="$LOGDIR/srposter_f00.log"
 exnow=$LOGDIR/flow_setup.exchanges.txt
 missedreport="$LOGDIR/missed_dispositions.report"

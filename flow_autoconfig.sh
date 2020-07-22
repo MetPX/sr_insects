@@ -22,7 +22,7 @@ pip3 install pyftpdlib paramiko
 # Setup autossh login
 echo "-- Enabling autossh login on localhost --"
 rm ~/.ssh/id_rsa
-ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
+ssh-keygen -m PEM -t rsa -N "" -f ~/.ssh/id_rsa
 cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
 ssh -oStrictHostKeyChecking=no localhost "echo ssh connection to localhost successful"
 
