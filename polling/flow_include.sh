@@ -139,7 +139,7 @@ function sumlogs {
   shift
   tot=0
   for l in $*; do
-     to_add="`grep "$pat" $l | wc -l`"
+     to_add="`grep -a "$pat" $l | wc -l`"
      echo "to_add=$to_add"
      if [[ "$to_add" =~ '^-?[0-9]+$' ]]; then
          tot=$((${tot}+${to_add}))
@@ -163,29 +163,29 @@ function sumlogshistory {
 
 function countall {
 
-  countthem "`grep 'msg_log received:' $LOGDIR/sr_subscribe_f10_sftp_01.log | wc -l`"
+  countthem "`grep -a 'msg_log received:' $LOGDIR/sr_subscribe_f10_sftp_01.log | wc -l`"
   totsubsftp="${tot}"
   #echo " ${tot}  totsubsftp"
 
-  countthem "`grep 'msg_log received:' $LOGDIR/sr_subscribe_f11_ftp_01.log | wc -l`"
+  countthem "`grep -a 'msg_log received:' $LOGDIR/sr_subscribe_f11_ftp_01.log | wc -l`"
   totsubftp="${tot}"
   #echo " ${tot}  totsubftp"
 
-  countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_poll_f00_sftp_01.log | wc -l`"
+  countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_poll_f00_sftp_01.log | wc -l`"
   totpollsftp="${tot}"
 
   #echo " ${tot}  totpollsftp"
 
 
-  countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_poll_f01_ftp_01.log | wc -l`"
+  countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_poll_f01_ftp_01.log | wc -l`"
   totpollftp="${tot}"
   #echo " ${tot}  totpollftp"
 
 
   # flags when two lines include *msg_log received* (with no other message between them) indicating no user will know what happenned.
-  awk 'BEGIN { lr=0; }; /msg_log received/ { lr++; print lr, FILENAME, $0 ; next; }; { lr=0; } '  $LOGDIR/sr_subscribe_*_f??_??.log  | grep -v '^1 ' >$missedreport
+  awk 'BEGIN { lr=0; }; /msg_log received/ { lr++; print lr, FILENAME, $0 ; next; }; { lr=0; } '  $LOGDIR/sr_subscribe_*_f??_??.log  | grep -av '^1 ' >$missedreport
   missed_dispositions="`wc -l <$missedreport`"
 
 }
 
-staticfilecount="`ls -lR ${SAMPLEDATA} | grep '^-r' | wc -l`"
+staticfilecount="`ls -lR ${SAMPLEDATA} | grep -a '^-r' | wc -l`"
