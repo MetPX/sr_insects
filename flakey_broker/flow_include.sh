@@ -171,7 +171,11 @@ function countall {
   countthem "`grep rejected  "$LOGDIR"/sr_sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
   totrejected="${tot}"
 
-  countthem "`grep '\[INFO\] post_log' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+       countthem "`grep 'putNewMessage published' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+  else
+       countthem "`grep '\[INFO\] post_log' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+  fi
   totwatch="${tot}"
 
   sumlogs msg_total $LOGDIR/sr_subscribe_amqp_f30_*.log

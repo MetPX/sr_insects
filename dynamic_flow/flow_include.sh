@@ -137,9 +137,9 @@ function sumlogs {
   tot=0
   for l in $*; do
      if [ ${sarra_py_version%%.*} == '3' ]; then
-         to_add="`grep "$pat" $l | tail -1 | awk ' { if ( $6 == "msg_total:" ) print $7; else print $5; }; '`"
+         to_add="`grep -a "$pat" $l | tail -1 | awk ' { if ( $6 == "msg_total:" ) print $7; else print $5; }; '`"
      else
-         to_add="`grep "\[INFO\] $pat" $l | tail -1 | awk ' { print $5; }; '`"
+         to_add="`grep -a "\[INFO\] $pat" $l | tail -1 | awk ' { print $5; }; '`"
      fi
      if [ "$to_add" ]; then
         tot=$((${tot}+${to_add}))
@@ -180,97 +180,99 @@ function countall {
   sumlogs msg_total $LOGDIR/sr_shovel_t_dd2_f00_*.log
   totshovel2="${tot}"
 
-  countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_winnow*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_winnow*.log | wc -l`"
   totwinpost="${tot}"
-  countthem "`grep ' published ' "$LOGDIR"/sr_winnow*.log | wc -l`"
+  countthem "`grep -a ' published ' "$LOGDIR"/sr_winnow*.log | wc -l`"
   totwinpost=$(( (${totwinpost} + ${tot}) ))
 
-  countthem "`grep truncating "$LOGDIR"/sr_sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
+  countthem "`grep -a truncating "$LOGDIR"/sr_sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
   totshortened="${tot}"
 
-  countthem "`grep '\[INFO\] post_log' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
-  totv2watch="${tot}"
-  # v3
-  countthem "`grep 'post message:' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
-  totwatch=$((${tot}+${totv2watch}))
+
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -a 'post message:' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+  else
+      countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+  fi
+  totwatch=${tot}
 
 
 
   sumlogs msg_total $LOGDIR/sr_subscribe_amqp_f30_*.log
   totmsgamqp="${tot}"
-  countthem "`grep '\[INFO\] file_log downloaded to:' "$LOGDIR"/sr_subscribe_amqp_f30_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] file_log downloaded to:' "$LOGDIR"/sr_subscribe_amqp_f30_*.log | wc -l`"
   totfileamqp="${tot}"
 
-  countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
   totsent="${tot}"
 
   no_hardlink_events='downloaded to:|symlinked to|removed'
   all_events="hardlink|$no_hardlink_events"
-  countthem "`grep -E "$all_events" "$LOGDIR"/sr_subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
+  countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
   totsubrmqtt="${tot}"
-  countthem "`grep -E "$all_events" "$LOGDIR"/sr_subscribe_u_sftp_f60_*.log | grep -v DEBUG | wc -l`"
+  countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_u_sftp_f60_*.log | grep -v DEBUG | wc -l`"
   totsubu="${tot}"
-  countthem "`grep -E "$all_events" "$LOGDIR"/sr_subscribe_cp_f61_*.log | grep -v DEBUG | wc -l`"
+  countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_cp_f61_*.log | grep -v DEBUG | wc -l`"
   totsubcp="${tot}"
-  countthem "`grep -E "$no_hardlink_events" "$LOGDIR"/sr_subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
+  countthem "`grep -aE "$no_hardlink_events" "$LOGDIR"/sr_subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
   totsubftp="${tot}"
-  countthem "`grep -E "$all_events" "$LOGDIR"/sr_subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
+  countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
   totsubq="${tot}"
 
-  countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_poll_f62_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_poll_f62_*.log | wc -l`"
   totpoll1="${tot}"
 
-  countthem "`grep '\[INFO\] post_log notice' $srposterlog | grep -v shim | wc -l`"
+  countthem "`grep -a '\[INFO\] post_log notice' $srposterlog | grep -v shim | wc -l`"
   totpost1="${tot}"
 
-  countthem "`grep '\[INFO\] published:' $srposterlog | grep shim | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | wc -l`"
   totshimpost1="${tot}"
 
-  countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_sarra_download_f20_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sarra_download_f20_*.log | wc -l`"
   totsarp="${tot}"
 
   if [[ ! "$C_ALSO" && ! -d "$SARRAC_LIB" ]]; then
      return
   fi
 
-  countthem "`grep '\[INFO\] received:' $LOGDIR/sr_cpump_pelle_dd1_f04_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] received:' $LOGDIR/sr_cpump_pelle_dd1_f04_*.log | wc -l`"
   totcpelle04r="${tot}"
 
-  countthem "`grep '\[INFO\] rejecting ' $LOGDIR/sr_cpump_pelle_dd1_f04_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] rejecting ' $LOGDIR/sr_cpump_pelle_dd1_f04_*.log | wc -l`"
   totcpelle04rej="${tot}"
 
-  countthem "`grep '\[INFO\] published:' $LOGDIR/sr_cpump_pelle_dd1_f04_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $LOGDIR/sr_cpump_pelle_dd1_f04_*.log | wc -l`"
   totcpelle04p="${tot}"
 
-  countthem "`grep '\[INFO\] received:' $LOGDIR/sr_cpump_pelle_dd2_f05_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] received:' $LOGDIR/sr_cpump_pelle_dd2_f05_*.log | wc -l`"
   totcpelle05r="${tot}"
 
-  countthem "`grep '\[INFO\] rejecting ' $LOGDIR/sr_cpump_pelle_dd2_f05_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] rejecting ' $LOGDIR/sr_cpump_pelle_dd2_f05_*.log | wc -l`"
   totcpelle05rej="${tot}"
 
-  countthem "`grep '\[INFO\] published:' $LOGDIR/sr_cpump_pelle_dd2_f05_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $LOGDIR/sr_cpump_pelle_dd2_f05_*.log | wc -l`"
   totcpelle05p="${tot}"
 
-  countthem "`grep '\[INFO\] published:' $LOGDIR/sr_cpump_xvan_f14_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $LOGDIR/sr_cpump_xvan_f14_*.log | wc -l`"
   totcvan14p="${tot}"
 
-  countthem "`grep '\[INFO\] published:' $LOGDIR/sr_cpump_xvan_f15_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $LOGDIR/sr_cpump_xvan_f15_*.log | wc -l`"
   totcvan15p="${tot}"
 
-  countthem "`grep '\[INFO\] published:' $LOGDIR/sr_cpost_veille_f34_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $LOGDIR/sr_cpost_veille_f34_*.log | wc -l`"
   totcveille="${tot}"
 
-  countthem "`grep '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cdnld_f21_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cdnld_f21_*.log | wc -l`"
   totcdnld="${tot}"
 
-  countthem "`grep '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cfile_f44_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cfile_f44_*.log | wc -l`"
   totcfile="${tot}"
 
   if [[ $(ls "$LOGDIR"/sr_shovel_pclean_f90*.log 2>/dev/null) ]]; then
       if [ ${sarra_py_version%%.*} == '3' ]; then
-          countthem "`grep 'published' "$LOGDIR"/sr_shovel_pclean_f90*.log | wc -l`"
+          countthem "`grep -a 'published' "$LOGDIR"/sr_shovel_pclean_f90*.log | wc -l`"
       else 
-          countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_shovel_pclean_f90*.log | wc -l`"
+          countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_shovel_pclean_f90*.log | wc -l`"
       fi
 
       totpropagated="${tot}"
@@ -280,9 +282,9 @@ function countall {
 
   if [[ $(ls "$LOGDIR"/sr_shovel_pclean_f92*.log 2>/dev/null) ]]; then
       if [ ${sarra_py_version%%.*} == '3' ]; then
-          countthem "`grep 'published' "$LOGDIR"/sr_shovel_pclean_f92*.log | wc -l`"
+          countthem "`grep -a 'published' "$LOGDIR"/sr_shovel_pclean_f92*.log | wc -l`"
       else
-          countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_shovel_pclean_f92*.log | wc -l`"
+          countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_shovel_pclean_f92*.log | wc -l`"
       fi
       totremoved="${tot}"
   else
