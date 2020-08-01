@@ -172,11 +172,12 @@ function countall {
   countthem "`grep -a rejected  "$LOGDIR"/sr_sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
   totrejected="${tot}"
 
-  countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
-  totv2="${tot}"
-  # v3
-  countthem "`grep -a 'post message:' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
-  totwatch=$((${tot}+${totv2}))
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+       countthem "`grep 'putNewMessage published' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+  else
+       countthem "`grep '\[INFO\] post_log' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+  fi
+  totwatch="${tot}"
 
   sumlogs msg_total $LOGDIR/sr_subscribe_amqp_f30_*.log
   totmsgamqp="${tot}"
@@ -199,7 +200,11 @@ function countall {
   countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
   totsubq="${tot}"
 
-  countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_poll_f62_*.log | wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+       countthem "`grep 'putNewMessage published' "$LOGDIR"/sr_poll_f62_*.log | wc -l`"
+  else
+       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_poll_f62_*.log | wc -l`"
+  fi
   totpoll1="${tot}"
 
   countthem "`grep -a '\[INFO\] post_log notice' $srposterlog | grep -v shim | wc -l`"

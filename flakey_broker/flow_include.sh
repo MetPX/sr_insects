@@ -199,7 +199,11 @@ function countall {
   countthem "`grep -E "$all_events" "$LOGDIR"/sr_subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
   totsubq="${tot}"
 
-  countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_poll_f62_*.log | wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+       countthem "`grep 'putNewMessage published' "$LOGDIR"/sr_poll_f62_*.log | wc -l`"
+  else
+       countthem "`grep '\[INFO\] post_log' "$LOGDIR"/sr_poll_f62_*.log | wc -l`"
+  fi
   totpoll1="${tot}"
 
   countthem "`grep '\[INFO\] post_log notice' $srposterlog | grep -v shim | wc -l`"

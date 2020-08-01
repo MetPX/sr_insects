@@ -129,7 +129,7 @@ calcres ${totsubrmqtt} ${totwatch}  "rabbitmqtt\t\t (${totsubrmqtt}) should have
 calcres ${totsubu}    ${totsent}    "sr_subscribe u_sftp_f60 (${totsubu}) should have the same number of items as sr_sender (${totsent})"
 calcres ${totsubcp}   ${totsent}    "sr_subscribe cp_f61\t (${totsubcp}) should have the same number of items as sr_sender (${totsent})"
 echo "                 | poll       routing |"
-calcres ${totpoll1}   ${totsent}         "sr_poll test1_f62\t (${totpoll1}) should have the same number of items of sr_sender\t (${totsent})"
+calcres ${totpoll1}   ${totsent}         "sr_poll f62\t (${totpoll1}) should have the same number of items of sr_sender\t (${totsent})"
 calcres ${totsubq}    ${totpoll1}   "sr_subscribe q_f71\t (${totsubq}) should have the same number of items as sr_poll test1_f62 (${totpoll1})"
 echo "                 | flow_post  routing |"
 calcres ${totpost1}   ${totsent}         "sr_post test2_f61\t (${totpost1}) should have the same number of items of sr_sender \t (${totsent})"
