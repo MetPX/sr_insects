@@ -163,10 +163,18 @@ function countall {
   sumlogs msg_total $LOGDIR/sr_report_tsarra_f20_*.log
   totsarra="${tot}"
 
-  countthem "`grep -a post_log $LOGDIR/sr_post_t_dd1_f00_*.log| wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+       countthem "`grep 'putNewMessage published' "$LOGDIR"/sr_post_t_dd1_f00_*.log | wc -l`"
+  else
+       countthem "`grep '\[INFO\] post_log' "$LOGDIR"/sr_post_t_dd1_f00_*.log | wc -l`"
+  fi
   totshovel1="${tot}"
 
-  countthem "`grep -a post_log $LOGDIR/sr_post_t_dd2_f00_*.log| wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+       countthem "`grep 'putNewMessage published' "$LOGDIR"/sr_post_t_dd2_f00_*.log | wc -l`"
+  else
+       countthem "`grep '\[INFO\] post_log' "$LOGDIR"/sr_post_t_dd2_f00_*.log | wc -l`"
+  fi
   totshovel2="${tot}"
 
   countthem "`grep -a rejected  "$LOGDIR"/sr_sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
@@ -207,7 +215,11 @@ function countall {
   fi
   totpoll1="${tot}"
 
-  countthem "`grep -a '\[INFO\] post_log notice' $srposterlog | grep -v shim | wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+       countthem "`grep 'putNewMessage published' $srposterlog | grep -v shim | wc -l`"
+  else
+       countthem "`grep -a '\[INFO\] post_log notice' $srposterlog | grep -v shim | wc -l`"
+  fi
   totpost1="${tot}"
 
   countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | wc -l`"
