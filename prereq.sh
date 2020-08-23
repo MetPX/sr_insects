@@ -82,7 +82,7 @@ elif [ "${sarra_py_version[0]}" -eq 2 -a "${sarra_py_version[1]}" -lt 20 ];  the
    exit 4
 fi
 
-sarra_c_version="`sr_cpump -h |& awk ' (NR==1) { print $3; };'`"
+sarra_c_version="`sr_cpump -h |& awk ' /^usage:/ { print $3; };'`"
 echo "sr_cpump is: ${sarra_cpump_binary}, version: ${sarra_c_version} "
 IFS=.; read -a sarra_c_version <<<"${sarra_c_version}"
 echo ${sarra_c_version[0]},${sarra_c_version[1]}
