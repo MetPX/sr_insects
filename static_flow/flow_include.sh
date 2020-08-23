@@ -137,7 +137,7 @@ function sumlogs {
   shift
   tot=0
   for l in $*; do
-     to_add="`grep "\[INFO\] $pat" $l | tail -1 | awk ' { print $5; }; '`"
+     to_add="`grep -a "\[INFO\] $pat" $l | tail -1 | awk ' { print $5; }; '`"
      if [ "$to_add" ]; then
         tot=$((${tot}+${to_add}))
      fi
@@ -164,16 +164,16 @@ function countall {
   totsarra="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep 'putNewMessage published' "$LOGDIR"/sr_post_t_dd1_f00_*.log | wc -l`"
+       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sr_post_t_dd1_f00_*.log | wc -l`"
   else
-       countthem "`grep '\[INFO\] post_log' "$LOGDIR"/sr_post_t_dd1_f00_*.log | wc -l`"
+       countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_post_t_dd1_f00_*.log | wc -l`"
   fi
   totshovel1="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep 'putNewMessage published' "$LOGDIR"/sr_post_t_dd2_f00_*.log | wc -l`"
+       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sr_post_t_dd2_f00_*.log | wc -l`"
   else
-       countthem "`grep '\[INFO\] post_log' "$LOGDIR"/sr_post_t_dd2_f00_*.log | wc -l`"
+       countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_post_t_dd2_f00_*.log | wc -l`"
   fi
   totshovel2="${tot}"
 
@@ -181,23 +181,33 @@ function countall {
   totrejected="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep 'putNewMessage published' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
   else
-       countthem "`grep '\[INFO\] post_log' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+       countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
   fi
   totwatch="${tot}"
 
   sumlogs msg_total $LOGDIR/sr_subscribe_amqp_f30_*.log
   totmsgamqp="${tot}"
-  countthem "`grep -a '\[INFO\] file_log downloaded to:' "$LOGDIR"/sr_subscribe_amqp_f30_*.log | wc -l`"
+
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -a 'do_download downloaded ok' "$LOGDIR"/sr_subscribe_amqp_f30_*.log | wc -l`"
+  else
+      countthem "`grep -a '\[INFO\] file_log downloaded to:' "$LOGDIR"/sr_subscribe_amqp_f30_*.log | wc -l`"
+  fi
   totfileamqp="${tot}"
 
   countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
   totsent="${tot}"
 
-  no_hardlink_events='downloaded to:|symlinked to|removed'
-  all_events="hardlink|$no_hardlink_events"
-  countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+      all_events="do_download downloaded ok"
+      countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
+  else
+      no_hardlink_events='downloaded to:|symlinked to|removed'
+      all_events="hardlink|$no_hardlink_events"
+      countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
+  fi
   totsubrmqtt="${tot}"
   countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_u_sftp_f60_*.log | grep -v DEBUG | wc -l`"
   totsubu="${tot}"
@@ -209,14 +219,14 @@ function countall {
   totsubq="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep 'putNewMessage published' "$LOGDIR"/sr_poll_f62_*.log | wc -l`"
+       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sr_poll_f62_*.log | wc -l`"
   else
        countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_poll_f62_*.log | wc -l`"
   fi
   totpoll1="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep 'putNewMessage published' $srposterlog | grep -v shim | wc -l`"
+       countthem "`grep -a 'putNewMessage published' $srposterlog | grep -v shim | wc -l`"
   else
        countthem "`grep -a '\[INFO\] post_log notice' $srposterlog | grep -v shim | wc -l`"
   fi
@@ -248,7 +258,11 @@ function countall {
   countthem "`grep -a '\[INFO\] published:' $LOGDIR/sr_cpost_veille_f34_*.log | wc -l`"
   totcveille="${tot}"
 
-  countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cdnld_f21_*.log | wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -a 'do_download downloaded ok' $LOGDIR/sr_subscribe_cdnld_f21_*.log | wc -l`"
+  else
+      countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cdnld_f21_*.log | wc -l`"
+  fi
   totcdnld="${tot}"
 
   countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cfile_f44_*.log | wc -l`"
