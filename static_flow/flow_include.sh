@@ -265,7 +265,11 @@ function countall {
   fi
   totcdnld="${tot}"
 
-  countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cfile_f44_*.log | wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -a 'do_download downloaded ok' $LOGDIR/sr_subscribe_cfile_f44_*.log | wc -l`"
+  else
+      countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cfile_f44_*.log | wc -l`"
+  fi
   totcfile="${tot}"
 
   if [[ $(ls "$LOGDIR"/sr_shovel_pclean_f90*.log 2>/dev/null) ]]; then
