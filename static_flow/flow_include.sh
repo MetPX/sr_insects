@@ -201,7 +201,7 @@ function countall {
   totsent="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="do_download downloaded ok"
+      all_events="do_download\ downloaded\ ok|write_inline_file\ data\ inlined\ with\ message"
       countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
   else
       no_hardlink_events='downloaded to:|symlinked to|removed'
@@ -209,6 +209,7 @@ function countall {
       countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
   fi
   totsubrmqtt="${tot}"
+
   countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_u_sftp_f60_*.log | grep -v DEBUG | wc -l`"
   totsubu="${tot}"
   countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_cp_f61_*.log | grep -v DEBUG | wc -l`"
