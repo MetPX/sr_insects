@@ -6,6 +6,7 @@ countall
 
 #optional... look for posting processes to still be running?
 
+function wait_retry {
 
 stalled=0
 stalled_value=-1
@@ -28,6 +29,8 @@ while [ $retry_msgcnt -gt 0 ]; do
 
 done
 
+}
+
 #queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$(23); }; END { print t; };'`"
 queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };'`"
 while [ $queued_msgcnt -gt 0 ]; do
@@ -35,6 +38,8 @@ while [ $queued_msgcnt -gt 0 ]; do
         printf "Still %4s messages (in queues: %s) flowing, waiting...\n" "$queued_msgcnt" "$queues_with_messages"
         sleep 10
         queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };'`"
+
+        wait_retry
 done
 
 printf "\n\nflow test stopped. \n\n"
