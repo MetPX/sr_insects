@@ -198,6 +198,11 @@ function countall {
   totfileamqp="${tot}"
 
   countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+  else
+      countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+  fi
   totsent="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
@@ -241,7 +246,12 @@ fi
   countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | wc -l`"
   totshimpost1="${tot}"
 
-  countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sarra_download_f20_*.log | wc -l`"
+  #countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sarra_download_f20_*.log | wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sr_sarra_download_f20_*.log | wc -l`"
+  else
+      countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sarra_download_f20_*.log | wc -l`"
+  fi
   totsarp="${tot}"
 
   if [[ ! "$C_ALSO" && ! -d "$SARRAC_LIB" ]]; then
