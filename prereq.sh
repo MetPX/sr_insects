@@ -70,7 +70,10 @@ elif [ ! "${sarra_subscribe_binary}" ]; then
    exit 2
 fi
 
-sarra_py_version="`sr_subscribe -h |& awk ' /^version: / { print $2; };'`"
+sarra_py_version="`sr -v`"
+if [ ! "$sarra_py_version" ]; then
+    sarra_py_version="`sr_subscribe -h |& awk ' /^version: / { print $2; };'`"
+fi
 echo "sr_subscribe is: ${sarra_subscribe_binary}, version: ${sarra_py_version[*]} "
 IFS=.; read -a sarra_py_version <<<"${sarra_py_version}"
 

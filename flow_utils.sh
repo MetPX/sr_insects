@@ -10,7 +10,11 @@ if [ $? -ne 0 ]; then
    exit 1
 fi
 
-export sarra_py_version="`sr_subscribe -h |& awk ' /^version: / { print $2; };'`"
+sarra_py_version="`sr -v`"
+if [ ! "$sarra_py_version" ]; then
+    sarra_py_version="`sr_subscribe -h |& awk ' /^version: / { print $2; };'`"
+fi
+
 
 export TESTDIR="`pwd`"
 SAMPLEDATA="`dirname $TESTDIR`"

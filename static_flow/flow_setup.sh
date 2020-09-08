@@ -12,6 +12,9 @@
 #export SARRAC_LIB=""
 
 
+#  argument could be: config, declare or nothing.
+#  if nothing, do the whole thing.
+
 #export PYTHONPATH="`pwd`/../"
 . ../flow_utils.sh
 
@@ -75,6 +78,9 @@ echo "Adding static flow test configurations..."
 cd ${SR_TEST_CONFIGS} ; cp -r *  ${CONFDIR}
 cd ..
 
+if [ "$1" == "config" ]; then
+    exit 0
+fi
 
 passed_checks=0
 count_of_checks=0
@@ -84,10 +90,14 @@ count_of_checks=0
 # ensure users have exchanges:
 
 echo "Initializing with sr_audit... takes a minute or two"
-if [ ! "$SARRA_LIB" ]; then
-    sr_audit -debug -users foreground >>$flowsetuplog 2>&1
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+    sr --users declare 
 else
-    "$SARRA_LIB"/sr_audit.py -debug -users foreground >>$flowsetuplog 2>&1
+    if [ ! "$SARRA_LIB" ]; then
+        sr_audit -debug -users foreground >>$flowsetuplog 2>&1
+    else
+        "$SARRA_LIB"/sr_audit.py -debug -users foreground >>$flowsetuplog 2>&1
+    fi
 fi
 
 # Check queues and exchanges

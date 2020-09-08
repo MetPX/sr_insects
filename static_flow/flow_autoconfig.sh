@@ -82,4 +82,8 @@ sudo chmod 755 rabbitmqadmin
 echo
 
 # Configure users
-sr_audit --users foreground
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+    sr --users declare
+else
+    sr_audit --users foreground
+fi
