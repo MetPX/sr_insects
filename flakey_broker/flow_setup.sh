@@ -82,10 +82,14 @@ count_of_checks=0
 # ensure users have exchanges:
 
 echo "Initializing with sr_audit... takes a minute or two"
-if [ ! "$SARRA_LIB" ]; then
-    sr_audit -debug -users foreground >>$flowsetuplog 2>&1
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+    sr --users declare
 else
-    "$SARRA_LIB"/sr_audit.py -debug -users foreground >>$flowsetuplog 2>&1
+    if [ ! "$SARRA_LIB" ]; then
+        sr_audit -debug -users foreground >>$flowsetuplog 2>&1
+    else
+        "$SARRA_LIB"/sr_audit.py -debug -users foreground >>$flowsetuplog 2>&1
+    fi
 fi
 
 # Check queues and exchanges
@@ -159,8 +163,8 @@ fi
 
 echo "starting to post: `date +${SR_DATE_FMT}`"
 if [ ! "$SARRA_LIB" ]; then
-    sr_post -config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
-    sr_post -config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
+    sr_post --config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
+    sr_post --config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
 else
     "$SARRA_LIB"/sr_post.py -config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
     "$SARRA_LIB"/sr_post.py -config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
