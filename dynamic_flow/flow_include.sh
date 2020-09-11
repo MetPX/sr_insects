@@ -166,10 +166,18 @@ function countall {
   sumlogs msg_total $LOGDIR/sr_report_tsarra_f20_*.log
   totsarra="${tot}"
 
-  sumlogs msg_total $LOGDIR/sr_report_twinnow00_f10_*.log
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+       countthem "`grep -a 'getNewMessage new msg' "$LOGDIR"/sr_report_twinnow00_f10_01.log | wc -l`"
+  else
+       sumlogs msg_total $LOGDIR/sr_report_twinnow00_f10_*.log
+  fi
   totwinnow00="${tot}"
 
-  sumlogs msg_total $LOGDIR/sr_report_twinnow01_f10_*.log
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+       countthem "`grep -a 'getNewMessage new msg' "$LOGDIR"/sr_report_twinnow01_f10_01.log | wc -l`"
+  else
+       sumlogs msg_total $LOGDIR/sr_report_twinnow01_f10_*.log
+  fi
   totwinnow01="${tot}"
 
   totwinnow=$(( ${totwinnow00} + ${totwinnow01} ))
@@ -217,7 +225,11 @@ function countall {
   fi
   totfileamqp="${tot}"
 
-  countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+  else
+      countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+  fi
   totsent="${tot}"
 
   no_hardlink_events='downloaded to:|symlinked to|removed'
@@ -265,7 +277,11 @@ function countall {
   countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | wc -l`"
   totshimpost1="${tot}"
 
-  countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sarra_download_f20_*.log | wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sr_sarra_download_f20_*.log | wc -l`"
+  else
+      countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sarra_download_f20_*.log | wc -l`"
+  fi
   totsarp="${tot}"
 
   if [[ ! "$C_ALSO" && ! -d "$SARRAC_LIB" ]]; then
