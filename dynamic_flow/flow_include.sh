@@ -136,7 +136,7 @@ function sumlogs {
   shift
   tot=0
   for l in $*; do
-     if [ ${sarra_py_version%%.*} == '3' ]; then
+     if [ "${sarra_py_version%%.*}" == '3' ]; then
          to_add="`grep -a "$pat" $l | tail -1 | awk ' { if ( $6 == "msg_total:" ) print $7; else print $5; }; '`"
      else
          to_add="`grep -a "\[INFO\] $pat" $l | tail -1 | awk ' { print $5; }; '`"

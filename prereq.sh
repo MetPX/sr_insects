@@ -70,7 +70,7 @@ elif [ ! "${sarra_subscribe_binary}" ]; then
    exit 2
 fi
 
-sarra_py_version="`sr -v`"
+sarra_py_version="`sr -v| grep -v DEVELOPMENT`"
 if [ ! "$sarra_py_version" ]; then
     sarra_py_version="`sr_subscribe -h |& awk ' /^version: / { print $2; };'`"
 fi
