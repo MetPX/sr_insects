@@ -10,7 +10,7 @@ if [ $? -ne 0 ]; then
    exit 1
 fi
 
-sarra_py_version="`sr -v`"
+sarra_py_version="`sr3 -v`"
 if [ ! "$sarra_py_version" ]; then
     sarra_py_version="`sr_subscribe -h |& awk ' /^version: / { print $2; };'`"
 fi
@@ -23,7 +23,11 @@ export SAMPLEDATA=${SAMPLEDATA}/samples/data
 SR_TEST_CONFIGS=${TESTDIR}/config
 
 if [ ! "${SR_DEV_APPNAME}" ]; then
-  export SR_DEV_APPNAME=sarra
+    if [ "${sarra_py_version:0:1}" == "3" ]; then
+        export SR_DEV_APPNAME=sr3
+    else   
+        export SR_DEV_APPNAME=sarra
+    fi
 fi
 
 export SR_DATE_FMT='%Y%m%dT%H%M%s'
@@ -57,10 +61,10 @@ function sr_action {
     echo $msg
     if [ "${sarra_py_version:0:1}" == "3" ]; then
         if [ "$SARRA_LIB" ]; then
-            ${SARRA_LIB}/sr.py --dangerWillRobinson $action $files 
+            ${SARRA_LIB}/sr3.py --dangerWillRobinson $action $files 
         else
-            echo sr $action $files
-            sr --dangerWillRobinson $action $files 
+            echo sr3 $action $files
+            sr3 --dangerWillRobinson $action $files 
         fi
     else
         if [ "$SARRAC_LIB" ]; then

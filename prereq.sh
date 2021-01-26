@@ -58,22 +58,22 @@ fi
 
 echo "OK, basic scripting environment is there"
 
-
-sarra_subscribe_binary="`which sr_subscribe`"
 sarra_cpump_binary="`which sr_cpump`"
-
 if [ ! "${sarra_cpump_binary}" ]; then
    echo "No Sarra C package available. Cannot test."
    exit 1
-elif [ ! "${sarra_subscribe_binary}" ]; then
-   echo "No Sarra python package available. Cannot test."
-   exit 2
 fi
 
-sarra_py_version="`sr -v| grep -v DEVELOPMENT`"
+sarra_py_version="`sr3 -v| grep -v DEVELOPMENT`"
 if [ ! "$sarra_py_version" ]; then
+    sarra_subscribe_binary="`which sr_subscribe`"
+    if [ ! "${sarra_subscribe_binary}" ]; then
+       echo "No Sarra python package available. Cannot test."
+       exit 2
+    fi
     sarra_py_version="`sr_subscribe -h |& awk ' /^version: / { print $2; };'`"
 fi
+
 echo "sr_subscribe is: ${sarra_subscribe_binary}, version: ${sarra_py_version[*]} "
 IFS=.; read -a sarra_py_version <<<"${sarra_py_version}"
 

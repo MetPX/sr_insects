@@ -226,7 +226,11 @@ function countall {
   fi
   totsubftp="${tot}"
 
-  countthem "`grep -E "$all_events" "$LOGDIR"/sr_subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -E "getNewMessage new msg" "$LOGDIR"/sr_subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
+  else
+      countthem "`grep -E "$all_events" "$LOGDIR"/sr_subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
+  fi
   totsubq="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
@@ -261,6 +265,7 @@ function countall {
   countthem "`grep -a '\[INFO\] published:' $LOGDIR/sr_cpost_pelle_dd1_f04_*.log | wc -l`"
   totcpelle04p="${tot}"
   countthem "`grep -a 'post_rate_limit' $LOGDIR/sr_cpost_pelle_dd1_f04_*.log | wc -l`"
+
   totcpelle04_rl="${tot}"
 
   countthem "`grep -a '\[INFO\] published:' $LOGDIR/sr_cpost_pelle_dd2_f05_*.log | wc -l`"
