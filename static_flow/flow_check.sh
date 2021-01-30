@@ -90,11 +90,11 @@ if [[ -z "$skip_summaries" ]]; then
     echo
 
     if [[ ! "$SARRA_LIB" ]]; then
-       echo NB retries for sr_subscribe amqp_f30 `grep Retrying "$LOGDIR"/sr_subscribe_amqp_f30*.log | wc -l`
-       echo NB retries for sr_sender    `grep Retrying "$LOGDIR"/sr_sender*.log | wc -l`
+       echo NB retries for sr_subscribe amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
+       echo NB retries for sr_sender    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
     else
-       echo NB retries for "$SARRA_LIB"/sr_subscribe.py amqp_f30 `grep Retrying "$LOGDIR"/sr_subscribe_amqp_f30*.log | wc -l`
-       echo NB retries for "$SARRA_LIB"/sr_sender.py    `grep Retrying "$LOGDIR"/sr_sender*.log | wc -l`
+       echo NB retries for "$SARRA_LIB"/sr_subscribe.py amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
+       echo NB retries for "$SARRA_LIB"/sr_sender.py    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
     fi
 
     summarize_logs ERROR

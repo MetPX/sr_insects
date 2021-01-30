@@ -10,7 +10,13 @@ if [ $? -ne 0 ]; then
    exit 1
 fi
 
-sarra_py_version="`sr3 -v`"
+if which sr3 >/dev/null; then
+   sarra_py_version="`sr3 -v`"
+   LGPFX=""
+else
+   LGPFX="sr_"
+fi
+
 if [ ! "$sarra_py_version" ]; then
     sarra_py_version="`sr_subscribe -h |& awk ' /^version: / { print $2; };'`"
 fi

@@ -83,7 +83,7 @@ count_of_checks=0
 
 echo "Initializing with sr_audit... takes a minute or two"
 if [ "${sarra_py_version:0:1}" == "3" ]; then
-    sr --users declare
+    sr3 --users declare
 else
     if [ ! "$SARRA_LIB" ]; then
         sr_audit -debug -users foreground >>$flowsetuplog 2>&1
@@ -161,10 +161,16 @@ fi
 #sr_action "Starting up all components..." start " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
 #echo "Done."
 
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+    POST=sr3_post
+else
+    POST=sr_post
+fi
+
 echo "starting to post: `date +${SR_DATE_FMT}`"
 if [ ! "$SARRA_LIB" ]; then
-    sr_post --config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
-    sr_post --config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
+    $POST --config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
+    $POST --config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
 else
     "$SARRA_LIB"/sr_post.py -config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
     "$SARRA_LIB"/sr_post.py -config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
@@ -176,8 +182,13 @@ sr_cpost -config pelle_dd2_f05.conf >$LOGDIR/sr_cpost_pelle_dd2_f05_01.log 2>&1 
 echo "posting complete: `date +${SR_DATE_FMT}`"
 
 echo "sr starting "
-sr start
-ret=$?
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+    sr3 start
+    ret=$?
+else
+   sr start
+   ret=$?
+fi 
 
 count_of_checks=$((${count_of_checks}+1))
 if [ $ret -ne 0 ]; then

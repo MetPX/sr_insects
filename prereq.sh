@@ -64,7 +64,9 @@ if [ ! "${sarra_cpump_binary}" ]; then
    exit 1
 fi
 
-sarra_py_version="`sr3 -v| grep -v DEVELOPMENT`"
+if which sr3 >/dev/null; then
+    sarra_py_version="`sr3 -v| grep -v DEVELOPMENT 2>/dev/null`"
+fi
 if [ ! "$sarra_py_version" ]; then
     sarra_subscribe_binary="`which sr_subscribe`"
     if [ ! "${sarra_subscribe_binary}" ]; then

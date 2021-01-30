@@ -103,7 +103,7 @@ sr_action "Removing flow configs..." remove " " ">> $flowlogcleanup 2>\\&1" "$fl
 echo "Removing flow config logs..."
 echo $flow_configs |  sed 's/ / ;\n rm -f sr_/g' | sed '1 s|^| rm -f sr_|' | sed '/^ rm -f sr_post/d' | sed 's+/+_+g' | sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].log\*/g' | (cd $LOGDIR; sh )
 
-rm $LOGDIR/sr_post_t_dd?_f00_01.log
+rm $LOGDIR/${LGPFX}post_t_dd?_f00_01.log
 rm $LOGDIR/flowcheck*.txt
 rm $LOGDIR/flowsetup_f00.log
 rm $LOGDIR/sr_audit*.log*

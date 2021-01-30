@@ -62,8 +62,19 @@ function do_sr_post {
    #cat /tmp/diffs.txt | sed "s/\(.*S P C\)/'\1'/" | sed 's/S P C/S\\ P\\ C/' > /tmp/diffs2.txt
    # | sed '/slink$/d' | sed '/moved$/d' | sed '/hlink$/d' | sed '/tmp$/d'
 
+    sarra_py_version="`sr3 -v`"
+    if [ ! "$sarra_py_version" ]; then
+        sarra_py_version="`sr_subscribe -h |& awk ' /^version: / { print $2; };'`"
+    fi
+
+   if [ "${sarra_py_version:0:1}" == "3" ]; then
+      POST=sr3_post
+   else
+      POST=sr_post
+   fi
+
    if [ ! "$SARRA_LIB" ]; then
-    sr_post -c test2_f61.conf -p `cat /tmp/diffs.txt`
+    $POST -c test2_f61.conf -p `cat /tmp/diffs.txt`
    else 
     "$SARRA_LIB"/sr_post.py -c "$CONFDIR"/post/test2_f61.conf -p `cat /tmp/diffs.txt`
    fi

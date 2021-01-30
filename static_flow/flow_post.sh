@@ -74,9 +74,7 @@ function do_sr_post {
    fi
 
    if [ ! "$SARRA_LIB" ]; then
-    set -x
     $POST -c test2_f61.conf -p `cat /tmp/diffs.txt`
-    set +x
    else 
     "$SARRA_LIB"/sr_post.py -c "$CONFDIR"/post/test2_f61.conf -p `cat /tmp/diffs.txt`
    fi
