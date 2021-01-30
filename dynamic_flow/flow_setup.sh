@@ -70,7 +70,7 @@ count_of_checks=0
 
 echo "Initializing with sr_audit... takes a minute or two"
 if [ "${sarra_py_version:0:1}" == "3" ]; then
-    sr --users declare
+    sr3 --users declare
 else
     if [ ! "$SARRA_LIB" ]; then
         sr_audit --debug --users foreground #>>$flowsetuplog 2>&1
@@ -150,8 +150,13 @@ fi
 # In the replacement below, using just plain *sr start*  all the processes are launched 
 # at once, and reaped as they finish. so no deadlocks occur.
 # 
-sr start
-ret=$?
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+    sr3 start
+    ret=$?
+else
+    sr start
+    ret=$?
+fi
 
 count_of_checks=$((${count_of_checks}+1))
 if [ $ret -ne 0 ]; then

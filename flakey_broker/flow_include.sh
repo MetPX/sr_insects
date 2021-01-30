@@ -7,6 +7,14 @@ C_ALSO="`which sr_cpost`"
 tstdir="`pwd`"
 httpdocroot=`cat $tstdir/.httpdocroot`
 
+
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+   LGPFX=""
+else
+   LGPFX="sr_"
+fi
+
+
 function countthem {
    if [ ! "${1}" ]; then
       tot=0
@@ -159,84 +167,84 @@ function sumlogshistory {
 
 function countall {
 
-  sumlogs msg_total $LOGDIR/sr_report_tsarra_f20_*.log
+  sumlogs msg_total $LOGDIR/${LGPFX}report_tsarra_f20_*.log
   totsarra="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sr_post_t_dd1_f00_*.log | wc -l`"
+       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/${LGPFX}post_t_dd1_f00_*.log | wc -l`"
   else
-       countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_post_t_dd1_f00_*.log | wc -l`"
+       countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/${LGPFX}post_t_dd1_f00_*.log | wc -l`"
   fi
   totshovel1="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sr_post_t_dd2_f00_*.log | wc -l`"
+       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/${LGPFX}post_t_dd2_f00_*.log | wc -l`"
   else
-       countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_post_t_dd2_f00_*.log | wc -l`"
+       countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/${LGPFX}post_t_dd2_f00_*.log | wc -l`"
   fi
   totshovel2="${tot}"
 
-  countthem "`grep rejected  "$LOGDIR"/sr_sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
+  countthem "`grep rejected  "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
   totrejected="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep 'putNewMessage published' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+       countthem "`grep 'putNewMessage published' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
   else
-       countthem "`grep '\[INFO\] post_log' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+       countthem "`grep '\[INFO\] post_log' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
   fi
   totwatch="${tot}"
 
-  sumlogs msg_total $LOGDIR/sr_subscribe_amqp_f30_*.log
+  sumlogs msg_total $LOGDIR/${LGPFX}subscribe_amqp_f30_*.log
   totmsgamqp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'do_download downloaded ok' "$LOGDIR"/sr_subscribe_amqp_f30_*.log | wc -l`"
+      countthem "`grep -a 'do_download downloaded ok' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
   else
-      countthem "`grep -a '\[INFO\] file_log downloaded to:' "$LOGDIR"/sr_subscribe_amqp_f30_*.log | wc -l`"
+      countthem "`grep -a '\[INFO\] file_log downloaded to:' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
   fi
   totfileamqp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+      countthem "`grep -a 'putNewMessage published' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
   else
-      countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+      countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
   fi
   totsent="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       all_events="do_download\ downloaded\ ok|write_inline_file\ data\ inlined\ with\ message"
-      countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
+      countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
   else
       no_hardlink_events='downloaded to:|symlinked to|removed'
       all_events="hardlink|$no_hardlink_events"
-      countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
+      countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
   fi
   totsubrmqtt="${tot}"
 
-  countthem "`grep -E "$all_events" "$LOGDIR"/sr_subscribe_u_sftp_f60_*.log | grep -v DEBUG | wc -l`"
+  countthem "`grep -E "$all_events" "$LOGDIR"/${LGPFX}subscribe_u_sftp_f60_*.log | grep -v DEBUG | wc -l`"
   totsubu="${tot}"
-  countthem "`grep -E "$all_events" "$LOGDIR"/sr_subscribe_cp_f61_*.log | grep -v DEBUG | wc -l`"
+  countthem "`grep -E "$all_events" "$LOGDIR"/${LGPFX}subscribe_cp_f61_*.log | grep -v DEBUG | wc -l`"
   totsubcp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       all_events="do_download downloaded ok"
-      countthem "`grep -aE "$all_events" "$LOGDIR"/sr_subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
+      countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
   else
-      countthem "`grep -aE "$no_hardlink_events" "$LOGDIR"/sr_subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
+      countthem "`grep -aE "$no_hardlink_events" "$LOGDIR"/${LGPFX}subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
   fi
   totsubftp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -E "getNewMessage new msg" "$LOGDIR"/sr_subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
+      countthem "`grep -E "getNewMessage new msg" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
   else
-      countthem "`grep -E "$all_events" "$LOGDIR"/sr_subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
+      countthem "`grep -E "$all_events" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
   fi
   totsubq="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep 'putNewMessage published' "$LOGDIR"/sr_poll_f62_*.log | wc -l`"
+       countthem "`grep 'putNewMessage published' "$LOGDIR"/${LGPFX}poll_f62_*.log | wc -l`"
   else
-       countthem "`grep '\[INFO\] post_log' "$LOGDIR"/sr_poll_f62_*.log | wc -l`"
+       countthem "`grep '\[INFO\] post_log' "$LOGDIR"/${LGPFX}poll_f62_*.log | wc -l`"
   fi
   totpoll1="${tot}"
 
@@ -251,9 +259,9 @@ function countall {
   totshimpost1="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sr_sarra_download_f20_*.log | wc -l`"
+      countthem "`grep -a 'putNewMessage published' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
   else
-      countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sarra_download_f20_*.log | wc -l`"
+      countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
   fi
   totsarp="${tot}"
 
@@ -262,56 +270,56 @@ function countall {
   fi
   staticfilecount="`ls -lR ${SAMPLEDATA} | grep '^-r' | wc -l`"
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/sr_cpost_pelle_dd1_f04_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
   totcpelle04p="${tot}"
-  countthem "`grep -a 'post_rate_limit' $LOGDIR/sr_cpost_pelle_dd1_f04_*.log | wc -l`"
+  countthem "`grep -a 'post_rate_limit' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
 
   totcpelle04_rl="${tot}"
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/sr_cpost_pelle_dd2_f05_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_pelle_dd2_f05_*.log | wc -l`"
   totcpelle05p="${tot}"
-  countthem "`grep -a 'post_rate_limit' $LOGDIR/sr_cpost_pelle_dd2_f05_*.log | wc -l`"
+  countthem "`grep -a 'post_rate_limit' $LOGDIR/${LGPFX}cpost_pelle_dd2_f05_*.log | wc -l`"
   totcpelle05_rl="${tot}"
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/sr_cpump_xvan_f14_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f14_*.log | wc -l`"
   totcvan14p="${tot}"
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/sr_cpump_xvan_f15_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | wc -l`"
   totcvan15p="${tot}"
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/sr_cpost_veille_f34_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | wc -l`"
   totcveille="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'do_download downloaded ok' $LOGDIR/sr_subscribe_cdnld_f21_*.log | wc -l`"
+      countthem "`grep -a 'do_download downloaded ok' $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
   else
-      countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cdnld_f21_*.log | wc -l`"
+      countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
   fi
   totcdnld="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'do_download downloaded ok' $LOGDIR/sr_subscribe_cfile_f44_*.log | wc -l`"
+      countthem "`grep -a 'do_download downloaded ok' $LOGDIR/${LGPFX}subscribe_cfile_f44_*.log | wc -l`"
   else
-      countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cfile_f44_*.log | wc -l`"
+      countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/${LGPFX}subscribe_cfile_f44_*.log | wc -l`"
   fi
   totcfile="${tot}"
 
-  if [[ $(ls "$LOGDIR"/sr_shovel_pclean_f90*.log 2>/dev/null) ]]; then
-      countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_shovel_pclean_f90*.log | wc -l`"
+  if [[ $(ls "$LOGDIR"/${LGPFX}shovel_pclean_f90*.log 2>/dev/null) ]]; then
+      countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}shovel_pclean_f90*.log | wc -l`"
       totpropagated="${tot}"
   else
       totpropagated="0"
   fi
 
-  if [[ $(ls "$LOGDIR"/sr_shovel_pclean_f92*.log 2>/dev/null) ]]; then
-      countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/sr_shovel_pclean_f92*.log | wc -l`"
+  if [[ $(ls "$LOGDIR"/${LGPFX}shovel_pclean_f92*.log 2>/dev/null) ]]; then
+      countthem "`grep '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}shovel_pclean_f92*.log | wc -l`"
       totremoved="${tot}"
   else
       totremoved="0"
   fi
 
   # flags when two lines include *msg_log received* (with no other message between them) indicating no user will know what happenned.
-  awk 'BEGIN { lr=0; }; /msg_log received/ { lr++; print lr, FILENAME, $0 ; next; }; { lr=0; } '  $LOGDIR/sr_subscribe_*_f??_??.log  | grep -v '^1 ' >$missedreport
+  awk 'BEGIN { lr=0; }; /msg_log received/ { lr++; print lr, FILENAME, $0 ; next; }; { lr=0; } '  $LOGDIR/${LGPFX}subscribe_*_f??_??.log  | grep -v '^1 ' >$missedreport
   missed_dispositions="`wc -l <$missedreport`"
 
 }
