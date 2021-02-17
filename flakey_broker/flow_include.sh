@@ -235,16 +235,16 @@ function countall {
   totsubftp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -E "getNewMessage new msg" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
+      countthem "`grep -aE "getNewMessage new msg" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | wc -l`"
   else
-      countthem "`grep -E "$all_events" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
+      countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
   fi
   totsubq="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep 'putNewMessage published' "$LOGDIR"/${LGPFX}poll_f62_*.log | wc -l`"
+       countthem "`grep -aE 'putNewMessage published' "$LOGDIR"/${LGPFX}poll_f62_*.log | wc -l`"
   else
-       countthem "`grep '\[INFO\] post_log' "$LOGDIR"/${LGPFX}poll_f62_*.log | wc -l`"
+       countthem "`grep -aE '\[INFO\] post_log' "$LOGDIR"/${LGPFX}poll_f62_*.log | wc -l`"
   fi
   totpoll1="${tot}"
 

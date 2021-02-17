@@ -82,8 +82,8 @@ function summarize_logs {
 if [[ -z "$skip_summaries" ]]; then
     # PAS performance summaries
     printf "\nDownload Performance Summaries:\tLOGDIR=$LOGDIR\n"
-    summarize_performance sr_shovel msg_total: t_dd1 t_dd2
-    summarize_performance sr_subscribe file_total: cdnld_f21 amqp_f30 cfile_f44 u_sftp_f60 ftp_f70 q_f71
+    summarize_performance ${LGPFX}shovel msg_total: t_dd1 t_dd2
+    summarize_performance ${LGPFX}subscribe file_total: cdnld_f21 amqp_f30 cfile_f44 u_sftp_f60 ftp_f70 q_f71
 
     echo
     # MG shows retries
@@ -119,29 +119,29 @@ t5=$(( ${totsent}/2 ))
 t6=$(( ${totfileamqp}*2 ))
 
 echo "                 | dd.weather routing |"
-calcres "${totshovel1}" "${totshovel2}" "sr_shovel\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
-calcres "${totwinnow}"  "${tot2shov}"   "sr_winnow\t (${totwinnow}) should have the same of the number of items of shovels\t (${tot2shov})"
-calcres "${totsarp}"   "${totwinpost}" "sr_sarra\t (${totsarp}) should have the same number of items as winnows'post\t (${totwinpost})"
+calcres "${totshovel1}" "${totshovel2}" "${LGPFX}shovel\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
+calcres "${totwinnow}"  "${tot2shov}"   "${LGPFX}winnow\t (${totwinnow}) should have the same of the number of items of shovels\t (${tot2shov})"
+calcres "${totsarp}"   "${totwinpost}" "${LGPFX}sarra\t (${totsarp}) should have the same number of items as winnows'post\t (${totwinpost})"
 # since v2.20.04b3... the time comparison is working properly, and subscribe is rejecting unmodified files.
 # so this test now... correctly... fails.  commenting out for now.
-#calcres ${totfileamqp}   ${totsarp}    "sr_subscribe\t (${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
+#calcres ${totfileamqp}   ${totsarp}    "${LGPFX}subscribe\t (${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
 echo "                 | watch      routing |"
-calcres "${totwatch}"   "${t4}"         "sr_watch\t\t (${totwatch}) should be 4 times subscribe amqp_f30\t\t  (${totfileamqp})"
-calcres "${totsent}"    "${totwatch}"   "sr_sender\t\t (${totsent}) should have the same number of items as sr_watch  (${totwatch})"
-calcres "${totsubrmqtt}" "${totwatch}"  "rabbitmqtt\t\t (${totsubrmqtt}) should have the same number of items as sr_watch  (${totwatch})"
-calcres "${totsubu}" "${totsent}"    "sr_subscribe u_sftp_f60 (${totsubu}) should have the same number of items as sr_sender (${totsent})"
-calcres "${totsubcp}" "${totsent}"    "sr_subscribe cp_f61\t (${totsubcp}) should have the same number of items as sr_sender (${totsent})"
+calcres "${totwatch}"   "${t4}"         "${LGPFX}watch\t\t (${totwatch}) should be 4 times subscribe amqp_f30\t\t  (${totfileamqp})"
+calcres "${totsent}"    "${totwatch}"   "${LGPFX}sender\t\t (${totsent}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
+calcres "${totsubrmqtt}" "${totwatch}"  "rabbitmqtt\t\t (${totsubrmqtt}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
+calcres "${totsubu}" "${totsent}"    "${LGPFX}subscribe u_sftp_f60 (${totsubu}) should have the same number of items as ${LGPFX}sender (${totsent})"
+calcres "${totsubcp}" "${totsent}"    "${LGPFX}subscribe cp_f61\t (${totsubcp}) should have the same number of items as ${LGPFX}sender (${totsent})"
 echo "                 | poll       routing |"
-calcres "${totpoll1}" "${t5}"         "sr_poll test1_f62\t (${totpoll1}) should have half the same number of items of sr_sender\t (${totsent})"
-calcres "${totsubq}" "${totpoll1}"  "sr_subscribe q_f71\t (${totsubq}) should have the same number of items as sr_poll test1_f62 (${totpoll1})"
+calcres "${totpoll1}" "${t5}"         "${LGPFX}poll test1_f62\t (${totpoll1}) should have half the same number of items of ${LGPFX}sender\t (${totsent})"
+calcres "${totsubq}" "${totpoll1}"  "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
 echo "                 | flow_post  routing |"
-calcres "${totpost1}"   "${t5}"         "sr_post test2_f61\t (${totpost1}) should have half the same number of items of sr_sender \t (${totsent})"
-calcres "${totsubftp}" "${totpost1}"   "sr_subscribe ftp_f70\t (${totsubftp}) should have the same number of items as sr_post test2_f61 (${totpost1})"
-calcres "${totpost1}" "${totshimpost1}" "sr_post test2_f61\t (${totpost1}) should have about the same number of items as shim_f63\t (${totshimpost1})"
+calcres "${totpost1}"   "${t5}"         "${LGPFX}post test2_f61\t (${totpost1}) should have half the same number of items of ${LGPFX}sender \t (${totsent})"
+calcres "${totsubftp}" "${totpost1}"   "${LGPFX}subscribe ftp_f70\t (${totsubftp}) should have the same number of items as ${LGPFX}post test2_f61 (${totpost1})"
+calcres "${totpost1}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should have about the same number of items as shim_f63\t (${totshimpost1})"
 
 echo "                 | py infos   routing |"
-calcres ${totpropagated} ${t6} "sr_shovel pclean_f90\t (${totpropagated}) should have twice the number of watched files\t (${totfileamqp})"
-calcres ${totremoved}    ${t6} "sr_shovel pclean_f92\t (${totremoved}) should have twice the number of watched files\t (${totfileamqp})"
+calcres ${totpropagated} ${t6} "${LGPFX}shovel pclean_f90\t (${totpropagated}) should have twice the number of watched files\t (${totfileamqp})"
+calcres ${totremoved}    ${t6} "${LGPFX}shovel pclean_f92\t (${totremoved}) should have twice the number of watched files\t (${totfileamqp})"
 zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."
 # check removed because of issue #294
 #calcres ${totshortened} ${totfileamqp} \

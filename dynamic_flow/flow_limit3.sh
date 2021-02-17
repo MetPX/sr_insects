@@ -8,53 +8,48 @@ else
    smin=1000
 fi
 
-if [ "${sarra_py_version:0:1}" == "3" ]; then
-   ./flow_limit3.sh $smin
-   exit
-fi
-
 countall
 
 snum=1
 
-
-printf "Initial sample building sample size $totsarra need at least $smin \n"
+printf "Initial v3 sample building sample size ${totsarra} need at least ${smin} \n"
 
 while [ "${totsarra}" == 0 ]; do
    sleep 10
-   countthem "`grep msg_total "$LOGDIR"/sr_report_tsarra_f20_01.log | grep -v DEBUG | tail -1 | awk ' { print $5; }; '`"
+   countthem "`grep msg_total "$LOGDIR"/report_tsarra_f20_01.log | grep -v DEBUG | tail -1 | awk ' { print $7; }; '`"
    totsarra="${tot}"
    printf "Waiting to start...\n"
 done
+printf "Done Waiting (sample now:${totsarra})\n"
 
-while [ $totsarra -lt $smin ]; do
+while [ "${totsarra}" -lt "${smin}" ]; do
 
     if [ ! "$SARRA_LIB" ]; then
 
-       if [ "`sr_shovel t_dd1_f00 status |& tail -1 | awk ' { print $8 } '`" == 'stopped' ]; then 
+       if [ "`sr3 status shovel/t_dd1_f00 |& tail -1 | awk ' { print $2 } '`" == 'stopped' ]; then 
           echo "Starting shovels and waiting..."
-          sr_shovel start t_dd1_f00 &
-          sr_shovel start t_dd2_f00
+          sr3 start shovel/t_dd1_f00 &
+          sr3 start shovel/t_dd2_f00
           if [ "$SARRAC_LIB" ]; then
-             "$SARRAC_LIB"/sr_cpump start pelle_dd1_f04 &
-             "$SARRAC_LIB"/sr_cpump start pelle_dd2_f05             
+             "$SARRAC_LIB"/sr3_cpump start pelle_dd1_f04 &
+             "$SARRAC_LIB"/sr3_cpump start pelle_dd2_f05             
           elif [ "${C_ALSO}" ]; then
-             sr_cpump start pelle_dd1_f04 &
-             sr_cpump start pelle_dd2_f05
+             sr3_cpump start pelle_dd1_f04 &
+             sr3_cpump start pelle_dd2_f05
           fi
        fi
    else
        
-       if [ "`"$SARRA_LIB"/sr_shovel.py t_dd1_f00 status |& tail -1 | awk ' { print $8 } '`" == 'stopped' ]; then 
+       if [ "`"$SARRA_LIB"/sr.py status shovel/t_dd1_f00 |& tail -1 | awk ' { print $2 } '`" == 'stopped' ]; then 
           echo "Starting shovels and waiting..."
-          "$SARRA_LIB"/sr_shovel.py start t_dd1_f00 &
-          "$SARRA_LIB"/sr_shovel.py start t_dd2_f00 
+          "$SARRA_LIB"/sr.py start shovel/t_dd1_f00 &
+          "$SARRA_LIB"/sr.py start shovel/t_dd2_f00 
           if [ "$SARRAC_LIB" ]; then
-             "$SARRAC_LIB"/sr_cpump start pelle_dd1_f04 &
-             "$SARRAC_LIB"/sr_cpump start pelle_dd2_f05  
+             "$SARRAC_LIB"/sr3_cpump start pelle_dd1_f04 &
+             "$SARRAC_LIB"/sr3_cpump start pelle_dd2_f05  
           elif [ "${C_ALSO}" ]; then
-             sr_cpump start pelle_dd1_f04 &
-             sr_cpump start pelle_dd2_f05
+             sr3_cpump start pelle_dd1_f04 &
+             sr3_cpump start pelle_dd2_f05
           fi  
        fi
    fi
@@ -69,33 +64,33 @@ printf  "\nSufficient!\n"
 
 # if msg_stopper plugin is used this should not happen
 if [ ! "$SARRA_LIB" ]; then
-   if [ "`sr_shovel t_dd1_f00 status |& tail -1 | awk ' { print $8 } '`" != 'stopped' ]; then 
+   if [ "`sr3 status shovel/t_dd1_f00 |& tail -1 | awk ' { print $2 } '`" != 'stopped' ]; then 
        echo "Stopping shovels and waiting..."
-       sr_shovel stop t_dd2_f00
-       sr_shovel stop t_dd1_f00 
+       sr3 stop shovel/t_dd2_f00
+       sr3 stop shovel/t_dd1_f00 
    fi
 else 
-   if [ "`$SARRA_LIB/sr_shovel.py t_dd1_f00 status |& tail -1 | awk ' { print $8 } '`" != 'stopped' ]; then
+   if [ "`$SARRA_LIB/sr.py statis shovel/t_dd1_f00|& tail -1 | awk ' { print $2 } '`" != 'stopped' ]; then
        echo "Stopping shovels and waiting..."
-       "$SARRA_LIB"/sr_shovel.py stop t_dd2_f00
-       "$SARRA_LIB"/sr_shovel.py stop t_dd1_f00
+       "$SARRA_LIB"/sr.py stop shovel/t_dd2_f00
+       "$SARRA_LIB"/sr.py stop shovel/t_dd1_f00
    fi
 fi
 
 if [ "$SARRAC_LIB" ]; then
-   "$SARRAC_LIB"/sr_cpump stop pelle_dd1_f04
-   "$SARRAC_LIB"/sr_cpump stop pelle_dd2_f05
+   "$SARRAC_LIB"/sr3_cpump stop pelle_dd1_f04
+   "$SARRAC_LIB"/sr3_cpump stop pelle_dd2_f05
 elif [ "${C_ALSO}" ]; then
-   sr_cpump stop pelle_dd1_f04
-   sr_cpump stop pelle_dd2_f05
+   sr3_cpump stop pelle_dd1_f04
+   sr3_cpump stop pelle_dd2_f05
 fi
 
 sleep 10
 
 if [ ! "$SARRA_LIB" ]; then
-    cmd="`sr_shovel t_dd1_f00 status |& tail -1 | awk ' { print $8 } '`"
+    cmd="`sr3 status shovel/t_dd1_f00|& tail -1 | awk ' { print $2 } '`"
 else
-    cmd="`"$SARRA_LIB"/sr_shovel.py t_dd1_f00 status |& tail -1 | awk ' { print $8 } '`"
+    cmd="`"$SARRA_LIB"/sr.py status shovel/t_dd1_f00 |& tail -1 | awk ' { print $2 } '`"
 fi
 
 if [ $cmd == 'stopped' ]; then 
@@ -139,5 +134,5 @@ echo "No messages left in queues... wait 2* maximum heartbeat ( ${need_to_wait} 
 
 sleep ${need_to_wait}
 
-printf "\n\nflow test stopped at $totsarra (limit: $smin)\n\n"
+printf "\n\nflow test v3 stopped at $totsarra (limit: $smin)\n\n"
 

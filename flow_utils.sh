@@ -13,8 +13,10 @@ fi
 if which sr3 >/dev/null; then
    sarra_py_version="`sr3 -v`"
    LGPFX=""
+   echo "sarra > 3.0 under test"
 else
    LGPFX="sr_"
+   echo "sarra 2.x under test"
 fi
 
 if [ ! "$sarra_py_version" ]; then
