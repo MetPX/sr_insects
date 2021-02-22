@@ -235,7 +235,7 @@ function countall {
   totsubftp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -aE "getNewMessage new msg" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | wc -l`"
+      countthem "`grep -aE "downloaded ok:" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | wc -l`"
   else
       countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
   fi
