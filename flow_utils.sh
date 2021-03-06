@@ -161,6 +161,7 @@ if [ ! -f "$CONFDIR"/admin.conf -o ! -f "$CONFDIR"/credentials.conf ]; then
  manually setup in "$CONFDIR"/admin.conf, something like this:
 
 declare env FLOWBROKER=localhost
+declare env MQP=amqp
 declare env SFTPUSER="`whoami`"
 declare env TESTDOCROOT=${HOME}/sarra_devdocroot
 

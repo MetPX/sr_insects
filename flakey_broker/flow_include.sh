@@ -221,9 +221,9 @@ function countall {
   fi
   totsubrmqtt="${tot}"
 
-  countthem "`grep -E "$all_events" "$LOGDIR"/${LGPFX}subscribe_u_sftp_f60_*.log | grep -v DEBUG | wc -l`"
+  countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_u_sftp_f60_*.log | grep -v DEBUG | wc -l`"
   totsubu="${tot}"
-  countthem "`grep -E "$all_events" "$LOGDIR"/${LGPFX}subscribe_cp_f61_*.log | grep -v DEBUG | wc -l`"
+  countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_cp_f61_*.log | grep -v DEBUG | wc -l`"
   totsubcp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then

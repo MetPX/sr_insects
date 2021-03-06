@@ -27,6 +27,7 @@ mkdir -p ~/.config/sarra
 
 cat > ~/.config/sarra/default.conf << EOF
 declare env FLOWBROKER=localhost
+declare env MQP=amqp
 declare env SFTPUSER=${USER}
 declare env TESTDOCROOT=${HOME}/sarra_devdocroot
 EOF
