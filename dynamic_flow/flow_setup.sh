@@ -137,6 +137,7 @@ export MAX_MESSAGES=${1}
 echo $MAX_MESSAGES
 fi
 
+
 # Start everything but sr_post
 # This does not work because it starts everything sequentially.
 # If one component is starting up, and it needs an exchange from another component that isn't there yet,
@@ -150,6 +151,11 @@ fi
 # In the replacement below, using just plain *sr start*  all the processes are launched 
 # at once, and reaped as they finish. so no deadlocks occur.
 # 
+if [ "$1" = "setup" ]; then
+   exit 0
+fi
+
+
 if [ "${sarra_py_version:0:1}" == "3" ]; then
     sr3 start
     ret=$?

@@ -174,14 +174,14 @@ function countall {
   totsarra="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'getNewMessage new msg' "$LOGDIR"/report_twinnow00_f10_01.log | wc -l`"
+       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/winnow_t00_f10_01.log | wc -l`"
   else
        sumlogs msg_total $LOGDIR/sr_report_twinnow00_f10_*.log
   fi
   totwinnow00="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'getNewMessage new msg' "$LOGDIR"/report_twinnow01_f10_01.log | wc -l`"
+       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/winnow_t01_f10_01.log | wc -l`"
   else
        sumlogs msg_total $LOGDIR/sr_report_twinnow01_f10_*.log
   fi
