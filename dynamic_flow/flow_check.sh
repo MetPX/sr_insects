@@ -119,16 +119,26 @@ t5=$(( ${totsent}/2 ))
 t6=$(( ${totfileamqp}*2 ))
 
 echo "                 | dd.weather routing |"
-calcres "${totshovel1}" "${totshovel2}" "${LGPFX}shovel\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
-calcres "${totwinnow}"  "${tot2shov}"   "${LGPFX}winnow\t (${totwinnow}) should have the same of the number of items of shovels\t (${tot2shov})"
-calcres "${totsarp}"   "${totwinpost}" "${LGPFX}sarra\t (${totsarp}) should have the same number of items as winnows'post\t (${totwinpost})"
+calcres "${totshovel1}" "${totshovel2}" "${LGPFX}shovel (totshovel1)\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
+calcres "${totwinnow}"  "${tot2shov}"   "${LGPFX}winnow (totwinnow)\t (${totwinnow}) should have the same of the number of items of shovels\t (${tot2shov})"
+calcres "${totsarp}"   "${totwinpost}" "${LGPFX}sarra (totsarp)\t (${totsarp}) should have the same number of items as winnows'post\t (${totwinpost})"
 # since v2.20.04b3... the time comparison is working properly, and subscribe is rejecting unmodified files.
 # so this test now... correctly... fails.  commenting out for now.
 #calcres ${totfileamqp}   ${totsarp}    "${LGPFX}subscribe\t (${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
 echo "                 | watch      routing |"
 calcres "${totwatch}"   "${t4}"         "${LGPFX}watch\t\t (${totwatch}) should be 4 times subscribe amqp_f30\t\t  (${totfileamqp})"
-calcres "${totsent}"    "${totwatch}"   "${LGPFX}sender\t\t (${totsent}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
-calcres "${totsubrmqtt}" "${totwatch}"  "rabbitmqtt\t\t (${totsubrmqtt}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
+calcres "${totfileamqp}"   "${totwatchnormal}"         "amqp_f30 subscription (totfileamqp)\t\t (${totfileamqp}) should match totwatchnormal\t  (${totwatchnormal})"
+calcres "${t6}" "${totwatchremoved}" "watch rm's (wtotwatchremove) (${totwatchremoved}) should be double totfileamqp (${t6})"
+printf "\n\twatch breakdown: totwatchhlinked: %4d totwatchslinked: %4d totwatchmoved: %4d\n" ${totwatchhlinked} ${totwatchslinked} ${totwatchmoved}
+
+printf "\t\t\t totwatchremoved: %4d  totwatchnormal: %4d   totwatchall: %4d\n"  ${totwatchremoved} ${totwatchnormal} ${totwatchall}
+calcres "${totwatchhlinked}" "${totwatchslinked}" "totwatchhlinked\t (${totwatchhlinked}) should match symlinkes (totwatchslinked) \t  (${totwatchslinked})"
+#calcres "${totwatchmoved}" "${totwatchhlinked}" "watchmoved (${totwatchmoved}) should be same as number watchhlinked (${totwatchhlinked})"
+#calcres "${totwatchremoved}" "${totwatchslinked}" "watchremoved (${totwatchremoved}) should be same as number watchslinked (${totwatchslinked})"
+#calcres "${totwatchnormal}" "${totwatchslinked}" "watchnormal (${totwatchnormal}) should be same as number watchslinked (${totwatchslinked})"
+#calcres "${totwatchall}" "${totwatch}" "watchremoved (${totwatchall}) should be same as number totwatch (${totwatch})"
+calcres "${totsent}"    "${totwatch}"   "${LGPFX}sender (totsent)\t (${totsent}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
+calcres "${totsubrmqtt}" "${totwatch}"  "rabbitmqtt (totsubrmqtt)(${totsubrmqtt}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
 calcres "${totsubu}" "${totsent}"    "${LGPFX}subscribe u_sftp_f60 (${totsubu}) should have the same number of items as ${LGPFX}sender (${totsent})"
 calcres "${totsubcp}" "${totsent}"    "${LGPFX}subscribe cp_f61\t (${totsubcp}) should have the same number of items as ${LGPFX}sender (${totsent})"
 echo "                 | poll       routing |"

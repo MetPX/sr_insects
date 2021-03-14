@@ -170,24 +170,23 @@ function sumlogshistory {
 
 function countall {
 
-  sumlogs msg_total $LOGDIR/${LGPFX}report_tsarra_f20_*.log
+  countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sarra*.log | wc -l`"
   totsarra="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -a 'putNewMessage published' "$LOGDIR"/winnow_t00_f10_01.log | wc -l`"
   else
-       sumlogs msg_total $LOGDIR/sr_report_twinnow00_f10_*.log
+       countthem "`grep -a 'Ignored' "$LOGDIR"/sr_winnow_t00_f10_01.log | wc -l`"
   fi
-  totwinnow00="${tot}"
+  totwin00ignored="${tot}"
+
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -a 'putNewMessage published' "$LOGDIR"/winnow_t01_f10_01.log | wc -l`"
   else
-       sumlogs msg_total $LOGDIR/sr_report_twinnow01_f10_*.log
+       countthem "`grep -a 'Ignored' "$LOGDIR"/sr_winnow_t01_f10_01.log | wc -l`"
   fi
-  totwinnow01="${tot}"
-
-  totwinnow=$(( ${totwinnow00} + ${totwinnow01} ))
+  totwin01ignored="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -a 'putNewMessage published' "$LOGDIR"/shovel_t_dd1_f00_*.log | wc -l`"
@@ -205,9 +204,15 @@ function countall {
   totshovel2="${tot}"
 
   countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}winnow*.log | wc -l`"
-  totwinpost="${tot}"
+  totwin00post="${tot}"
   countthem "`grep -a ' published ' "$LOGDIR"/${LGPFX}winnow*.log | wc -l`"
-  totwinpost=$(( (${totwinpost} + ${tot}) ))
+  totwin01post="${tot}"
+
+  totwinnow01=$((${totwin01post}+${totwin01ignored}))
+  totwinnow00=$((${totwin00post}+${totwin00ignored}))
+  totwinpost=$((${totwin00post}+${totwin01post}))
+  totwinignored=$(( ${totwin00ignored}+${totwin01ignored}))
+  totwinnow=$((${totwinnow00}+${totwinnow01}))
 
   countthem "`grep -a truncating "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
   totshortened="${tot}"
@@ -221,6 +226,21 @@ function countall {
   totwatch=${tot}
 
 
+  countthem "`grep -aE 'post_log.*\.moved' "$LOGDIR"/sr_watch_f40_*.log | grep -v "'remove', " | wc -l`"
+  totwatchmoved=${tot}
+  countthem "`grep -aE 'post_log.*\.hlink' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+  totwatchhlinked=${tot}
+
+  countthem "`grep -aE 'post_log.*\.slink' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+  totwatchslinked=${tot}
+
+  countthem "`grep -aE "post_log.*'remove'," "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+  totwatchremoved=${tot}
+
+  countthem "`grep -aE "post_log.*" "$LOGDIR"/sr_watch_f40_*.log | grep -avE 'remove|.slink|.hlink|.moved' | wc -l`"
+  totwatchnormal=${tot}
+
+  totwatchall=$((${totwatchnormal}+${totwatchremoved}+${totwatchslinked}+${totwatchmoved}+${totwatchhlinked}))
 
   sumlogs msg_total $LOGDIR/${LGPFX}subscribe_amqp_f30_*.log
   totmsgamqp="${tot}"
