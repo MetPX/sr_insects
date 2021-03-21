@@ -170,7 +170,11 @@ function sumlogshistory {
 
 function countall {
 
-  countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sarra*.log | wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sarra_download_f20*.log | wc -l`"
+  else
+      countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sarra*.log | wc -l`"
+  fi
   totsarra="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
@@ -220,24 +224,29 @@ function countall {
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/watch_f40_*.log | wc -l`"
+      totwatch=${tot}
+      countthem "`grep -aE 'putNewMessage published.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v "'remove', " | wc -l`"
+      totwatchmoved=${tot}
+      countthem "`grep -aE 'putNewMessage published.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
+      totwatchhlinked=${tot}
+      countthem "`grep -aE 'putNewMessage published.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
+      totwatchslinked=${tot}
+      countthem "`grep -aE "putNewMessage published.*'remove'," "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v newname | wc -l`"
+      totwatchremoved=${tot}
+      countthem "`grep -aE "putNewMessage published.*" "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -avE 'remove|.slink|.hlink|.moved' | wc -l`"
   else
       countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
+      totwatch=${tot}
+      countthem "`grep -aE 'post_log.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v "'remove', " | wc -l`"
+      totwatchmoved=${tot}
+      countthem "`grep -aE 'post_log.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
+      totwatchhlinked=${tot}
+      countthem "`grep -aE 'post_log.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
+      totwatchslinked=${tot}
+      countthem "`grep -aE "post_log.*'remove'," "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
+      totwatchremoved=${tot}
+      countthem "`grep -aE "post_log.*" "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -avE 'remove|.slink|.hlink|.moved' | wc -l`"
   fi
-  totwatch=${tot}
-
-
-  countthem "`grep -aE 'post_log.*\.moved' "$LOGDIR"/sr_watch_f40_*.log | grep -v "'remove', " | wc -l`"
-  totwatchmoved=${tot}
-  countthem "`grep -aE 'post_log.*\.hlink' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
-  totwatchhlinked=${tot}
-
-  countthem "`grep -aE 'post_log.*\.slink' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
-  totwatchslinked=${tot}
-
-  countthem "`grep -aE "post_log.*'remove'," "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
-  totwatchremoved=${tot}
-
-  countthem "`grep -aE "post_log.*" "$LOGDIR"/sr_watch_f40_*.log | grep -avE 'remove|.slink|.hlink|.moved' | wc -l`"
   totwatchnormal=${tot}
 
   totwatchall=$((${totwatchnormal}+${totwatchremoved}+${totwatchslinked}+${totwatchmoved}+${totwatchhlinked}))
@@ -254,15 +263,43 @@ function countall {
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sender_tsource2send_f50_*.log | wc -l`"
+      totsent="${tot}"
+      countthem "`grep -aE 'putNewMessage published .*oldname.:' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
+      totsendmoved=${tot}
+      countthem "`grep -aE 'putNewMessage published.*\.hlink' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
+      totsendhlinked=${tot}
+      countthem "`grep -aE 'putNewMessage published.*{.link.:' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
+      totsendslinked=${tot}
+      countthem "`grep -aE "putNewMessage published.*'sum': 'R," "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -v newname | wc -l`"
+      totsendremoved=${tot}
+
+      countthem "`grep -a "putNewMessage published" "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -avE 'newname|link|remove|\.moved' | wc -l`"
+      totsendnormal=${tot}
   else
+      countthem "`grep -aE '\[INFO\] post_log notice.*oldname.:' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+      totsendmoved=${tot}
+
+      countthem "`grep -aE '\[INFO\] post_log notice.*\.hlink' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+      totsendhlinked=${tot}
+
+      countthem "`grep -aE '\[INFO\] post_log notice.*\.slink' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+      totsendslinked=${tot}
+
+      countthem "`grep -aE "'\[INFO\] post_log notice.*'sum': 'R," "$LOGDIR"/sr_sender_tsource2send_f50_*.log | grep -avE 'newname' | wc -l`"
+      totsendremoved=${tot}
+
+      countthem "`grep -aE "\[INFO\] post_log notice" "$LOGDIR"/sr_sender_tsource2send_f50_*.log | grep -avE 'newname|link|remove|\.moved' | wc -l`"
+      totsendnormal=${tot}
+
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+      totsent="${tot}"
   fi
-  totsent="${tot}"
+  totsendall=$((${totsendnormal}+${totsendremoved}+${totsendhlinked}+${totsendslinked}+${totsendmoved}))
 
   no_hardlink_events='downloaded to:|symlinked to|removed'
   all_events="hardlink|$no_hardlink_events"
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="do_download\ downloaded\ ok|write_inline_file\ data\ inlined\ with\ message"
+      all_events="do_download\ downloaded\ ok|write_inline_file\ data\ inlined\ with\ message|renamed|symlinked to"
       countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
   else
       no_hardlink_events='downloaded to:|symlinked to|removed'

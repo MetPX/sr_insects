@@ -12,6 +12,7 @@ reject .*\/model_giops\/.*
 reject .*\/GIF\/.*
 # auth based data for client
 reject .*\/MSC-SAT\/.*
+reject .*\.nc$
 
 # reject moving targets (file overwritten in a matter of secs)
 # this problem eliminated 2018/08 with introduction of SSL broker

@@ -16,7 +16,7 @@ printf "Initial v3 sample building sample size ${totsarra} need at least ${smin}
 
 while [ "${totsarra}" == 0 ]; do
    sleep 10
-   countthem "`grep msg_total "$LOGDIR"/report_tsarra_f20_01.log | grep -v DEBUG | tail -1 | awk ' { print $7; }; '`"
+   countthem "`grep "putNewmessage published" "$LOGDIR"/sarra_download_f20_*.log | wc -l`"
    totsarra="${tot}"
    printf "Waiting to start...\n"
 done
