@@ -126,6 +126,9 @@ calcres "${totsarp}"   "${totwinpost}" "${LGPFX}sarra (totsarp)\t (${totsarp}) s
 # so this test now... correctly... fails.  commenting out for now.
 #calcres ${totfileamqp}   ${totsarp}    "${LGPFX}subscribe\t (${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
 echo "                 | watch      routing |"
+puf=9 # pclean_unlink_factor (how many files are created and unlinked per file downloaded.)
+t8=$(( ${totfileamqp}*${puf} ))
+calcres ${totremoved}    ${t8} "${LGPFX}shovel pclean_f92\t (${totremoved}) should have removed ${puf} times the number of files downloaded\t (${totfileamqp})"
 calcres "${totwatch}"   "${t4}"         "${LGPFX}watch\t\t (${totwatch}) should be 4 times subscribe amqp_f30\t\t  (${totfileamqp})"
 calcres "${totfileamqp}"   "${totwatchnormal}"         "amqp_f30 subscription (totfileamqp)\t\t (${totfileamqp}) should match totwatchnormal\t  (${totwatchnormal})"
 calcres "${t6}" "${totwatchremoved}" "watch rm's (totwatchremove) (${totwatchremoved}) should be t6=2*totfileamqp (${t6})"
@@ -134,7 +137,7 @@ printf "\n\twatch breakdown: totwatchhlinked: %4d totwatchslinked: %4d totwatchm
 printf "\t\t\t totwatchremoved: %4d  totwatchnormal: %4d   totwatchall: %4d\n"  "${totwatchremoved}" "${totwatchnormal}" "${totwatchall}"
 calcres "${totwatchhlinked}" "${totwatchslinked}" "totwatchhlinked\t (${totwatchhlinked}) should match symlinkes (totwatchslinked) \t  (${totwatchslinked})"
 #calcres "${totwatchmoved}" "${totwatchhlinked}" "watchmoved (${totwatchmoved}) should be same as number watchhlinked (${totwatchhlinked})"
-#calcres "${totwatchremoved}" "${totwatchslinked}" "watchremoved (${totwatchremoved}) should be same as number watchslinked (${totwatchslinked})"
+calcres "${totwatchremoved}" "${t6}" "watchremoved \t\t (${totwatchremoved}) should 2x files downloaded watchslinked \t  (${totfileamqp})"
 #calcres "${totwatchnormal}" "${totwatchslinked}" "watchnormal (${totwatchnormal}) should be same as number watchslinked (${totwatchslinked})"
 #calcres "${totwatchall}" "${totwatch}" "watchremoved (${totwatchall}) should be same as number totwatch (${totwatch})"
 calcres "${totsent}"    "${totwatch}"   "${LGPFX}sender (totsent)\t (${totsent}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
@@ -156,7 +159,6 @@ calcres "${totpost1}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) 
 
 echo "                 | py infos   routing |"
 calcres ${totpropagated} ${t6} "${LGPFX}shovel pclean_f90\t (${totpropagated}) should have twice the number of watched files\t (${totfileamqp})"
-calcres ${totremoved}    ${t6} "${LGPFX}shovel pclean_f92\t (${totremoved}) should have twice the number of watched files\t (${totfileamqp})"
 zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."
 # check removed because of issue #294
 #calcres ${totshortened} ${totfileamqp} \

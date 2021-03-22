@@ -18,7 +18,7 @@ countall
 snum=1
 
 
-printf "Initial sample building sample size $totsarra need at least $smin \n"
+printf "Initial v2 sample building sample size $totsarra need at least $smin \n"
 
 while [ "${totsarra}" == 0 ]; do
    sleep 10

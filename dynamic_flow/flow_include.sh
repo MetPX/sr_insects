@@ -406,9 +406,9 @@ function countall {
 
   if [[ $(ls "$LOGDIR"/${LGPFX}shovel_pclean_f92*.log 2>/dev/null) ]]; then
       if [ ${sarra_py_version%%.*} == '3' ]; then
-          countthem "`grep -a 'published' "$LOGDIR"/shovel_pclean_f92*.log | wc -l`"
+          countthem "`grep -aE '\[INFO\] unlinked [1-3] ' "$LOGDIR"/shovel_pclean_f92*.log | wc -l`"
       else
-          countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_shovel_pclean_f92*.log | wc -l`"
+          countthem "`grep -aE '\[INFO\] unlinked [1-3] ' "$LOGDIR"/sr_shovel_pclean_f92*.log | wc -l`"
       fi
       totremoved="${tot}"
   else
