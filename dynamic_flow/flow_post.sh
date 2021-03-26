@@ -37,10 +37,13 @@ echo > ${srpostlstfile_old}
 function do_sr_post {
 
    cd $srpostdir
+   echo "current working dir: `pwd` or ${srpostdir} "
    # sr_post testing START
    # TODO - consider if .httpdocroot ends with a '/' ?
-   find . -type f -print | grep -v '.tmp$'  > $srpostlstfile
-   find . -type l -print | grep -v '.tmp$' >> $srpostlstfile
+   find . -type f -print | grep -v '.tmp$'  | sed 's+^\./++' > $srpostlstfile
+   find . -type l -print | grep -v '.tmp$'  | sed 's+^\./++' >> $srpostlstfile
+   #find . -type f -print | grep -v '.tmp$' | sed 's+^\.+sent_by_tsource2send+' > $srpostlstfile
+   #find . -type l -print | grep -v '.tmp$' | sed 's+^\.+sent_by_tsource2send+' >> $srpostlstfile
    cat $srpostlstfile    | sort > $srpostlstfile_new
 
    # Obtain file listing delta
@@ -52,6 +55,8 @@ function do_sr_post {
    if [ "$srpostdelta" == "" ]; then
     return
    fi
+   # debug thing:
+   #cp /tmp/diffs.txt /tmp/diffs.`date +'%Y%m%dT%H%M%S.%N'`
 
    # loop on each line to properly post filename with space *** makes too much load on CPU ***
 
@@ -78,6 +83,7 @@ function do_sr_post {
    else 
     "$SARRA_LIB"/sr_post.py -c "$CONFDIR"/post/test2_f61.conf -p `cat /tmp/diffs.txt`
    fi
+
    cd $srpostdir  
    if [ "$SARRAC_LIB" ]; then
     LD_PRELOAD="$SARRAC_LIB/libsrshim.so.1.0.0" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim

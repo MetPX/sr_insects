@@ -115,7 +115,11 @@ function xchk {
     # 1 - number of exchanges to expect.
     # 2 - Description string.
     #
-    exex=flow_lists/exchanges_expected.txt
+    if [ "${sarra_py_version:0:1}" == "3" ]; then
+        exex=flow_lists/v3_exchanges_expected.txt
+    else
+        exex=flow_lists/exchanges_expected.txt
+    fi
     rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list exchanges | grep -v '^name' | grep -v amq\. | grep -v direct| sort >$exnow
 
     x_cnt="`wc -l <$exnow`"
