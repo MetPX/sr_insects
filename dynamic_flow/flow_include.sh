@@ -225,27 +225,27 @@ function countall {
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/watch_f40_*.log | wc -l`"
       totwatch=${tot}
-      countthem "`grep -aE 'putNewMessage published.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v "'remove', " | wc -l`"
+      countthem "`grep -aE 'putNewMessage published.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v "'remove', " | grep -v "\'newname\': " | wc -l`"
       totwatchmoved=${tot}
-      countthem "`grep -aE 'putNewMessage published.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
+      countthem "`grep -aE 'putNewMessage published.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log |grep -v "'remove', " | wc -l`"
       totwatchhlinked=${tot}
-      countthem "`grep -aE 'putNewMessage published.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
+      countthem "`grep -aE 'putNewMessage published.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log |grep -v "'remove', " | wc -l`"
       totwatchslinked=${tot}
-      countthem "`grep -aE "putNewMessage published.*'remove'," "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v newname | wc -l`"
+      countthem "`grep -aE "putNewMessage published.*'remove'," "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
       totwatchremoved=${tot}
       countthem "`grep -aE "putNewMessage published.*" "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -avE 'remove|.slink|.hlink|.moved' | wc -l`"
   else
       countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
       totwatch=${tot}
-      countthem "`grep -aE 'post_log.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v "'remove', " | wc -l`"
+      countthem "`grep -aE 'post_log.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v "'remove', " | grep -v "\'newname\': " | wc -l`"
       totwatchmoved=${tot}
-      countthem "`grep -aE 'post_log.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
+      countthem "`grep -aE 'post_log.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v "'sum': 'R," | wc -l`"
       totwatchhlinked=${tot}
-      countthem "`grep -aE 'post_log.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
+      countthem "`grep -aE 'post_log.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v "'sum': 'R," | wc -l`"
       totwatchslinked=${tot}
       countthem "`grep -aE "post_log.*'remove'," "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
       totwatchremoved=${tot}
-      countthem "`grep -aE "post_log.*" "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -avE 'remove|.slink|.hlink|.moved' | wc -l`"
+      countthem "`grep -aE "post_log.*" "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -avE '\.(slink|hlink|moved)|remove' | wc -l`"
   fi
   totwatchnormal=${tot}
 
@@ -266,29 +266,29 @@ function countall {
       totsent="${tot}"
       countthem "`grep -aE 'putNewMessage published .*oldname.:' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
       totsendmoved=${tot}
-      countthem "`grep -aE 'putNewMessage published.*\.hlink' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
+      countthem "`grep -aE 'putNewMessage published.*\.hlink' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -v '.sum.: .R,' | wc -l`"
       totsendhlinked=${tot}
-      countthem "`grep -aE 'putNewMessage published.*{.link.:' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
+      countthem "`grep -aE 'putNewMessage published.*\.slink' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
       totsendslinked=${tot}
       countthem "`grep -aE "putNewMessage published.*'sum': 'R," "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -v newname | wc -l`"
       totsendremoved=${tot}
 
-      countthem "`grep -a "putNewMessage published" "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -avE 'newname|link|remove|\.moved' | wc -l`"
+      countthem "`grep -a "putNewMessage published" "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -avE 'newname|link|remove|\.moved|.sum.: .R,'| wc -l`"
       totsendnormal=${tot}
   else
-      countthem "`grep -aE '\[INFO\] post_log notice.*oldname.:' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+      countthem "`grep -aE '\[INFO\] post_log notice.*oldname.:' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | grep -v '\.tmp' | wc -l`"
       totsendmoved=${tot}
 
-      countthem "`grep -aE '\[INFO\] post_log notice.*\.hlink' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+      countthem "`grep -aE '\[INFO\] post_log notice.*\.hlink' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | grep -v '.sum.: .R,' |wc -l`"
       totsendhlinked=${tot}
 
-      countthem "`grep -aE '\[INFO\] post_log notice.*\.slink' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
+      countthem "`grep -aE '\[INFO\] post_log notice.*\.slink' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | grep -v '.sum.: .R,' | wc -l`"
       totsendslinked=${tot}
 
-      countthem "`grep -aE "'\[INFO\] post_log notice.*'sum': 'R," "$LOGDIR"/sr_sender_tsource2send_f50_*.log | grep -avE 'newname' | wc -l`"
+      countthem "`grep -aE "\[INFO\] post_log notice.*'sum': 'R," "$LOGDIR"/sr_sender_tsource2send_f50_*.log | grep -avE 'newname' | wc -l`"
       totsendremoved=${tot}
 
-      countthem "`grep -aE "\[INFO\] post_log notice" "$LOGDIR"/sr_sender_tsource2send_f50_*.log | grep -avE 'newname|link|remove|\.moved' | wc -l`"
+      countthem "`grep -aE "\[INFO\] post_log notice" "$LOGDIR"/sr_sender_tsource2send_f50_*.log | grep -avE '\.(hlink|moved|slink)|.sum.: .R,' | wc -l`"
       totsendnormal=${tot}
 
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | wc -l`"
@@ -406,7 +406,7 @@ function countall {
 
   if [[ $(ls "$LOGDIR"/${LGPFX}shovel_pclean_f92*.log 2>/dev/null) ]]; then
       if [ ${sarra_py_version%%.*} == '3' ]; then
-          countthem "`grep -aE '\[INFO\] unlinked [1-3] ' "$LOGDIR"/shovel_pclean_f92*.log | wc -l`"
+          countthem "`grep -aE \"\[INFO\].* unlinked [1-3]\" "$LOGDIR"/shovel_pclean_f92*.log | wc -l`"
       else
           countthem "`grep -aE '\[INFO\] unlinked [1-3] ' "$LOGDIR"/sr_shovel_pclean_f92*.log | wc -l`"
       fi
