@@ -393,6 +393,14 @@ function countall {
   fi
   totcfile="${tot}"
 
+   
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -a '\[INFO\] .* msg_delete: ' $LOGDIR/subscribe_cclean_*.log | wc -l`"
+      totcclean="${tot}"
+  else
+      echo "missing cclean check."
+  fi
+
   if [[ $(ls "$LOGDIR"/${LGPFX}shovel_pclean_f90*.log 2>/dev/null) ]]; then
       if [ ${sarra_py_version%%.*} == '3' ]; then
           countthem "`grep -a 'published' "$LOGDIR"/shovel_pclean_f90*.log | wc -l`"

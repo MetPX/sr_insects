@@ -158,16 +158,16 @@ calcres "${totsubftp}" "${totpost1}"   "${LGPFX}subscribe ftp_f70\t (${totsubftp
 calcres "${totpost1}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should have about the same number of items as shim_f63\t (${totshimpost1})"
 
 echo "                 | py infos   routing |"
-calcres ${totpropagated} ${t6} "${LGPFX}shovel pclean_f90\t (${totpropagated}) should have twice the number of watched files\t (${totfileamqp})"
+calcres ${totpropagated} ${t6} "${LGPFX}shovel  pclean_f90\t (${totpropagated}) should have twice the number of watched files\t (${totfileamqp})"
 zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."
 # check removed because of issue #294
 #calcres ${totshortened} ${totfileamqp} \
 #   "count of truncated headers (${totshortened}) and subscribed messages (${totmsgamqp}) should have about the same number of items"
 
-# these almost never are the same, and it's a problem with the post test. so failures here almost always false negative.
+# these almost never are the same, and it's a problem with the post test. so failures here almost always false positives.
 #calcres ${totpost1} ${totsubu} "post test2_f61 ${totpost1} and subscribe u_sftp_f60 ${totsubu} run together. Should be about the same."
 
-# because of accept/reject filters, these numbers are never similar, so these tests are wrong.
+# because of accept/reject filters (varying amounts of crap being rejected), these numbers are never similar, so these tests are wrong.
 # tallyres ${totcpelle04r} ${totcpelle04p} "pump pelle_dd1_f04 (c shovel) should publish (${totcpelle04p}) as many messages as are received (${totcpelle04r})"
 # tallyres ${totcpelle05r} ${totcpelle05p} "pump pelle_dd2_f05 (c shovel) should publish (${totcpelle05p}) as many messages as are received (${totcpelle05r})"
 
@@ -184,8 +184,11 @@ echo "                 | C          routing |"
 
   totcvan=$(( ${totcvan14p} + ${totcvan15p} ))
   calcres  ${totcvan} ${totcdnld} "cdnld_f21 subscribe downloaded ($totcdnld) the same number of files that was published by both van_14 and van_15 ($totcvan)"
+  calcres ${totcclean} ${totcvan} "${LGPFX}subscribe cclean_f91\t (${totcclean}) should have deleted as many files as went through van\t (${totcvan})"
+  t4=$(( ${totcclean} + ${totcvan} ))
+  calcres ${totcveille} ${t4} "veille_f34 should post as many files ($totcveille} as wetn through van (${totcvan}) and clean  ($totcclean))"
   t5=$(( $totcveille / 2 ))
-  calcres  ${t5} ${totcdnld} "veille_f34 should post twice as many files ($totcveille) as subscribe cdnld_f21 downloaded ($totcdnld)"
+  calcres  ${t5} ${totcdnld} "veille_f34 should post twice as many files (${totcveille}) as subscribe cdnld_f21 downloaded (${totcdnld})"
   calcres  ${t5} ${totcfile} "veille_f34 should post twice as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
 
 fi
