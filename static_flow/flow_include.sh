@@ -254,11 +254,16 @@ fi
 
   #countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
   if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -a 'Message received:' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+      totsarx="${tot}"
       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+      totsarp="${tot}"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+      totsarp="${tot}"
+      countthem "`grep -a 'received' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+      totsarx="${tot}"
   fi
-  totsarp="${tot}"
 
   if [[ ! "$C_ALSO" && ! -d "$SARRAC_LIB" ]]; then
      return
