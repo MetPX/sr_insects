@@ -148,6 +148,10 @@ count_of_checks=$((${count_of_checks}+1))
 nbr_test=0
 nbr_fail=0
 
+if [ "$1" = "ready" ]; then
+   exit 0
+fi
+
 cd $testrundir
 
 echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid"
