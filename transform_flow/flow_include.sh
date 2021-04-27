@@ -166,9 +166,6 @@ function sumlogshistory {
 
 function countall {
 
-  sumlogs msg_total $LOGDIR/${LGPFX}report_tsarra_f20_*.log
-  totsarra="${tot}"
-
   if [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -a 'putNewMessage published' "$LOGDIR"/post_t_dd1_f00_*.log | wc -l`"
   else
@@ -193,33 +190,16 @@ function countall {
   fi
   totwatch="${tot}"
 
-#  sumlogs msg_total $LOGDIR/${LGPFX}subscribe_amqp_f30_*.log
-#  totmsgamqp="${tot}"
-
-#  if [ "${sarra_py_version:0:1}" == "3" ]; then
-#      countthem "`grep -a 'do_download downloaded ok' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
-#  else
-#      countthem "`grep -a '\[INFO\] file_log downloaded to:' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
-#  fi
-#  totfileamqp="${tot}"
-
   countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
+      all_events="do_download\ downloaded\ ok|write_inline_file\ data\ inlined\ with\ message"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
-  fi
-  totsent="${tot}"
-
-  if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="do_download\ downloaded\ ok|write_inline_file\ data\ inlined\ with\ message"
-      countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
-  else
       no_hardlink_events='downloaded to:|symlinked to|removed'
       all_events="hardlink|$no_hardlink_events"
-      countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
   fi
-  totsubrmqtt="${tot}"
+  totsent="${tot}"
 
   countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_u_sftp_f60_*.log | grep -v DEBUG | wc -l`"
   totsubu="${tot}"

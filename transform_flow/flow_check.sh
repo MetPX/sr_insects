@@ -82,8 +82,8 @@ function summarize_logs {
 if [[ -z "$skip_summaries" ]]; then
     # PAS performance summaries
     printf "\nDownload Performance Summaries:\tLOGDIR=$LOGDIR\n"
-    summarize_performance sr_shovel msg_total: t_dd1 t_dd2
-    summarize_performance sr_subscribe file_total: cdnld_f21 cfile_f44 u_sftp_f60 ftp_f70 q_f71
+    summarize_performance ${LGPFX}sarra msg_total: download_f20
+    summarize_performance ${LGPFX}subscribe file_total: u_sftp_f60 ftp_f70 q_f71
 
     echo
     # MG shows retries
@@ -112,19 +112,16 @@ printf "\n\tMaximum of the shovels is: ${maxshovel}\n\n"
 printf "\t\tTEST RESULTS\n\n"
 
 tot2shov=$(( ${totshovel1} + ${totshovel2} ))
-t4=$(( ${totfileamqp}*4 ))
 
-echo "                 | dd.weather routing |"
-calcres "${staticfilecount}" "${totshovel2}" "sr_post\t count of posted files (${totshovel2}) should be same those in the static data directory\t (${staticfilecount})"
+tot2stat=$(( 2*${staticfilecount} ))
+
+echo "                 | static post |"
+#calcres "${staticfilecount}" "${totshovel2}" "sr_post\t count of posted files (${totshovel2}) should be same those in the static data directory\t (${staticfilecount})"
 calcres "${totshovel1}" "${totshovel2}" "sr_post\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
-calcres "${totsarx}" "${tot2shov}" "sr_sarra\t (${totsarx}) should receive the same number of items as both post\t (${tot2shov})"
-calcres "${totsarp}" "${totshovel1}" "sr_sarra\t (${totsarp}) should publish the same number of items as one post\t (${totshovel1})"
-calcres "${totrejected}" "${totshovel1}" "sr_sarra\t (${totrejected}) should reject the same number of items as one post\t (${totshovel1})"
-#calcres "${totfileamqp}" "${totsarp}" "sr_subscribe\t (${totfileamqp}) should rx the same number of items as sarra published\t (${totsarp})"
-echo "                 | watch      routing |"
-#calcres "${totwatch}" "${totfileamqp}"         "sr_watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totfileamqp})"
-#calcres "${totsent}" "${totwatch}" "sr_sender\t\t (${totsent}) should publish the same number of items as sr_watch  (${totwatch})"
-#calcres "${totsubrmqtt}" "${totwatch}" "rabbitmqtt\t\t (${totsubrmqtt}) should download same number of items as sr_watch  (${totwatch})"
+echo "                 | sarra download and transform a subset |"
+calcres "${totsarx}" "${tot2stat}" "sr_sarra\t (${totsarx}) should receive the same number of items as both static file trees (${tot2stat})"
+calcres "${totsarp}" "${staticfilecount}" "sr_sarra\t (${totsarp}) should publish the same number of items as the data directory\t (${staticfilecount})"
+calcres "${totrejected}" "${staticfilecount}" "sr_sarra\t (${totrejected}) should reject the same number of items as static tree\t (${staticfilecount})"
 calcres "${totsubu}" "${totsent}"  "sr_subscribe u_sftp_f60 (${totsubu}) should download same number of items as sr_sender (${totsent})"
 calcres "${totsubcp}" "${totsent}" "sr_subscribe cp_f61\t (${totsubcp}) should download same number of items as sr_sender (${totsent})"
 echo "                 | poll       routing |"
@@ -134,12 +131,7 @@ echo "                 | flow_post  routing |"
 calcres "${totpost1}" "${totsent}" "sr_post test2_f61\t (${totpost1}) should have the same number of items of sr_sender \t (${totsent})"
 calcres "${totsubftp}" "${totpost1}" "sr_subscribe ftp_f70\t (${totsubftp}) should have the same number of items as sr_post test2_f61 (${totpost1})"
 calcres "${totpost1}" "${totshimpost1}" "sr_post test2_f61\t (${totpost1}) should have about the same number of items as shim_f63\t (${totshimpost1})"
-
-echo "                 | py infos   routing |"
 zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."
-# check removed because of issue #294
-#calcres ${totshortened} ${totfileamqp} \
-#   "count of truncated headers (${totshortened}) and subscribed messages (${totmsgamqp}) should have about the same number of items"
 
 # these almost never are the same, and it's a problem with the post test. so failures here almost always false negative.
 #calcres ${totpost1} ${totsubu} "post test2_f61 ${totpost1} and subscribe u_sftp_f60 ${totsubu} run together. Should be about the same."
