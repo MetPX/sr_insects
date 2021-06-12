@@ -58,10 +58,13 @@ fi
 
 echo "OK, basic scripting environment is there"
 
-sarra_cpump_binary="`which sr_cpump`"
+sarra_cpump_binary="`which sr3_cpump`"
 if [ ! "${sarra_cpump_binary}" ]; then
-   echo "No Sarra C package available. Cannot test."
-   exit 1
+    sarra_cpump_binary="`which sr3_cpump`"
+    if [ ! "${sarra_cpump_binary}" ]; then
+        echo "No Sarra C package available. Cannot test."
+        exit 1
+   fi
 fi
 
 if which sr3 >/dev/null; then
@@ -87,8 +90,8 @@ elif [ "${sarra_py_version[0]}" -eq 2 -a "${sarra_py_version[1]}" -lt 20 ];  the
    exit 4
 fi
 
-sarra_c_version="`sr_cpump -h |& awk ' /^usage:/ { print $3; };'`"
-echo "sr_cpump is: ${sarra_cpump_binary}, version: ${sarra_c_version} "
+sarra_c_version="`${sarra_cpump_binary} -h |& awk ' /^usage:/ { print $3; };'`"
+echo "sr c is: ${sarra_cpump_binary}, version: ${sarra_c_version} "
 IFS=.; read -a sarra_c_version <<<"${sarra_c_version}"
 echo ${sarra_c_version[0]},${sarra_c_version[1]}
 if [ ${sarra_c_version[0]} -lt 2 ];  then
