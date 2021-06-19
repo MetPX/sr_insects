@@ -57,6 +57,7 @@ print('export LOGDIR=%s'% logdir)
 EOF
 }
 
+
 function sr_action {
     msg=$1
     action=$2
@@ -154,6 +155,9 @@ if [[ ":$SARRA_LIB/../:" != *":$PYTHONPATH:"* ]]; then
     fi
 fi
 eval `application_dirs`
+
+mkdir -p $LOGDIR
+
 if [ ! -f "$CONFDIR"/admin.conf -o ! -f "$CONFDIR"/credentials.conf ]; then
  cat <<EOT
  ERROR:
