@@ -163,8 +163,10 @@ fi
 
 if [ "${sarra_py_version:0:1}" == "3" ]; then
     POST=sr3_post
+    CPOST=sr3_cpost
 else
     POST=sr_post
+    POST=sr3_post
 fi
 
 echo "starting to post: `date +${SR_DATE_FMT}`"
@@ -176,8 +178,8 @@ else
     "$SARRA_LIB"/${LGPFX}post.py -config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd2_f00_01.log 2>&1 &
 fi
 
-sr_cpost -config pelle_dd1_f04.conf >$LOGDIR/${LGPFX}cpost_pelle_dd1_f04_01.log 2>&1 &
-sr_cpost -config pelle_dd2_f05.conf >$LOGDIR/${LGPFX}cpost_pelle_dd2_f05_01.log 2>&1 &
+$CPOST -config pelle_dd1_f04.conf >$LOGDIR/${LGPFX}cpost_pelle_dd1_f04_01.log 2>&1 &
+$CPOST -config pelle_dd2_f05.conf >$LOGDIR/${LGPFX}cpost_pelle_dd2_f05_01.log 2>&1 &
 
 echo "posting complete: `date +${SR_DATE_FMT}`"
 

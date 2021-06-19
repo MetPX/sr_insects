@@ -69,8 +69,10 @@ function do_sr_post {
 
    if [ "${sarra_py_version:0:1}" == "3" ]; then
       POST=sr3_post
+      SHIMLIB="libsr3shim.so.1.0.0"
    else
       POST=sr_post
+      SHIMLIB="libsrshim.so.1.0.0"
    fi
 
    if [ ! "$SARRA_LIB" ]; then
@@ -80,9 +82,9 @@ function do_sr_post {
    fi
    cd $srpostdir  
    if [ "$SARRAC_LIB" ]; then
-    LD_PRELOAD="$SARRAC_LIB/libsrshim.so.1.0.0" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
+    LD_PRELOAD="$SARRAC_LIB/${SHIMLIB}" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
    else 
-    LD_PRELOAD="libsrshim.so.1.0.0" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
+    LD_PRELOAD="${SHIMLIB}" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
    fi
    
    cp -p $srpostlstfile_new $srpostlstfile_old
