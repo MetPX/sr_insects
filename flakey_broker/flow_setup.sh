@@ -166,7 +166,7 @@ if [ "${sarra_py_version:0:1}" == "3" ]; then
     CPOST=sr3_cpost
 else
     POST=sr_post
-    POST=sr3_post
+    CPOST=sr_post
 fi
 
 echo "starting to post: `date +${SR_DATE_FMT}`"

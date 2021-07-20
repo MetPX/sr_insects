@@ -60,7 +60,7 @@ echo "OK, basic scripting environment is there"
 
 sarra_cpump_binary="`which sr3_cpump`"
 if [ ! "${sarra_cpump_binary}" ]; then
-    sarra_cpump_binary="`which sr3_cpump`"
+    sarra_cpump_binary="`which sr_cpump`"
     if [ ! "${sarra_cpump_binary}" ]; then
         echo "No Sarra C package available. Cannot test."
         exit 1
