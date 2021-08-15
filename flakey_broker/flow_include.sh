@@ -8,13 +8,6 @@ tstdir="`pwd`"
 httpdocroot=`cat $tstdir/.httpdocroot`
 
 
-if [ "${sarra_py_version:0:1}" == "3" ]; then
-   LGPFX=""
-else
-   LGPFX="sr_"
-fi
-
-
 function countthem {
    if [ ! "${1}" ]; then
       tot=0

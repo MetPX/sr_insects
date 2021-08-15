@@ -98,6 +98,8 @@ for exchange in $exchanges_to_delete ; do
 done
 
 flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf 2>/dev/null; ls */*f[0-9][0-9].inc 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
+flow_configs="`echo ${flow_configs} | tr '\n' ' '`"
+
 sr_action "Removing flow configs..." remove " " ">> $flowlogcleanup 2>\\&1" "$flow_configs"
 
 echo "Removing flow config logs..."

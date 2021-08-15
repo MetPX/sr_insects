@@ -1,5 +1,7 @@
 
 printf "\n\tLooking for the software needed for test suites to run\n\n"
+printf "\twill test v3 if it finds it, or v2 if that is available.\n" 
+printf "\texport sarra_py_version=x.yy to override autoselection\n"
 
 bash_binary="`which bash`"
 if [ ! "${bash_binary}" ]; then
@@ -47,6 +49,7 @@ echo "python3 is is: ${python_binary}, version: ${pyver} "
 
 IFS=.; read -a pyver <<<"${pyver}"
 
+
 if [ ${pyver[0]} -lt 3 ];  then
    echo "Python3 interpreter must be >= 3.5"
    exit 3
@@ -58,29 +61,11 @@ fi
 
 echo "OK, basic scripting environment is there"
 
-sarra_cpump_binary="`which sr3_cpump`"
-if [ ! "${sarra_cpump_binary}" ]; then
-    sarra_cpump_binary="`which sr_cpump`"
-    if [ ! "${sarra_cpump_binary}" ]; then
-        echo "No Sarra C package available. Cannot test."
-        exit 1
-   fi
+if [ -f set_sarra.sh ]; then
+   . ./set_sarra.sh
+else
+   . ../set_sarra.sh
 fi
-
-if which sr3 >/dev/null; then
-    sarra_py_version="`sr3 -v| grep -v DEVELOPMENT 2>/dev/null`"
-fi
-if [ ! "$sarra_py_version" ]; then
-    sarra_subscribe_binary="`which sr_subscribe`"
-    if [ ! "${sarra_subscribe_binary}" ]; then
-       echo "No Sarra python package available. Cannot test."
-       exit 2
-    fi
-    sarra_py_version="`sr_subscribe -h |& awk ' /^version: / { print $2; };'`"
-fi
-
-echo "sr_subscribe is: ${sarra_subscribe_binary}, version: ${sarra_py_version[*]} "
-IFS=.; read -a sarra_py_version <<<"${sarra_py_version}"
 
 if [ ${sarra_py_version[0]} -lt 2 ];  then
    echo "metpx-sarracenia Python package must be >= 2.20"
@@ -90,18 +75,18 @@ elif [ "${sarra_py_version[0]}" -eq 2 -a "${sarra_py_version[1]}" -lt 20 ];  the
    exit 4
 fi
 
-sarra_c_version="`${sarra_cpump_binary} -h |& awk ' /^usage:/ { print $3; };'`"
-echo "sr c is: ${sarra_cpump_binary}, version: ${sarra_c_version} "
-IFS=.; read -a sarra_c_version <<<"${sarra_c_version}"
-echo ${sarra_c_version[0]},${sarra_c_version[1]}
-if [ ${sarra_c_version[0]} -lt 2 ];  then
-   echo "sarrac C-binary package must be >= 2.20"
-   exit 5
-elif [  ${sarra_c_version[0]} -eq 2 -a ${sarra_c_version[1]} -lt 20 ];  then
-   echo "sarrac C-binary package must >= 2.20.b3"
-   exit 6
+if [ ! "${sarra_cpump_binary}" ]; then
+   echo "No Sarra C package available. Cannot test."
+   exit 1
 fi
-IFS=' '
+
+if [ ${sarra_c_version[0]} -lt 2 ];  then
+       echo "sarrac C-binary package must be >= 2.20"
+       exit 5
+elif [  ${sarra_c_version[0]} -eq 2 -a ${sarra_c_version[1]} -lt 20 ];  then
+       echo "sarrac C-binary package must >= 2.20.b3"
+       exit 6
+fi
 
 echo "OK, sarra related prerequisites seem to be there."
 

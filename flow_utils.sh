@@ -4,23 +4,19 @@
 #export SR_TEST_CONFIGS=`dirname ${SR_TEST_CONFIGS}`
 
 ../prereq.sh  >/tmp/prereq.log
+
 if [ $? -ne 0 ]; then
    cat /tmp/prereq.log
    rm /tmp/prereq.log
    exit 1
 fi
 
-if which sr3 >/dev/null; then
-   sarra_py_version="`sr3 -v`"
-   LGPFX=""
-else
-   LGPFX="sr_"
-fi
+. ../set_sarra.sh
 
 if [ ! "$sarra_py_version" ]; then
-    sarra_py_version="`sr_subscribe -h |& awk ' /^version: / { print $2; };'`"
+   printf "no sarracenia package found\n"
+   exit 2
 fi
-
 
 export TESTDIR="`pwd`"
 SAMPLEDATA="`dirname $TESTDIR`"
