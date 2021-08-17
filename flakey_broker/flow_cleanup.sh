@@ -8,6 +8,7 @@ export TESTDIR="`pwd`"
 flowlogcleanup="$LOGDIR/flowcleanup_f99.log"
 touch $flowlogcleanup
 flow_configs="audit/ `cd $CONFDIR; ls */*f[0-9][0-9].conf 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
+flow_configs="`echo ${flow_configs} | tr '\n' ' '`"
 
 # Stopping sr components
 sr_action "Stopping sr..." stop " " ">> $flowlogcleanup 2>\\&1" "$flow_configs"
@@ -103,7 +104,7 @@ flow_configs="`echo ${flow_configs} | tr '\n' ' '`"
 sr_action "Removing flow configs..." remove " " ">> $flowlogcleanup 2>\\&1" "$flow_configs"
 
 echo "Removing flow config logs..."
-if [ ${sarra_py_version%%.*} == '3' ]; then
+if [ ${sarra_py_version:0:1} == '3' ]; then
     echo $flow_configs |  sed 's/ / ;\n rm -f /g' | sed '1 s|^| rm -f |' | sed '/^ rm -f post/d' | sed 's+/+_+g' | sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].log\*/g' | (cd $LOGDIR; sh )
 else
     echo $flow_configs |  sed 's/ / ;\n rm -f sr_/g' | sed '1 s|^| rm -f sr_|' | sed '/^ rm -f sr_post/d' | sed 's+/+_+g' | sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].log\*/g' | (cd $LOGDIR; sh )

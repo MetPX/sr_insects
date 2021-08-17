@@ -18,6 +18,8 @@
 #export PYTHONPATH="`pwd`/../"
 . ../flow_utils.sh
 
+echo "FIXME sarra_py_version=${sarra_py_version}"
+export sarra_py_version=${sarra_py_version}
 
 testdocroot="$HOME/sarra_devdocroot"
 testhost=localhost
@@ -154,10 +156,6 @@ fi
 
 cd $testrundir
 
-echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid"
-./flow_post.sh >$srposterlog 2>&1 &
-flowpostpid=$!
-
 echo $ftpserverpid >.ftpserverpid
 echo ${upstreamhttpserverpid} >.upstreamhttpserverpid
 echo $httpserverpid >.httpserverpid
@@ -169,11 +167,6 @@ export MAX_MESSAGES=${1}
 echo $MAX_MESSAGES
 fi
 
-# Start everything but sr_post
-#flow_configs="audit/ `cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf | ls poll/pulse.conf`"
-#sr_action "Starting up all components..." start " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
-#echo "Done."
-
 echo "starting to post: `date +${SR_DATE_FMT}`"
 if [ "${sarra_py_version:0:1}" == "3" ]; then
    POST=sr3_post
@@ -184,6 +177,11 @@ else
    CPOST=sr_cpost
    LGPFX='sr_'
 fi
+export POST CPOST LGPFX
+
+echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid"
+./flow_post.sh >$srposterlog 2>&1 &
+flowpostpid=$!
 
 if [ ! "$SARRA_LIB" ]; then
     $POST -c t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd1_f00_01.log 2>&1 &

@@ -53,22 +53,14 @@ function do_sr_post {
     return
    fi
 
-   # loop on each line to properly post filename with space *** makes too much load on CPU ***
+   echo  "FIXME: sarra_py_version=${sarra_py_version} POST=${POST}"
 
-   # cant seem to have success to have .S P C files in /tmp/diffs.txt and have them as correct arguments
-   # theses commands would not succeed :
-   #cat /tmp/diffs.txt | sed 's/\(.*S P C\)/"\1"/' | sed 's/S P C/S\\ P\\ C/' > /tmp/diffs2.txt
-   #cat /tmp/diffs.txt | sed "s/\(.*S P C\)/'\1'/" > /tmp/diffs2.txt
-   #cat /tmp/diffs.txt | sed "s/\(.*S P C\)/'\1'/" | sed 's/S P C/S\\ P\\ C/' > /tmp/diffs2.txt
-   # | sed '/slink$/d' | sed '/moved$/d' | sed '/hlink$/d' | sed '/tmp$/d'
-
-   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      POST=sr3_post
+   if [ "${POST:2:1}" == "3" ]; then
       SHIMLIB="libsr3shim.so.1.0.0"
    else
-      POST=sr_post
       SHIMLIB="libsrshim.so.1.0.0"
    fi
+   printf "FIXME POST=${POST} \n" 
 
    if [ ! "$SARRA_LIB" ]; then
     $POST -c test2_f61.conf -p `cat /tmp/diffs.txt`

@@ -124,7 +124,19 @@ nbr_fail=0
 
 cd $testrundir
 
-echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid"
+echo "starting to post: `date +${SR_DATE_FMT}`"
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+   POST=sr3_post
+   CPOST=sr3_cpost
+   LGPFX=''
+else
+   POST=sr_post
+   CPOST=sr_cpost
+   LGPFX='sr_'
+fi
+export POST CPOST LGPFX
+
+echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid, using: POST=${POST}, CPOST=${CPOST}"
 ./flow_post.sh >$srposterlog 2>&1 &
 flowpostpid=$!
 

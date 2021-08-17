@@ -172,13 +172,18 @@ function countall {
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -a 'putNewMessage published' "$LOGDIR"/${LGPFX}post_t_dd2_f00_*.log | wc -l`"
+       totshovel2="${tot}"
+       countthem "`grep -a 'reject: mask=' "$LOGDIR"/${LGPFX}post_t_dd2_f00_*.log | wc -l`"
+       totshovel2rej="${tot}"
   else
        countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/${LGPFX}post_t_dd2_f00_*.log | wc -l`"
+       totshovel2="${tot}"
+       countthem "`grep -a 'reject: mask=' "$LOGDIR"/${LGPFX}post_t_dd2_f00_*.log | wc -l`"
+       totshovel2rej="${tot}"
   fi
-  totshovel2="${tot}"
 
   countthem "`grep rejected  "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
-  totrejected="${tot}"
+  totwinnowed="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep 'putNewMessage published' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
@@ -261,7 +266,9 @@ function countall {
   if [[ ! "$C_ALSO" && ! -d "$SARRAC_LIB" ]]; then
      return
   fi
-  staticfilecount="`ls -lR ${SAMPLEDATA} | grep '^-r' | wc -l`"
+  staticfilecount="`find ${SAMPLEDATA} -type f | grep -v reject | wc -l`"
+  rejectfilecount="`find ${SAMPLEDATA} -type f | grep reject | wc -l`"
+
 
   countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
   totcpelle04p="${tot}"

@@ -141,9 +141,6 @@ nbr_fail=0
 
 cd $testrundir
 
-echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid"
-./flow_post.sh >$srposterlog 2>&1 &
-flowpostpid=$!
 
 echo $ftpserverpid >.ftpserverpid
 echo ${upstreamhttpserverpid} >.upstreamhttpserverpid
@@ -168,6 +165,11 @@ else
     POST=sr_post
     CPOST=sr_cpost
 fi
+export POST CPOST LGPFX sarra_py_version
+
+echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid"
+./flow_post.sh >$srposterlog 2>&1 &
+flowpostpid=$!
 
 echo "starting to post: `date +${SR_DATE_FMT}`"
 if [ ! "$SARRA_LIB" ]; then

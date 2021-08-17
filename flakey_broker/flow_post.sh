@@ -62,11 +62,11 @@ function do_sr_post {
    #cat /tmp/diffs.txt | sed "s/\(.*S P C\)/'\1'/" | sed 's/S P C/S\\ P\\ C/' > /tmp/diffs2.txt
    # | sed '/slink$/d' | sed '/moved$/d' | sed '/hlink$/d' | sed '/tmp$/d'
 
-   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      POST=sr3_post
+   if [ "${POST:2:1}" == "3" ]; then
+      echo "sr3c shimlib"
       SHIMLIB="libsr3shim.so.1.0.0"
    else
-      POST=sr_post
+      echo "v2 shimlib"
       SHIMLIB="libsrshim.so.1.0.0"
    fi
 

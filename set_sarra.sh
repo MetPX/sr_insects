@@ -13,6 +13,7 @@ if [ ! "$sarra_py_version" ]; then
 fi
 
 #echo "sr_subscribe is: ${sarra_subscribe_binary}, version: ${sarra_py_version} "
+
 IFS=.; read -a sarra_py_version <<<"${sarra_py_version}"
 IFS=' '
 
@@ -25,7 +26,9 @@ else
 fi
 
 sarra_c_version="`${sarra_cpump_binary} -h |& awk ' /^usage:/ { print $3; };'`"
+
 #echo "sr c is: ${sarra_cpump_binary}, PFX=${LGPFX} version: ${sarra_c_version} "
+
 IFS=.; read -a sarra_c_version <<<"${sarra_c_version}"
 IFS=' '
 
@@ -40,3 +43,5 @@ fi
 #echo "appname is: $SR_DEV_APPNAME (used to set conf and cache dirs.)"
 #echo "sarra python: $sarra_py_version, c $sarra_c_version"
 
+export sarra_py_version
+export sarra_c_version

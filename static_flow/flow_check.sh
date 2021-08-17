@@ -118,10 +118,11 @@ t4=$(( ${totfileamqp}*4 ))
 
 echo "                 | dd.weather routing |"
 calcres "${staticfilecount}" "${totshovel2}" "sr_post\t count of posted files (${totshovel2}) should be same those in the static data directory\t (${staticfilecount})"
+calcres "${rejectfilecount}" "${totshovel2rej}" "sr_post\t count of rejected files (${totshovel2rej}) should be same those in the static data directory\t (${rejectfilecount})"
 calcres "${totshovel1}" "${totshovel2}" "sr_post\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
 calcres "${totsarx}" "${tot2shov}" "sr_sarra\t (${totsarx}) should receive the same number of items as both post\t (${tot2shov})"
 calcres "${totsarp}" "${totshovel1}" "sr_sarra\t (${totsarp}) should publish the same number of items as one post\t (${totshovel1})"
-calcres "${totrejected}" "${totshovel1}" "sr_sarra\t (${totrejected}) should reject the same number of items as one post\t (${totshovel1})"
+calcres "${totwinnowed}" "${totshovel1}" "sr_sarra\t (${totwinnowed}) should winnow the same number of items as one post\t (${totshovel1})"
 calcres "${totfileamqp}" "${totsarp}" "sr_subscribe\t (${totfileamqp}) should rx the same number of items as sarra published\t (${totsarp})"
 echo "                 | watch      routing |"
 calcres "${totwatch}" "${totfileamqp}"         "sr_watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totfileamqp})"
