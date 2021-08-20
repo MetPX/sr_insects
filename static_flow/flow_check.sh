@@ -135,11 +135,11 @@ if [[ -z "$skip_summaries" ]]; then
     echo
 
     if [[ ! "$SARRA_LIB" ]]; then
-       echo NB retries for sr_subscribe amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
-       echo NB retries for sr_sender    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
+       echo NB retries for ${LGPFX}subscribe amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
+       echo NB retries for ${LGPFX}sender    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
     else
-       echo NB retries for "$SARRA_LIB"/sr_subscribe.py amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
-       echo NB retries for "$SARRA_LIB"/sr_sender.py    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
+       echo NB retries for "$SARRA_LIB"/${LGPFX}subscribe.py amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
+       echo NB retries for "$SARRA_LIB"/${LGPFX}sender.py    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
     fi
 
     summarize_logs ERROR
@@ -175,27 +175,27 @@ tot2shov=$(( ${totshovel1} + ${totshovel2} ))
 t4=$(( ${totfileamqp}*4 ))
 
 echo "                 | dd.weather routing |"
-calcres "${staticfilecount}" "${totshovel2}" "sr_post\t count of posted files (${totshovel2}) should be same those in the static data directory\t (${staticfilecount})"
-calcres "${rejectfilecount}" "${totshovel2rej}" "sr_post\t count of rejected files (${totshovel2rej}) should be same those in the static data directory\t (${rejectfilecount})"
-calcres "${totshovel1}" "${totshovel2}" "sr_post\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
-calcres "${totsarx}" "${tot2shov}" "sr_sarra\t (${totsarx}) should receive the same number of items as both post\t (${tot2shov})"
-calcres "${totsarp}" "${totshovel1}" "sr_sarra\t (${totsarp}) should publish the same number of items as one post\t (${totshovel1})"
-calcres "${totwinnowed}" "${totshovel1}" "sr_sarra\t (${totwinnowed}) should winnow the same number of items as one post\t (${totshovel1})"
-calcres "${totfileamqp}" "${totsarp}" "sr_subscribe\t (${totfileamqp}) should rx the same number of items as sarra published\t (${totsarp})"
+calcres "${staticfilecount}" "${totshovel2}" "${LGPFX}post\t count of posted files (${totshovel2}) should be same those in the static data directory\t (${staticfilecount})"
+calcres "${rejectfilecount}" "${totshovel2rej}" "${LGPFX}post\t count of rejected files (${totshovel2rej}) should be same those in the static data directory\t (${rejectfilecount})"
+calcres "${totshovel1}" "${totshovel2}" "${LGPFX}post\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
+calcres "${totsarx}" "${tot2shov}" "${LGPFX}sarra\t (${totsarx}) should receive the same number of items as both post\t (${tot2shov})"
+calcres "${totsarp}" "${totshovel1}" "${LGPFX}sarra\t (${totsarp}) should publish the same number of items as one post\t (${totshovel1})"
+calcres "${totwinnowed}" "${totshovel1}" "${LGPFX}sarra\t (${totwinnowed}) should winnow the same number of items as one post\t (${totshovel1})"
+calcres "${totfileamqp}" "${totsarp}" "${LGPFX}subscribe\t (${totfileamqp}) should rx the same number of items as sarra published\t (${totsarp})"
 echo "                 | watch      routing |"
-calcres "${totwatch}" "${totfileamqp}"         "sr_watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totfileamqp})"
-calcres "${totsent}" "${totwatch}" "sr_sender\t\t (${totsent}) should publish the same number of items as sr_watch  (${totwatch})"
-calcres "${totsubrmqtt}" "${totwatch}" "rabbitmqtt\t\t (${totsubrmqtt}) should download same number of items as sr_watch  (${totwatch})"
-calcres "${totsubu}" "${totsent}"  "sr_subscribe u_sftp_f60 (${totsubu}) should download same number of items as sr_sender (${totsent})"
-calcres "${totsubcp}" "${totsent}" "sr_subscribe cp_f61\t (${totsubcp}) should download same number of items as sr_sender (${totsent})"
+calcres "${totwatch}" "${totfileamqp}"         "${LGPFX}watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totfileamqp})"
+calcres "${totsent}" "${totwatch}" "${LGPFX}sender\t\t (${totsent}) should publish the same number of items as ${LGPFX}watch  (${totwatch})"
+calcres "${totsubrmqtt}" "${totwatch}" "rabbitmqtt\t\t (${totsubrmqtt}) should download same number of items as ${LGPFX}watch  (${totwatch})"
+calcres "${totsubu}" "${totsent}"  "${LGPFX}subscribe u_sftp_f60 (${totsubu}) should download same number of items as ${LGPFX}sender (${totsent})"
+calcres "${totsubcp}" "${totsent}" "${LGPFX}subscribe cp_f61\t (${totsubcp}) should download same number of items as ${LGPFX}sender (${totsent})"
 echo "                 | poll       routing |"
-calcres "${totpoll1}" "${totsent}" "sr_poll f62\t (${totpoll1}) should publish same number of items of sr_sender sent\t (${totsent})"
-calcres "${totsubq}" "${totpoll1}" "sr_subscribe q_f71\t (${totsubq}) should download same number of items as sr_poll test1_f62 (${totpoll1})"
+calcres "${totpoll1}" "${totsent}" "${LGPFX}poll f62\t (${totpoll1}) should publish same number of items of ${LGPFX}sender sent\t (${totsent})"
+calcres "${totsubq}" "${totpoll1}" "${LGPFX}subscribe q_f71\t (${totsubq}) should download same number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
 echo "                 | flow_post  routing |"
-calcres "${totpost1}" "${totsent}" "sr_post test2_f61\t (${totpost1}) should have the same number of items of sr_sender \t (${totsent})"
-calcres "${totsubftp}" "${totpost1}" "sr_subscribe ftp_f70\t (${totsubftp}) should have the same number of items as sr_post test2_f61 (${totpost1})"
+calcres "${totpost1}" "${totsent}" "${LGPFX}post test2_f61\t (${totpost1}) should have the same number of items of ${LGPFX}sender \t (${totsent})"
+calcres "${totsubftp}" "${totpost1}" "${LGPFX}subscribe ftp_f70\t (${totsubftp}) should have the same number of items as ${LGPFX}post test2_f61 (${totpost1})"
 doubletotpost=$(( ${totpost1}*2 ))
-calcres "${doubletotpost}" "${totshimpost1}" "sr_post test2_f61\t (${totpost1}) should have about half the number of items as shim_f63\t (${totshimpost1})"
+calcres "${doubletotpost}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should have about half the number of items as shim_f63\t (${totshimpost1})"
 
 echo "                 | py infos   routing |"
 zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."
