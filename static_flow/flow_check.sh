@@ -79,6 +79,51 @@ function summarize_logs {
     fi
 }
 
+function checktree {
+
+  tree=$1
+  printf "checking +${tree}+\n"
+  SUMDIR=${LOGDIR}/sums
+  if [ ! -d $SUMDIR ]; then
+      mkdir $SUMDIR
+  fi
+
+  report=${SUMDIR}/`basename ${tree}`.txt
+  if [ ! -f ${report} ]; then
+     (cd ${tree}; find . \! -type d | xargs md5sum ) > ${report}
+  fi
+
+}
+
+function comparetree {
+
+  tno=$((${tno}+1))
+  SUMDIR=${LOGDIR}/sums
+  diff ${SUMDIR}/${1}.txt ${SUMDIR}/${2}.txt >/dev/null 2>&1 
+  result=$?
+
+  if [ $result -gt 0 ]; then
+     printf "test %d FAILURE: compare contents of ${1} and ${2} differ\n" $tno
+  else
+     printf "test %d success: compare contents of ${1} and ${2} are the same\n" $tno
+     passedno=$((${passedno}+1))
+ fi
+  
+}
+
+printf "checking trees...\n"
+checktree ${testdocroot}/downloaded_by_sub_amqp
+checktree ${testdocroot}/downloaded_by_sub_cp
+checktree ${testdocroot}/downloaded_by_sub_rabbitmqtt
+checktree ${testdocroot}/downloaded_by_sub_u
+checktree ${testdocroot}/posted_by_shim
+checktree ${testdocroot}/recd_by_srpoll_test1
+checktree ${testdocroot}/sent_by_tsource2send
+checktree ${testdocroot}/mirror/linked_by_shim
+
+
+
+
 if [[ -z "$skip_summaries" ]]; then
     # PAS performance summaries
     printf "\nDownload Performance Summaries:\tLOGDIR=$LOGDIR\n"
@@ -101,8 +146,11 @@ if [[ -z "$skip_summaries" ]]; then
     summarize_logs WARNING
 fi
 
+
 passedno=0
 tno=0
+
+
 
 if [[ "${totshovel2}" -gt "${totshovel1}" ]]; then
    maxshovel=${totshovel2}
@@ -111,7 +159,17 @@ else
 fi
 printf "\n\tMaximum of the shovels is: ${maxshovel}\n\n"
 
+
 printf "\t\tTEST RESULTS\n\n"
+
+echo "                 | content of subdirs of ${tesdocroot} |"
+comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
+comparetree downloaded_by_sub_amqp downloaded_by_sub_rabbitmqtt
+comparetree downloaded_by_sub_amqp downloaded_by_sub_u
+comparetree downloaded_by_sub_amqp posted_by_shim
+comparetree downloaded_by_sub_amqp linked_by_shim
+comparetree downloaded_by_sub_amqp sent_by_tsource2send
+
 
 tot2shov=$(( ${totshovel1} + ${totshovel2} ))
 t4=$(( ${totfileamqp}*4 ))
@@ -136,7 +194,8 @@ calcres "${totsubq}" "${totpoll1}" "sr_subscribe q_f71\t (${totsubq}) should dow
 echo "                 | flow_post  routing |"
 calcres "${totpost1}" "${totsent}" "sr_post test2_f61\t (${totpost1}) should have the same number of items of sr_sender \t (${totsent})"
 calcres "${totsubftp}" "${totpost1}" "sr_subscribe ftp_f70\t (${totsubftp}) should have the same number of items as sr_post test2_f61 (${totpost1})"
-calcres "${totpost1}" "${totshimpost1}" "sr_post test2_f61\t (${totpost1}) should have about the same number of items as shim_f63\t (${totshimpost1})"
+doubletotpost=$(( ${totpost1}*2 ))
+calcres "${doubletotpost}" "${totshimpost1}" "sr_post test2_f61\t (${totpost1}) should have about half the number of items as shim_f63\t (${totshimpost1})"
 
 echo "                 | py infos   routing |"
 zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."

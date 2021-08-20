@@ -17,6 +17,10 @@ if [ ! -d ${httpdocroot}/posted_by_shim ]; then
    mkdir  ${httpdocroot}/posted_by_shim
 fi
 
+if [ ! -d ${httpdocroot}/linked_by_shim ]; then
+   mkdir  ${httpdocroot}/linked_by_shim
+fi
+
 if [[ ":$SARRA_LIB/../:" != *":$PYTHONPATH:"* ]]; then
     if [ "${PYTHONPATH:${#PYTHONPATH}-1}" == ":" ]; then
         export PYTHONPATH="$PYTHONPATH$SARRA_LIB/../"
@@ -33,6 +37,19 @@ srpostlstfile_old=$httpdocroot/srpostlstfile.old
 
 echo > ${srpostlstfile_old}
 # sr_post call
+
+function do_sr_links {
+
+   for f in `cat /tmp/diffs.txt`; do
+       a=${srpostdir}/$f
+       b="`dirname ${httpdocroot}/linked_by_shim/$f`"
+       if [ ! -d $b ]; then
+            mkdir -p $b
+       fi
+       ln -s ${a} ${b}
+       
+   done
+}
 
 function do_sr_post {
 
@@ -70,8 +87,10 @@ function do_sr_post {
    cd $srpostdir  
    if [ "$SARRAC_LIB" ]; then
     LD_PRELOAD="$SARRAC_LIB/${SHIMLIB}" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
+    LD_PRELOAD="$SARRAC_LIB/${SHIMLIB}" do_sr_links
    else 
     LD_PRELOAD="${SHIMLIB}" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
+    LD_PRELOAD="${SHIMLIB}" do_sr_links
    fi
    
    cp -p $srpostlstfile_new $srpostlstfile_old
@@ -79,6 +98,7 @@ function do_sr_post {
 
 # sr_post initial end
 
+set -x
 while true; do
    sleep 1
    do_sr_post

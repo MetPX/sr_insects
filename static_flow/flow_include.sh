@@ -6,6 +6,7 @@ C_ALSO="`which sr_cpost`"
 # The directory we run the flow test scripts in...
 tstdir="`pwd`"
 httpdocroot=`cat $tstdir/.httpdocroot`
+testdocroot="$HOME/sarra_devdocroot"
 
 function countthem {
    if [ ! "${1}" ]; then
