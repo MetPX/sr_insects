@@ -18,7 +18,7 @@ sr_action "Cleanup sr..." cleanup " " ">> $flowlogcleanup 2>\\&1" "$flow_configs
 echo "Cleanup trivial http server... "
 if [ -f .httpserverpid ]; then
    httpserverpid="`cat .httpserverpid`"
-   if [ "`ps ax | awk ' $1 == '${httpserverpid}' { print $1; }; '`" ]; then
+   if [ "${httpserverpid}" -a "`ps ax | awk ' $1 == '${httpserverpid}' { print $1; }; '`" ]; then
        kill $httpserverpid
        echo "Web server stopped."
        sleep 2
@@ -43,7 +43,7 @@ fi
 echo "Cleanup trivial ftp server... "
 if [ -f .ftpserverpid ]; then
    ftpserverpid="`cat .ftpserverpid`"
-   if [ "`ps ax | awk ' $1 == '${ftpserverpid}' { print $1; }; '`" ]; then
+   if [ "${ftpserverpid}" -a "`ps ax | awk ' $1 == '${ftpserverpid}' { print $1; }; '`" ]; then
        kill $ftpserverpid
        echo "Ftp server stopped."
        sleep 2
@@ -68,7 +68,7 @@ fi
 echo "Cleanup flow_post... "
 if [ -f .flowpostpid ]; then
    flowpostpid="`cat .flowpostpid`"
-   if [ "`ps ax | awk ' $1 == '${flowpostpid}' { print $1; }; '`" ]; then
+   if [ "${flowpostpid}" -a "`ps ax | awk ' $1 == '${flowpostpid}' { print $1; }; '`" ]; then
        kill $flowpostpid
        echo "Flow_post stopped."
        sleep 2

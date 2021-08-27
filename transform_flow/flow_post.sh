@@ -13,6 +13,8 @@ if [ ! -d ${httpdocroot} ]; then
    exit
 fi
 
+. ../flow_utils.sh
+
 if [ ! -d ${httpdocroot}/posted_by_shim ]; then
    mkdir  ${httpdocroot}/posted_by_shim
 fi
@@ -48,6 +50,8 @@ function do_sr_post {
    touch /tmp/diffs.txt
    comm -23 $srpostlstfile_new $srpostlstfile_old > /tmp/diffs.txt
    srpostdelta=`cat /tmp/diffs.txt`
+   srpostdelta="`echo ${srpostdelta} | tr '\n' ' '`"
+
    # | sed 's/^..//'
    if [ "$srpostdelta" == "" ]; then
     return
@@ -72,15 +76,15 @@ function do_sr_post {
    fi
 
    if [ ! "$SARRA_LIB" ]; then
-    $POST -c test2_f61.conf -p `cat /tmp/diffs.txt`
+    $POST -c test2_f61.conf -p $srpostdelta
    else 
-    "$SARRA_LIB"/sr_post.py -c "$CONFDIR"/post/test2_f61.conf -p `cat /tmp/diffs.txt`
+    "$SARRA_LIB"/sr_post.py -c "$CONFDIR"/post/test2_f61.conf -p ${srpostdelta}
    fi
    cd $srpostdir  
    if [ "$SARRAC_LIB" ]; then
-    LD_PRELOAD="$SARRAC_LIB/${SHIMLIB}" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
+    LD_PRELOAD="$SARRAC_LIB/${SHIMLIB}" cp -p --parents ${srpostdelta} ${httpdocroot}/posted_by_shim
    else 
-    LD_PRELOAD="${SHIMLIB}" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
+    LD_PRELOAD="${SHIMLIB}" cp -p --parents ${srpostdelta} ${httpdocroot}/posted_by_shim
    fi
    
    cp -p $srpostlstfile_new $srpostlstfile_old
