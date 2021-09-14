@@ -47,7 +47,9 @@ fi
 pyver="`python3 -V|awk '{ print $2; };'`"
 echo "python3 is is: ${python_binary}, version: ${pyver} "
 
+OLDIFS=${IFS}
 IFS=.; read -a pyver <<<"${pyver}"
+IFS=${OLDIFS}
 
 
 if [ ${pyver[0]} -lt 3 ];  then

@@ -14,8 +14,9 @@ fi
 
 #echo "sr_subscribe is: ${sarra_subscribe_binary}, version: ${sarra_py_version} "
 
+OLDIFS=${IFS}
 IFS=.; read -a sarra_py_version <<<"${sarra_py_version}"
-IFS=' '
+IFS=${OLDIFS}
 
 if [ ${sarra_py_version[0]} -eq 2 ]; then
     sarra_cpump_binary="`which sr_cpump`"
@@ -30,7 +31,7 @@ sarra_c_version="`${sarra_cpump_binary} -h |& awk ' /^usage:/ { print $3; };'`"
 #echo "sr c is: ${sarra_cpump_binary}, PFX=${LGPFX} version: ${sarra_c_version} "
 
 IFS=.; read -a sarra_c_version <<<"${sarra_c_version}"
-IFS=' '
+IFS=${OLDIFS}
 
 if [ ! "${SR_DEV_APPNAME}" ]; then
     if [ "${sarra_py_version:0:1}" == "3" ]; then
