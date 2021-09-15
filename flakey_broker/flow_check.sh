@@ -162,8 +162,8 @@ echo "                 | C          routing |"
   totcvan=$(( ${totcvan14p} + ${totcvan15p} ))
   calcres  ${totcvan} ${totcdnld} "cdnld_f21 subscribe downloaded ($totcdnld) the same number of files that was published by both van_14 and van_15 ($totcvan)"
   t5=$(( $totcveille / 2 ))
-  calcres  ${t5} ${totcdnld} "veille_f34 should post twice as many files ($totcveille) as subscribe cdnld_f21 downloaded ($totcdnld)"
-  calcres  ${t5} ${totcfile} "veille_f34 should post twice as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
+  calcres  ${totcveille} ${totcdnld} "veille_f34 should post as many files ($totcveille) as subscribe cdnld_f21 downloaded ($totcdnld)"
+  calcres  ${totcveille} ${totcfile} "veille_f34 should post as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
 
 fi
 
