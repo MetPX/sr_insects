@@ -120,6 +120,8 @@ checktree ${testdocroot}/posted_by_shim
 checktree ${testdocroot}/recd_by_srpoll_test1
 checktree ${testdocroot}/sent_by_tsource2send
 checktree ${testdocroot}/mirror/linked_by_shim
+checktree ${testdocroot}/cfile
+checktree ${testdocroot}/cfr
 
 
 
@@ -169,6 +171,8 @@ comparetree downloaded_by_sub_amqp downloaded_by_sub_u
 comparetree downloaded_by_sub_amqp posted_by_shim
 comparetree downloaded_by_sub_amqp linked_by_shim
 comparetree downloaded_by_sub_amqp sent_by_tsource2send
+comparetree downloaded_by_sub_amqp cfile
+comparetree downloaded_by_sub_amqp cfr
 
 
 tot2shov=$(( ${totshovel1} + ${totshovel2} ))
@@ -218,8 +222,8 @@ echo "                 | C          routing |"
   totcvan=$(( ${totcvan14p} + ${totcvan15p} ))
   calcres  ${totcvan} ${totcdnld} "cdnld_f21 subscribe downloaded ($totcdnld) the same number of files that was published by both van_14 and van_15 ($totcvan)"
   t5=$(( $totcveille / 2 ))
-  calcres  "${t5}" "${totcdnld}" "veille_f34 should post twice as many files ($totcveille) as subscribe cdnld_f21 downloaded ($totcdnld)"
-  calcres  "${t5}" "${totcfile}" "veille_f34 should post twice as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
+  calcres  "${totcveille}" "${totcdnld}" "veille_f34 should post as many files ($totcveille) as subscribe cdnld_f21 downloaded ($totcdnld)"
+  calcres  "${totcveille}" "${totcfile}" "veille_f34 should post as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
 
 fi
 
