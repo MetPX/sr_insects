@@ -1,12 +1,6 @@
-xcpublic	topic
-xcsarra	topic
-xcvan00	topic
-xcvan01	topic
 xflow_public	topic
 xsarra	topic
-xs_mqtt_public	topic
 xs_tsource_output	topic
 xs_tsource_poll	topic
 xs_tsource_post	topic
 xs_tsource_shim	topic
-xs_tsource	topic
