@@ -10,6 +10,13 @@ touch $flowlogcleanup
 flow_configs="audit/ `cd $CONFDIR; ls */*f[0-9][0-9].conf 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
 flow_configs="`echo ${flow_configs} | tr '\n' ' '`"
 
+echo remove x attributes added by post then calculating checksums. in ${SAMPLEDATA}
+if [ `find ${SAMPLEDATA} -type f | xargs xattr -l|wc -l` ]; then 
+  find ${SAMPLEDATA} -type f | xargs xattr -d user.sr_mtime >&/dev/null
+  find ${SAMPLEDATA} -type f | xargs xattr -d user.sr_integrity >&/dev/null
+fi
+echo done with xattr
+
 # Stopping sr components
 sr_action "Stopping sr..." stop " " ">> $flowlogcleanup 2>\\&1" "$flow_configs"
 # Cleanup sr components
