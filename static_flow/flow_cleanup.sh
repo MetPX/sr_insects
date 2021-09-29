@@ -14,6 +14,7 @@ echo remove x attributes added by post then calculating checksums. in ${SAMPLEDA
 if [ `find ${SAMPLEDATA} -type f | xargs xattr -l|wc -l` ]; then 
   find ${SAMPLEDATA} -type f | xargs xattr -d user.sr_mtime >&/dev/null
   find ${SAMPLEDATA} -type f | xargs xattr -d user.sr_integrity >&/dev/null
+  find ${SAMPLEDATA} -type f | xargs xattr -d user.sr_sum >&/dev/null
 fi
 echo done with xattr
 
