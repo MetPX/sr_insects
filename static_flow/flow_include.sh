@@ -174,7 +174,7 @@ function countall {
   if [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -a 'putNewMessage published' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
        totshovel2="${tot}"
-       countthem "`grep -a 'reject: mask=' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
+       countthem "`grep -a 'rejected: mask=' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
        totshovel2rej="${tot}"
   else
        countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_post_t_dd2_f00_*.log | wc -l`"
