@@ -89,9 +89,9 @@ function checktree {
   fi
 
   report=${SUMDIR}/`basename ${tree}`.txt
-  if [ ! -f ${report} ]; then
-     (cd ${tree}; find . \! -type d | xargs md5sum ) > ${report}
-  fi
+  #if [ ! -f ${report} ]; then
+  (cd ${tree}; find . \! -type d | xargs md5sum ) > ${report}
+  #fi
 
 }
 
