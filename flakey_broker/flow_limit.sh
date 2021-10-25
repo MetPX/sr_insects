@@ -2,12 +2,16 @@
 
 . ./flow_include.sh
 
-echo "stopping rabbitmq"
-sudo systemctl stop rabbitmq-server
-sleep 10
-echo "starting rabbitmq"
-sudo systemctl start rabbitmq-server
-sleep 10
+function swap_poll {
+   if [ "${sarra_py_version:0:1}" == "3" ]; then
+      echo "switching active poll config"
+      sr3 stop poll/sftp_f62 poll/sftp_f63
+      mv ~/.config/sr3/poll/sftp_f62.conf ~/.config/sr3/poll_save.conf
+      cp ~/.config/sr3/poll/sftp_f63.conf ~/.config/sr3/poll/sftp_f62.conf
+      mv ~/.config/sr3/poll_save.conf ~/.config/sr3/poll/sftp_f63.conf 
+      sr3 start poll/sftp_f62 poll/sftp_f63
+   fi
+}
 
 echo "stopping rabbitmq"
 sudo systemctl stop rabbitmq-server
@@ -15,12 +19,23 @@ sleep 10
 echo "starting rabbitmq"
 sudo systemctl start rabbitmq-server
 sleep 10
+swap_poll 
 
 echo "stopping rabbitmq"
 sudo systemctl stop rabbitmq-server
 sleep 10
 echo "starting rabbitmq"
 sudo systemctl start rabbitmq-server
+sleep 10
+swap_poll 
+
+echo "stopping rabbitmq"
+sudo systemctl stop rabbitmq-server
+swap_poll 
+sleep 10
+echo "starting rabbitmq"
+sudo systemctl start rabbitmq-server
+swap_poll 
 
 countall
 

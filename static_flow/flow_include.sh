@@ -237,10 +237,13 @@ fi
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -a 'putNewMessage published' "$LOGDIR"/${LGPFX}poll_sftp_f62_*.log | wc -l`"
+       totpoll1="${tot}"
+       totpoll_mirrored="`grep -a ', now saved' "$LOGDIR"/${LGPFX}poll_sftp_f63_*.log | awk ' { print $18 } '|tail -1`"
   else
        countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}poll_sftp_f62_*.log | wc -l`"
+       totpoll1="${tot}"
   fi
-  totpoll1="${tot}"
+  
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -a 'putNewMessage published' $srposterlog | grep -v shim | wc -l`"

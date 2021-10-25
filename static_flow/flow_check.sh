@@ -194,6 +194,9 @@ calcres "${totsubu}" "${totsent}"  "${LGPFX}subscribe u_sftp_f60 (${totsubu}) sh
 calcres "${totsubcp}" "${totsent}" "${LGPFX}subscribe cp_f61\t (${totsubcp}) should download same number of items as ${LGPFX}sender (${totsent})"
 echo "                 | poll       routing |"
 calcres "${totpoll1}" "${totsent}" "${LGPFX}poll sftp_f62\t (${totpoll1}) should publish same number of items of ${LGPFX}sender sent\t (${totsent})"
+if [ "${totpoll_mirrored}" ]; then
+    calcres "${totpoll1}" "${totpoll_mirrored}" "${LGPFX}poll sftp_f63\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totsent})"
+fi
 calcres "${totsubq}" "${totpoll1}" "${LGPFX}subscribe q_f71\t (${totsubq}) should download same number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
 echo "                 | flow_post  routing |"
 calcres "${totpost1}" "${totsent}" "${LGPFX}post test2_f61\t (${totpost1}) should have the same number of items of ${LGPFX}sender \t (${totsent})"
