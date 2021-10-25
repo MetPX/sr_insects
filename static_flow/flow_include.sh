@@ -236,9 +236,9 @@ fi
   totsubq="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/${LGPFX}poll_f62_*.log | wc -l`"
+       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/${LGPFX}poll_sftp_f62_*.log | wc -l`"
   else
-       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}poll_f62_*.log | wc -l`"
+       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}poll_sftp_f62_*.log | wc -l`"
   fi
   totpoll1="${tot}"
 

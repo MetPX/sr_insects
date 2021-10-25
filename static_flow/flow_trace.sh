@@ -33,7 +33,7 @@ printf "\n\nFLOW f61 post\n\n"
 grep $1 $srposterlog
 
 printf "\n\nFLOW f62 poll \n\n"
-grep $1 $LOGDIR/${LGPFX}poll_f62_01.log
+grep $1 $LOGDIR/${LGPFX}poll_sftp_f62_01.log
 
 #printf "\n\nFLOW f71 subscribe r to post \n\n"
 

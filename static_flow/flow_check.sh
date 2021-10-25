@@ -193,7 +193,7 @@ calcres "${totsubrmqtt}" "${totwatch}" "rabbitmqtt\t\t (${totsubrmqtt}) should d
 calcres "${totsubu}" "${totsent}"  "${LGPFX}subscribe u_sftp_f60 (${totsubu}) should download same number of items as ${LGPFX}sender (${totsent})"
 calcres "${totsubcp}" "${totsent}" "${LGPFX}subscribe cp_f61\t (${totsubcp}) should download same number of items as ${LGPFX}sender (${totsent})"
 echo "                 | poll       routing |"
-calcres "${totpoll1}" "${totsent}" "${LGPFX}poll f62\t (${totpoll1}) should publish same number of items of ${LGPFX}sender sent\t (${totsent})"
+calcres "${totpoll1}" "${totsent}" "${LGPFX}poll sftp_f62\t (${totpoll1}) should publish same number of items of ${LGPFX}sender sent\t (${totsent})"
 calcres "${totsubq}" "${totpoll1}" "${LGPFX}subscribe q_f71\t (${totsubq}) should download same number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
 echo "                 | flow_post  routing |"
 calcres "${totpost1}" "${totsent}" "${LGPFX}post test2_f61\t (${totpost1}) should have the same number of items of ${LGPFX}sender \t (${totsent})"
