@@ -175,15 +175,17 @@ function countall {
        totshovel2="${tot}"
        countthem "`grep -a 'rejected: 304 mask=' "$LOGDIR"/${LGPFX}post_t_dd2_f00_*.log | wc -l`"
        totshovel2rej="${tot}"
+       countthem "`grep after_work\ rejected  "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
+       totwinnowed="${tot}"
   else
        countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/${LGPFX}post_t_dd2_f00_*.log | wc -l`"
        totshovel2="${tot}"
        countthem "`grep -a 'reject: mask=' "$LOGDIR"/${LGPFX}post_t_dd2_f00_*.log | wc -l`"
        totshovel2rej="${tot}"
-  fi
-
   countthem "`grep rejected  "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
   totwinnowed="${tot}"
+  fi
+
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep 'putNewMessage published' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
@@ -196,7 +198,7 @@ function countall {
   totmsgamqp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'do_download downloaded ok' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
+      countthem "`grep -a 'worked successfully:' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] file_log downloaded to:' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
   fi
@@ -210,7 +212,7 @@ function countall {
   totsent="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="do_download\ downloaded\ ok|write_inline_file\ data\ inlined\ with\ message"
+      all_events="worked\ successfully"
       countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
   else
       no_hardlink_events='downloaded to:|symlinked to|removed'
@@ -225,7 +227,7 @@ function countall {
   totsubcp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="do_download downloaded ok"
+      all_events="worked\ successfully"
       countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
   else
       countthem "`grep -aE "$no_hardlink_events" "$LOGDIR"/${LGPFX}subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
@@ -233,7 +235,7 @@ function countall {
   totsubftp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -aE "downloaded ok:" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | wc -l`"
+      countthem "`grep -aE "worked successfully" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | wc -l`"
   else
       countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
   fi
@@ -293,14 +295,14 @@ function countall {
   totcveille="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'do_download downloaded ok' $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
+      countthem "`grep -a 'worked successfully' $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
   fi
   totcdnld="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'do_download downloaded ok' $LOGDIR/${LGPFX}subscribe_cfile_f44_*.log | wc -l`"
+      countthem "`grep -a 'worked successfully' $LOGDIR/${LGPFX}subscribe_cfile_f44_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/${LGPFX}subscribe_cfile_f44_*.log | wc -l`"
   fi
