@@ -233,7 +233,7 @@ fi
 tallyres "${tno}" "${passedno}" "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 results=$?
 
-if (("${missed_dispositions}">0)); then
+if [[ "${missed_dispositions}" -gt 0 ]]; then
    # PAS missed_dispositions means definite Sarra bug, very serious.
    echo "Please review $missedreport"
    results=1
