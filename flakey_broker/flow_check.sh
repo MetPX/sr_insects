@@ -131,7 +131,7 @@ calcres "${rejectfilecount}" "${totshovel2rej}" "${LGPFX}post\t count of rejecte
 calcres ${totshovel1} ${totshovel2} "${LGPFX}post\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
 calcres ${totsarp}    ${totshovel1} "${LGPFX}sarra\t (${totsarp}) should have the same number of items as one post\t (${totshovel1})"
 calcres ${totwinnowed}    ${totshovel1} "${LGPFX}sarra\t (${totwinnowed}) should winnow the same number of items as one post\t (${totshovel1})"
-calcres ${totfileamqp}   ${totsarp}    "${LGPFX}subscribe\t (${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
+calcres ${totfileamqp}   ${totsarp}    "${LGPFX}subscribe amqp_f30\t (${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
 echo "                 | watch      routing |"
 calcres ${totwatch}   ${totfileamqp}         "${LGPFX}watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totfileamqp})"
 calcres ${totsent}    ${totwatch}   "${LGPFX}sender\t\t (${totsent}) should have the same number of items as ${LGPFX}watch  (${totwatch})"

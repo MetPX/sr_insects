@@ -13,28 +13,37 @@ function swap_poll {
    fi
 }
 
-echo "stopping rabbitmq"
-sudo systemctl stop rabbitmq-server
+
+if [ "${sarra_py_version:0:1}" == "3" -a "`COLUMNS=200 sr3 show sarra/download_f20 | grep broker=  | sed 's/.*broker=//;s/:.*//' | head -1`" = 'mqtt' ]; then
+    mqpbroker=mosquitto
+else
+    mqpbroker=rabbitmq-server
+fi
+
+
+echo "stopping $mqpbroker"
+
+sudo systemctl stop $mqpbroker
 sleep 10
-echo "starting rabbitmq"
-sudo systemctl start rabbitmq-server
+echo "starting $mqpbroker"
+sudo systemctl start $mqpbroker
 sleep 10
 swap_poll 
 
-echo "stopping rabbitmq"
-sudo systemctl stop rabbitmq-server
+echo "stopping $mqpbroker"
+sudo systemctl stop $mqpbroker
 sleep 10
-echo "starting rabbitmq"
-sudo systemctl start rabbitmq-server
+echo "starting $mqpbroker"
+sudo systemctl start $mqpbroker
 sleep 10
 swap_poll 
 
-echo "stopping rabbitmq"
-sudo systemctl stop rabbitmq-server
+echo "stopping $mqpbroker"
+sudo systemctl stop $mqpbroker
 swap_poll 
 sleep 10
-echo "starting rabbitmq"
-sudo systemctl start rabbitmq-server
+echo "starting $mqpbroker"
+sudo systemctl start $mqpbroker
 swap_poll 
 
 countall
