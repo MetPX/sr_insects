@@ -3,6 +3,11 @@
 . ../flow_utils.sh
 
 C_ALSO="`which sr_cpost`"
+
+if [ ! "${C_ALSO}" ]; then
+   C_ALSO="`which sr3_cpost`"
+fi
+
 # The directory we run the flow test scripts in...
 tstdir="`pwd`"
 httpdocroot=`cat $tstdir/.httpdocroot`
