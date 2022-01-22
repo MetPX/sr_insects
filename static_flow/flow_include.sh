@@ -275,11 +275,14 @@ fi
   if [[ ! "$C_ALSO" && ! -d "$SARRAC_LIB" ]]; then
      return
   fi
+
+set -x
   #staticfilecount="`ls -lR ${SAMPLEDATA} | grep '^-r' | grep -v reject | wc -l`"
   staticfilecount="`find ${SAMPLEDATA} -type f | grep -v reject | wc -l`"
 
   rejectfilecount="`find ${SAMPLEDATA} -type f | grep reject | wc -l`"
 
+set +x
   countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
   totcpelle04p="${tot}"
 
