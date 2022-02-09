@@ -203,7 +203,7 @@ function countall {
   totmsgamqp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'transfer ok:' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
+      countthem "`grep -a 'downloaded ok:' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] file_log downloaded to:' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
   fi
@@ -217,7 +217,7 @@ function countall {
   totsent="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="transfer\ ok"
+      all_events="downloaded\ ok:|filtered\ ok:"
       countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
   else
       no_hardlink_events='downloaded to:|symlinked to|removed'
@@ -232,7 +232,7 @@ function countall {
   totsubcp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="transfer\ ok"
+      all_events="downloaded\ ok:|filtered\ ok:"
       countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
   else
       countthem "`grep -aE "$no_hardlink_events" "$LOGDIR"/${LGPFX}subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
@@ -240,7 +240,7 @@ function countall {
   totsubftp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -aE "transfer ok" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | wc -l`"
+      countthem "`grep -aE "downloaded ok" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | wc -l`"
   else
       countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
   fi
@@ -300,14 +300,14 @@ function countall {
   totcveille="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'transfer ok' $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
+      countthem "`grep -a 'downloaded ok' $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
   fi
   totcdnld="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'transfer ok' $LOGDIR/${LGPFX}subscribe_cfile_f44_*.log | wc -l`"
+      countthem "`grep -a 'downloaded ok' $LOGDIR/${LGPFX}subscribe_cfile_f44_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/${LGPFX}subscribe_cfile_f44_*.log | wc -l`"
   fi
