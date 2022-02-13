@@ -304,7 +304,7 @@ function countall {
   no_hardlink_events='downloaded to:|symlinked to|removed'
   all_events="hardlink|$no_hardlink_events"
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="downloaded\ ok:|filtered\ ok:"
+      all_events="do_download downloaded ok:|filtered ok:|link ok:|remove ok:|inlined with message"
       countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
   else
       no_hardlink_events='downloaded to:|symlinked to|removed'
