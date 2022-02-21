@@ -79,6 +79,52 @@ function summarize_logs {
     fi
 }
 
+
+function checktree {
+
+  tree=$1
+  printf "checking +${tree}+\n"
+  SUMDIR=${LOGDIR}/sums
+  if [ ! -d $SUMDIR ]; then
+      mkdir $SUMDIR
+  fi
+
+  report=${SUMDIR}/`basename ${tree}`.txt
+  #if [ ! -f ${report} ]; then
+  (cd ${tree}; find . \! -type d | xargs md5sum ) > ${report}
+  #fi
+
+}
+
+function comparetree {
+
+  tno=$((${tno}+1))
+  SUMDIR=${LOGDIR}/sums
+  diff ${SUMDIR}/${1}.txt ${SUMDIR}/${2}.txt >/dev/null 2>&1 
+  result=$?
+
+  if [ $result -gt 0 ]; then
+     printf "test %d FAILURE: compare contents of ${1} and ${2} differ\n" $tno
+  else
+     printf "test %d success: compare contents of ${1} and ${2} are the same\n" $tno
+     passedno=$((${passedno}+1))
+ fi
+  
+}
+
+printf "checking trees...\n"
+checktree ${testdocroot}/downloaded_by_sub_amqp
+checktree ${testdocroot}/downloaded_by_sub_cp
+checktree ${testdocroot}/downloaded_by_sub_rabbitmqtt
+checktree ${testdocroot}/downloaded_by_sub_u
+checktree ${testdocroot}/posted_by_shim
+checktree ${testdocroot}/recd_by_srpoll_test1
+checktree ${testdocroot}/sent_by_tsource2send
+checktree ${testdocroot}/mirror/linked_by_shim
+checktree ${testdocroot}/cfile
+checktree ${testdocroot}/cfr
+
+
 if [[ -z "$skip_summaries" ]]; then
     # PAS performance summaries
     printf "\nDownload Performance Summaries:\tLOGDIR=$LOGDIR\n"
@@ -112,6 +158,16 @@ fi
 printf "\n\tMaximum of the shovels is: ${maxshovel}\n\n"
 
 printf "\t\tTEST RESULTS\n\n"
+
+echo "                 | content of subdirs of ${tesdocroot} |"
+comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
+comparetree downloaded_by_sub_amqp downloaded_by_sub_rabbitmqtt
+comparetree downloaded_by_sub_amqp downloaded_by_sub_u
+comparetree downloaded_by_sub_amqp posted_by_shim
+comparetree downloaded_by_sub_amqp linked_by_shim
+comparetree downloaded_by_sub_amqp sent_by_tsource2send
+comparetree downloaded_by_sub_amqp cfile
+comparetree downloaded_by_sub_amqp cfr
 
 tot2shov=$(( ${totshovel1} + ${totshovel2} ))
 t4=$(( ${totfileamqp}*4 ))
