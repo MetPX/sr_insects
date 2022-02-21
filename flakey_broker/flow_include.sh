@@ -11,7 +11,7 @@ fi
 # The directory we run the flow test scripts in...
 tstdir="`pwd`"
 httpdocroot=`cat $tstdir/.httpdocroot`
-
+testdocroot="$HOME/sarra_devdocroot"
 
 function countthem {
    if [ ! "${1}" ]; then
@@ -247,9 +247,9 @@ function countall {
   totsubq="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -aE 'putNewMessage published' "$LOGDIR"/${LGPFX}poll_sftp_f62_*.log | wc -l`"
+       countthem "`grep -aE 'putNewMessage published' "$LOGDIR"/${LGPFX}poll_sftp_f6*_*.log | wc -l`"
        totpoll1="${tot}"
-       totpoll_mirrored="`grep -a ', now saved' "$LOGDIR"/${LGPFX}poll_sftp_f63_*.log | awk ' { print $18 } '|tail -1`"
+       totpoll_mirrored="`grep -a ', now saved' "$LOGDIR"/${LGPFX}poll_sftp_f6*_*.log | awk ' { print $18 } '|tail -1`"
   else
        countthem "`grep -aE '\[INFO\] post_log' "$LOGDIR"/${LGPFX}poll_sftp_f62_*.log | wc -l`"
        totpoll1="${tot}"
