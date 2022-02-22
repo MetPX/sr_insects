@@ -159,7 +159,7 @@ printf "\n\tMaximum of the shovels is: ${maxshovel}\n\n"
 
 printf "\t\tTEST RESULTS\n\n"
 
-echo "                 | content of subdirs of ${tesdocroot} |"
+echo "                 | content of subdirs of ${testdocroot} |"
 comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
 comparetree downloaded_by_sub_amqp downloaded_by_sub_rabbitmqtt
 comparetree downloaded_by_sub_amqp downloaded_by_sub_u
