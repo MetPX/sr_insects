@@ -120,7 +120,8 @@ checktree ${testdocroot}/downloaded_by_sub_u
 checktree ${testdocroot}/posted_by_shim
 checktree ${testdocroot}/recd_by_srpoll_test1
 checktree ${testdocroot}/sent_by_tsource2send
-checktree ${testdocroot}/mirror/linked_by_shim
+# Not used in flakey? RS
+#checktree ${testdocroot}/mirror/linked_by_shim
 checktree ${testdocroot}/cfile
 checktree ${testdocroot}/cfr
 
@@ -164,7 +165,8 @@ comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
 comparetree downloaded_by_sub_amqp downloaded_by_sub_rabbitmqtt
 comparetree downloaded_by_sub_amqp downloaded_by_sub_u
 comparetree downloaded_by_sub_amqp posted_by_shim
-comparetree downloaded_by_sub_amqp linked_by_shim
+# RS not used?
+#comparetree downloaded_by_sub_amqp linked_by_shim
 comparetree downloaded_by_sub_amqp sent_by_tsource2send
 comparetree downloaded_by_sub_amqp cfile
 comparetree downloaded_by_sub_amqp cfr
