@@ -392,7 +392,7 @@ function countall {
   totcdnld="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'do_download downloaded ok' $LOGDIR/subscribe_cfile_f44_*.log | wc -l`"
+      countthem "`grep -a 'downloaded ok' $LOGDIR/subscribe_cfile_f44_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cfile_f44_*.log | wc -l`"
   fi
