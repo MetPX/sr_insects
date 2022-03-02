@@ -304,13 +304,13 @@ function countall {
   no_hardlink_events='downloaded to:|symlinked to|removed'
   all_events="hardlink|$no_hardlink_events"
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="do_download downloaded ok:|filtered ok:|link ok:|remove ok:|inlined with message"
-      countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
+      all_events="downloaded ok:|filtered ok:|link ok:|remove ok:"
   else
       no_hardlink_events='downloaded to:|symlinked to|removed'
       all_events="hardlink|$no_hardlink_events"
-      countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
   fi
+
+  countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
   totsubrmqtt="${tot}"
 
   countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_u_sftp_f60_*.log | grep -v DEBUG | wc -l`"
