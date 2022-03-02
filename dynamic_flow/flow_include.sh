@@ -304,7 +304,7 @@ function countall {
   no_hardlink_events='downloaded to:|symlinked to|removed'
   all_events="hardlink|$no_hardlink_events"
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="downloaded ok:|filtered ok:|link ok:|remove ok:"
+      all_events="downloaded ok:|filtered ok:|link ok:|remove ok:|written from message ok:"
   else
       no_hardlink_events='downloaded to:|symlinked to|removed'
       all_events="hardlink|$no_hardlink_events"
