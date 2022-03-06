@@ -162,14 +162,14 @@ printf "\t\tTEST RESULTS\n\n"
 
 echo "                 | content of subdirs of ${testdocroot} |"
 comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
-comparetree downloaded_by_sub_amqp downloaded_by_sub_rabbitmqtt
-comparetree downloaded_by_sub_amqp downloaded_by_sub_u
-comparetree downloaded_by_sub_amqp posted_by_shim
+comparetree downloaded_by_sub_cp downloaded_by_sub_rabbitmqtt
+comparetree downloaded_by_sub_rabbitmqtt downloaded_by_sub_u
+comparetree downloaded_by_sub_u posted_by_shim
 # RS not used?
 #comparetree downloaded_by_sub_amqp linked_by_shim
-comparetree downloaded_by_sub_amqp sent_by_tsource2send
+comparetree posted_by_shim sent_by_tsource2send
 comparetree downloaded_by_sub_amqp cfile
-comparetree downloaded_by_sub_amqp cfr
+comparetree cfile cfr
 
 tot2shov=$(( ${totshovel1} + ${totshovel2} ))
 t4=$(( ${totfileamqp}*4 ))
