@@ -169,14 +169,14 @@ function countall {
   totsarra="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/${LGPFX}post_t_dd1_f00_*.log | wc -l`"
+       countthem "`grep -a 'log post posted' "$LOGDIR"/${LGPFX}post_t_dd1_f00_*.log | wc -l`"
   else
        countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/${LGPFX}post_t_dd1_f00_*.log | wc -l`"
   fi
   totshovel1="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'putNewMessage published' "$LOGDIR"/${LGPFX}post_t_dd2_f00_*.log | wc -l`"
+       countthem "`grep -a 'log post posted' "$LOGDIR"/${LGPFX}post_t_dd2_f00_*.log | wc -l`"
        totshovel2="${tot}"
        countthem "`grep -a 'rejected: 304 mask=' "$LOGDIR"/${LGPFX}post_t_dd2_f00_*.log | wc -l`"
        totshovel2rej="${tot}"
@@ -193,7 +193,7 @@ function countall {
 
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep 'putNewMessage published' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
+       countthem "`grep 'log post posted' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
   else
        countthem "`grep '\[INFO\] post_log' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
   fi
@@ -210,7 +210,7 @@ function countall {
   totfileamqp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'putNewMessage published' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
+      countthem "`grep -a 'log post posted' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
   fi
@@ -247,7 +247,7 @@ function countall {
   totsubq="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -aE 'putNewMessage published' "$LOGDIR"/${LGPFX}poll_sftp_f6*_*.log | wc -l`"
+       countthem "`grep -aE 'log post posted' "$LOGDIR"/${LGPFX}poll_sftp_f6*_*.log | wc -l`"
        totpoll1="${tot}"
        totpoll_mirrored="`grep -a ', now saved' "$LOGDIR"/${LGPFX}poll_sftp_f6*_*.log | awk ' { print $18 } '|tail -1`"
   else
@@ -256,7 +256,7 @@ function countall {
   fi
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'putNewMessage published' $srposterlog | grep -v shim | wc -l`"
+       countthem "`grep -a 'log post posted' $srposterlog | grep -v shim | wc -l`"
   else
        countthem "`grep -a '\[INFO\] post_log notice' $srposterlog | grep -v shim | wc -l`"
   fi
@@ -266,7 +266,7 @@ function countall {
   totshimpost1="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'putNewMessage published' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+      countthem "`grep -a 'log post posted' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
   fi
