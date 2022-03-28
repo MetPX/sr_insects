@@ -172,7 +172,7 @@ function countall {
   #echo " ${tot}  totsubftp"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sr_poll_f00_sftp_01.log | wc -l`"
+      countthem "`grep -a 'log post posted' "$LOGDIR"/sr_poll_f00_sftp_01.log | wc -l`"
   else 
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_poll_f00_sftp_01.log | wc -l`"
   fi
@@ -182,7 +182,7 @@ function countall {
 
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'putNewMessage published' "$LOGDIR"/sr_poll_f01_ftp_01.log | wc -l`"
+      countthem "`grep -a 'log post posted' "$LOGDIR"/sr_poll_f01_ftp_01.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_poll_f01_ftp_01.log | wc -l`"
   fi
