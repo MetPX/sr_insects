@@ -101,12 +101,12 @@ else
    exit 7
 fi
     
-if python3 ../passwordless_ssh_test.py; then
-   echo "passwordless ssh OK"
-else
-   echo "passwordless ssh broken"
-   exit 8
-fi
+#if python3 ../passwordless_ssh_test.py; then
+#   echo "passwordless ssh OK"
+#else
+#   echo "passwordless ssh broken"
+#   exit 8
+#fi
 
 python3 $pyreq
 status=$?
