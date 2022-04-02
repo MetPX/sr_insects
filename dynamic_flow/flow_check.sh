@@ -82,19 +82,19 @@ function summarize_logs {
 if [[ -z "$skip_summaries" ]]; then
     # PAS performance summaries
     printf "\nDownload Performance Summaries:\tLOGDIR=$LOGDIR\n"
-    summarize_performance sr_shovel msg_total: t_dd1 t_dd2
-    summarize_performance sr_subscribe file_total: cdnld_f21 amqp_f30 cfile_f44 u_sftp_f60 ftp_f70 q_f71
+    summarize_performance ${LGPFX}shovel msg_total: t_dd1 t_dd2
+    summarize_performance ${LGPFX}subscribe file_total: cdnld_f21 amqp_f30 cfile_f44 u_sftp_f60 ftp_f70 q_f71
 
     echo
     # MG shows retries
     echo
 
     if [[ ! "$SARRA_LIB" ]]; then
-       echo NB retries for sr_subscribe amqp_f30 `grep Retrying "$LOGDIR"/sr_subscribe_amqp_f30*.log | wc -l`
-       echo NB retries for sr_sender    `grep Retrying "$LOGDIR"/sr_sender*.log | wc -l`
+       echo NB retries for sr_subscribe amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
+       echo NB retries for sr_sender    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
     else
-       echo NB retries for "$SARRA_LIB"/sr_subscribe.py amqp_f30 `grep Retrying "$LOGDIR"/sr_subscribe_amqp_f30*.log | wc -l`
-       echo NB retries for "$SARRA_LIB"/sr_sender.py    `grep Retrying "$LOGDIR"/sr_sender*.log | wc -l`
+       echo NB retries for "$SARRA_LIB"/${LGPFX}subscribe.py amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
+       echo NB retries for "$SARRA_LIB"/${LGPFX}sender.py    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
     fi
 
     summarize_logs ERROR
@@ -119,38 +119,55 @@ t5=$(( ${totsent}/2 ))
 t6=$(( ${totfileamqp}*2 ))
 
 echo "                 | dd.weather routing |"
-calcres ${totshovel1} ${totshovel2} "sr_shovel\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
-calcres ${totwinnow}  ${tot2shov}   "sr_winnow\t (${totwinnow}) should have the same of the number of items of shovels\t (${tot2shov})"
-calcres ${totsarp}    ${totwinpost} "sr_sarra\t (${totsarp}) should have the same number of items as winnows'post\t (${totwinpost})"
+calcres "${totshovel1}" "${totshovel2}" "${LGPFX}shovel (totshovel1)\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
+calcres "${totwinnow}"  "${tot2shov}"   "${LGPFX}winnow (totwinnow)\t (${totwinnow}) should have the same of the number of items of shovels\t (${tot2shov})"
+calcres "${totsarp}"   "${totwinpost}" "${LGPFX}sarra (totsarp)\t (${totsarp}) should have the same number of items as winnows'post\t (${totwinpost})"
 # since v2.20.04b3... the time comparison is working properly, and subscribe is rejecting unmodified files.
 # so this test now... correctly... fails.  commenting out for now.
-#calcres ${totfileamqp}   ${totsarp}    "sr_subscribe\t (${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
+#calcres ${totfileamqp}   ${totsarp}    "${LGPFX}subscribe\t (${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
 echo "                 | watch      routing |"
-calcres ${totwatch}   ${t4}         "sr_watch\t\t (${totwatch}) should be 4 times subscribe amqp_f30\t\t  (${totfileamqp})"
-calcres ${totsent}    ${totwatch}   "sr_sender\t\t (${totsent}) should have the same number of items as sr_watch  (${totwatch})"
-calcres ${totsubrmqtt} ${totwatch}  "rabbitmqtt\t\t (${totsubrmqtt}) should have the same number of items as sr_watch  (${totwatch})"
-calcres ${totsubu}    ${totsent}    "sr_subscribe u_sftp_f60 (${totsubu}) should have the same number of items as sr_sender (${totsent})"
-calcres ${totsubcp}   ${totsent}    "sr_subscribe cp_f61\t (${totsubcp}) should have the same number of items as sr_sender (${totsent})"
+puf=9 # pclean_unlink_factor (how many files are created and unlinked per file downloaded.)
+t8=$(( ${totfileamqp}*${puf} ))
+calcres ${totremoved}    ${t8} "${LGPFX}shovel pclean_f92\t (${totremoved}) should have removed ${puf} times the number of files downloaded\t (${totfileamqp})"
+calcres "${totwatch}"   "${t4}"         "${LGPFX}watch\t\t (${totwatch}) should be 4 times subscribe amqp_f30\t\t  (${totfileamqp})"
+calcres "${totfileamqp}"   "${totwatchnormal}"         "amqp_f30 subscription (totfileamqp)\t\t (${totfileamqp}) should match totwatchnormal\t  (${totwatchnormal})"
+calcres "${t6}" "${totwatchremoved}" "watch rm's (totwatchremove) (${totwatchremoved}) should be t6=2*totfileamqp (${t6})"
+printf "\n\twatch breakdown: totwatchhlinked: %4d totwatchslinked: %4d totwatchmoved: %4d\n" "${totwatchhlinked}" "${totwatchslinked}" "${totwatchmoved}"
+
+printf "\t\t\t totwatchremoved: %4d  totwatchnormal: %4d   totwatchall: %4d\n"  "${totwatchremoved}" "${totwatchnormal}" "${totwatchall}"
+calcres "${totwatchhlinked}" "${totwatchslinked}" "totwatchhlinked\t (${totwatchhlinked}) should match symlinkes (totwatchslinked) \t  (${totwatchslinked})"
+#calcres "${totwatchmoved}" "${totwatchhlinked}" "watchmoved (${totwatchmoved}) should be same as number watchhlinked (${totwatchhlinked})"
+calcres "${totwatchremoved}" "${t6}" "watchremoved \t\t (${totwatchremoved}) should 2x files downloaded watchslinked \t  (${totfileamqp})"
+#calcres "${totwatchnormal}" "${totwatchslinked}" "watchnormal (${totwatchnormal}) should be same as number watchslinked (${totwatchslinked})"
+#calcres "${totwatchall}" "${totwatch}" "watchremoved (${totwatchall}) should be same as number totwatch (${totwatch})"
+calcres "${totsent}"    "${totwatch}"   "${LGPFX}sender (totsent)\t (${totsent}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
+
+printf "\n\tsend breakdown: totsendhlinked: %4d totsendslinked: %4d totsendmoved: %4d\n" "${totsendhlinked}" "${totsendslinked}" "${totsendmoved}"
+printf "\t\t\t totsendremoved: %4d  totsendnormal: %4d   totsendall: %4d\n"  "${totsendremoved}" "${totsendnormal}" "${totsendall}"
+
+calcres "${totsubrmqtt}" "${totwatch}"  "rabbitmqtt (totsubrmqtt)(${totsubrmqtt}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
+calcres "${totsubu}" "${totsent}"    "${LGPFX}subscribe u_sftp_f60 (${totsubu}) should have the same number of items as ${LGPFX}sender (${totsent})"
+calcres "${totsubcp}" "${totsent}"    "${LGPFX}subscribe cp_f61\t (${totsubcp}) should have the same number of items as ${LGPFX}sender (${totsent})"
 echo "                 | poll       routing |"
-calcres ${totpoll1}   ${t5}         "sr_poll test1_f62\t (${totpoll1}) should have half the same number of items of sr_sender\t (${totsent})"
-calcres ${totsubq}    ${totpoll1}   "sr_subscribe q_f71\t (${totsubq}) should have the same number of items as sr_poll test1_f62 (${totpoll1})"
+t7=$((${totsendall}-${totsendremoved}))
+calcres "${totpoll1}" "${t7}"         "tot ${LGPFX}poll 1 f62\t (${totpoll1}) should as many as were sent (minus removes) ${LGPFX}sender\t (${t7})"
+calcres "${totsubq}" "${totpoll1}"  "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
 echo "                 | flow_post  routing |"
-calcres ${totpost1}   ${t5}         "sr_post test2_f61\t (${totpost1}) should have half the same number of items of sr_sender \t (${totsent})"
-calcres ${totsubftp}  ${totpost1}   "sr_subscribe ftp_f70\t (${totsubftp}) should have the same number of items as sr_post test2_f61 (${totpost1})"
-calcres ${totpost1} ${totshimpost1} "sr_post test2_f61\t (${totpost1}) should have about the same number of items as shim_f63\t (${totshimpost1})"
+calcres "${totpost1}"   "${t5}"         "${LGPFX}post test2_f61\t (${totpost1}) should have half the same number of items of ${LGPFX}sender \t (${totsent})"
+calcres "${totsubftp}" "${totpost1}"   "${LGPFX}subscribe ftp_f70\t (${totsubftp}) should have the same number of items as ${LGPFX}post test2_f61 (${totpost1})"
+calcres "${totpost1}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should have about the same number of items as shim_f63\t (${totshimpost1})"
 
 echo "                 | py infos   routing |"
-calcres ${totpropagated} ${t6} "sr_shovel pclean_f90\t (${totpropagated}) should have twice the number of watched files\t (${totfileamqp})"
-calcres ${totremoved}    ${t6} "sr_shovel pclean_f92\t (${totremoved}) should have twice the number of watched files\t (${totfileamqp})"
+calcres ${totpropagated} ${t6} "${LGPFX}shovel  pclean_f90\t (${totpropagated}) should have twice the number of watched files\t (${totfileamqp})"
 zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."
 # check removed because of issue #294
 #calcres ${totshortened} ${totfileamqp} \
 #   "count of truncated headers (${totshortened}) and subscribed messages (${totmsgamqp}) should have about the same number of items"
 
-# these almost never are the same, and it's a problem with the post test. so failures here almost always false negative.
+# these almost never are the same, and it's a problem with the post test. so failures here almost always false positives.
 #calcres ${totpost1} ${totsubu} "post test2_f61 ${totpost1} and subscribe u_sftp_f60 ${totsubu} run together. Should be about the same."
 
-# because of accept/reject filters, these numbers are never similar, so these tests are wrong.
+# because of accept/reject filters (varying amounts of crap being rejected), these numbers are never similar, so these tests are wrong.
 # tallyres ${totcpelle04r} ${totcpelle04p} "pump pelle_dd1_f04 (c shovel) should publish (${totcpelle04p}) as many messages as are received (${totcpelle04r})"
 # tallyres ${totcpelle05r} ${totcpelle05p} "pump pelle_dd2_f05 (c shovel) should publish (${totcpelle05p}) as many messages as are received (${totcpelle05r})"
 
@@ -167,8 +184,11 @@ echo "                 | C          routing |"
 
   totcvan=$(( ${totcvan14p} + ${totcvan15p} ))
   calcres  ${totcvan} ${totcdnld} "cdnld_f21 subscribe downloaded ($totcdnld) the same number of files that was published by both van_14 and van_15 ($totcvan)"
+  calcres ${totcclean} ${totcvan} "${LGPFX}subscribe cclean_f91\t (${totcclean}) should have deleted as many files as went through van\t (${totcvan})"
+  t4=$(( ${totcclean} + ${totcvan} ))
+  calcres ${totcveille} ${t4} "veille_f34 should post as many files ($totcveille} as wetn through van (${totcvan}) and clean  ($totcclean))"
   t5=$(( $totcveille / 2 ))
-  calcres  ${t5} ${totcdnld} "veille_f34 should post twice as many files ($totcveille) as subscribe cdnld_f21 downloaded ($totcdnld)"
+  calcres  ${t5} ${totcdnld} "veille_f34 should post twice as many files (${totcveille}) as subscribe cdnld_f21 downloaded (${totcdnld})"
   calcres  ${t5} ${totcfile} "veille_f34 should post twice as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
 
 fi

@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
-touch ~/.ssh/authorized_keys
-mv ~/.ssh/authorized_keys ~/.ssh/authorized_keys.old
-
-cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-chmod og-wx ~/.ssh/authorized_keys 
+#FIXME
+#probably a bad idea almost always... to replace authorized_keys...
+# in container environments the key is used for management, need to add not replace
+#touch ~/.ssh/authorized_keys
+#mv ~/.ssh/authorized_keys ~/.ssh/authorized_keys.old
+#
+#cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+#chmod og-wx ~/.ssh/authorized_keys 
 
 for test in unit static_flow; do
    cd $test
@@ -15,4 +18,4 @@ for test in unit static_flow; do
    cd ..
 done
 
-mv ~/.ssh/authorized_keys.old ~/.ssh/authorized_keys
+#mv ~/.ssh/authorized_keys.old ~/.ssh/authorized_keys

@@ -12,8 +12,14 @@
 #export SARRAC_LIB=""
 
 
+#  argument could be: config, declare or nothing.
+#  if nothing, do the whole thing.
+
 #export PYTHONPATH="`pwd`/../"
-. ./flow_utils.sh
+. ../flow_utils.sh
+
+echo "FIXME sarra_py_version=${sarra_py_version}"
+export sarra_py_version=${sarra_py_version}
 
 testdocroot="$HOME/sarra_devdocroot"
 testhost=localhost
@@ -77,6 +83,9 @@ echo "Adding static flow test configurations..."
 cd ${SR_TEST_CONFIGS} ; cp -r *  ${CONFDIR}
 cd ..
 
+if [ "$1" == "config" ]; then
+    exit 0
+fi
 
 passed_checks=0
 count_of_checks=0
@@ -86,10 +95,14 @@ count_of_checks=0
 # ensure users have exchanges:
 
 echo "Initializing with sr_audit... takes a minute or two"
-if [ ! "$SARRA_LIB" ]; then
-    sr_audit -debug -users foreground >>$flowsetuplog 2>&1
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+    sr3 --users declare 
 else
-    "$SARRA_LIB"/sr_audit.py -debug -users foreground >>$flowsetuplog 2>&1
+    if [ ! "$SARRA_LIB" ]; then
+        sr_audit -debug -users foreground >>$flowsetuplog 2>&1
+    else
+        "$SARRA_LIB"/sr_audit.py -debug -users foreground >>$flowsetuplog 2>&1
+    fi
 fi
 
 # Check queues and exchanges
@@ -139,11 +152,11 @@ count_of_checks=$((${count_of_checks}+1))
 nbr_test=0
 nbr_fail=0
 
-cd $testrundir
+if [ "$1" = "ready" ]; then
+   exit 0
+fi
 
-echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid"
-./flow_post.sh >$srposterlog 2>&1 &
-flowpostpid=$!
+cd $testrundir
 
 echo $ftpserverpid >.ftpserverpid
 echo ${upstreamhttpserverpid} >.upstreamhttpserverpid
@@ -156,28 +169,43 @@ export MAX_MESSAGES=${1}
 echo $MAX_MESSAGES
 fi
 
-# Start everything but sr_post
-#flow_configs="audit/ `cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf | ls poll/pulse.conf`"
-#sr_action "Starting up all components..." start " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
-#echo "Done."
-
 echo "starting to post: `date +${SR_DATE_FMT}`"
-if [ ! "$SARRA_LIB" ]; then
-    sr_post -config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
-    sr_post -config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+   POST=sr3_post
+   CPOST=sr3_cpost
+   LGPFX=''
 else
-    "$SARRA_LIB"/sr_post.py -config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
-    "$SARRA_LIB"/sr_post.py -config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
+   POST=sr_post
+   CPOST=sr_cpost
+   LGPFX='sr_'
+fi
+export POST CPOST LGPFX
+
+echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid"
+./flow_post.sh >$srposterlog 2>&1 &
+flowpostpid=$!
+
+if [ ! "$SARRA_LIB" ]; then
+    $POST -c t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd1_f00_01.log 2>&1 &
+    $POST -c t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd2_f00_01.log 2>&1 &
+else
+    "$SARRA_LIB"/sr_post.py -c t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd1_f00_01.log 2>&1 &
+    "$SARRA_LIB"/sr_post.py -c t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd2_f00_01.log 2>&1 &
 fi
 
-sr_cpost -config pelle_dd1_f04.conf >$LOGDIR/sr_cpost_pelle_dd1_f04_01.log 2>&1 &
-sr_cpost -config pelle_dd2_f05.conf >$LOGDIR/sr_cpost_pelle_dd2_f05_01.log 2>&1 &
+$CPOST -c pelle_dd1_f04.conf >$LOGDIR/${LGPFX}cpost_pelle_dd1_f04_01.log 2>&1 &
+$CPOST -c pelle_dd2_f05.conf >$LOGDIR/${LGPFX}cpost_pelle_dd2_f05_01.log 2>&1 &
 
 echo "posting complete: `date +${SR_DATE_FMT}`"
 
 echo "sr starting "
-sr start
-ret=$?
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+   sr3 start
+   ret=$?
+else
+   sr start
+   ret=$?
+fi
 
 count_of_checks=$((${count_of_checks}+1))
 if [ $ret -ne 0 ]; then

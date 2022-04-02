@@ -14,7 +14,7 @@
 
 export TESTDIR="`pwd`"
 #export PYTHONPATH="`pwd`/../"
-. ./flow_utils.sh
+. ../flow_utils.sh
 
 testdocroot="$HOME/sarra_devdocroot"
 testhost=localhost
@@ -69,14 +69,19 @@ count_of_checks=0
 # ensure users have exchanges:
 
 echo "Initializing with sr_audit... takes a minute or two"
-if [ ! "$SARRA_LIB" ]; then
-    sr_audit --debug --users foreground #>>$flowsetuplog 2>&1
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+    sr3 --users declare
 else
-    "$SARRA_LIB"/sr_audit.py --debug --users foreground #>>$flowsetuplog 2>&1
+    if [ ! "$SARRA_LIB" ]; then
+        sr_audit --debug --users foreground #>>$flowsetuplog 2>&1
+    else
+        "$SARRA_LIB"/sr_audit.py --debug --users foreground #>>$flowsetuplog 2>&1
+    fi
 fi
 
 # Check queues and exchanges
 qchk 21 "queues existing after 1st audit"
+
 xchk "exchanges for flow test created"
 
 if [ "$1" = "declare" ]; then
@@ -119,7 +124,19 @@ nbr_fail=0
 
 cd $testrundir
 
-echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid"
+echo "starting to post: `date +${SR_DATE_FMT}`"
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+   POST=sr3_post
+   CPOST=sr3_cpost
+   LGPFX=''
+else
+   POST=sr_post
+   CPOST=sr_cpost
+   LGPFX='sr_'
+fi
+export POST CPOST LGPFX
+
+echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid, using: POST=${POST}, CPOST=${CPOST}"
 ./flow_post.sh >$srposterlog 2>&1 &
 flowpostpid=$!
 
@@ -132,6 +149,7 @@ if [ ${#} -ge 1 ]; then
 export MAX_MESSAGES=${1}
 echo $MAX_MESSAGES
 fi
+
 
 # Start everything but sr_post
 # This does not work because it starts everything sequentially.
@@ -146,8 +164,18 @@ fi
 # In the replacement below, using just plain *sr start*  all the processes are launched 
 # at once, and reaped as they finish. so no deadlocks occur.
 # 
-sr start
-ret=$?
+if [ "$1" = "setup" ]; then
+   exit 0
+fi
+
+
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+    sr3 start
+    ret=$?
+else
+    sr start
+    ret=$?
+fi
 
 count_of_checks=$((${count_of_checks}+1))
 if [ $ret -ne 0 ]; then

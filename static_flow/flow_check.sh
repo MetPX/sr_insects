@@ -79,30 +79,80 @@ function summarize_logs {
     fi
 }
 
+function checktree {
+
+  tree=$1
+  printf "checking +${tree}+\n"
+  SUMDIR=${LOGDIR}/sums
+  if [ ! -d $SUMDIR ]; then
+      mkdir $SUMDIR
+  fi
+
+  report=${SUMDIR}/`basename ${tree}`.txt
+  #if [ ! -f ${report} ]; then
+  (cd ${tree}; find . \! -type d | xargs md5sum ) > ${report}
+  #fi
+
+}
+
+function comparetree {
+
+  tno=$((${tno}+1))
+  SUMDIR=${LOGDIR}/sums
+  diff ${SUMDIR}/${1}.txt ${SUMDIR}/${2}.txt >/dev/null 2>&1 
+  result=$?
+
+  if [ $result -gt 0 ]; then
+     printf "test %d FAILURE: compare contents of ${1} and ${2} differ\n" $tno
+  else
+     printf "test %d success: compare contents of ${1} and ${2} are the same\n" $tno
+     passedno=$((${passedno}+1))
+ fi
+  
+}
+
+printf "checking trees...\n"
+checktree ${testdocroot}/downloaded_by_sub_amqp
+checktree ${testdocroot}/downloaded_by_sub_cp
+checktree ${testdocroot}/downloaded_by_sub_rabbitmqtt
+checktree ${testdocroot}/downloaded_by_sub_u
+checktree ${testdocroot}/posted_by_shim
+checktree ${testdocroot}/recd_by_srpoll_test1
+checktree ${testdocroot}/sent_by_tsource2send
+checktree ${testdocroot}/mirror/linked_by_shim
+checktree ${testdocroot}/cfile
+checktree ${testdocroot}/cfr
+
+
+
+
 if [[ -z "$skip_summaries" ]]; then
     # PAS performance summaries
     printf "\nDownload Performance Summaries:\tLOGDIR=$LOGDIR\n"
-    summarize_performance sr_shovel msg_total: t_dd1 t_dd2
-    summarize_performance sr_subscribe file_total: cdnld_f21 amqp_f30 cfile_f44 u_sftp_f60 ftp_f70 q_f71
+    summarize_performance ${LGPFX}shovel msg_total: rabbitmqtt_f22
+    summarize_performance ${LGPFX}subscribe file_total: cdnld_f21 amqp_f30 cfile_f44 u_sftp_f60 ftp_f70 q_f71
 
     echo
     # MG shows retries
     echo
 
     if [[ ! "$SARRA_LIB" ]]; then
-       echo NB retries for sr_subscribe amqp_f30 `grep Retrying "$LOGDIR"/sr_subscribe_amqp_f30*.log | wc -l`
-       echo NB retries for sr_sender    `grep Retrying "$LOGDIR"/sr_sender*.log | wc -l`
+       echo NB retries for ${LGPFX}subscribe amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
+       echo NB retries for ${LGPFX}sender    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
     else
-       echo NB retries for "$SARRA_LIB"/sr_subscribe.py amqp_f30 `grep Retrying "$LOGDIR"/sr_subscribe_amqp_f30*.log | wc -l`
-       echo NB retries for "$SARRA_LIB"/sr_sender.py    `grep Retrying "$LOGDIR"/sr_sender*.log | wc -l`
+       echo NB retries for "$SARRA_LIB"/${LGPFX}subscribe.py amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
+       echo NB retries for "$SARRA_LIB"/${LGPFX}sender.py    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
     fi
 
     summarize_logs ERROR
     summarize_logs WARNING
 fi
 
+
 passedno=0
 tno=0
+
+
 
 if [[ "${totshovel2}" -gt "${totshovel1}" ]]; then
    maxshovel=${totshovel2}
@@ -111,31 +161,48 @@ else
 fi
 printf "\n\tMaximum of the shovels is: ${maxshovel}\n\n"
 
+
 printf "\t\tTEST RESULTS\n\n"
+
+echo "                 | content of subdirs of ${testdocroot} |"
+comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
+comparetree downloaded_by_sub_amqp downloaded_by_sub_rabbitmqtt
+comparetree downloaded_by_sub_amqp downloaded_by_sub_u
+comparetree downloaded_by_sub_amqp posted_by_shim
+comparetree downloaded_by_sub_amqp linked_by_shim
+comparetree downloaded_by_sub_amqp sent_by_tsource2send
+comparetree downloaded_by_sub_amqp cfile
+comparetree downloaded_by_sub_amqp cfr
+
 
 tot2shov=$(( ${totshovel1} + ${totshovel2} ))
 t4=$(( ${totfileamqp}*4 ))
 
 echo "                 | dd.weather routing |"
-
-calcres ${staticfilecount} ${totshovel2} "sr_post\t count of posted files (${totshovel2}) should be same those in the static data directory\t (${staticfilecount})"
-calcres ${totshovel1} ${totshovel2} "sr_post\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
-calcres ${totsarp}    ${totshovel1} "sr_sarra\t (${totsarp}) should have the same number of items as one post\t (${totshovel1})"
-calcres ${totrejected}    ${totshovel1} "sr_sarra\t (${totrejected}) should reject the same number of items as one post\t (${totshovel1})"
-calcres ${totfileamqp}   ${totsarp}    "sr_subscribe\t (${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
+calcres "${staticfilecount}" "${totshovel2}" "${LGPFX}post\t count of posted files (${totshovel2}) should be same those in the static data directory\t (${staticfilecount})"
+calcres "${rejectfilecount}" "${totshovel2rej}" "${LGPFX}post\t count of rejected files (${totshovel2rej}) should be same those in the static data directory\t (${rejectfilecount})"
+calcres "${totshovel1}" "${totshovel2}" "${LGPFX}post\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
+calcres "${totsarx}" "${tot2shov}" "${LGPFX}sarra\t (${totsarx}) should receive the same number of items as both post\t (${tot2shov})"
+calcres "${totsarp}" "${totshovel1}" "${LGPFX}sarra\t (${totsarp}) should publish the same number of items as one post\t (${totshovel1})"
+calcres "${totwinnowed}" "${totshovel1}" "${LGPFX}sarra\t (${totwinnowed}) should winnow the same number of items as one post\t (${totshovel1})"
+calcres "${totfileamqp}" "${totsarp}" "${LGPFX}subscribe\t (${totfileamqp}) should rx the same number of items as sarra published\t (${totsarp})"
 echo "                 | watch      routing |"
-calcres ${totwatch}   ${totfileamqp}         "sr_watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totfileamqp})"
-calcres ${totsent}    ${totwatch}   "sr_sender\t\t (${totsent}) should have the same number of items as sr_watch  (${totwatch})"
-calcres ${totsubrmqtt} ${totwatch}  "rabbitmqtt\t\t (${totsubrmqtt}) should have the same number of items as sr_watch  (${totwatch})"
-calcres ${totsubu}    ${totsent}    "sr_subscribe u_sftp_f60 (${totsubu}) should have the same number of items as sr_sender (${totsent})"
-calcres ${totsubcp}   ${totsent}    "sr_subscribe cp_f61\t (${totsubcp}) should have the same number of items as sr_sender (${totsent})"
+calcres "${totwatch}" "${totfileamqp}"         "${LGPFX}watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totfileamqp})"
+calcres "${totsent}" "${totwatch}" "${LGPFX}sender\t\t (${totsent}) should publish the same number of items as ${LGPFX}watch  (${totwatch})"
+calcres "${totsubrmqtt}" "${totwatch}" "rabbitmqtt\t\t (${totsubrmqtt}) should download same number of items as ${LGPFX}watch  (${totwatch})"
+calcres "${totsubu}" "${totsent}"  "${LGPFX}subscribe u_sftp_f60 (${totsubu}) should download same number of items as ${LGPFX}sender (${totsent})"
+calcres "${totsubcp}" "${totsent}" "${LGPFX}subscribe cp_f61\t (${totsubcp}) should download same number of items as ${LGPFX}sender (${totsent})"
 echo "                 | poll       routing |"
-calcres ${totpoll1}   ${totsent}         "sr_poll test1_f62\t (${totpoll1}) should have the same number of items of sr_sender\t (${totsent})"
-calcres ${totsubq}    ${totpoll1}   "sr_subscribe q_f71\t (${totsubq}) should have the same number of items as sr_poll test1_f62 (${totpoll1})"
+calcres "${totpoll1}" "${totsent}" "${LGPFX}poll sftp_f62\t (${totpoll1}) should publish same number of items of ${LGPFX}sender sent\t (${totsent})"
+if [ "${totpoll_mirrored}" ]; then
+    calcres "${totpoll1}" "${totpoll_mirrored}" "${LGPFX}poll sftp_f63\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totsent})"
+fi
+calcres "${totsubq}" "${totpoll1}" "${LGPFX}subscribe q_f71\t (${totsubq}) should download same number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
 echo "                 | flow_post  routing |"
-calcres ${totpost1}   ${totsent}         "sr_post test2_f61\t (${totpost1}) should have the same number of items of sr_sender \t (${totsent})"
-calcres ${totsubftp}  ${totpost1}   "sr_subscribe ftp_f70\t (${totsubftp}) should have the same number of items as sr_post test2_f61 (${totpost1})"
-calcres ${totpost1} ${totshimpost1} "sr_post test2_f61\t (${totpost1}) should have about the same number of items as shim_f63\t (${totshimpost1})"
+calcres "${totpost1}" "${totsent}" "${LGPFX}post test2_f61\t (${totpost1}) should have the same number of items of ${LGPFX}sender \t (${totsent})"
+calcres "${totsubftp}" "${totpost1}" "${LGPFX}subscribe ftp_f70\t (${totsubftp}) should have the same number of items as ${LGPFX}post test2_f61 (${totpost1})"
+doubletotpost=$(( ${totpost1}*2 ))
+calcres "${doubletotpost}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should have about half the number of items as shim_f63\t (${totshimpost1})"
 
 echo "                 | py infos   routing |"
 zerowanted ${totauditkills} ${CONFIG_COUNT} "sr_audit should not have killed anything. It killed ${totauditkills} processes" 
@@ -159,15 +226,15 @@ echo "                 | C          routing |"
   totcvan=$(( ${totcvan14p} + ${totcvan15p} ))
   calcres  ${totcvan} ${totcdnld} "cdnld_f21 subscribe downloaded ($totcdnld) the same number of files that was published by both van_14 and van_15 ($totcvan)"
   t5=$(( $totcveille / 2 ))
-  calcres  ${t5} ${totcdnld} "veille_f34 should post twice as many files ($totcveille) as subscribe cdnld_f21 downloaded ($totcdnld)"
-  calcres  ${t5} ${totcfile} "veille_f34 should post twice as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
+  calcres  "${totcveille}" "${totcdnld}" "veille_f34 should post as many files ($totcveille) as subscribe cdnld_f21 downloaded ($totcdnld)"
+  calcres  "${totcveille}" "${totcfile}" "veille_f34 should post as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
 
 fi
 
-tallyres ${tno} ${passedno} "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
+tallyres "${tno}" "${passedno}" "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 results=$?
 
-if (("${missed_dispositions}">0)); then
+if [[ "${missed_dispositions}" -gt 0 ]]; then
    # PAS missed_dispositions means definite Sarra bug, very serious.
    echo "Please review $missedreport"
    results=1

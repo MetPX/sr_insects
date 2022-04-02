@@ -9,6 +9,8 @@ export SR_POST_CONFIG="$CONFDIR/post/shim_f63.conf"
 tstdir="`pwd`"
 httpdocroot=`cat $tstdir/.httpdocroot`
 
+echo "POST=${POST}"
+
 if [ ! -d ${httpdocroot} ]; then
    exit
 fi
@@ -37,10 +39,13 @@ echo > ${srpostlstfile_old}
 function do_sr_post {
 
    cd $srpostdir
+   echo "current working dir: `pwd` or ${srpostdir} "
    # sr_post testing START
    # TODO - consider if .httpdocroot ends with a '/' ?
-   find . -type f -print | grep -v '.tmp$'  > $srpostlstfile
-   find . -type l -print | grep -v '.tmp$' >> $srpostlstfile
+   find . -type f -print | grep -v '.tmp$'  | sed 's+^\./++' > $srpostlstfile
+   find . -type l -print | grep -v '.tmp$'  | sed 's+^\./++' >> $srpostlstfile
+   #find . -type f -print | grep -v '.tmp$' | sed 's+^\.+sent_by_tsource2send+' > $srpostlstfile
+   #find . -type l -print | grep -v '.tmp$' | sed 's+^\.+sent_by_tsource2send+' >> $srpostlstfile
    cat $srpostlstfile    | sort > $srpostlstfile_new
 
    # Obtain file listing delta
@@ -52,6 +57,8 @@ function do_sr_post {
    if [ "$srpostdelta" == "" ]; then
     return
    fi
+   # debug thing:
+   #cp /tmp/diffs.txt /tmp/diffs.`date +'%Y%m%dT%H%M%S.%N'`
 
    # loop on each line to properly post filename with space *** makes too much load on CPU ***
 
@@ -62,16 +69,23 @@ function do_sr_post {
    #cat /tmp/diffs.txt | sed "s/\(.*S P C\)/'\1'/" | sed 's/S P C/S\\ P\\ C/' > /tmp/diffs2.txt
    # | sed '/slink$/d' | sed '/moved$/d' | sed '/hlink$/d' | sed '/tmp$/d'
 
+   if [ "${POST:2:1}" == "3" ]; then
+      SHIMLIB="libsr3shim.so.1.0.0"
+   else
+      SHIMLIB="libsrshim.so.1.0.0"
+   fi
+
    if [ ! "$SARRA_LIB" ]; then
-    sr_post -c test2_f61.conf -p `cat /tmp/diffs.txt`
+    $POST -c test2_f61.conf -p `cat /tmp/diffs.txt`
    else 
     "$SARRA_LIB"/sr_post.py -c "$CONFDIR"/post/test2_f61.conf -p `cat /tmp/diffs.txt`
    fi
+
    cd $srpostdir  
    if [ "$SARRAC_LIB" ]; then
-    LD_PRELOAD="$SARRAC_LIB/libsrshim.so.1.0.0" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
+    LD_PRELOAD="$SARRAC_LIB/${SHIMLIB}" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
    else 
-    LD_PRELOAD="libsrshim.so.1.0.0" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
+    LD_PRELOAD="${SHIMLIB}" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
    fi
    
    cp -p $srpostlstfile_new $srpostlstfile_old

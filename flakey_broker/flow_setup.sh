@@ -13,7 +13,7 @@
 
 
 #export PYTHONPATH="`pwd`/../"
-. ./flow_utils.sh
+. ../flow_utils.sh
 
 testdocroot="$HOME/sarra_devdocroot"
 testhost=localhost
@@ -83,10 +83,14 @@ count_of_checks=0
 # ensure users have exchanges:
 
 echo "Initializing with sr_audit... takes a minute or two"
-if [ ! "$SARRA_LIB" ]; then
-    sr_audit -debug -users foreground >>$flowsetuplog 2>&1
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+    sr3 --users declare
 else
-    "$SARRA_LIB"/sr_audit.py -debug -users foreground >>$flowsetuplog 2>&1
+    if [ ! "$SARRA_LIB" ]; then
+        sr_audit -debug -users foreground >>$flowsetuplog 2>&1
+    else
+        "$SARRA_LIB"/sr_audit.py -debug -users foreground >>$flowsetuplog 2>&1
+    fi
 fi
 
 # Check queues and exchanges
@@ -138,9 +142,6 @@ nbr_fail=0
 
 cd $testrundir
 
-echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid"
-./flow_post.sh >$srposterlog 2>&1 &
-flowpostpid=$!
 
 echo $ftpserverpid >.ftpserverpid
 echo ${upstreamhttpserverpid} >.upstreamhttpserverpid
@@ -158,23 +159,41 @@ fi
 #sr_action "Starting up all components..." start " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
 #echo "Done."
 
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+    POST=sr3_post
+    CPOST=sr3_cpost
+else
+    POST=sr_post
+    CPOST=sr_cpost
+fi
+export POST CPOST LGPFX sarra_py_version
+
+echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid"
+./flow_post.sh >$srposterlog 2>&1 &
+flowpostpid=$!
+
 echo "starting to post: `date +${SR_DATE_FMT}`"
 if [ ! "$SARRA_LIB" ]; then
-    sr_post -config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
-    sr_post -config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
+    $POST --config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd1_f00_01.log 2>&1 &
+    $POST --config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd2_f00_01.log 2>&1 &
 else
-    "$SARRA_LIB"/sr_post.py -config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd1_f00_01.log 2>&1 &
-    "$SARRA_LIB"/sr_post.py -config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/sr_post_t_dd2_f00_01.log 2>&1 &
+    "$SARRA_LIB"/${LGPFX}post.py -config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd1_f00_01.log 2>&1 &
+    "$SARRA_LIB"/${LGPFX}post.py -config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd2_f00_01.log 2>&1 &
 fi
 
-sr_cpost -config pelle_dd1_f04.conf >$LOGDIR/sr_cpost_pelle_dd1_f04_01.log 2>&1 &
-sr_cpost -config pelle_dd2_f05.conf >$LOGDIR/sr_cpost_pelle_dd2_f05_01.log 2>&1 &
+$CPOST -config pelle_dd1_f04.conf >$LOGDIR/${LGPFX}cpost_pelle_dd1_f04_01.log 2>&1 &
+$CPOST -config pelle_dd2_f05.conf >$LOGDIR/${LGPFX}cpost_pelle_dd2_f05_01.log 2>&1 &
 
 echo "posting complete: `date +${SR_DATE_FMT}`"
 
 echo "sr starting "
-sr start
-ret=$?
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+    sr3 start
+    ret=$?
+else
+   sr start
+   ret=$?
+fi 
 
 count_of_checks=$((${count_of_checks}+1))
 if [ $ret -ne 0 ]; then

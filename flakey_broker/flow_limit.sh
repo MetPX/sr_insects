@@ -2,25 +2,49 @@
 
 . ./flow_include.sh
 
-echo "stopping rabbitmq"
-sudo systemctl stop rabbitmq-server
-sleep 10
-echo "starting rabbitmq"
-sudo systemctl start rabbitmq-server
-sleep 10
+function swap_poll {
+   if [ "${sarra_py_version:0:1}" == "3" ]; then
+      echo "switching active poll config"
+      sr3 stop poll/sftp_f62 poll/sftp_f63
+      mv ~/.config/sr3/poll/sftp_f62.conf ~/.config/sr3/poll_save.conf
+      cp ~/.config/sr3/poll/sftp_f63.conf ~/.config/sr3/poll/sftp_f62.conf
+      mv ~/.config/sr3/poll_save.conf ~/.config/sr3/poll/sftp_f63.conf 
+      sr3 start poll/sftp_f62 poll/sftp_f63
+   fi
+}
 
-echo "stopping rabbitmq"
-sudo systemctl stop rabbitmq-server
-sleep 10
-echo "starting rabbitmq"
-sudo systemctl start rabbitmq-server
-sleep 10
 
-echo "stopping rabbitmq"
-sudo systemctl stop rabbitmq-server
+if [ "${sarra_py_version:0:1}" == "3" -a "`COLUMNS=200 sr3 show sarra/download_f20 | grep broker=  | sed 's/.*broker=//;s/:.*//' | head -1`" = 'mqtt' ]; then
+    mqpbroker=mosquitto
+else
+    mqpbroker=rabbitmq-server
+fi
+
+
+echo "stopping $mqpbroker"
+
+sudo systemctl stop $mqpbroker
 sleep 10
-echo "starting rabbitmq"
-sudo systemctl start rabbitmq-server
+echo "starting $mqpbroker"
+sudo systemctl start $mqpbroker
+sleep 10
+swap_poll 
+
+echo "stopping $mqpbroker"
+sudo systemctl stop $mqpbroker
+sleep 10
+echo "starting $mqpbroker"
+sudo systemctl start $mqpbroker
+sleep 10
+swap_poll 
+
+echo "stopping $mqpbroker"
+sudo systemctl stop $mqpbroker
+swap_poll 
+sleep 10
+echo "starting $mqpbroker"
+sudo systemctl start $mqpbroker
+swap_poll 
 
 countall
 
@@ -35,7 +59,7 @@ while [ $running -gt 0 ]; do
   count=$((${count}+1))
   sleep 10
 done
-printf "posting completed..."
+printf "posting completed...\n"
 
 stalled=0
 stalled_value=-1
@@ -61,11 +85,17 @@ done
 #queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$(23); }; END { print t; };'`"
 queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };'`"
 while [ $queued_msgcnt -gt 0 ]; do
-        queues_with_msgs="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ && ( $2 > 0 ) { print $1; };'`"
-        printf "Still %4s messages (in queues: %s) flowing, waiting...\n" "$queued_msgcnt" "$queues_with_messages"
+        queues_with_msgs="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ && ( $2 > 0 ) { print $1; };' | sed ':a;N;$!ba;s/\\n/, /g' `"
+	printf "%s" "$queues_with_msgs" > /tmp/rstest
+        printf "Still %4s messages (in queues: %s) flowing, waiting...\n" "$queued_msgcnt" "$queues_with_msgs"
         sleep 10
         queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };'`"
 done
+
+need_to_wait="`grep heartbeat config/*/*.conf| awk ' BEGIN { h=0; } { if ( $2 > h ) h=$2;  } END { print h*2; }; '`"
+echo "No messages left in queues... wait 2* maximum heartbeat ( ${need_to_wait} ) of any configuration to be sure it is finished."
+
+sleep ${need_to_wait}
 
 printf "\n\nflow test stopped. \n\n"
 
