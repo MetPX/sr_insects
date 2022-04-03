@@ -205,7 +205,6 @@ doubletotpost=$(( ${totpost1}*2 ))
 calcres "${doubletotpost}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should have about half the number of items as shim_f63\t (${totshimpost1})"
 
 echo "                 | py infos   routing |"
-zerowanted ${totauditkills} ${CONFIG_COUNT} "sr_audit should not have killed anything. It killed ${totauditkills} processes" 
 zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."
 # check removed because of issue #294
 #calcres ${totshortened} ${totfileamqp} \
