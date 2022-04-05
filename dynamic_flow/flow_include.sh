@@ -176,14 +176,14 @@ function sumlogshistory {
 function countall {
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'log post posted' "$LOGDIR"/sarra_download_f20*.log | wc -l`"
+      countthem "`grep -a 'log after_post posted' "$LOGDIR"/sarra_download_f20*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sarra*.log | wc -l`"
   fi
   totsarra="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'log post posted' "$LOGDIR"/winnow_t00_f10_01.log | wc -l`"
+       countthem "`grep -a 'log after_post posted' "$LOGDIR"/winnow_t00_f10_01.log | wc -l`"
   else
        countthem "`grep -a 'Ignored' "$LOGDIR"/sr_winnow_t00_f10_01.log | wc -l`"
   fi
@@ -191,14 +191,14 @@ function countall {
 
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'log post posted' "$LOGDIR"/winnow_t01_f10_01.log | wc -l`"
+       countthem "`grep -a 'log after_post posted' "$LOGDIR"/winnow_t01_f10_01.log | wc -l`"
   else
        countthem "`grep -a 'Ignored' "$LOGDIR"/sr_winnow_t01_f10_01.log | wc -l`"
   fi
   totwin01ignored="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'log post posted' "$LOGDIR"/shovel_t_dd1_f00_*.log | wc -l`"
+       countthem "`grep -a 'log after_post posted' "$LOGDIR"/shovel_t_dd1_f00_*.log | wc -l`"
   else
        sumlogs msg_total $LOGDIR/sr_shovel_t_dd1_f00_*.log
   fi
@@ -206,7 +206,7 @@ function countall {
 
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'log post posted' "$LOGDIR"/shovel_t_dd2_f00_*.log | wc -l`"
+       countthem "`grep -a 'log after_post posted' "$LOGDIR"/shovel_t_dd2_f00_*.log | wc -l`"
   else
        sumlogs msg_total $LOGDIR/sr_shovel_t_dd2_f00_*.log
   fi
@@ -214,7 +214,7 @@ function countall {
 
   countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}winnow*.log | wc -l`"
   totwin00post="${tot}"
-  countthem "`grep -a ' post posted ' "$LOGDIR"/${LGPFX}winnow*.log | wc -l`"
+  countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}winnow*.log | wc -l`"
   totwin01post="${tot}"
 
   totwinnow01=$((${totwin01post}+${totwin01ignored}))
@@ -228,17 +228,17 @@ function countall {
 
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'log post posted' "$LOGDIR"/watch_f40_*.log | wc -l`"
+      countthem "`grep -a 'log after_post posted' "$LOGDIR"/watch_f40_*.log | wc -l`"
       totwatch=${tot}
-      countthem "`grep -aE 'log post posted.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v "'remove', " | grep -v "\'newname\': " | wc -l`"
+      countthem "`grep -aE 'log after_post posted.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v "'remove', " | grep -v "\'newname\': " | wc -l`"
       totwatchmoved=${tot}
-      countthem "`grep -aE 'log post posted.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log |grep -v "'remove', " | wc -l`"
+      countthem "`grep -aE 'log after_post posted.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log |grep -v "'remove', " | wc -l`"
       totwatchhlinked=${tot}
-      countthem "`grep -aE 'log post posted.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log |grep -v "'remove', " | wc -l`"
+      countthem "`grep -aE 'log after_post posted.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log |grep -v "'remove', " | wc -l`"
       totwatchslinked=${tot}
-      countthem "`grep -aE "log post posted.*'remove'," "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
+      countthem "`grep -aE "log after_post posted.*'remove'," "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
       totwatchremoved=${tot}
-      countthem "`grep -aE "log post posted.*" "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -avE 'remove|.slink|.hlink|.moved' | wc -l`"
+      countthem "`grep -aE "log after_post posted.*" "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -avE 'remove|.slink|.hlink|.moved' | wc -l`"
   else
       countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
       totwatch=${tot}
@@ -267,18 +267,18 @@ function countall {
   totfileamqp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'log post posted' "$LOGDIR"/sender_tsource2send_f50_*.log | wc -l`"
+      countthem "`grep -a 'log after_post posted' "$LOGDIR"/sender_tsource2send_f50_*.log | wc -l`"
       totsent="${tot}"
-      countthem "`grep -aE 'log post posted .*oldname.:' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
+      countthem "`grep -aE 'log after_post posted .*oldname.:' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
       totsendmoved=${tot}
-      countthem "`grep -aE 'log post posted.*\.hlink' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -v '.sum.: .R,' | wc -l`"
+      countthem "`grep -aE 'log after_post posted.*\.hlink' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -v '.sum.: .R,' | wc -l`"
       totsendhlinked=${tot}
-      countthem "`grep -aE 'log post posted.*\.slink' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
+      countthem "`grep -aE 'log after_post posted.*\.slink' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
       totsendslinked=${tot}
-      countthem "`grep -aE "log post posted.*'sum': 'R," "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -v newname | wc -l`"
+      countthem "`grep -aE "log after_post posted.*'sum': 'R," "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -v newname | wc -l`"
       totsendremoved=${tot}
 
-      countthem "`grep -a "log post posted" "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -avE 'newname|link|remove|\.moved|.sum.: .R,'| wc -l`"
+      countthem "`grep -a "log after_post posted" "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -avE 'newname|link|remove|\.moved|.sum.: .R,'| wc -l`"
       totsendnormal=${tot}
   else
       countthem "`grep -aE '\[INFO\] post_log notice.*oldname.:' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | grep -v '\.tmp' | wc -l`"
@@ -330,14 +330,14 @@ function countall {
   totsubq="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'log post posted' "$LOGDIR"/poll_f62_*.log | wc -l`"
+       countthem "`grep -a 'log after_post posted' "$LOGDIR"/poll_f62_*.log | wc -l`"
   else
        countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_poll_f62_*.log | wc -l`"
   fi
   totpoll1="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'log post posted' $srposterlog | grep -v shim | wc -l`"
+       countthem "`grep -a 'log after_post posted' $srposterlog | grep -v shim | wc -l`"
   else
        countthem "`grep -a '\[INFO\] post_log notice' $srposterlog | grep -v shim | wc -l`"
   fi
@@ -347,7 +347,7 @@ function countall {
   totshimpost1="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'log post posted' "$LOGDIR"/sarra_download_f20_*.log | wc -l`"
+      countthem "`grep -a 'log after_post posted' "$LOGDIR"/sarra_download_f20_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sarra_download_f20_*.log | wc -l`"
   fi
@@ -408,7 +408,7 @@ function countall {
 
   if [[ $(ls "$LOGDIR"/${LGPFX}shovel_pclean_f90*.log 2>/dev/null) ]]; then
       if [ ${sarra_py_version%%.*} == '3' ]; then
-          countthem "`grep -a 'post posted' "$LOGDIR"/shovel_pclean_f90*.log | wc -l`"
+          countthem "`grep -a 'log after_post posted' "$LOGDIR"/shovel_pclean_f90*.log | wc -l`"
       else 
           countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_shovel_pclean_f90*.log | wc -l`"
       fi

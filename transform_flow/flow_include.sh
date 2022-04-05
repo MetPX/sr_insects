@@ -172,14 +172,14 @@ function sumlogshistory {
 function countall {
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'log post posted' "$LOGDIR"/post_t_dd1_f00_*.log | wc -l`"
+       countthem "`grep -a 'log after_post posted' "$LOGDIR"/post_t_dd1_f00_*.log | wc -l`"
   else
        countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_post_t_dd1_f00_*.log | wc -l`"
   fi
   totshovel1="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'log post posted' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
+       countthem "`grep -a 'log after_post posted' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
   else
        countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_post_t_dd2_f00_*.log | wc -l`"
   fi
@@ -189,7 +189,7 @@ function countall {
   totrejected="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'log post posted' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
+       countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
   else
        countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
   fi
@@ -197,7 +197,7 @@ function countall {
 
   countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'log post posted' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
+      countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
       all_events="do_download\ downloaded\ ok|write_inline_file\ data\ inlined\ with\ message"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
@@ -221,14 +221,14 @@ fi
   totsubq="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'log post posted' "$LOGDIR"/${LGPFX}poll_f62_*.log | wc -l`"
+       countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}poll_f62_*.log | wc -l`"
   else
        countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}poll_f62_*.log | wc -l`"
   fi
   totpoll1="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'log post posted' $srposterlog | grep -v shim | wc -l`"
+       countthem "`grep -a 'log after_post posted' $srposterlog | grep -v shim | wc -l`"
   else
        countthem "`grep -a '\[INFO\] post_log notice' $srposterlog | grep -v shim | wc -l`"
   fi
@@ -241,7 +241,7 @@ fi
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'after_accept accepted:' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
       totsarx="${tot}"
-      countthem "`grep -a 'log post posted' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+      countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
       totsarp="${tot}"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
