@@ -199,7 +199,7 @@ calcres ${totsubcp}   ${totsent}    "${LGPFX}subscribe cp_f61\t (${totsubcp}) sh
 echo "                 | poll       routing |"
 calcres ${totpoll1}   ${totsent}         "${LGPFX}poll sftp_f62\t (${totpoll1}) should have the same number of items of ${LGPFX}sender\t (${totsent})"
 if [ "${totpoll_mirrored}" ]; then
-    calcres "${totpoll1}" "${totpoll_mirrored}" "${LGPFX}poll sftp_f63\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totsent})"
+    calcres "${totpoll1}" "${totpoll_mirrored}" "${LGPFX}poll sftp_f63\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totpoll1})"
 fi
 
 calcres ${totsubq}    ${totpoll1}   "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll sftp_f62 (${totpoll1})"
