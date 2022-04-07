@@ -161,7 +161,7 @@ printf "\n\tMaximum of the shovels is: ${maxshovel}\n\n"
 printf "\t\tTEST RESULTS\n\n"
 
 
-if [ "${sarra_py_version:0:1}" == "3" ]; then
+if [ "${SKIP_KNOWN_BAD}" ]; then
 
     echo "                 | content of subdirs of ${testdocroot} |"
     comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
