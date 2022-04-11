@@ -162,7 +162,8 @@ printf "\t\tTEST RESULTS\n\n"
 
 
 if [ "${SKIP_KNOWN_BAD}" ]; then
-
+    echo "known issues with v2 directories never matching, not testing that"
+else
     echo "                 | content of subdirs of ${testdocroot} |"
     comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
     comparetree downloaded_by_sub_cp downloaded_by_sub_rabbitmqtt
@@ -174,8 +175,6 @@ if [ "${SKIP_KNOWN_BAD}" ]; then
     comparetree downloaded_by_sub_amqp cfile
     comparetree cfile cfr
 
-else
-    echon "known issues with v2 directories never matching, not testing that"
 fi
 
 
