@@ -54,7 +54,8 @@ countall
 running=1
 count=0
 while [ $running -gt 0 ]; do
-  running="`ps ax | grep sr_post | grep t_dd | wc -l`"
+  # can have sr_post or sr3_post
+  running="`ps ax | grep sr*_post | grep t_dd | wc -l`"
   printf "Still posting... %d\n" $count
   count=$((${count}+1))
   sleep 10
