@@ -57,29 +57,24 @@ while [ ${lo} -gt 0 ]; do
 done
 
 mkdir -p "$CONFDIR" 2> /dev/null
+mkdir -p "$HOME/.config/sarra" 2> /dev/null
 
 #flow_configs="`cd ${SR_CONFIG_EXAMPLES}; ls */*f[0-9][0-9].conf; ls */*f[0-9][0-9].inc`"
 flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf; ls */*f[0-9][0-9].inc`"
 
-# this one pulls in stuff from package examples, need to get them from config sub-dir.
-#sr_action "Adding flow test configurations..." add " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
-
-# this one invokes sr_${component} properly, but there is a bug #298 , so it still doesn't work.
-#for i in $flow_configs; 
-#do  
-#   IFS=/;read -ra thing <<<$i; IFS=' '
-#   component=${thing[0]}; cfg=${thing[1]}; 
-#   if [ "${SARRA_LIB}" ]; then
-#      cmd="${SARRA_LIB}/sr"
-#   else 
-#      cmd="sr"
-#   fi
-#   eval  "${cmd}_${component} add ${SR_TEST_CONFIGS}/$i "
-#done
-
 echo "Adding static flow test configurations..."
-cd ${SR_TEST_CONFIGS} ; cp -r *  ${CONFDIR}
+cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sarra
 cd ..
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+   for i in ${flow_configs}; do
+      if [[ $i =~ .*.inc ]]; then
+          echo skipping include $i
+      else
+          echo sr3 convert $i
+          sr3 convert $i
+      fi
+   done
+fi
 
 if [ "$1" == "config" ]; then
     exit 0
