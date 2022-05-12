@@ -18,7 +18,7 @@ OLDIFS=${IFS}
 IFS=.; read -a sarra_py_version <<<"${sarra_py_version}"
 IFS=${OLDIFS}
 
-if [ ${sarra_py_version[0]} -eq 2 ]; then
+if [ "${sarra_py_version[0]}" -eq 2 ]; then
     sarra_cpump_binary="`which sr_cpump`"
     LGPFX="sr_"
 else

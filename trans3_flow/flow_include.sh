@@ -180,7 +180,7 @@ function countall {
   fi
   totshovel2="${tot}"
 
-  countthem "`grep -a rejected  "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
+  countthem "`grep -a 'rejected ' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
   totrejected="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
@@ -193,7 +193,7 @@ function countall {
   countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
-      all_events="do_download\ downloaded\ ok|write_inline_file\ data\ inlined\ with\ message"
+      all_events="downloaded\ ok|write_inline_file\ data\ inlined\ with\ message"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
       no_hardlink_events='downloaded to:|symlinked to|removed'
@@ -206,7 +206,7 @@ function countall {
   countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_cp_f61_*.log | grep -v DEBUG | wc -l`"
   totsubcp="${tot}"
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="do_download downloaded ok"
+      all_events="downloaded ok"
       countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
   else
       countthem "`grep -aE "$no_hardlink_events" "$LOGDIR"/${LGPFX}subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
@@ -232,7 +232,6 @@ fi
   countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | wc -l`"
   totshimpost1="${tot}"
 
-  #countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'log after_accept accepted:' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
       totsarx="${tot}"
