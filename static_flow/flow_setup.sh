@@ -67,12 +67,7 @@ cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sarra
 cd ..
 if [ "${sarra_py_version:0:1}" == "3" ]; then
    for i in ${flow_configs}; do
-      if [[ $i =~ .*.inc ]]; then
-          echo skipping include $i
-      else
-          echo sr3 convert $i
-          sr3 convert $i
-      fi
+      sr3 convert $i
    done
 fi
 
