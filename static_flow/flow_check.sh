@@ -95,6 +95,26 @@ function checktree {
 
 }
 
+function logPermCheck {
+    #*_f*_*.log
+    printf "checking log perms (assume fresh static flow) \n"
+
+    #looking into the configs for chmod_log commands if they exist
+    perms="`grep chmod_log config -r`"
+    file1=`grep chmod_log config -r | cut -f2 -d"/"`
+    file2=`grep chmod_log config -r | cut -f3 -d"/" | cut -f1 -d"."`
+
+    #finding the log related to the config file
+    path=$HOME/.cache/sr3/log/"$file1"_*.log
+    #printf "$path \n"
+
+    #checking if the perms from the config is reflected in the file
+    fileperms=`stat -c "%a %n" $path`
+    if [[ "$fileperms" == *"${perms: -3}"* ]]; then
+        printf "Log perms confirmed"
+    fi
+}
+
 function comparetree {
 
   tno=$((${tno}+1))
@@ -123,7 +143,7 @@ checktree ${testdocroot}/mirror/linked_by_shim
 checktree ${testdocroot}/cfile
 checktree ${testdocroot}/cfr
 
-
+logPermCheck
 
 
 if [[ -z "$skip_summaries" ]]; then
