@@ -25,4 +25,5 @@ reject .*hydrometric.*
 reject .*/hourly/.*
 reject .*/today/.*
 reject .*/yesterday/.*
+reject .*/radar/.*
 reject .*swob.xml.*
