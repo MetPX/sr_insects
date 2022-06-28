@@ -21,7 +21,14 @@ else # v20.04 + (versions 14.04 + less not supported)
 fi
 echo
 
+#check whether systemd is available or not
+check_wsl=$(ps --no-headers -o comm 1)
+
 # Setup autossh login
+if [[ $(($check_wsl == "init")) ]]; then
+	sudo service ssh start
+fi
+
 rm ~/.ssh/id_rsa
 ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
 cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys
@@ -64,7 +71,12 @@ EOF
 echo
 
 # Manage RabbitMQ
-sudo systemctl restart rabbitmq-server
+
+if [[ $(($check_wsl == "init")) ]]; then
+	sudo service rabbitmq-server restart
+else
+	sudo systemctl restart rabbitmq-server
+fi
 sudo rabbitmq-plugins enable rabbitmq_management
 
 sudo rabbitmqctl delete_user guest
@@ -79,7 +91,12 @@ sudo rabbitmqctl set_user_tags bunnymaster administrator
 
 echo
 
-sudo systemctl restart rabbitmq-server
+if [[ $(($check_wsl == "init" )) ]]; then
+	sudo service rabbitmq-server restart
+else
+	sudo systemctl restart rabbitmq-server
+fi
+
 cd /usr/local/bin
 sudo mv rabbitmqadmin rabbitmqadmin.1
 sudo wget http://localhost:15672/cli/rabbitmqadmin
