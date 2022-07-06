@@ -80,7 +80,6 @@ function summarize_logs {
 }
 
 function checktree {
-
   tree=$1
   printf "checking +${tree}+\n"
   SUMDIR=${LOGDIR}/sums
@@ -93,6 +92,27 @@ function checktree {
   (cd ${tree}; find . \! -type d | xargs md5sum ) > ${report}
   #fi
 
+}
+
+function logPermCheck {
+    tno=$((${tno}+1))
+    printf "checking log perms (assume fresh static flow) \n"
+
+    #looking into the configs for chmod_log commands if they exist
+    perms="`grep chmod_log config -r`"
+    file1=`grep chmod_log config -r | cut -f2 -d"/"`
+    file2=`grep chmod_log config -r | cut -f3 -d"/" | cut -f1 -d"."`
+
+    #finding the log related to the config file
+    path=$HOME/.cache/sr3/log/"$file1"_*.log
+    #printf "$path \n"
+
+    #checking if the perms from the config is reflected in the file
+    fileperms=`stat -c "%a %n" $path`
+    if [[ "$fileperms" == *"${perms: -3}"* ]]; then
+        printf "Log perms confirmed\n"
+        passedno=$((${passedno}+1))
+    fi
 }
 
 function comparetree {
@@ -124,8 +144,6 @@ checktree ${testdocroot}/cfile
 checktree ${testdocroot}/cfr
 
 
-
-
 if [[ -z "$skip_summaries" ]]; then
     # PAS performance summaries
     printf "\nDownload Performance Summaries:\tLOGDIR=$LOGDIR\n"
@@ -153,7 +171,6 @@ passedno=0
 tno=0
 
 
-
 if [[ "${totshovel2}" -gt "${totshovel1}" ]]; then
    maxshovel=${totshovel2}
 else 
@@ -163,6 +180,8 @@ printf "\n\tMaximum of the shovels is: ${maxshovel}\n\n"
 
 
 printf "\t\tTEST RESULTS\n\n"
+
+logPermCheck
 
 echo "                 | content of subdirs of ${testdocroot} |"
 comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
