@@ -20,30 +20,67 @@ else
     mqpbroker=rabbitmq-server
 fi
 
+check_wsl-$(ps --no-headers -o comm 1)
 
 echo "stopping $mqpbroker"
 
-sudo systemctl stop $mqpbroker
+if [[ $(($check_wsl == "init")) ]]; then
+	sudo service $mqpbroker stop
+else
+	sudo systemctl stop $mqpbroker
+fi
+
 sleep 10
 echo "starting $mqpbroker"
-sudo systemctl start $mqpbroker
+
+if [[ $(($check_wsl == "init")) ]]; then
+	sudo service $mqpbroker start
+else
+	sudo systemctl start $mqpbroker
+fi
+
 sleep 10
 swap_poll 
 
 echo "stopping $mqpbroker"
-sudo systemctl stop $mqpbroker
+
+if [[ $(($check_wsl == "init")) ]]; then
+	sudo service $mqpbroker stop
+else
+	sudo systemctl stop $mqpbroker
+fi
+
 sleep 10
 echo "starting $mqpbroker"
-sudo systemctl start $mqpbroker
+
+if [[ $(($check_wsl == "init")) ]]; then
+	sudo service $mqpbroker start
+else
+	sudo systemctl start $mqpbroker
+fi
+
 sleep 10
 swap_poll 
 
 echo "stopping $mqpbroker"
-sudo systemctl stop $mqpbroker
+
+if [[ $(($check_wsl == "init")) ]]; then
+	sudo service $mqpbroker stop
+else
+	sudo systemctl stop $mqpbroker
+fi
+
 swap_poll 
 sleep 10
+
 echo "starting $mqpbroker"
-sudo systemctl start $mqpbroker
+
+if [[ $(($check_wsl == "init")) ]]; then
+	sudo service $mqpbroker start
+else
+	sudo systemctl start $mqpbroker
+fi
+
 swap_poll 
 
 countall
