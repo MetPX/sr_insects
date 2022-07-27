@@ -10,6 +10,13 @@ function swap_poll {
       cp ~/.config/sr3/poll/sftp_f63.conf ~/.config/sr3/poll/sftp_f62.conf
       mv ~/.config/sr3/poll_save.conf ~/.config/sr3/poll/sftp_f63.conf 
       sr3 start poll/sftp_f62 poll/sftp_f63
+   else
+      echo "switching active poll config"
+      sr stop poll/sftp_f62 poll/sftp_f63
+      mv ~/.config/sr/poll/sftp_f62.conf ~/.config/sr/poll_save.conf
+      cp ~/.config/sr/poll/sftp_f63.conf ~/.config/sr/poll/sftp_f62.conf
+      mv ~/.config/sr/poll_save.conf ~/.config/sr/poll/sftp_f63.conf
+      sr start poll/sftp_f62 poll/sftp_f63
    fi
 }
 
@@ -20,44 +27,84 @@ else
     mqpbroker=rabbitmq-server
 fi
 
-check_wsl-$(ps --no-headers -o comm 1)
+if [ "${sarra_py_version:0:1}" == "3" ]; then
 
-echo "stopping server"
+	echo "stopping server"
 
-sr3 stop
+	sr3 stop
 
-sleep 10
-echo "starting server"
+	sleep 10
+	echo "starting server"
 
-sr3 start
+	sr3 start
 
-sleep 10
-swap_poll 
+	sleep 10
+	swap_poll 
 
-echo "stopping server"
+	echo "stopping server"
 
-sr3 stop
+	sr3 stop
 
-sleep 10
-echo "starting server"
+	sleep 10
+	echo "starting server"
 
-sr3 start
+	sr3 start
 
-sleep 10
-swap_poll 
+	sleep 10
+	swap_poll 
 
-echo "stopping server"
+	echo "stopping server"
 
-sr3 stop
+	sr3 stop
 
-swap_poll 
-sleep 10
+	swap_poll 
+	sleep 10
 
-echo "starting server"
+	echo "starting server"
 
-sr3 start
+	sr3 start
 
-swap_poll 
+	swap_poll 
+
+else
+
+	echo "stopping server"
+
+	sr stop
+
+	sleep 10
+	echo "starting server"
+
+	sr start
+
+	sleep 10
+	swap_poll 
+
+	echo "stopping server"
+
+	sr stop
+
+	sleep 10
+	echo "starting server"
+
+	sr start
+
+	sleep 10
+	swap_poll 
+
+	echo "stopping server"
+
+	sr stop
+
+	swap_poll 
+	sleep 10
+
+	echo "starting server"
+
+	sr start
+
+	swap_poll
+fi
 
 countall
 
