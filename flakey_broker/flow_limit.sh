@@ -20,7 +20,7 @@ else
     mqpbroker=rabbitmq-server
 fi
 
-check_wsl-$(ps --no-headers -o comm 1)
+check_wsl=$(ps --no-headers -o comm 1)
 
 echo "stopping $mqpbroker"
 
