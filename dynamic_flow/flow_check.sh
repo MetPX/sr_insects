@@ -27,7 +27,7 @@ function summarize_performance {
        best_fn=''
        printf "\n\t$i\n\n"
        for j in ${path}_${i}_*.log; do
-           msg="`grep ${pattern} ${j} | tail -1`"
+           msg="`grep -a ${pattern} ${j} | tail -1`"
            if [[ -z "$msg" ]]; then
                continue
            fi
@@ -46,7 +46,7 @@ function summarize_logs {
     printf "\n$1 Summary:\n"
     input_size=${#1}
     fcl="$LOGDIR"/flowcheck_$1_logged.txt
-    msg_counts=`grep -h -o "\[$1\] *.*" "$LOGDIR"/*.log | sort | uniq -c -w"$((input_size+20))" | sort -n -r`
+    msg_counts=`grep -a -h -o "\[$1\] *.*" "$LOGDIR"/*.log | sort | uniq -c -w"$((input_size+20))" | sort -n -r`
     echo '' > ${fcl}
 
     if [[ -z $msg_counts ]]; then
@@ -58,7 +58,7 @@ function summarize_logs {
             count=`echo ${msg_line} | awk '{print $1}'`
             msg=`echo ${msg_line} | sed "s/^ *[0-9]* \[$1\] *//g"`
             pattern="\[$1\] *${msg}"
-            filelist=($(grep -l ${pattern::$((input_size + 22))} "$LOGDIR"/*.log))
+            filelist=($(grep -a -l ${pattern::$((input_size + 22))} "$LOGDIR"/*.log))
             if [[ ${filelist[@]} ]]; then
                 first_filename=`basename ${filelist[0]} | sed 's/ /\n/g' | sed 's|.*\/||g' | sed 's/_[0-9][0-9]\.log\|.log//g' | uniq`
                 files_nb=${#filelist[@]}
@@ -68,13 +68,13 @@ function summarize_logs {
             fi
        done
        IFS=${backup_ifs}
-       result=`grep -c $1 ${fcl}`
+       result=`grep -a -c $1 ${fcl}`
        if [[ ${result} -gt 10 ]]; then
-           grep $1 ${fcl} | head | column -t -s $'\u2620' | cut -c -130
+           grep -a $1 ${fcl} | head | column -t -s $'\u2620' | cut -c -130
            echo
            echo "More than 10 TYPES OF $1S found... for the rest, have a look at $fcl for details"
        else
-           grep $1 ${fcl} | column -t -s $'\u2620' | cut -c -130
+           grep -a $1 ${fcl} | column -t -s $'\u2620' | cut -c -130
        fi
     fi
 }
