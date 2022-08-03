@@ -193,6 +193,15 @@ comparetree posted_by_shim sent_by_tsource2send
 comparetree downloaded_by_sub_amqp cfile
 comparetree cfile cfr
 
+echo "broker state:"
+if [[ ${messages_unacked} > 0 ]] || [[ ${messages_ready} > 0 ]]; then
+
+   echo "rabbitmq broker message anomalies\n"
+   rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} list queues name messages_ready messages_unacknowledged | awk ' BEGIN {t=0; } (NR<3) {print;} (NR > 2)  && /_f[0-9][0-9]/ { t+=$4; if ( $4 > 0 || $6 > 0) print; }; '
+
+fi
+
+
 
 tot2shov=$(( ${totshovel1} + ${totshovel2} ))
 t4=$(( ${totfileamqp}*4 ))
@@ -249,6 +258,10 @@ echo "                 | C          routing |"
   calcres  "${totcveille}" "${totcfile}" "veille_f34 should post as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
 
 fi
+
+zerowanted  "${messages_unacked}" "${maxshovel}" "there should be no unacknowledged messages left, but there are ${messages_unacked}"
+zerowanted  "${messages_ready}" "${maxshovel}" "there should be no messages ready to be consumed but there are ${messages_ready}"
+
 
 tallyres "${tno}" "${passedno}" "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 results=$?
