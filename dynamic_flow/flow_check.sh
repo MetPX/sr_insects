@@ -101,6 +101,12 @@ if [[ -z "$skip_summaries" ]]; then
     summarize_logs WARNING
 fi
 
+if [[ ${messages_unacked} > 0 ]] || [[ ${messages_ready} > 0 ]]; then
+   
+   echo "rabbitmq broker message anomalies\n"
+   rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} list queues name messages_ready messages_unacknowledged | awk ' BEGIN {t=0; } (NR<3) {print;} (NR > 2)  && /_f[0-9][0-9]/ { t+=$4; if ( $4 > 0 || $6 > 0) print; }; '
+
+fi
 passedno=0
 tno=0
 
@@ -196,6 +202,9 @@ echo "                 | C          routing |"
   calcres  ${t5} ${totcfile} "veille_f34 should post twice as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
 
 fi
+
+zerowanted  "${messages_unacked}" "${maxshovel}" "there should be no unacknowledged messages left, but there are ${messages_unacked}"
+zerowanted  "${messages_ready}" "${maxshovel}" "there should be no messages ready to be consumed but there are ${messages_ready}"
 
 tallyres ${tno} ${passedno} "Overall ${passedno} of ${tno} passed (sample size: $totsarra) !"
 results=$?

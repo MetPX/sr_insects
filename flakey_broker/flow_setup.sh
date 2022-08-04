@@ -53,7 +53,7 @@ done
 mkdir -p "$CONFDIR" 2> /dev/null
 
 #flow_configs="`cd ${SR_CONFIG_EXAMPLES}; ls */*f[0-9][0-9].conf; ls */*f[0-9][0-9].inc`"
-flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf; ls */*f[0-9][0-9].inc`"
+flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].inc; ls */*f[0-9][0-9].conf`"
 
 # this one pulls in stuff from package examples, need to get them from config sub-dir.
 #sr_action "Adding flow test configurations..." add " " ">> $flowsetuplog 2>\\&1" "$flow_configs"

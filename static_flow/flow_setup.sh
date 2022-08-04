@@ -60,7 +60,7 @@ mkdir -p "$CONFDIR" 2> /dev/null
 mkdir -p "$HOME/.config/sarra" 2> /dev/null
 
 #flow_configs="`cd ${SR_CONFIG_EXAMPLES}; ls */*f[0-9][0-9].conf; ls */*f[0-9][0-9].inc`"
-flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf; ls */*f[0-9][0-9].inc`"
+flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].inc; ls */*f[0-9][0-9].conf;`"
 
 echo "Adding static flow test configurations..."
 cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sarra
