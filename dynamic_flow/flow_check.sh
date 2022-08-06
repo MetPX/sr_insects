@@ -203,8 +203,8 @@ echo "                 | C          routing |"
 
 fi
 
-zerowanted  "${messages_unacked}" "${maxshovel}" "there should be no unacknowledged messages left, but there are ${messages_unacked}"
-zerowanted  "${messages_ready}" "${maxshovel}" "there should be no messages ready to be consumed but there are ${messages_ready}"
+zerowanted  "${messages_unacked}" "${maxshovel}" "broker should report no unacknowledged messages left, but there are ${messages_unacked}"
+zerowanted  "${messages_ready}" "${maxshovel}" "broker should report no messages ready to be consumed but there are ${messages_ready}"
 
 tallyres ${tno} ${passedno} "Overall ${passedno} of ${tno} passed (sample size: $totsarra) !"
 results=$?
