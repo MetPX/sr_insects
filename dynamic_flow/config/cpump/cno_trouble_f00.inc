@@ -12,6 +12,7 @@ reject .*/model_giops/.*
 reject .*/GIF/.*
 # auth based data for client
 reject .*/MSC-SAT/.*
+reject .*/MSC-RMCQ-Product/.*
 # reject netcdf (big files)
 reject .*\.nc$
 
