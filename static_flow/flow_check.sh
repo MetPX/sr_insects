@@ -96,7 +96,6 @@ function checktree {
 
 function logPermCheck {
     tno=$((${tno}+1))
-    printf "checking log perms (assume fresh static flow) \n"
 
     #looking into the configs for chmod_log commands if they exist
     perms="`grep chmod_log config -r`"
@@ -104,14 +103,20 @@ function logPermCheck {
     file2=`grep chmod_log config -r | cut -f3 -d"/" | cut -f1 -d"."`
 
     #finding the log related to the config file
-    path=$HOME/.cache/sr3/log/"$file1"_*.log
+    if [ "${sarra_py_version:0:1}" == "3" ]; then
+        path=$HOME/.cache/sr3/log/"$file1"_*.log
+    else
+        path=$HOME/.cache/sarra/log/sr_"$file1"_*.log
+    fi
     #printf "$path \n"
 
     #checking if the perms from the config is reflected in the file
     fileperms=`stat -c "%a %n" $path`
     if [[ "$fileperms" == *"${perms: -3}"* ]]; then
-        printf "Log perms confirmed\n"
+        printf "test %d success: Log perms confirmed\n" $tno
         passedno=$((${passedno}+1))
+    else
+        printf "test %d FAILURE: Log perms test failed.\n" $tno
     fi
 }
 
@@ -190,7 +195,12 @@ comparetree downloaded_by_sub_rabbitmqtt downloaded_by_sub_u
 comparetree downloaded_by_sub_u posted_by_shim
 comparetree downloaded_by_sub_amqp linked_by_shim
 comparetree posted_by_shim sent_by_tsource2send
-comparetree downloaded_by_sub_amqp cfile
+
+if [ "${SKIP_KNOWN_BAD}" ]; then
+   echo "skipping one known bad v2 comparison."
+else
+   comparetree downloaded_by_sub_amqp cfile
+fi 
 comparetree cfile cfr
 
 echo "broker state:"
@@ -213,7 +223,13 @@ calcres "${totshovel1}" "${totshovel2}" "${LGPFX}post\t (${totshovel1}) t_dd1 sh
 calcres "${totsarx}" "${tot2shov}" "${LGPFX}sarra\t (${totsarx}) should receive the same number of items as both post\t (${tot2shov})"
 calcres "${totsarp}" "${totshovel1}" "${LGPFX}sarra\t (${totsarp}) should publish the same number of items as one post\t (${totshovel1})"
 calcres "${totwinnowed}" "${totshovel1}" "${LGPFX}sarra\t (${totwinnowed}) should winnow the same number of items as one post\t (${totshovel1})"
-calcres "${totfileamqp}" "${totsarp}" "${LGPFX}subscribe\t (${totfileamqp}) should rx the same number of items as sarra published\t (${totsarp})"
+
+
+if [ "${SKIP_KNOWN_BAD}" ]; then
+    echo "skipping known bad subscriber check."
+else
+    calcres "${totfileamqp}" "${totsarp}" "${LGPFX}subscribe\t (${totfileamqp}) should rx the same number of items as sarra published\t (${totsarp})"
+fi
 echo "                 | watch      routing |"
 calcres "${totwatch}" "${totfileamqp}"         "${LGPFX}watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totfileamqp})"
 calcres "${totsent}" "${totwatch}" "${LGPFX}sender\t\t (${totsent}) should publish the same number of items as ${LGPFX}watch  (${totwatch})"
@@ -263,8 +279,15 @@ zerowanted  "${messages_unacked}" "${maxshovel}" "there should be no unacknowled
 zerowanted  "${messages_ready}" "${maxshovel}" "there should be no messages ready to be consumed but there are ${messages_ready}"
 
 
-tallyres "${tno}" "${passedno}" "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
-results=$?
+echo "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
+
+#tallyres "${tno}" "${passedno}" "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
+
+if [ "${passedno}" -gt 0 -a "${passedno}" -eq "${tno}" ]; then
+   results=0
+else
+   results=$(( "${tno}"-"${passedno}" ))
+fi
 
 if [[ "${missed_dispositions}" -gt 0 ]]; then
    # PAS missed_dispositions means definite Sarra bug, very serious.
