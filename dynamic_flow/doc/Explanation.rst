@@ -101,6 +101,7 @@ D07. subscribe/q_f71.conf
    * download via scp?  to: ${TESTDOCROOT}/recd_by_srpoll_test1
    * no post.
 
+:wq
 
 E06 flow_post.sh ... post/shim_f63 
    * flow_post.sh load shim library
