@@ -132,9 +132,9 @@ function zerowanted {
    fi
 
    if [ "${1}" -gt 0 ]; then
-      printf "test %2d FAILURE: ${1} ${3}\n" ${tno}
+      printf "test %2d FAILURE: ${3} ${1} out of ${2}\n" ${tno}
    else
-      printf "test %2d success: ${1} ${3}\n" ${tno}
+      printf "test %2d success: zero ${3}\n" ${tno}
       passedno=$((${passedno}+1))
    fi
 }
@@ -226,17 +226,66 @@ function countall {
   countthem "`grep -a truncating "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
   totshortened="${tot}"
 
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -a 'pclean_f90 after_accept symlinked' "$LOGDIR"/${LGPFX}shovel_pclean_f90_*.log | wc -l`"
+      totcleanslinked=${tot}
+      countthem "`grep -a 'pclean_f90 after_accept hlinked' "$LOGDIR"/${LGPFX}shovel_pclean_f90_*.log | wc -l`"
+      totcleanhlinked=${tot}
+      countthem "`grep -a 'pclean_f90 after_accept moved' "$LOGDIR"/${LGPFX}shovel_pclean_f90_*.log | wc -l`"
+      totcleanmoved=${tot}
+      countthem "`grep -a 'after_accept file not in folder' "$LOGDIR"/${LGPFX}shovel_pclean_f90_*.log | wc -l`"
+      totcleanmissed=${tot}
+      countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}shovel_pclean_f90_*.log | wc -l`"
+      totcleanposted=${tot}
+
+      countthem "`grep -a 'clean_f92 after_accept unlink' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | wc -l`"
+      totclean2unlinked=${tot}
+
+      countthem "`grep -a 'clean_f92 after_accept unlink' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep -v '\.(moved|hlink|slink)' | wc -l`"
+      totclean2unlinknormal=${tot}
+
+      countthem "`grep -a 'clean_f92 after_accept unlink' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep '\.moved' | wc -l`"
+      totclean2unlinkmoved=${tot}
+
+      countthem "`grep -a 'clean_f92 after_accept unlink' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep '\.hlink' | wc -l`"
+      totclean2unlinkhlinked=${tot}
+
+      countthem "`grep -a 'clean_f92 after_accept unlink' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep '\.slink' | wc -l`"
+      totclean2unlinkslinked=${tot}
+
+  else
+      printf "missing clean_f90 cumulation for v2"
+
+      countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_shovel_pclean_f90*.log | wc -l`"
+      totcleanposted=${tot}
+
+      countthem "`grep -aE '\[INFO\] unlinked [1-3] ' "$LOGDIR"/sr_shovel_pclean_f92*.log | wc -l`"
+      totclean2unlinked=${tot}
+
+  fi
+
+  if [[ $(ls "$LOGDIR"/${LGPFX}shovel_pclean_f92*.log 2>/dev/null) ]]; then
+      if [ ${sarra_py_version%%.*} == '3' ]; then
+          countthem "`grep -aE \"\[INFO\].* unlinked [1-3]\" "$LOGDIR"/shovel_pclean_f92*.log | wc -l`"
+      fi
+      totremoved="${tot}"
+  else
+      totremoved="0"
+  fi
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'log after_post posted' "$LOGDIR"/watch_f40_*.log | wc -l`"
       totwatch=${tot}
-      countthem "`grep -aE 'log after_post posted.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v "'remove', " | grep -v "\'newname\': " | wc -l`"
+      countthem "`grep -aE 'log after_post posted.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v "'remove'[,:] " | grep -v "\'newname\': " | wc -l`"
       totwatchmoved=${tot}
-      countthem "`grep -aE 'log after_post posted.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log |grep -v "'remove', " | wc -l`"
+      countthem "`grep -aE 'log after_post posted.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v "'remove'[,:] " | wc -l`"
       totwatchhlinked=${tot}
-      countthem "`grep -aE 'log after_post posted.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log |grep -v "'remove', " | wc -l`"
+      countthem "`grep -aE 'log after_post posted.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v "'remove'[,:] " | wc -l`"
       totwatchslinked=${tot}
-      countthem "`grep -aE "log after_post posted.*'remove'," "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
+      # rm's one per file renamed,    so totwatchmoved...
+      # one per file or link created.     + totwatchhlinked+totwatchslinked
+      # ... but renames will also have some normals? + totwatchnormal 
+      countthem "`egrep -aE "log after_post posted.*'remove'[,:]" "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
       totwatchremoved=${tot}
       countthem "`grep -aE "log after_post posted.*" "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -avE 'remove|.slink|.hlink|.moved' | wc -l`"
   else
@@ -304,7 +353,7 @@ function countall {
   no_hardlink_events='downloaded to:|symlinked to|removed'
   all_events="hardlink|$no_hardlink_events"
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="downloaded ok:|filtered ok:|link ok:|remove ok:|written from message ok:"
+      all_events="downloaded ok:|filtered ok:|linked ok:|removed ok:|written from message ok:"
   else
       no_hardlink_events='downloaded to:|symlinked to|removed'
       all_events="hardlink|$no_hardlink_events"
@@ -405,28 +454,6 @@ function countall {
       countthem "`grep -a '\[INFO\].*msg_delete: ' $LOGDIR/sr_subscribe_cclean_*.log | wc -l`"
   fi
   totcclean="${tot}"
-
-  if [[ $(ls "$LOGDIR"/${LGPFX}shovel_pclean_f90*.log 2>/dev/null) ]]; then
-      if [ ${sarra_py_version%%.*} == '3' ]; then
-          countthem "`grep -a 'log after_post posted' "$LOGDIR"/shovel_pclean_f90*.log | wc -l`"
-      else 
-          countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_shovel_pclean_f90*.log | wc -l`"
-      fi
-      totpropagated="${tot}"
-  else
-      totpropagated="0"
-  fi
-
-  if [[ $(ls "$LOGDIR"/${LGPFX}shovel_pclean_f92*.log 2>/dev/null) ]]; then
-      if [ ${sarra_py_version%%.*} == '3' ]; then
-          countthem "`grep -aE \"\[INFO\].* unlinked [1-3]\" "$LOGDIR"/shovel_pclean_f92*.log | wc -l`"
-      else
-          countthem "`grep -aE '\[INFO\] unlinked [1-3] ' "$LOGDIR"/sr_shovel_pclean_f92*.log | wc -l`"
-      fi
-      totremoved="${tot}"
-  else
-      totremoved="0"
-  fi
 
 messages_unacked="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} list queues name messages_unacknowledged | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$4; }; END { print t; };'`"
 messages_ready="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} list queues name messages_ready | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$4; }; END { print t; };'`"

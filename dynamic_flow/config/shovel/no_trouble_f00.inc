@@ -14,6 +14,7 @@ reject .*\/GIF\/.*
 reject .*\/MSC-SAT\/.*
 reject .*\.nc$
 reject .*\/MSC-RMCQ-Product\/.*
+reject .*\/.hello_weather\/.*
 
 # reject moving targets (file overwritten in a matter of secs)
 # this problem eliminated 2018/08 with introduction of SSL broker

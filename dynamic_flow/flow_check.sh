@@ -124,32 +124,81 @@ t4=$(( ${totfileamqp}*4 ))
 t5=$(( ${totsent}/2 ))
 t6=$(( ${totfileamqp}*2 ))
 
-echo "                 | dd.weather routing |"
+echo
+echo "                 | dd.weather routing | announcing sample data, sarra downloading to ~/sarra_devdocroot"
+echo
 calcres "${totshovel1}" "${totshovel2}" "${LGPFX}shovel (totshovel1)\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
 calcres "${totwinnow}"  "${tot2shov}"   "${LGPFX}winnow (totwinnow)\t (${totwinnow}) should have the same of the number of items of shovels\t (${tot2shov})"
 calcres "${totsarp}"   "${totwinpost}" "${LGPFX}sarra (totsarp)\t (${totsarp}) should have the same number of items as winnows'post\t (${totwinpost})"
 # since v2.20.04b3... the time comparison is working properly, and subscribe is rejecting unmodified files.
 # so this test now... correctly... fails.  commenting out for now.
-#calcres ${totfileamqp}   ${totsarp}    "${LGPFX}subscribe\t (${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
-echo "                 | watch      routing |"
 
+echo
+echo "                 | 1st copy routing | subscribe/amqp_f30 copy to downloaded_by_sub_amqp "
+echo
+calcres ${totfileamqp}   ${totsarp}    "${LGPFX}subscribe (totfileamqp)\t ${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
+
+echo
+echo "                 | clean      routing | looking at files in downloaded_by_sub_amqp, creating linked/moved files from there"
+echo
+
+onethird=$(( ${totfileamqp}/3 ))
+
+calcres "${totcleanslinked}" "${onethird}" "${LGPFX}shovel_pclean_f90 slinks ${totcleanslinked} should be 1/3 of files received ${totfileamqp}"
+calcres "${totcleanhlinked}" "${onethird}" "${LGPFX}shovel_pclean_f90 hlinks  ${totcleanhlinked} should be 1/3 of files received ${totfileamqp}"
+calcres "${totcleanmoved}" "${onethird}" "${LGPFX}shovel_pclean_f90 moved  ${totcleanmoved} should be 1/3 of files received ${totfileamqp}"
+
+zerowanted "${totcleanmissed}" "${totfileamqp}" "${LGPFX}shovel_pclean_f90 missed propagations (not in folder errors), "
+expectedcleanpost=$(( ${totfileamqp}+${totcleanslinked}+${totcleanslinked}+${totcleanmoved} ))
+calcres "${totcleanposted}" "${expectedcleanpost}" "${LGPFX}shovel_pclean_f90 posted ${totcleanposted} should equal files received ${expectedcleanpost}"
+
+t11=$((4*${totcleanhlinked}))
+calcres "${totclean2unlinkhlinked}" "${t11}" "${LGPFX}shovel_pclean_f92 unlink hlinked ${totclean2unlinkhlinked} should be 4 times the files hlinked by pclean_f90 ${totcleanhlinked}"
+t12=$((4*${totcleanmoved}))
+calcres "${totclean2unlinkmoved}" "${t12}" "${LGPFX}shovel_pclean_f92 moved moved ${totclean2unlinkmoved} should be 4 times the files moved by pclean_f90 ${totcleanmoved}"
+t13=$((4*${totcleanslinked}))
+calcres "${totclean2unlinkslinked}" "${t13}" "${LGPFX}shovel_pclean_f92 unlink slinked ${totclean2unlinkslinked} should be 4 times the files slinked by pclean_f90 ${totcleanslinked}"
+
+t14=$((4*${totcleanposted}))
+calcres "${totclean2unlinked}" "${t14}" "${LGPFX}shovel_pclean_f92 unlink ${totclean2unlinked} should be 4 times the files posted by pclean_f90 ${totcleanposted}"
+printf "\n\tclean_f92 unlink breakdown: normal: %d moved: %d hlinks: %d slinks: %d\n" "${totclean2unlinknormal}" "${totclean2unlinkmoved}" "${totclean2unlinkhlinked}" "${totclean2slinked}"
+
+echo
+echo "                 | watch      routing | watching files that arrive in downloaded_by_sub_amqp"
+echo
 
 if [ "${V2_SKIP_KNOWN_BAD}" ]; then
    puf=9 # pclean_unlink_factor (how many files are created and unlinked per file downloaded.)
    t8=$(( ${totfileamqp}*${puf} ))
-   calcres ${totremoved}    ${t8} "${LGPFX}shovel pclean_f92\t (${totremoved}) should have removed ${puf} times the number of files downloaded\t (${totfileamqp})"
+   calcres "${totremoved}"    "${t8}" "${LGPFX}shovel pclean_f92\t (${totremoved}) should have removed ${puf} times the number of files downloaded\t (${totfileamqp})"
 fi
 calcres "${totwatch}"   "${t4}"         "${LGPFX}watch\t\t (${totwatch}) should be 4 times subscribe amqp_f30\t\t  (${totfileamqp})"
 calcres "${totfileamqp}"   "${totwatchnormal}"         "amqp_f30 subscription (totfileamqp)\t\t (${totfileamqp}) should match totwatchnormal\t  (${totwatchnormal})"
 calcres "${t6}" "${totwatchremoved}" "watch rm's (totwatchremove) (${totwatchremoved}) should be t6=2*totfileamqp (${t6})"
+
 printf "\n\twatch breakdown: totwatchhlinked: %4d totwatchslinked: %4d totwatchmoved: %4d\n" "${totwatchhlinked}" "${totwatchslinked}" "${totwatchmoved}"
 
 printf "\t\t\t totwatchremoved: %4d  totwatchnormal: %4d   totwatchall: %4d\n"  "${totwatchremoved}" "${totwatchnormal}" "${totwatchall}"
 calcres "${totwatchhlinked}" "${totwatchslinked}" "totwatchhlinked\t (${totwatchhlinked}) should match symlinkes (totwatchslinked) \t  (${totwatchslinked})"
 #calcres "${totwatchmoved}" "${totwatchhlinked}" "watchmoved (${totwatchmoved}) should be same as number watchhlinked (${totwatchhlinked})"
-calcres "${totwatchremoved}" "${t6}" "watchremoved \t\t (${totwatchremoved}) should 2x files downloaded watchslinked \t  (${totfileamqp})"
-#calcres "${totwatchnormal}" "${totwatchslinked}" "watchnormal (${totwatchnormal}) should be same as number watchslinked (${totwatchslinked})"
+
+# this test is not accurate... replaced by t10 one.
+#t9=$(( ${totwatchnormal}*2 ))
+#calcres "${totwatchremoved}" "${t9}" "watchremoved \t\t (${totwatchremoved}) should 2x files downloaded watchslinked \t  (${t9})"
+
+printf "totwatchremoved should == totwatchnormal+totwatchslinked+totwatchhlinked\n"
+printf "so all the normal files go by (totwatchnormal), and then for each one, pclean_f90 either hlinks, slinks or renames it.\n"
+printf "then they should all be removed by pclean_f92. (moves generate a remove as well)\n"
+t10=$(( ${totwatchnormal}+${totwatchhlinked}+${totwatchslinked} ))
+calcres "${totwatchremoved}" "${t10}" "watchremoved \t\t (${totwatchremoved}) should match the above\t  (${t10})"
+
+
+#following is just wrong... 
 #calcres "${totwatchall}" "${totwatch}" "watchremoved (${totwatchall}) should be same as number totwatch (${totwatch})"
+
+echo
+echo "                 | sftp-send routing | sender/tsource2send sends to /sent_by_tsource2send directory"
+echo
 calcres "${totsent}"    "${totwatch}"   "${LGPFX}sender (totsent)\t (${totsent}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
 
 printf "\n\tsend breakdown: totsendhlinked: %4d totsendslinked: %4d totsendmoved: %4d\n" "${totsendhlinked}" "${totsendslinked}" "${totsendmoved}"
@@ -158,18 +207,24 @@ printf "\t\t\t totsendremoved: %4d  totsendnormal: %4d   totsendall: %4d\n"  "${
 calcres "${totsubrmqtt}" "${totwatch}"  "rabbitmqtt (totsubrmqtt)(${totsubrmqtt}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
 calcres "${totsubu}" "${totsent}"    "${LGPFX}subscribe u_sftp_f60 (${totsubu}) should have the same number of items as ${LGPFX}sender (${totsent})"
 calcres "${totsubcp}" "${totsent}"    "${LGPFX}subscribe cp_f61\t (${totsubcp}) should have the same number of items as ${LGPFX}sender (${totsent})"
-echo "                 | poll       routing |"
+echo
+echo "                 | poll       routing | polling the sent_by_tsource2send/ directory with sftp "
+echo
 t7=$((${totsendall}-${totsendremoved}))
 calcres "${totpoll1}" "${t7}"         "tot ${LGPFX}poll 1 f62\t (${totpoll1}) should as many as were sent (minus removes) ${LGPFX}sender\t (${t7})"
 calcres "${totsubq}" "${totpoll1}"  "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
-echo "                 | flow_post  routing |"
+echo
+echo "                 | flow_post  routing | shim library and ls manual posting of contents of /sent_by_tsource2send directory"
+echo
 calcres "${totpost1}"   "${t5}"         "${LGPFX}post test2_f61\t (${totpost1}) should have half the same number of items of ${LGPFX}sender \t (${totsent})"
 calcres "${totsubftp}" "${totpost1}"   "${LGPFX}subscribe ftp_f70\t (${totsubftp}) should have the same number of items as ${LGPFX}post test2_f61 (${totpost1})"
 calcres "${totpost1}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should have about the same number of items as shim_f63\t (${totshimpost1})"
 
+echo
 echo "                 | py infos   routing |"
-calcres ${totpropagated} ${t6} "${LGPFX}shovel  pclean_f90\t (${totpropagated}) should have twice the number of watched files\t (${totfileamqp})"
+echo
 zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."
+
 # check removed because of issue #294
 #calcres ${totshortened} ${totfileamqp} \
 #   "count of truncated headers (${totshortened}) and subscribed messages (${totmsgamqp}) should have about the same number of items"
@@ -183,7 +238,10 @@ zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we do
 
 if [[ "$C_ALSO" || -d "$SARRAC_LIB" ]]; then
 
+echo
 echo "                 | C          routing |"
+echo
+
   calcres  ${totcpelle04r} ${totcpelle05r} "cpump both pelles (c shovel) should receive about the same number of messages (${totcpelle05r}) (${totcpelle04r})"
 
   totc04recnrej=$(( ${totcpelle04r} - ${totcpelle04rej} )) 
@@ -203,8 +261,8 @@ echo "                 | C          routing |"
 
 fi
 
-zerowanted  "${messages_unacked}" "${maxshovel}" "broker should report no unacknowledged messages left, but there are ${messages_unacked}"
-zerowanted  "${messages_ready}" "${maxshovel}" "broker should report no messages ready to be consumed but there are ${messages_ready}"
+zerowanted  "${messages_unacked}" "${maxshovel}" "broker unacknowledged messages"
+zerowanted  "${messages_ready}" "${maxshovel}" "broker messages ready to be consumed (queued but not consumed)"
 
 tallyres ${tno} ${passedno} "Overall ${passedno} of ${tno} passed (sample size: $totsarra) !"
 results=$?

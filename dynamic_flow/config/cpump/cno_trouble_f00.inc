@@ -13,6 +13,7 @@ reject .*/GIF/.*
 # auth based data for client
 reject .*/MSC-SAT/.*
 reject .*/MSC-RMCQ-Product/.*
+reject .*/.hello_weather/.*
 # reject netcdf (big files)
 reject .*\.nc$
 
