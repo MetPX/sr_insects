@@ -138,30 +138,36 @@ echo "                 | 1st copy routing | subscribe/amqp_f30 copy to downloade
 echo
 calcres ${totfileamqp}   ${totsarp}    "${LGPFX}subscribe (totfileamqp)\t ${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
 
-echo
-echo "                 | clean      routing | looking at files in downloaded_by_sub_amqp, creating linked/moved files from there"
-echo
+#if [ "${V2_SKIP_KNOWN_BAD}" ]; then
+    echo
+    echo "                 | clean      routing | looking at files in downloaded_by_sub_amqp, creating linked/moved files from there"
+    echo
 
-onethird=$(( ${totfileamqp}/3 ))
+    onethird=$(( ${totfileamqp}/3 ))
+    echo "totfileamqp is: +${totfileamqp}+ ... one third is : +${onethird}+"
 
-calcres "${totcleanslinked}" "${onethird}" "${LGPFX}shovel_pclean_f90 slinks ${totcleanslinked} should be 1/3 of files received ${totfileamqp}"
-calcres "${totcleanhlinked}" "${onethird}" "${LGPFX}shovel_pclean_f90 hlinks  ${totcleanhlinked} should be 1/3 of files received ${totfileamqp}"
-calcres "${totcleanmoved}" "${onethird}" "${LGPFX}shovel_pclean_f90 moved  ${totcleanmoved} should be 1/3 of files received ${totfileamqp}"
+    calcres "${totcleanslinked}" "${onethird}" "${LGPFX}shovel_pclean_f90 slinks ${totcleanslinked} should be 1/3 of files received ${totfileamqp}"
+    calcres "${totcleanhlinked}" "${onethird}" "${LGPFX}shovel_pclean_f90 hlinks  ${totcleanhlinked} should be 1/3 of files received ${totfileamqp}"
+    calcres "${totcleanmoved}" "${onethird}" "${LGPFX}shovel_pclean_f90 moved  ${totcleanmoved} should be 1/3 of files received ${totfileamqp}"
 
-zerowanted "${totcleanmissed}" "${totfileamqp}" "${LGPFX}shovel_pclean_f90 missed propagations (not in folder errors), "
-expectedcleanpost=$(( ${totfileamqp}+${totcleanslinked}+${totcleanslinked}+${totcleanmoved} ))
-calcres "${totcleanposted}" "${expectedcleanpost}" "${LGPFX}shovel_pclean_f90 posted ${totcleanposted} should equal files received ${expectedcleanpost}"
+    zerowanted "${totcleanmissed}" "${totfileamqp}" "${LGPFX}shovel_pclean_f90 missed propagations (not in folder errors), "
 
-t11=$((4*${totcleanhlinked}))
-calcres "${totclean2unlinkhlinked}" "${t11}" "${LGPFX}shovel_pclean_f92 unlink hlinked ${totclean2unlinkhlinked} should be 4 times the files hlinked by pclean_f90 ${totcleanhlinked}"
-t12=$((4*${totcleanmoved}))
-calcres "${totclean2unlinkmoved}" "${t12}" "${LGPFX}shovel_pclean_f92 moved moved ${totclean2unlinkmoved} should be 4 times the files moved by pclean_f90 ${totcleanmoved}"
-t13=$((4*${totcleanslinked}))
-calcres "${totclean2unlinkslinked}" "${t13}" "${LGPFX}shovel_pclean_f92 unlink slinked ${totclean2unlinkslinked} should be 4 times the files slinked by pclean_f90 ${totcleanslinked}"
+    expectedcleanpost=$(( ${totfileamqp}+${totcleanslinked}+${totcleanslinked}+${totcleanmoved} ))
 
-t14=$((4*${totcleanposted}))
-calcres "${totclean2unlinked}" "${t14}" "${LGPFX}shovel_pclean_f92 unlink ${totclean2unlinked} should be 4 times the files posted by pclean_f90 ${totcleanposted}"
-printf "\n\tclean_f92 unlink breakdown: normal: %d moved: %d hlinks: %d slinks: %d\n" "${totclean2unlinknormal}" "${totclean2unlinkmoved}" "${totclean2unlinkhlinked}" "${totclean2slinked}"
+    calcres "${totcleanposted}" "${expectedcleanpost}" "${LGPFX}shovel_pclean_f90 posted ${totcleanposted} should equal files received ${expectedcleanpost}"
+
+    t11=$((4*${totcleanhlinked}))
+    calcres "${totclean2unlinkhlinked}" "${t11}" "${LGPFX}shovel_pclean_f92 unlink hlinked ${totclean2unlinkhlinked} should be 4 times the files hlinked by pclean_f90 ${totcleanhlinked}"
+    t12=$((4*${totcleanmoved}))
+    calcres "${totclean2unlinkmoved}" "${t12}" "${LGPFX}shovel_pclean_f92 moved moved ${totclean2unlinkmoved} should be 4 times the files moved by pclean_f90 ${totcleanmoved}"
+    t13=$((4*${totcleanslinked}))
+    calcres "${totclean2unlinkslinked}" "${t13}" "${LGPFX}shovel_pclean_f92 unlink slinked ${totclean2unlinkslinked} should be 4 times the files slinked by pclean_f90 ${totcleanslinked}"
+    
+    t14=$((4*${totcleanposted}))
+    calcres "${totclean2unlinked}" "${t14}" "${LGPFX}shovel_pclean_f92 unlink ${totclean2unlinked} should be 4 times the files posted by pclean_f90 ${totcleanposted}"
+    printf "\n\tclean_f92 unlink breakdown: normal: %d moved: %d hlinks: %d slinks: %d\n" "${totclean2unlinknormal}" "${totclean2unlinkmoved}" "${totclean2unlinkhlinked}" "${totclean2slinked}"
+
+#fi
 
 echo
 echo "                 | watch      routing | watching files that arrive in downloaded_by_sub_amqp"

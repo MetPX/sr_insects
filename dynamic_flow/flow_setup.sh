@@ -57,9 +57,13 @@ mkdir -p "$CONFDIR" 2> /dev/null
 flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].inc; ls */*f[0-9][0-9].conf`"
 #sr_action "Adding flow test configurations..." add " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
 
-#cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sarra
-cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sr3
-cd ..
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+   cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sr3
+   cd ..
+else
+   cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sarra
+   cd ..
+fi
 
 #if [ "${sarra_py_version:0:1}" == "3" ]; then
 #   for i in ${flow_configs}; do

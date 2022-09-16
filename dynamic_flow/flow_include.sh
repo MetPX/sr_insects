@@ -254,13 +254,32 @@ function countall {
       totclean2unlinkslinked=${tot}
 
   else
-      printf "missing clean_f90 cumulation for v2"
-
+      countthem "`grep -aE '\[INFO\] pclean_f90_on_message symlinked ' "$LOGDIR"/sr_shovel_pclean_f90*.log | wc -l`"
+      totcleanslinked=${tot}
+      countthem "`grep -aE '\[INFO\] pclean_f90_on_message hard linked ' "$LOGDIR"/sr_shovel_pclean_f90*.log | wc -l`"
+      totcleanhlinked=${tot}
+      countthem "`grep -aE '\[INFO\] pclean_f90_on_message moved ' "$LOGDIR"/sr_shovel_pclean_f90*.log | wc -l`"
+      totcleanmoved=${tot}
+      countthem "`grep -a 'after_accept file not in folder' "$LOGDIR"/${LGPFX}shovel_pclean_f90_*.log | wc -l`"
+      totcleanmissed=${tot}
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_shovel_pclean_f90*.log | wc -l`"
       totcleanposted=${tot}
 
       countthem "`grep -aE '\[INFO\] unlinked [1-3] ' "$LOGDIR"/sr_shovel_pclean_f92*.log | wc -l`"
       totclean2unlinked=${tot}
+
+      countthem "`grep -a '\[INFO\] unlinked [1-3] ' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep -v '\.(moved|hlink|slink)' | wc -l`"
+      totclean2unlinknormal=${tot}
+
+      countthem "`grep -a '\[INFO\] unlinked [1-3] ' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep '\.moved' | wc -l`"
+      totclean2unlinkmoved=${tot}
+
+      countthem "`grep -a '\[INFO\] unlinked [1-3] ' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep '\.hlink' | wc -l`"
+      totclean2unlinkhlinked=${tot}
+
+      countthem "`grep -a '\[INFO\] unlinked [1-3] ' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep '\.slink' | wc -l`"
+      totclean2unlinkslinked=${tot}
+
 
   fi
 
@@ -297,7 +316,7 @@ function countall {
       totwatchhlinked=${tot}
       countthem "`grep -aE 'post_log.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v "'sum': 'R," | wc -l`"
       totwatchslinked=${tot}
-      countthem "`grep -aE "post_log.*'remove'," "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
+      countthem "`grep -aE "post_log.*'remove'[,:]" "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
       totwatchremoved=${tot}
       countthem "`grep -aE "post_log.*" "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -avE '\.(slink|hlink|moved)|remove' | wc -l`"
   fi
