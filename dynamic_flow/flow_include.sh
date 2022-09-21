@@ -328,7 +328,7 @@ function countall {
   totmsgamqp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'downloaded ok' "$LOGDIR"/subscribe_amqp_f30_*.log | wc -l`"
+      countthem "`grep -a 'after_work downloaded ok' "$LOGDIR"/subscribe_amqp_f30_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] file_log downloaded to:' "$LOGDIR"/sr_subscribe_amqp_f30_*.log | wc -l`"
   fi
@@ -453,14 +453,14 @@ function countall {
   totcveille="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'downloaded ok' $LOGDIR/subscribe_cdnld_f21_*.log | wc -l`"
+      countthem "`grep -a 'after_work downloaded ok' $LOGDIR/subscribe_cdnld_f21_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cdnld_f21_*.log | wc -l`"
   fi
   totcdnld="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'downloaded ok' $LOGDIR/subscribe_cfile_f44_*.log | wc -l`"
+      countthem "`grep -a 'after_work downloaded ok' $LOGDIR/subscribe_cfile_f44_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cfile_f44_*.log | wc -l`"
   fi
