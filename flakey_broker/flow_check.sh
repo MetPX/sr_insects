@@ -213,12 +213,13 @@ calcres ${totsubrmqtt} ${totwatch}  "rabbitmqtt\t\t (${totsubrmqtt}) should have
 calcres ${totsubu}    ${totsent}    "${LGPFX}subscribe u_sftp_f60 (${totsubu}) should have the same number of items as ${LGPFX}sender (${totsent})"
 calcres ${totsubcp}   ${totsent}    "${LGPFX}subscribe cp_f61\t (${totsubcp}) should have the same number of items as ${LGPFX}sender (${totsent})"
 echo "                 | poll       routing |"
-calcres ${totpoll1}   ${totsent}         "${LGPFX}poll sftp_f62\t (${totpoll1}) should have the same number of items of ${LGPFX}sender\t (${totsent})"
+printf " poll sftp_f62 posted $totpoll2  sftp_f63 posted $totpoll3 \n" 
+calcres ${totpoll}   ${totsent}         "${LGPFX}poll sftp_f62+3\t (${totpoll}) should have the same number of items of ${LGPFX}sender\t (${totsent})"
 if [ "${totpoll_mirrored}" ]; then
-    calcres "${totpoll1}" "${totpoll_mirrored}" "${LGPFX}poll sftp_f63\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totpoll1})"
+    calcres "${totpoll}" "${totpoll_mirrored}" "${LGPFX}poll sftp_f62+3\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totpoll})"
 fi
 
-calcres ${totsubq}    ${totpoll1}   "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll sftp_f62 (${totpoll1})"
+calcres ${totsubq}    ${totpoll}   "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll sftp_f62+3 (${totpoll})"
 echo "                 | flow_post  routing |"
 calcres ${totpost1}   ${totsent}         "${LGPFX}post test2_f61\t (${totpost1}) should have the same number of items of ${LGPFX}sender \t (${totsent})"
 calcres ${totsubftp}  ${totpost1}   "${LGPFX}subscribe ftp_f70\t (${totsubftp}) should have the same number of items as ${LGPFX}post test2_f61 (${totpost1})"
