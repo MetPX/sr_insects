@@ -38,17 +38,28 @@ export SR_DATE_FMT='%Y%m%dT%H%M%s'
 
 function application_dirs {
 python3 << EOF
-import appdirs
 
-cachedir  = appdirs.user_cache_dir('${SR_DEV_APPNAME}','science.gc.ca')
+try:
+    import appdirs
+
+    cachedir  = appdirs.user_cache_dir('${SR_DEV_APPNAME}','MetPX')
+    confdir = appdirs.user_config_dir('${SR_DEV_APPNAME}','MetPX')
+    logdir  = appdirs.user_log_dir('${SR_DEV_APPNAME}','MetPX')
+
+except:
+
+    import pathlib
+    cachedir = str(pathlib.Path.home()) + '/.cache/${SR_DEV_APPNAME}'
+    confdir = str(pathlib.Path.home()) + '/.config/${SR_DEV_APPNAME}'
+    logdir = str(pathlib.Path.home()) + '/.cache/${SR_DEV_APPNAME}/log'
+
+
 cachedir  = cachedir.replace(' ','\ ')
 print('export CACHEDIR=%s'% cachedir)
 
-confdir = appdirs.user_config_dir('${SR_DEV_APPNAME}','science.gc.ca')
 confdir = confdir.replace(' ','\ ')
 print('export CONFDIR=%s'% confdir)
 
-logdir  = appdirs.user_log_dir('${SR_DEV_APPNAME}','science.gc.ca')
 logdir  = logdir.replace(' ','\ ')
 print('export LOGDIR=%s'% logdir)
 
