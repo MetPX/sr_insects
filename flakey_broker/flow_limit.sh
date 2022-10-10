@@ -29,7 +29,27 @@ if [[ $(($check_wsl == "init")) ]]; then
 else
 	sudo systemctl stop $mqpbroker
 fi
+swap_poll 
 
+echo "starting $mqpbroker"
+
+if [[ $(($check_wsl == "init")) ]]; then
+	sudo service $mqpbroker start
+else
+	sudo systemctl start $mqpbroker
+fi
+
+sleep 10
+
+echo "stopping $mqpbroker"
+
+if [[ $(($check_wsl == "init")) ]]; then
+	sudo service $mqpbroker stop
+else
+	sudo systemctl stop $mqpbroker
+fi
+
+swap_poll 
 sleep 10
 echo "starting $mqpbroker"
 
@@ -50,27 +70,6 @@ else
 	sudo systemctl stop $mqpbroker
 fi
 
-sleep 10
-echo "starting $mqpbroker"
-
-if [[ $(($check_wsl == "init")) ]]; then
-	sudo service $mqpbroker start
-else
-	sudo systemctl start $mqpbroker
-fi
-
-sleep 10
-swap_poll 
-
-echo "stopping $mqpbroker"
-
-if [[ $(($check_wsl == "init")) ]]; then
-	sudo service $mqpbroker stop
-else
-	sudo systemctl stop $mqpbroker
-fi
-
-swap_poll 
 sleep 10
 
 echo "starting $mqpbroker"
