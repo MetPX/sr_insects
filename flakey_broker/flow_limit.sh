@@ -49,7 +49,6 @@ else
 	sudo systemctl stop $mqpbroker
 fi
 
-swap_poll 
 sleep 10
 echo "starting $mqpbroker"
 
@@ -60,7 +59,6 @@ else
 fi
 
 sleep 10
-swap_poll 
 
 echo "stopping $mqpbroker"
 
