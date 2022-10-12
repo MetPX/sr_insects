@@ -129,7 +129,8 @@ if [ $cmd == 'stopped' ]; then
 
 fi
 
-need_to_wait="`grep heartbeat config/*/*.conf| awk ' BEGIN { h=0; } { if ( $2 > h ) h=$2;  } END { print h*2; }; '`"
+#need_to_wait="`grep heartbeat config/*/*.conf| awk ' BEGIN { h=0; } { if ( $2 > h ) h=$2;  } END { print h*2; }; '`"
+need_to_wait=180
 echo "No messages left in queues... wait 2* maximum heartbeat ( ${need_to_wait} ) of any configuration to be sure it is finished."
 
 sleep ${need_to_wait}
