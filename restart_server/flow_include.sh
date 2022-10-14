@@ -240,19 +240,25 @@ function countall {
   totsubftp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -aE "downloaded ok|written from message ok" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | wc -l`"
+      countthem "`grep -aE "after_work downloaded ok" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | wc -l`"
   else
       countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
   fi
   totsubq="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -aE 'log after_post posted' "$LOGDIR"/${LGPFX}poll_sftp_f6*_*.log | wc -l`"
-       totpoll1="${tot}"
+       countthem "`grep -aE 'log after_post posted' "$LOGDIR"/${LGPFX}poll_sftp_f62_*.log | wc -l`"
+       totpoll2="${tot}"
+       countthem "`grep -aE 'log after_post posted' "$LOGDIR"/${LGPFX}poll_sftp_f63_*.log | wc -l`"
+       totpoll3="${tot}"
+       totpoll=$(( ${totpoll2} + ${totpoll3} ))
        totpoll_mirrored="`grep -a ', now saved' "$LOGDIR"/${LGPFX}poll_sftp_f6*_*.log | awk ' { print $18 } '|tail -1`"
   else
        countthem "`grep -aE '\[INFO\] post_log' "$LOGDIR"/${LGPFX}poll_sftp_f62_*.log | wc -l`"
-       totpoll1="${tot}"
+       totpoll2="${tot}"
+       countthem "`grep -aE '\[INFO\] post_log' "$LOGDIR"/${LGPFX}poll_sftp_f63_*.log | wc -l`"
+       totpoll3="${tot}"
+       totpoll=$(( ${totpoll2} + ${totpoll3} ))
   fi
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
@@ -300,14 +306,14 @@ function countall {
   totcveille="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'downloaded ok' $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
+      countthem "`grep -a 'after_work downloaded ok' $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
   fi
   totcdnld="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'downloaded ok' $LOGDIR/${LGPFX}subscribe_cfile_f44_*.log | wc -l`"
+      countthem "`grep -a 'after_work downloaded ok' $LOGDIR/${LGPFX}subscribe_cfile_f44_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/${LGPFX}subscribe_cfile_f44_*.log | wc -l`"
   fi
@@ -332,4 +338,9 @@ function countall {
   missed_dispositions="`wc -l <$missedreport`"
 
 }
+
+ 
+messages_unacked="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} list queues name messages_unacknowledged | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$4; }; END { print t; };'`"
+messages_ready="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} list queues name messages_ready | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$4; }; END { print t; };'`"
+
 

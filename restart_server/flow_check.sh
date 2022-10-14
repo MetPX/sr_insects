@@ -27,7 +27,7 @@ function summarize_performance {
        best_fn=''
        printf "\n\t$i\n\n"
        for j in ${path}_${i}_*.log; do
-           msg="`grep ${pattern} ${j} | tail -1`"
+           msg="`grep -a ${pattern} ${j} | tail -1`"
            if [[ -z "$msg" ]]; then
                continue
            fi
@@ -46,7 +46,7 @@ function summarize_logs {
     printf "\n$1 Summary:\n"
     input_size=${#1}
     fcl="$LOGDIR"/flowcheck_$1_logged.txt
-    msg_counts=`grep -h -o "\[$1\] *.*" "$LOGDIR"/*.log | sort | uniq -c -w"$((input_size+20))" | sort -n -r`
+    msg_counts=`grep -a -h -o "\[$1\] *.*" "$LOGDIR"/*.log | sort | uniq -c -w"$((input_size+20))" | sort -n -r`
     echo '' > ${fcl}
 
     if [[ -z $msg_counts ]]; then
@@ -58,7 +58,7 @@ function summarize_logs {
             count=`echo ${msg_line} | awk '{print $1}'`
             msg=`echo ${msg_line} | sed "s/^ *[0-9]* \[$1\] *//g"`
             pattern="\[$1\] *${msg}"
-            filelist=($(grep -l ${pattern::$((input_size + 22))} "$LOGDIR"/*.log))
+            filelist=($(grep -a -l ${pattern::$((input_size + 22))} "$LOGDIR"/*.log))
             if [[ ${filelist[@]} ]]; then
                 first_filename=`basename ${filelist[0]} | sed 's/ /\n/g' | sed 's|.*\/||g' | sed 's/_[0-9][0-9]\.log\|.log//g' | uniq`
                 files_nb=${#filelist[@]}
@@ -68,13 +68,13 @@ function summarize_logs {
             fi
        done
        IFS=${backup_ifs}
-       result=`grep -c $1 ${fcl}`
+       result=`grep -a -c $1 ${fcl}`
        if [[ ${result} -gt 10 ]]; then
-           grep $1 ${fcl} | head | column -t -s $'\u2620' | cut -c -130
+           grep -a $1 ${fcl} | head | column -t -s $'\u2620' | cut -c -130
            echo
            echo "More than 10 TYPES OF $1S found... for the rest, have a look at $fcl for details"
        else
-           grep $1 ${fcl} | column -t -s $'\u2620' | cut -c -130
+           grep -a $1 ${fcl} | column -t -s $'\u2620' | cut -c -130
        fi
     fi
 }
@@ -137,11 +137,11 @@ if [[ -z "$skip_summaries" ]]; then
     echo
 
     if [[ ! "$SARRA_LIB" ]]; then
-       echo NB retries for ${LGPFX}subscribe amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
-       echo NB retries for ${LGPFX}sender    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
+       echo NB retries for ${LGPFX}subscribe amqp_f30 `grep -a Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
+       echo NB retries for ${LGPFX}sender    `grep -a Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
     else
-       echo NB retries for "$SARRA_LIB"/${LGPFX}subscribe.py amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
-       echo NB retries for "$SARRA_LIB"/${LGPFX}sender.py    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
+       echo NB retries for "$SARRA_LIB"/${LGPFX}subscribe.py amqp_f30 `grep -a Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
+       echo NB retries for "$SARRA_LIB"/${LGPFX}sender.py    `grep -a Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
     fi
 
     summarize_logs ERROR
@@ -177,6 +177,15 @@ else
 
 fi
 
+echo "broker state:"
+if [[ ${messages_unacked} > 0 ]] || [[ ${messages_ready} > 0 ]]; then
+
+   echo "rabbitmq broker message anomalies\n"
+   rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} list queues name messages_ready messages_unacknowledged | awk ' BEGIN {t=0; } (NR<3) {print;} (NR > 2)  && /_f[0-9][0-9]/ { t+=$4; if ( $4 > 0 || $6 > 0) print; }; '
+
+fi
+
+
 
 tot2shov=$(( ${totshovel1} + ${totshovel2} ))
 t4=$(( ${totfileamqp}*4 ))
@@ -204,12 +213,13 @@ calcres ${totsubrmqtt} ${totwatch}  "rabbitmqtt\t\t (${totsubrmqtt}) should have
 calcres ${totsubu}    ${totsent}    "${LGPFX}subscribe u_sftp_f60 (${totsubu}) should have the same number of items as ${LGPFX}sender (${totsent})"
 calcres ${totsubcp}   ${totsent}    "${LGPFX}subscribe cp_f61\t (${totsubcp}) should have the same number of items as ${LGPFX}sender (${totsent})"
 echo "                 | poll       routing |"
-calcres ${totpoll1}   ${totsent}         "${LGPFX}poll sftp_f62\t (${totpoll1}) should have the same number of items of ${LGPFX}sender\t (${totsent})"
+printf " poll sftp_f62 posted $totpoll2  sftp_f63 posted $totpoll3 \n" 
+calcres ${totpoll}   ${totsent}         "${LGPFX}poll sftp_f62+3\t (${totpoll}) should have the same number of items of ${LGPFX}sender\t (${totsent})"
 if [ "${totpoll_mirrored}" ]; then
-    calcres "${totpoll1}" "${totpoll_mirrored}" "${LGPFX}poll sftp_f63\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totpoll1})"
+    calcres "${totpoll}" "${totpoll_mirrored}" "${LGPFX}poll sftp_f62+3\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totpoll})"
 fi
 
-calcres ${totsubq}    ${totpoll1}   "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll sftp_f62 (${totpoll1})"
+calcres ${totsubq}    ${totpoll}   "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll sftp_f62+3 (${totpoll})"
 echo "                 | flow_post  routing |"
 calcres ${totpost1}   ${totsent}         "${LGPFX}post test2_f61\t (${totpost1}) should have the same number of items of ${LGPFX}sender \t (${totsent})"
 calcres ${totsubftp}  ${totpost1}   "${LGPFX}subscribe ftp_f70\t (${totsubftp}) should have the same number of items as ${LGPFX}post test2_f61 (${totpost1})"
@@ -244,6 +254,9 @@ echo "                 | C          routing |"
 
 fi
 
+zerowanted  "${messages_unacked}" "${maxshovel}" "there should be no unacknowledged messages left, but there are ${messages_unacked}"
+zerowanted  "${messages_ready}" "${maxshovel}" "there should be no messages ready to be consumed but there are ${messages_ready}"
+
 tallyres ${tno} ${passedno} "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 results=$?
 
@@ -255,3 +268,8 @@ fi
 echo
 
 exit ${results}
+
+
+
+
+ 
