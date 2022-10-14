@@ -59,6 +59,8 @@ else
 fi
 
 sleep 10
+swap_poll 
+sleep 10
 
 echo "stopping $mqpbroker"
 
