@@ -87,13 +87,15 @@ fi
 
 sleep 10
 
-if [ ! "$SARRA_LIB" ]; then
-    cmd="`sr3 status shovel/t_dd1_f00|& tail -1 | awk ' { print $2 } '`"
-else
-    cmd="`"$SARRA_LIB"/sr.py status shovel/t_dd1_f00 |& tail -1 | awk ' { print $2 } '`"
-fi
+#if [ ! "$SARRA_LIB" ]; then
+#    cmd="`sr3 status shovel/t_dd1_f00|& tail -1 | awk ' { print $2 } '`"
+#else
+#    cmd="`"$SARRA_LIB"/sr.py status shovel/t_dd1_f00 |& tail -1 | awk ' { print $2 } '`"
+#fi
 
-if [ $cmd == 'stopped' ]; then 
+#echo "cmd=$cmd"
+
+#if [ $cmd == 'stopped' ]; then 
 
    stalled=0
    stalled_value=-1
@@ -127,10 +129,9 @@ if [ $cmd == 'stopped' ]; then
    done
    echo "No messages left in queues..."
 
-fi
+#fi
 
-#need_to_wait="`grep heartbeat config/*/*.conf| awk ' BEGIN { h=0; } { if ( $2 > h ) h=$2;  } END { print h*2; }; '`"
-need_to_wait=320
+need_to_wait="`grep heartbeat config/*/*.conf| awk ' BEGIN { h=0; } { if ( $2 > h ) h=$2;  } END { print h*2; }; '`"
 echo "No messages left in queues... wait 2* maximum heartbeat ( ${need_to_wait} ) of any configuration to be sure it is finished."
 
 sleep ${need_to_wait}

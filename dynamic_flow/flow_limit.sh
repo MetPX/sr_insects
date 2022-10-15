@@ -92,13 +92,14 @@ fi
 
 sleep 10
 
-if [ ! "$SARRA_LIB" ]; then
-    cmd="`sr_shovel t_dd1_f00 status |& tail -1 | awk ' { print $8 } '`"
-else
-    cmd="`"$SARRA_LIB"/sr_shovel.py t_dd1_f00 status |& tail -1 | awk ' { print $8 } '`"
-fi
+# no reason for this check... if we get here, the shovels are stopped, no reason to gate it.
+#if [ ! "$SARRA_LIB" ]; then
+#    cmd="`sr_shovel t_dd1_f00 status |& tail -2 | head -1 | awk ' { print $8 } '`"
+#else
+#    cmd="`"$SARRA_LIB"/sr_shovel.py t_dd1_f00 status |& tail -2 | head -1 | awk ' { print $8 } '`"
+#fi
 
-if [ $cmd == 'stopped' ]; then 
+#if [ $cmd == 'stopped' ]; then 
 
    stalled=0
    stalled_value=-1
@@ -132,7 +133,7 @@ if [ $cmd == 'stopped' ]; then
    done
    echo "No messages left in queues..."
 
-fi
+#fi
 
 #need_to_wait="`grep heartbeat config/*/*.conf| awk ' BEGIN { h=0; } { if ( $2 > h ) h=$2;  } END { print h*2; }; '`"
 need_to_wait=180
