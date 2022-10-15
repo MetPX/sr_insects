@@ -127,7 +127,11 @@ t6=$(( ${totfileamqp}*2 ))
 echo
 echo "                 | dd.weather routing | announcing sample data, sarra downloading to ~/sarra_devdocroot"
 echo
-calcres "${totshovel1}" "${totshovel2}" "${LGPFX}shovel (totshovel1)\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
+
+# following test disabled.
+# This is not necessarily true... two shovels with same subscriptions can have quite different numbers of items just because
+# of timing around start and stop.
+#calcres "${totshovel1}" "${totshovel2}" "${LGPFX}shovel (totshovel1)\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
 calcres "${totwinnow}"  "${tot2shov}"   "${LGPFX}winnow (totwinnow)\t (${totwinnow}) should have the same of the number of items of shovels\t (${tot2shov})"
 calcres "${totsarp}"   "${totwinpost}" "${LGPFX}sarra (totsarp)\t (${totsarp}) should have the same number of items as winnows'post\t (${totwinpost})"
 # since v2.20.04b3... the time comparison is working properly, and subscribe is rejecting unmodified files.
