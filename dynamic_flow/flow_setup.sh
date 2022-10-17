@@ -16,6 +16,12 @@ export TESTDIR="`pwd`"
 #export PYTHONPATH="`pwd`/../"
 . ../flow_utils.sh
 
+if [ ! "`grep several ~/.config/*/default.conf`" ]; then
+   echo "Adding Several"
+   echo "declare env several=3" >>~/.config/sarra/default.conf
+   echo "declare env several=3" >>~/.config/sr3/default.conf
+fi
+
 testdocroot="$HOME/sarra_devdocroot"
 testhost=localhost
 sftpuser=`whoami`
