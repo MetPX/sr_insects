@@ -6,15 +6,15 @@
 # change LD_PRELOAD with path to libsrshim if not using system one
 export SR_POST_CONFIG="$CONFDIR/post/shim_f63.conf"
 # The directory we run the flow test scripts in...
-tstdir="`pwd`"
-httpdocroot=`cat $tstdir/.httpdocroot`
+tstdir="$(pwd)"
+httpdocroot=$(cat "$tstdir"/.httpdocroot)
 
-if [ ! -d ${httpdocroot} ]; then
+if [ ! -d "${httpdocroot}" ]; then
    exit
 fi
 
-if [ ! -d ${httpdocroot}/posted_by_shim ]; then
-   mkdir  ${httpdocroot}/posted_by_shim
+if [ ! -d "${httpdocroot}"/posted_by_shim ]; then
+   mkdir  "${httpdocroot}"/posted_by_shim
 fi
 
 if [[ ":$SARRA_LIB/../:" != *":$PYTHONPATH:"* ]]; then
@@ -26,28 +26,28 @@ if [[ ":$SARRA_LIB/../:" != *":$PYTHONPATH:"* ]]; then
 fi
 
 # sr_post initial start
-srpostdir=`cat $tstdir/.httpdocroot`/sent_by_tsource2send
+srpostdir=$(cat "$tstdir"/.httpdocroot)/sent_by_tsource2send
 srpostlstfile=$httpdocroot/srpostlstfile
 srpostlstfile_new=$httpdocroot/srpostlstfile.new
 srpostlstfile_old=$httpdocroot/srpostlstfile.old
 
-echo > ${srpostlstfile_old}
+echo > "${srpostlstfile_old}"
 # sr_post call
 
 function do_sr_post {
 
-   cd $srpostdir
+   cd "$srpostdir" || exit
    # sr_post testing START
    # TODO - consider if .httpdocroot ends with a '/' ?
-   find . -type f -print | grep -v '.tmp$'  > $srpostlstfile
-   find . -type l -print | grep -v '.tmp$' >> $srpostlstfile
-   cat $srpostlstfile    | sort > $srpostlstfile_new
+   find . -type f -print | grep -v '.tmp$'  > "$srpostlstfile"
+   find . -type l -print | grep -v '.tmp$' >> "$srpostlstfile"
+   cat "$srpostlstfile"    | sort > "$srpostlstfile_new"
 
    # Obtain file listing delta
    rm    /tmp/diffs.txt 2> /dev/null
    touch /tmp/diffs.txt
-   comm -23 $srpostlstfile_new $srpostlstfile_old > /tmp/diffs.txt
-   srpostdelta=`cat /tmp/diffs.txt`
+   comm -23 "$srpostlstfile_new" "$srpostlstfile_old" > /tmp/diffs.txt
+   srpostdelta=$(cat /tmp/diffs.txt)
    # | sed 's/^..//'
    if [ "$srpostdelta" == "" ]; then
     return
@@ -71,18 +71,18 @@ function do_sr_post {
    fi
 
    if [ ! "$SARRA_LIB" ]; then
-    $POST -c test2_f61.conf -p `cat /tmp/diffs.txt`
+    $POST -c test2_f61.conf -p $(cat /tmp/diffs.txt)
    else 
-    "$SARRA_LIB"/sr_post.py -c "$CONFDIR"/post/test2_f61.conf -p `cat /tmp/diffs.txt`
+    "$SARRA_LIB"/sr_post.py -c "$CONFDIR"/post/test2_f61.conf -p $(cat /tmp/diffs.txt)
    fi
-   cd $srpostdir  
+   cd "$srpostdir" || exit  
    if [ "$SARRAC_LIB" ]; then
-    LD_PRELOAD="$SARRAC_LIB/${SHIMLIB}" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
+    LD_PRELOAD="$SARRAC_LIB/${SHIMLIB}" cp -p --parents $(cat /tmp/diffs.txt)  "${httpdocroot}"/posted_by_shim
    else 
-    LD_PRELOAD="${SHIMLIB}" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
+    LD_PRELOAD="${SHIMLIB}" cp -p --parents $(cat /tmp/diffs.txt)  "${httpdocroot}"/posted_by_shim
    fi
    
-   cp -p $srpostlstfile_new $srpostlstfile_old
+   cp -p "$srpostlstfile_new" "$srpostlstfile_old"
 }
 
 # sr_post initial end
