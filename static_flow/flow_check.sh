@@ -27,16 +27,16 @@ function summarize_performance {
        best_fn=''
        printf "\n\t$i\n\n"
        for j in ${path}_${i}_*.log; do
-           msg="`grep ${pattern} ${j} | tail -1`"
+           msg="$(grep "${pattern}" "${j}" | tail -1)"
            if [[ -z "$msg" ]]; then
                continue
            fi
-           fn=`echo $(basename ${j}) | awk -F'.' '{print $3}'`
+           fn=$(echo $(basename "${j}") | awk -F'.' '{print $3}')
            if [[ -z "$fn" ]]; then
-               best_fn=`echo $(basename ${j})`
-               echo "`basename $j` ${msg}"
+               best_fn=$(echo $(basename "${j}"))
+               echo "$(basename "$j") ${msg}"
            elif [[ -z "$best_fn" ]]; then
-               echo "`basename $j` ${msg}"
+               echo "$(basename "$j") ${msg}"
            fi
        done
     done
@@ -46,35 +46,35 @@ function summarize_logs {
     printf "\n$1 Summary:\n"
     input_size=${#1}
     fcl="$LOGDIR"/flowcheck_$1_logged.txt
-    msg_counts=`grep -h -o "\[$1\] *.*" "$LOGDIR"/*.log | sort | uniq -c -w"$((input_size+20))" | sort -n -r`
-    echo '' > ${fcl}
+    msg_counts=$(grep -h -o "\[$1\] *.*" "$LOGDIR"/*.log | sort | uniq -c -w"$((input_size+20))" | sort -n -r)
+    echo '' > "${fcl}"
 
     if [[ -z $msg_counts ]]; then
-       echo NO $1S IN LOGS
+       echo NO "$1"S IN LOGS
     else
        backup_ifs=$IFS
        IFS=$'\n'
        for msg_line in $msg_counts; do
-            count=`echo ${msg_line} | awk '{print $1}'`
-            msg=`echo ${msg_line} | sed "s/^ *[0-9]* \[$1\] *//g"`
+            count=$(echo "${msg_line}" | awk '{print $1}')
+            msg=$(echo "${msg_line}" | sed "s/^ *[0-9]* \[$1\] *//g")
             pattern="\[$1\] *${msg}"
-            filelist=($(grep -l ${pattern::$((input_size + 22))} "$LOGDIR"/*.log))
+            filelist=($(grep -l "${pattern::$((input_size + 22))}" "$LOGDIR"/*.log))
             if [[ ${filelist[@]} ]]; then
-                first_filename=`basename ${filelist[0]} | sed 's/ /\n/g' | sed 's|.*\/||g' | sed 's/_[0-9][0-9]\.log\|.log//g' | uniq`
+                first_filename=$(basename "${filelist[0]}" | sed 's/ /\n/g' | sed 's|.*\/||g' | sed 's/_[0-9][0-9]\.log\|.log//g' | uniq)
                 files_nb=${#filelist[@]}
-                echo "  ${count}"$'\u2620'"${first_filename}"$'\u2620'"(${files_nb} file)"$'\u2620'"`echo ${msg_line} | sed "s/^ *[0-9]* //g"`" >> ${fcl}
-                echo ${filelist[@]} | sed 's/^//g' | sed 's/ \//\n\//g' >> ${fcl}
-                echo -e >> ${fcl}
+                echo "  ${count}"$'\u2620'"${first_filename}"$'\u2620'"(${files_nb} file)"$'\u2620'"$(echo "${msg_line}" | sed "s/^ *[0-9]* //g")" >> "${fcl}"
+                echo ${filelist[@]} | sed 's/^//g' | sed 's/ \//\n\//g' >> "${fcl}"
+                echo -e >> "${fcl}"
             fi
        done
        IFS=${backup_ifs}
-       result=`grep -c $1 ${fcl}`
+       result=$(grep -c "$1" "${fcl}")
        if [[ ${result} -gt 10 ]]; then
-           grep $1 ${fcl} | head | column -t -s $'\u2620' | cut -c -130
+           grep "$1" "${fcl}" | head | column -t -s $'\u2620' | cut -c -130
            echo
            echo "More than 10 TYPES OF $1S found... for the rest, have a look at $fcl for details"
        else
-           grep $1 ${fcl} | column -t -s $'\u2620' | cut -c -130
+           grep "$1" "${fcl}" | column -t -s $'\u2620' | cut -c -130
        fi
     fi
 }
@@ -83,13 +83,13 @@ function checktree {
   tree=$1
   printf "checking +${tree}+\n"
   SUMDIR=${LOGDIR}/sums
-  if [ ! -d $SUMDIR ]; then
-      mkdir $SUMDIR
+  if [ ! -d "$SUMDIR" ]; then
+      mkdir "$SUMDIR"
   fi
 
-  report=${SUMDIR}/`basename ${tree}`.txt
+  report=${SUMDIR}/$(basename "${tree}").txt
   #if [ ! -f ${report} ]; then
-  (cd ${tree}; find . \! -type d | xargs md5sum ) > ${report}
+  (cd "${tree}" || exit; find . \! -type d | xargs md5sum ) > "${report}"
   #fi
 
 }
@@ -98,9 +98,9 @@ function logPermCheck {
     tno=$((${tno}+1))
 
     #looking into the configs for chmod_log commands if they exist
-    perms="`grep chmod_log config -r`"
-    file1=`grep chmod_log config -r | cut -f2 -d"/"`
-    file2=`grep chmod_log config -r | cut -f3 -d"/" | cut -f1 -d"."`
+    perms="$(grep chmod_log config -r)"
+    file1=$(grep chmod_log config -r | cut -f2 -d"/")
+    file2=$(grep chmod_log config -r | cut -f3 -d"/" | cut -f1 -d".")
 
     #finding the log related to the config file
     if [ "${sarra_py_version:0:1}" == "3" ]; then
@@ -111,7 +111,8 @@ function logPermCheck {
     #printf "$path \n"
 
     #checking if the perms from the config is reflected in the file
-    fileperms=`stat -c "%a %n" $path`
+    # shellcheck disable=SC2086 (globbing is intended here)
+    fileperms=$(stat -c "%a %n" $path)
     if [[ "$fileperms" == *"${perms: -3}"* ]]; then
         printf "test %d success: Log perms confirmed\n" $tno
         passedno=$((${passedno}+1))
@@ -124,7 +125,7 @@ function comparetree {
 
   tno=$((${tno}+1))
   SUMDIR=${LOGDIR}/sums
-  diff ${SUMDIR}/${1}.txt ${SUMDIR}/${2}.txt >/dev/null 2>&1 
+  diff "${SUMDIR}"/"${1}".txt "${SUMDIR}"/"${2}".txt >/dev/null 2>&1 
   result=$?
 
   if [ $result -gt 0 ]; then
@@ -137,34 +138,34 @@ function comparetree {
 }
 
 printf "checking trees...\n"
-checktree ${testdocroot}/downloaded_by_sub_amqp
-checktree ${testdocroot}/downloaded_by_sub_cp
-checktree ${testdocroot}/downloaded_by_sub_rabbitmqtt
-checktree ${testdocroot}/downloaded_by_sub_u
-checktree ${testdocroot}/posted_by_shim
-checktree ${testdocroot}/recd_by_srpoll_test1
-checktree ${testdocroot}/sent_by_tsource2send
-checktree ${testdocroot}/mirror/linked_by_shim
-checktree ${testdocroot}/cfile
-checktree ${testdocroot}/cfr
+checktree "${testdocroot}"/downloaded_by_sub_amqp
+checktree "${testdocroot}"/downloaded_by_sub_cp
+checktree "${testdocroot}"/downloaded_by_sub_rabbitmqtt
+checktree "${testdocroot}"/downloaded_by_sub_u
+checktree "${testdocroot}"/posted_by_shim
+checktree "${testdocroot}"/recd_by_srpoll_test1
+checktree "${testdocroot}"/sent_by_tsource2send
+checktree "${testdocroot}"/mirror/linked_by_shim
+checktree "${testdocroot}"/cfile
+checktree "${testdocroot}"/cfr
 
 
 if [[ -z "$skip_summaries" ]]; then
     # PAS performance summaries
     printf "\nDownload Performance Summaries:\tLOGDIR=$LOGDIR\n"
-    summarize_performance ${LGPFX}shovel msg_total: rabbitmqtt_f22
-    summarize_performance ${LGPFX}subscribe file_total: cdnld_f21 amqp_f30 cfile_f44 u_sftp_f60 ftp_f70 q_f71
+    summarize_performance "${LGPFX}"shovel msg_total: rabbitmqtt_f22
+    summarize_performance "${LGPFX}"subscribe file_total: cdnld_f21 amqp_f30 cfile_f44 u_sftp_f60 ftp_f70 q_f71
 
     echo
     # MG shows retries
     echo
 
     if [[ ! "$SARRA_LIB" ]]; then
-       echo NB retries for ${LGPFX}subscribe amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
-       echo NB retries for ${LGPFX}sender    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
+       echo NB retries for "${LGPFX}"subscribe amqp_f30 $(grep Retrying "$LOGDIR"/"${LGPFX}"subscribe_amqp_f30*.log | wc -l)
+       echo NB retries for "${LGPFX}"sender    $(grep Retrying "$LOGDIR"/"${LGPFX}"sender*.log | wc -l)
     else
-       echo NB retries for "$SARRA_LIB"/${LGPFX}subscribe.py amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
-       echo NB retries for "$SARRA_LIB"/${LGPFX}sender.py    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
+       echo NB retries for "$SARRA_LIB"/"${LGPFX}"subscribe.py amqp_f30 $(grep Retrying "$LOGDIR"/"${LGPFX}"subscribe_amqp_f30*.log | wc -l)
+       echo NB retries for "$SARRA_LIB"/"${LGPFX}"sender.py    $(grep Retrying "$LOGDIR"/"${LGPFX}"sender*.log | wc -l)
     fi
 
     summarize_logs ERROR
@@ -207,7 +208,7 @@ echo "broker state:"
 if [[ ${messages_unacked} > 0 ]] || [[ ${messages_ready} > 0 ]]; then
 
    echo "rabbitmq broker message anomalies\n"
-   rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} list queues name messages_ready messages_unacknowledged | awk ' BEGIN {t=0; } (NR<3) {print;} (NR > 2)  && /_f[0-9][0-9]/ { t+=$4; if ( $4 > 0 || $6 > 0) print; }; '
+   rabbitmqadmin -H localhost -u bunnymaster -p "${adminpw}" list queues name messages_ready messages_unacknowledged | awk ' BEGIN {t=0; } (NR<3) {print;} (NR > 2)  && /_f[0-9][0-9]/ { t+=$4; if ( $4 > 0 || $6 > 0) print; }; '
 
 fi
 
