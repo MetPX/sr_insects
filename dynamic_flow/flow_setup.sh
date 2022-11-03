@@ -31,8 +31,8 @@ flowsetuplog="$LOGDIR/flowsetup_f00.log"
 if [ -d "$LOGDIR" ]; then
     logs2remove=$(find "$LOGDIR" -iname "*.txt" -o -iname "*f[0-9][0-9]*.log")
     if [ ! -z "$logs2remove" ]; then
-       echo "Cleaning previous flow test logs..."
-       rm "$logs2remove"
+      echo "Cleaning previous flow test logs..."
+      find "$LOGDIR" -iname "*.txt" -o -iname "*f[0-9][0-9]*.log" -exec rm {} \;
     fi
 fi
 
