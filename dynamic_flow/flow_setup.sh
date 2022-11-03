@@ -12,11 +12,11 @@
 #export SARRAC_LIB=""
 
 
-export TESTDIR="`pwd`"
+export TESTDIR="$(pwd)"
 #export PYTHONPATH="`pwd`/../"
 . ../flow_utils.sh
 
-if [ ! "`grep several ~/.config/*/default.conf`" ]; then
+if [ ! "$(grep several ~/.config/*/default.conf)" ]; then
    echo "Adding Several"
    echo "declare env several=3" >>~/.config/sarra/default.conf
    echo "declare env several=3" >>~/.config/sr3/default.conf
@@ -24,56 +24,56 @@ fi
 
 testdocroot="$HOME/sarra_devdocroot"
 testhost=localhost
-sftpuser=`whoami`
+sftpuser=$(whoami)
 flowsetuplog="$LOGDIR/flowsetup_f00.log"
 
 
-if [ -d $LOGDIR ]; then
+if [ -d "$LOGDIR" ]; then
     logs2remove=$(find "$LOGDIR" -iname "*.txt" -o -iname "*f[0-9][0-9]*.log")
     if [ ! -z "$logs2remove" ]; then
        echo "Cleaning previous flow test logs..."
-       rm $logs2remove
+       rm "$logs2remove"
     fi
 fi
 
 if [ ! -d "$testdocroot" ]; then
-  mkdir $testdocroot
-  cp -r testree/* $testdocroot
-  mkdir $testdocroot/downloaded_by_sub_amqp
-  mkdir $testdocroot/downloaded_by_sub_u
-  mkdir $testdocroot/sent_by_tsource2send
-  mkdir $testdocroot/recd_by_srpoll_test1
-  mkdir $testdocroot/posted_by_srpost_test2
-  mkdir $testdocroot/posted_by_shim
-  mkdir $testdocroot/cfr
-  mkdir $testdocroot/cfile
+  mkdir "$testdocroot"
+  cp -r testree/* "$testdocroot"
+  mkdir "$testdocroot"/downloaded_by_sub_amqp
+  mkdir "$testdocroot"/downloaded_by_sub_u
+  mkdir "$testdocroot"/sent_by_tsource2send
+  mkdir "$testdocroot"/recd_by_srpoll_test1
+  mkdir "$testdocroot"/posted_by_srpost_test2
+  mkdir "$testdocroot"/posted_by_shim
+  mkdir "$testdocroot"/cfr
+  mkdir "$testdocroot"/cfile
 fi
 
-lo="`netstat -an | grep '127.0.0.1:8001'|wc -l`"
-while [ ${lo} -gt 0 ]; do
+lo="$(netstat -an | grep '127.0.0.1:8001'|wc -l)"
+while [ "${lo}" -gt 0 ]; do
    echo "Waiting for $lo leftover sockets to clean themselves up from last run."
    sleep 10 
-   lo="`netstat -an | grep '127.0.0.1:8001'|wc -l`"
+   lo="$(netstat -an | grep '127.0.0.1:8001'|wc -l)"
    sleep 5 
 done
 
 mkdir -p "$CONFDIR" 2> /dev/null
 
 #flow_configs="`cd ${SR_CONFIG_EXAMPLES}; ls */*f[0-9][0-9].conf; ls */*f[0-9][0-9].inc`"
-flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].inc; ls */*f[0-9][0-9].conf`"
+flow_configs="$(cd "${SR_TEST_CONFIGS}" || exit; ls */*f[0-9][0-9].inc; ls */*f[0-9][0-9].conf)"
 #sr_action "Adding flow test configurations..." add " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
 
 #if [ "${sarra_py_version:0:1}" == "3" ]; then
 #   cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sr3
 #   cd ..
 #else
-   cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sarra
+   cd "${SR_TEST_CONFIGS}" || exit ; cp -r *  "${HOME}"/.config/sarra
    cd ..
 #fi
 
 if [ "${sarra_py_version:0:1}" == "3" ]; then
    for i in ${flow_configs}; do
-      sr3 convert $i
+      sr3 convert "$i"
    done
 fi
 
@@ -105,11 +105,11 @@ if [ "$1" = "declare" ]; then
    exit 0
 fi
 
-testrundir="`pwd`"
+testrundir="$(pwd)"
 
 echo "Starting trivial http server on: $testdocroot, saving pid in .httpserverpid"
-cd $testdocroot
-$testrundir/../trivialserver.py >>$trivialhttplog 2>&1 &
+cd "$testdocroot" || exit
+"$testrundir"/../trivialserver.py >>"$trivialhttplog" 2>&1 &
 httpserverpid=$!
 
 
@@ -119,16 +119,16 @@ echo "Starting trivial ftp server on: $testdocroot, saving pid in .ftpserverpid"
 # 
 # note, defaults to port 2121 so devs can start it.
 
-if [ "`lsb_release -rs`" = "14.04"  ]; then
-   python -m pyftpdlib >>$trivialftplog 2>&1 &
+if [ "$(lsb_release -rs)" = "14.04"  ]; then
+   python -m pyftpdlib >>"$trivialftplog" 2>&1 &
 else
-   python3 -m pyftpdlib >>$trivialftplog 2>&1 &
+   python3 -m pyftpdlib >>"$trivialftplog" 2>&1 &
 fi
 ftpserverpid=$!
 
 sleep 3
 
-if [ ! "`head $trivialftplog | grep 'starting'`" ]; then
+if [ ! "$(head "$trivialftplog" | grep 'starting')" ]; then
    echo "FAILED to start FTP server, is pyftpdlib installed?"
 else
    echo "FTP server started." 
@@ -139,9 +139,9 @@ count_of_checks=$((${count_of_checks}+1))
 nbr_test=0
 nbr_fail=0
 
-cd $testrundir
+cd "$testrundir" || exit
 
-echo "starting to post: `date +${SR_DATE_FMT}`"
+echo "starting to post: $(date +"${SR_DATE_FMT}")"
 if [ "${sarra_py_version:0:1}" == "3" ]; then
    POST=sr3_post
    CPOST=sr3_cpost
@@ -154,17 +154,17 @@ fi
 export POST CPOST LGPFX
 
 echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid, using: POST=${POST}, CPOST=${CPOST}"
-./flow_post.sh >$srposterlog 2>&1 &
+./flow_post.sh >"$srposterlog" 2>&1 &
 flowpostpid=$!
 
 echo $ftpserverpid >.ftpserverpid
 echo $httpserverpid >.httpserverpid
-echo $testdocroot >.httpdocroot
+echo "$testdocroot" >.httpdocroot
 echo $flowpostpid >.flowpostpid
 
 if [ ${#} -ge 1 ]; then
 export MAX_MESSAGES=${1}
-echo $MAX_MESSAGES
+echo "$MAX_MESSAGES"
 fi
 
 

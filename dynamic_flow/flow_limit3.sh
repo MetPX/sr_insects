@@ -16,7 +16,7 @@ printf "Initial v3 sample building sample size ${totsarra} need at least ${smin}
 
 while [ "${totsarra}" == 0 ]; do
    sleep 10
-   countthem "`grep -a "log after_post posted" "$LOGDIR"/sarra_download_f20_*.log | wc -l`"
+   countthem "$(grep -a "log after_post posted" "$LOGDIR"/sarra_download_f20_*.log | wc -l)"
    totsarra="${tot}"
    printf "Waiting to start...\n"
 done
@@ -26,7 +26,7 @@ while [ "${totsarra}" -lt "${smin}" ]; do
 
     if [ ! "$SARRA_LIB" ]; then
 
-       if [ "`sr3 status shovel/t_dd1_f00 |& tail -1 | awk ' { print $2 } '`" == 'stopped' ]; then 
+       if [ "$(sr3 status shovel/t_dd1_f00 |& tail -1 | awk ' { print $2 } ')" == 'stopped' ]; then 
           echo "Starting shovels and waiting..."
           sr3 start shovel/t_dd1_f00 &
           sr3 start shovel/t_dd2_f00
@@ -40,7 +40,7 @@ while [ "${totsarra}" -lt "${smin}" ]; do
        fi
    else
        
-       if [ "`"$SARRA_LIB"/sr.py status shovel/t_dd1_f00 |& tail -1 | awk ' { print $2 } '`" == 'stopped' ]; then 
+       if [ "$("$SARRA_LIB"/sr.py status shovel/t_dd1_f00 |& tail -1 | awk ' { print $2 } ')" == 'stopped' ]; then 
           echo "Starting shovels and waiting..."
           "$SARRA_LIB"/sr.py start shovel/t_dd1_f00 &
           "$SARRA_LIB"/sr.py start shovel/t_dd2_f00 
@@ -64,13 +64,13 @@ printf  "\nSufficient!\n"
 
 # if msg_stopper plugin is used this should not happen
 if [ ! "$SARRA_LIB" ]; then
-   if [ "`sr3 status shovel/t_dd1_f00 |& tail -1 | awk ' { print $2 } '`" != 'stopped' ]; then 
+   if [ "$(sr3 status shovel/t_dd1_f00 |& tail -1 | awk ' { print $2 } ')" != 'stopped' ]; then 
        echo "Stopping shovels and waiting..."
        sr3 stop shovel/t_dd2_f00
        sr3 stop shovel/t_dd1_f00 
    fi
 else 
-   if [ "`$SARRA_LIB/sr.py statis shovel/t_dd1_f00|& tail -1 | awk ' { print $2 } '`" != 'stopped' ]; then
+   if [ "$("$SARRA_LIB"/sr.py statis shovel/t_dd1_f00|& tail -1 | awk ' { print $2 } ')" != 'stopped' ]; then
        echo "Stopping shovels and waiting..."
        "$SARRA_LIB"/sr.py stop shovel/t_dd2_f00
        "$SARRA_LIB"/sr.py stop shovel/t_dd1_f00
@@ -99,12 +99,12 @@ sleep 10
 
    stalled=0
    stalled_value=-1
-   retry_msgcnt="`cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2>/dev/null | sort -u | wc -l`"
+   retry_msgcnt="$(cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2>/dev/null | sort -u | wc -l)"
    #while [ $retry_msgcnt -gt $(($smin * 20 / 100)) ]; do
    while [ "$retry_msgcnt" -gt 0 ]; do
         printf "Still %4s messages to retry, waiting...\r" "$retry_msgcnt"
         sleep 10
-        retry_msgcnt="`cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2> /dev/null | sort -u | wc -l`"
+        retry_msgcnt="$(cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2> /dev/null | sort -u | wc -l)"
 
         if [ "${stalled_value}" == "${retry_msgcnt}" ]; then
               stalled=$((stalled+1));
@@ -120,12 +120,12 @@ sleep 10
    done
 
    #queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$(23); }; END { print t; };'`"
-   queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };'`"
-   while [ $queued_msgcnt -gt 0 ]; do
-        queues_with_msgs="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ && ( $2 > 0 ) { print $1; };'`"
+   queued_msgcnt="$(rabbitmqadmin -H localhost -u bunnymaster -p "${adminpw}" -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };')"
+   while [ "$queued_msgcnt" -gt 0 ]; do
+        queues_with_msgs="$(rabbitmqadmin -H localhost -u bunnymaster -p "${adminpw}" -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ && ( $2 > 0 ) { print $1; };')"
         printf "Still %4s messages (in queues: %s) flowing, waiting..." "$queued_msgcnt" "$queues_with_messages"
         sleep 35
-        queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };'`"
+        queued_msgcnt="$(rabbitmqadmin -H localhost -u bunnymaster -p "${adminpw}" -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };')"
    done
    echo "No messages left in queues..."
 
