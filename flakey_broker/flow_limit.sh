@@ -14,7 +14,7 @@ function swap_poll {
 }
 
 
-if [ "${sarra_py_version:0:1}" == "3" -a "`COLUMNS=200 sr3 show sarra/download_f20 | grep broker=  | sed 's/.*broker=//;s/:.*//' | head -1`" = 'mqtt' ]; then
+if [ "${sarra_py_version:0:1}" == "3" -a "$(COLUMNS=200 sr3 show sarra/download_f20 | grep broker=  | sed 's/.*broker=//;s/:.*//' | head -1)" = 'mqtt' ]; then
     mqpbroker=mosquitto
 else
     mqpbroker=rabbitmq-server
@@ -91,7 +91,7 @@ running=1
 count=0
 while [ $running -gt 0 ]; do
   # can have sr_post or sr3_post
-  running="`ps ax | grep sr*_post | grep t_dd | wc -l`"
+  running="$(ps ax | grep sr*_post | grep t_dd | wc -l)"
   printf "Still posting... %d\n" $count
   count=$((${count}+1))
   sleep 10
@@ -100,11 +100,11 @@ printf "posting completed...\n"
 
 stalled=0
 stalled_value=-1
-retry_msgcnt="`cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2>/dev/null | sort -u | wc -l`"
-while [ $retry_msgcnt -gt 0 ]; do
+retry_msgcnt="$(cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2>/dev/null | sort -u | wc -l)"
+while [ "$retry_msgcnt" -gt 0 ]; do
         printf "Still %4s messages to retry, waiting...\n" "$retry_msgcnt"
         sleep 10
-        retry_msgcnt="`cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2> /dev/null | sort -u | wc -l`"
+        retry_msgcnt="$(cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2> /dev/null | sort -u | wc -l)"
 
         if [ "${stalled_value}" == "${retry_msgcnt}" ]; then
               stalled=$((stalled+1));
@@ -120,19 +120,19 @@ while [ $retry_msgcnt -gt 0 ]; do
 done
 
 #queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$(23); }; END { print t; };'`"
-queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };'`"
-while [ $queued_msgcnt -gt 0 ]; do
-        queues_with_msgs="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ && ( $2 > 0 ) { print $1; };' | sed ':a;N;$!ba;s/\\n/, /g' `"
+queued_msgcnt="$(rabbitmqadmin -H localhost -u bunnymaster -p "${adminpw}" -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };')"
+while [ "$queued_msgcnt" -gt 0 ]; do
+        queues_with_msgs="$(rabbitmqadmin -H localhost -u bunnymaster -p "${adminpw}" -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ && ( $2 > 0 ) { print $1; };' | sed ':a;N;$!ba;s/\n/, /g' )"
 	printf "%s" "$queues_with_msgs" > /tmp/rstest
         printf "Still %4s messages (in queues: %s) flowing, waiting...\n" "$queued_msgcnt" "$queues_with_msgs"
         sleep 10
-        queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };'`"
+        queued_msgcnt="$(rabbitmqadmin -H localhost -u bunnymaster -p "${adminpw}" -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };')"
 done
 
-need_to_wait="`grep heartbeat config/*/*.conf| awk ' BEGIN { h=0; } { if ( $2 > h ) h=$2;  } END { print h*2; }; '`"
+need_to_wait="$(grep heartbeat config/*/*.conf| awk ' BEGIN { h=0; } { if ( $2 > h ) h=$2;  } END { print h*2; }; ')"
 echo "No messages left in queues... wait 2* maximum heartbeat ( ${need_to_wait} ) of any configuration to be sure it is finished."
 
-sleep ${need_to_wait}
+sleep "${need_to_wait}"
 
 printf "\n\nflow test stopped. \n\n"
 
