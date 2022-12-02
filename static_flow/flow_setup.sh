@@ -63,16 +63,18 @@ mkdir -p "$HOME/.config/sarra" 2> /dev/null
 flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].inc; ls */*f[0-9][0-9].conf;`"
 
 echo "Adding static flow test configurations..."
-cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sarra
-cd ..
-if [ "${sarra_py_version:0:1}" == "3" ]; then
-   for i in ${flow_configs}; do
-      sr3 convert $i
-   done
-fi
+if [ "$1" != "skipconfig" ]; then 
+   cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sarra
+   cd ..
+   if [ "${sarra_py_version:0:1}" == "3" ]; then
+      for i in ${flow_configs}; do
+         sr3 convert $i
+      done
+   fi
 
-if [ "$1" == "config" ]; then
-    exit 0
+   if [ "$1" == "config" ]; then
+       exit 0
+   fi
 fi
 
 passed_checks=0

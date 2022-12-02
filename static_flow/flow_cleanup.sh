@@ -112,10 +112,12 @@ flow_configs="`echo ${flow_configs} | tr '\n' ' '`"
 sr_action "Removing flow configs..." remove " " ">> $flowlogcleanup 2>\\&1" "$flow_configs"
 
 echo "Removing flow config logs..."
-if [ "${sarra_py_version:0:1}" == "3" ]; then
-    echo $flow_configs |  sed 's/ / ;\n rm -f /g' | sed '1 s|^| rm -f |' | sed '/^ rm -f post/d' | sed 's+/+_+g' | sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].log\*/g' | (cd $LOGDIR; sh )
-else
-    echo $flow_configs |  sed 's/ / ;\n rm -f sr_/g' | sed '1 s|^| rm -f sr_|' | sed '/^ rm -f sr_post/d' | sed 's+/+_+g' | sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].log\*/g' | (cd $LOGDIR; sh )
+if [ "$1" != "skipconfig" ]; then
+    if [ "${sarra_py_version:0:1}" == "3" ]; then
+        echo $flow_configs |  sed 's/ / ;\n rm -f /g' | sed '1 s|^| rm -f |' | sed '/^ rm -f post/d' | sed 's+/+_+g' | sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].log\*/g' | (cd $LOGDIR; sh )
+    else
+        echo $flow_configs |  sed 's/ / ;\n rm -f sr_/g' | sed '1 s|^| rm -f sr_|' | sed '/^ rm -f sr_post/d' | sed 's+/+_+g' | sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].log\*/g' | (cd $LOGDIR; sh )
+    fi
 fi
 
 rm $LOGDIR/${LGPFX}post_t_dd?_f00_01.log $LOGDIR/${LGPFX}post_shim_f63_01.log $LOGDIR/${LGPFX}post_test2_f61_01.log
