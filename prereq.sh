@@ -69,12 +69,9 @@ else
    . ../set_sarra.sh
 fi
 
-if [ ${sarra_py_version[0]} -lt 2 ];  then
-   echo "metpx-sarracenia Python package must be >= 2.20"
+if [[ ${sarra_py_version} < "2.20b2" ]];  then
+   echo "metpx-sarracenia Python package must be >= 2.20b2"
    exit 3
-elif [ "${sarra_py_version[0]}" -eq 2 -a "${sarra_py_version[1]}" -lt 20 ];  then
-   echo "metpx-sarracenia Python package must >= 2.20.b2"
-   exit 4
 fi
 
 if [ ! "${sarra_cpump_binary}" ]; then
@@ -82,12 +79,9 @@ if [ ! "${sarra_cpump_binary}" ]; then
    exit 1
 fi
 
-if [ ${sarra_c_version[0]} -lt 2 ];  then
-       echo "sarrac C-binary package must be >= 2.20"
+if [[ ${sarra_c_version[0]} < "2.20b3" ]];  then
+       echo "sarrac C-binary package must be >= 2.20b3"
        exit 5
-elif [  ${sarra_c_version[0]} -eq 2 -a ${sarra_c_version[1]} -lt 20 ];  then
-       echo "sarrac C-binary package must >= 2.20.b3"
-       exit 6
 fi
 
 echo "OK, sarra related prerequisites seem to be there."

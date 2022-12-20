@@ -302,7 +302,14 @@ function countall {
   countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | wc -l`"
   totcvan15p="${tot}"
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $7 }' | sort -u |wc -l`"
+echo "hoho veille ... sarra_c_version=${sarra_c_version}"
+  if [[ "${sarra_c_version}" > "3.22.12p1" ]]; then
+      echo "hoho veille new"
+      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $8 }' | sort -u |wc -l`"
+  else
+      echo "hoho veille old"
+      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $7 }' | sort -u |wc -l`"
+  fi
   totcveille="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then

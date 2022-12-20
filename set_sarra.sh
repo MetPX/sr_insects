@@ -12,13 +12,13 @@ if [ ! "$sarra_py_version" ]; then
     fi
 fi
 
-#echo "sr_subscribe is: ${sarra_subscribe_binary}, version: ${sarra_py_version} "
+echo "sr python version is: ${sarra_subscribe_binary}, version: ${sarra_py_version} "
 
-OLDIFS=${IFS}
-IFS=.; read -a sarra_py_version <<<"${sarra_py_version}"
-IFS=${OLDIFS}
+#OLDIFS=${IFS}
+#IFS=.; read -a sarra_py_version <<<"${sarra_py_version}"
+#IFS=${OLDIFS}
 
-if [ "${sarra_py_version[0]}" -eq 2 ]; then
+if [[ "${sarra_py_version[0]}" < "3" ]]; then
     sarra_cpump_binary="`which sr_cpump`"
     LGPFX="sr_"
 else
@@ -28,13 +28,13 @@ fi
 
 sarra_c_version="`${sarra_cpump_binary} -h |& awk ' /^usage:/ { print $3; };'`"
 
-#echo "sr c is: ${sarra_cpump_binary}, PFX=${LGPFX} version: ${sarra_c_version} "
+echo "sr c is: ${sarra_cpump_binary}, PFX=${LGPFX} version: ${sarra_c_version} "
 
-IFS=.; read -a sarra_c_version <<<"${sarra_c_version}"
-IFS=${OLDIFS}
+#IFS=.; read -a sarra_c_version <<<"${sarra_c_version}"
+#IFS=${OLDIFS}
 
 if [ ! "${SR_DEV_APPNAME}" ]; then
-    if [ "${sarra_py_version:0:1}" == "3" ]; then
+    if [[ "${sarra_py_version:0:1}" == "3" ]]; then
         export SR_DEV_APPNAME=sr3
     else
         export SR_DEV_APPNAME=sarra

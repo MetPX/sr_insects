@@ -298,7 +298,11 @@ fi
   countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | wc -l`"
   totcvan15p="${tot}"
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $7 }' | sort -u |wc -l`"
+  if [[ "${sarra_c_version}" > "3.22.12p1" ]]; then
+      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $8 }' | sort -u |wc -l`"
+  else
+      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $7 }' | sort -u |wc -l`"
+  fi
   totcveille="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then

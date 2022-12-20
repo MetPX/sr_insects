@@ -16,6 +16,7 @@ done
 set -- "${POSITIONAL[@]}"
 
 . ./flow_include.sh
+
 countall
 
 function summarize_performance {
