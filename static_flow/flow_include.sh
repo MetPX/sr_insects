@@ -299,7 +299,7 @@ fi
   totcvan15p="${tot}"
 
   if [[ "${sarra_c_version}" > "3.22.12p1" ]]; then
-      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $8 }' | sort -u |wc -l`"
+      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $8 }' | wc -l`"
   else
       countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $7 }' | sort -u |wc -l`"
   fi

@@ -305,7 +305,7 @@ function countall {
 echo "hoho veille ... sarra_c_version=${sarra_c_version}"
   if [[ "${sarra_c_version}" > "3.22.12p1" ]]; then
       echo "hoho veille new"
-      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $8 }' | sort -u |wc -l`"
+      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $8 }' | wc -l`"
   else
       echo "hoho veille old"
       countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $7 }' | sort -u |wc -l`"
