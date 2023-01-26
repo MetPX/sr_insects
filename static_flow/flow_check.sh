@@ -243,10 +243,19 @@ if [ "${totpoll_mirrored}" ]; then
 fi
 calcres "${totsubq}" "${totpoll1}" "${LGPFX}subscribe q_f71\t (${totsubq}) should download same number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
 echo "                 | flow_post  routing |"
-calcres "${totpost1}" "${totsent}" "${LGPFX}post test2_f61\t (${totpost1}) should have the same number of items of ${LGPFX}sender \t (${totsent})"
+calcres "${totpost1}" "${totfilesent}" "${LGPFX}post test2_f61\t (${totpost1}) should have the same number of files of ${LGPFX}sender \t (${totfilesent})"
 calcres "${totsubftp}" "${totpost1}" "${LGPFX}subscribe ftp_f70\t (${totsubftp}) should have the same number of items as ${LGPFX}post test2_f61 (${totpost1})"
-doubletotpost=$(( ${totpost1}*2 ))
-calcres "${doubletotpost}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should have about half the number of items as shim_f63\t (${totshimpost1})"
+
+if [[ "${sarra_py_version}" > "3.00.25" ]]; then
+  
+    calcres "${totpost1}" "${totfileshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should post about the same number of files as shim_f63\t (${totfileshimpost1})"
+    calcres "${totpost1}" "${totlinkshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should post about the same number of links as shim_f63\t (${totlinkshimpost1})"
+    calcres "${staticdircount}" "${totlinkdirshimpost1}" "static tree\t (${staticdircount}) should have a post for every linked directories by shim_f63\t (${totlinkdirshimpost1})"
+    calcres "${staticdircount}" "${totdirshimpost1}" "static tree\t (${staticdircount}) should have a post for every real directories by shim_f63\t (${totdirshimpost1})"
+else
+    doubletotpost=$(( ${totpost1}*2 ))
+    calcres "${doubletotpost}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should have about half the number of items as shim_f63\t (${totshimpost1})"
+fi
 
 echo "                 | py infos   routing |"
 #zerowanted "${totauditkills}" "${CONFIG_COUNT}" "sr_audit should not have killed anything. It killed ${totauditkills} processes" 

@@ -17,6 +17,10 @@ if [ ! -d ${httpdocroot}/posted_by_shim ]; then
    mkdir  ${httpdocroot}/posted_by_shim
 fi
 
+if [ ! -d ${httpdocroot}/linked_by_shim ]; then
+   mkdir  ${httpdocroot}/linked_by_shim
+fi
+
 if [[ ":$SARRA_LIB/../:" != *":$PYTHONPATH:"* ]]; then
     if [ "${PYTHONPATH:${#PYTHONPATH}-1}" == ":" ]; then
         export PYTHONPATH="$PYTHONPATH$SARRA_LIB/../"
@@ -33,6 +37,19 @@ srpostlstfile_old=$httpdocroot/srpostlstfile.old
 
 echo > ${srpostlstfile_old}
 # sr_post call
+
+function do_sr_links {
+
+   for f in `cat /tmp/diffs.txt`; do
+       a=${srpostdir}/$f
+       b="`dirname ${httpdocroot}/linked_by_shim/$f`"
+       if [ ! -d $b ]; then
+            mkdir -p $b
+       fi
+       ln -s ${a} ${b}
+       
+   done
+}
 
 function do_sr_post {
 
@@ -53,22 +70,14 @@ function do_sr_post {
     return
    fi
 
-   # loop on each line to properly post filename with space *** makes too much load on CPU ***
-
-   # cant seem to have success to have .S P C files in /tmp/diffs.txt and have them as correct arguments
-   # theses commands would not succeed :
-   #cat /tmp/diffs.txt | sed 's/\(.*S P C\)/"\1"/' | sed 's/S P C/S\\ P\\ C/' > /tmp/diffs2.txt
-   #cat /tmp/diffs.txt | sed "s/\(.*S P C\)/'\1'/" > /tmp/diffs2.txt
-   #cat /tmp/diffs.txt | sed "s/\(.*S P C\)/'\1'/" | sed 's/S P C/S\\ P\\ C/' > /tmp/diffs2.txt
-   # | sed '/slink$/d' | sed '/moved$/d' | sed '/hlink$/d' | sed '/tmp$/d'
+   echo  "FIXME: sarra_py_version=${sarra_py_version} POST=${POST}"
 
    if [ "${POST:2:1}" == "3" ]; then
-      echo "sr3c shimlib"
       SHIMLIB="libsr3shim.so.1.0.0"
    else
-      echo "v2 shimlib"
       SHIMLIB="libsrshim.so.1.0.0"
    fi
+   printf "FIXME POST=${POST} \n" 
 
    if [ ! "$SARRA_LIB" ]; then
     $POST -c test2_f61.conf -p `cat /tmp/diffs.txt`
@@ -78,8 +87,10 @@ function do_sr_post {
    cd $srpostdir  
    if [ "$SARRAC_LIB" ]; then
     LD_PRELOAD="$SARRAC_LIB/${SHIMLIB}" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
+    LD_PRELOAD="$SARRAC_LIB/${SHIMLIB}" do_sr_links
    else 
     LD_PRELOAD="${SHIMLIB}" cp -p --parents `cat /tmp/diffs.txt`  ${httpdocroot}/posted_by_shim
+    LD_PRELOAD="${SHIMLIB}" do_sr_links
    fi
    
    cp -p $srpostlstfile_new $srpostlstfile_old
@@ -87,6 +98,7 @@ function do_sr_post {
 
 # sr_post initial end
 
+set -x
 while true; do
    sleep 1
    do_sr_post

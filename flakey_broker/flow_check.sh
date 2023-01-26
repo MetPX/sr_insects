@@ -222,9 +222,22 @@ fi
 
 calcres ${totsubq}    ${totpoll}   "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll sftp_f62+3 (${totpoll})"
 echo "                 | flow_post  routing |"
-calcres ${totpost1}   ${totsent}         "${LGPFX}post test2_f61\t (${totpost1}) should have the same number of items of ${LGPFX}sender \t (${totsent})"
+calcres "${totpost1}" "${totfilesent}" "${LGPFX}post test2_f61\t (${totpost1}) should have the same number of files of ${LGPFX}sender \t (${totfilesent})"
+
 calcres ${totsubftp}  ${totpost1}   "${LGPFX}subscribe ftp_f70\t (${totsubftp}) should have the same number of items as ${LGPFX}post test2_f61 (${totpost1})"
-calcres ${totpost1} ${totshimpost1} "${LGPFX}post test2_f61\t (${totpost1}) should have about the same number of items as shim_f63\t (${totshimpost1})"
+
+if [[ "${sarra_py_version}" > "3.00.25" ]]; then
+
+    calcres "${totpost1}" "${totfileshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should post about the same number of files as shim_f63\t (${totfileshimpost1})"
+    calcres "${totpost1}" "${totlinkshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should post about the same number of links as shim_f63\t (${totlinkshimpost1})"
+    calcres "${staticdircount}" "${totlinkdirshimpost1}" "static tree\t (${staticdircount}) should have a post for every linked directories by shim_f63\t (${totlinkdirshimpost1})"
+    calcres "${staticdircount}" "${totdirshimpost1}" "static tree\t (${staticdircount}) should have a post for every directories by shim_f63\t (${totdirshimpost1})"
+else
+    doubletotpost=$(( ${totpost1}*2 ))
+    calcres "${doubletotpost}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should have about half the number of items as shim_f63\t (${totshimpost1})"
+    #? calcres ${totpost1} ${totshimpost1} "${LGPFX}post test2_f61\t (${totpost1}) should have about the same number of items as shim_f63\t (${totshimpost1})"
+fi
+
 
 echo "                 | py infos   routing |"
 zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."

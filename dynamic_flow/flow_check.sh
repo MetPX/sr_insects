@@ -194,7 +194,10 @@ calcres "${t6}" "${totwatchremoved}" "watch rm's (totwatchremove) (${totwatchrem
 
 printf "\n\twatch breakdown: totwatchhlinked: %4d totwatchslinked: %4d totwatchmoved: %4d\n" "${totwatchhlinked}" "${totwatchslinked}" "${totwatchmoved}"
 
-printf "\t\t\t totwatchremoved: %4d  totwatchnormal: %4d   totwatchall: %4d\n"  "${totwatchremoved}" "${totwatchnormal}" "${totwatchall}"
+printf "\t\t\t totwatchnormal: %4d  totwatchdir: %4d totwatchall: %4d\n"  "${totwatchnormal}" "${totwatchdir}" "${totwatchall}"
+printf "\t\t\t totwatchremoved: %4d  totwatchrmfiles: %4d  totwatchrmdirs: %4d \n"  "${totwatchremoved}" "${totwatchrmfiles}" "${totwatchrmdirs}" 
+
+
 calcres "${totwatchhlinked}" "${totwatchslinked}" "totwatchhlinked\t (${totwatchhlinked}) should match symlinkes (totwatchslinked) \t  (${totwatchslinked})"
 #calcres "${totwatchmoved}" "${totwatchhlinked}" "watchmoved (${totwatchmoved}) should be same as number watchhlinked (${totwatchhlinked})"
 
@@ -202,7 +205,7 @@ calcres "${totwatchhlinked}" "${totwatchslinked}" "totwatchhlinked\t (${totwatch
 #t9=$(( ${totwatchnormal}*2 ))
 #calcres "${totwatchremoved}" "${t9}" "watchremoved \t\t (${totwatchremoved}) should 2x files downloaded watchslinked \t  (${t9})"
 
-printf "\ntotwatchremoved should == totwatchnormal+totwatchslinked+totwatchhlinked\n"
+printf "\ntotwatchremoved should == totwatchnormal+totwatchslinked+totwatchhlinked+totwatchdirs\n"
 printf "so all the normal files go by (totwatchnormal), and then for each one, pclean_f90 either hlinks, slinks or renames it.\n"
 printf "then they should all be removed by pclean_f92. (moves generate a remove as well)\n\n"
 t10=$(( ${totwatchnormal}+${totwatchhlinked}+${totwatchslinked} ))
@@ -218,7 +221,7 @@ echo
 calcres "${totsent}"    "${totwatch}"   "${LGPFX}sender (totsent)\t (${totsent}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
 
 printf "\n\tsend breakdown: totsendhlinked: %4d totsendslinked: %4d totsendmoved: %4d\n" "${totsendhlinked}" "${totsendslinked}" "${totsendmoved}"
-printf "\t\t\t totsendremoved: %4d  totsendnormal: %4d   totsendall: %4d\n"  "${totsendremoved}" "${totsendnormal}" "${totsendall}"
+printf "\t\t\t totsendmkdir: %4d  totsendremoved: %4d  totsendnormal: %4d   totsendall: %4d\n" "${totsendmkdir}"  "${totsendremoved}" "${totsendnormal}" "${totsendall}"
 
 calcres "${totsubrmqtt}" "${totwatch}"  "rabbitmqtt (totsubrmqtt)(${totsubrmqtt}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
 calcres "${totsubu}" "${totsent}"    "${LGPFX}subscribe u_sftp_f60 (${totsubu}) should have the same number of items as ${LGPFX}sender (${totsent})"
@@ -270,10 +273,10 @@ echo
   calcres  ${totcvan} ${totcdnld} "cdnld_f21 subscribe downloaded ($totcdnld) the same number of files that was published by both van_14 and van_15 ($totcvan)"
   calcres ${totcclean} ${totcvan} "${LGPFX}subscribe cclean_f91\t (${totcclean}) should have deleted as many files as went through van\t (${totcvan})"
   t4=$(( ${totcclean} + ${totcvan} ))
-  calcres ${totcveille} ${t4} "veille_f34 should post as many files ($totcveille} as wetn through van (${totcvan}) and clean  ($totcclean))"
-  t5=$(( $totcveille / 2 ))
-  calcres  ${t5} ${totcdnld} "veille_f34 should post twice as many files (${totcveille}) as subscribe cdnld_f21 downloaded (${totcdnld})"
-  calcres  ${t5} ${totcfile} "veille_f34 should post twice as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
+  calcres ${totcveillefile} ${t4} "veille_f34 should post as many files ($totcveillefile} as went through van (${totcvan}) and clean  ($totcclean))"
+  t5=$(( $totcveillefile / 2 ))
+  calcres  ${t5} ${totcdnld} "veille_f34 should post twice as many files (${totcveillefile}) as subscribe cdnld_f21 downloaded (${totcdnld})"
+  calcres  ${t5} ${totcfile} "veille_f34 should post twice as many files ($totcveillefile) as subscribe cfile_f44 downloaded ($totcfile)"
 
 fi
 

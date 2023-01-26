@@ -297,6 +297,8 @@ function countall {
       totwatch=${tot}
       countthem "`grep -aE 'log after_post posted.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v "'remove'[,:] " | grep -v "\'newname\': " | wc -l`"
       totwatchmoved=${tot}
+      countthem "`grep -aE 'log after_post posted.*.directory.:' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v "'remove'[,:] " | wc -l`"
+      totwatchdir=${tot}
       countthem "`grep -aE 'log after_post posted.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v "'remove'[,:] " | wc -l`"
       totwatchhlinked=${tot}
       countthem "`grep -aE 'log after_post posted.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v "'remove'[,:] " | wc -l`"
@@ -304,9 +306,13 @@ function countall {
       # rm's one per file renamed,    so totwatchmoved...
       # one per file or link created.     + totwatchhlinked+totwatchslinked
       # ... but renames will also have some normals? + totwatchnormal 
-      countthem "`egrep -aE "log after_post posted.*'remove'[,:]" "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
-      totwatchremoved=${tot}
-      countthem "`grep -aE "log after_post posted.*" "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -avE 'remove|.slink|.hlink|.moved' | wc -l`"
+      countthem "`egrep -aE "log after_post posted.*'remove'[,:]" "$LOGDIR"/${LGPFX}watch_f40_*.log | grep "'directory':" | wc -l`"
+      totwatchrmdirs=${tot}
+      countthem "`egrep -aE "log after_post posted.*'remove'[,:]" "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v "'directory':" | wc -l`"
+      totwatchrmfiles=${tot}
+      totwatchremoved=$((${totwatchrmfiles}+${totwatchrmdirs}))
+
+      countthem "`grep -aE "log after_post posted.*" "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -avE 'remove|.slink|.hlink|.moved|directory' | wc -l`"
   else
       countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_watch_f40_*.log | wc -l`"
       totwatch=${tot}
@@ -343,10 +349,12 @@ function countall {
       totsendhlinked=${tot}
       countthem "`grep -aE 'log after_post posted.*\.slink' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
       totsendslinked=${tot}
-      countthem "`grep -aE "log after_post posted.*'sum': 'R," "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -v newname | wc -l`"
+      countthem "`grep -aE "log after_post posted.*'remove'" "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
       totsendremoved=${tot}
+      countthem "`grep -aE "log after_post posted.*'directory'" "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
+      totsendmkdir=${tot}
 
-      countthem "`grep -a "log after_post posted" "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -avE 'newname|link|remove|\.moved|.sum.: .R,'| wc -l`"
+      countthem "`grep -a "log after_post posted" "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -avE 'rename|link|remove|\.moved|.sum.: .R,|directory'| wc -l`"
       totsendnormal=${tot}
   else
       countthem "`grep -aE '\[INFO\] post_log notice.*oldname.:' "$LOGDIR"/sr_sender_tsource2send_f50_*.log | grep -v '\.tmp' | wc -l`"
@@ -372,7 +380,7 @@ function countall {
   no_hardlink_events='downloaded to:|symlinked to|removed'
   all_events="hardlink|$no_hardlink_events"
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="downloaded ok:|filtered ok:|linked ok:|removed ok:|written from message ok:"
+      all_events="directory ok:|downloaded ok:|filtered ok:|linked ok:|removed ok:|written from message ok:"
   else
       no_hardlink_events='downloaded to:|symlinked to|removed'
       all_events="hardlink|$no_hardlink_events"
@@ -388,7 +396,7 @@ function countall {
 
   #countthem "`grep -aE "$no_hardlink_events" "$LOGDIR"/${LGPFX}subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="downloaded ok"
+      all_events="directory ok|downloaded ok"
       countthem "`grep -aE "$all_events" "$LOGDIR"/subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
   else
       countthem "`grep -aE "$no_hardlink_events" "$LOGDIR"/sr_subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
@@ -449,8 +457,13 @@ function countall {
   countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | wc -l`"
   totcvan15p="${tot}"
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | wc -l`"
-  totcveille="${tot}"
+  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep \"directory\" | wc -l`"
+  totcveilledir="${tot}"
+
+  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v \"directory\" | wc -l`"
+  totcveillefile="${tot}"
+
+  totcveille=$((${totcveillefile}+${totcveilledir}))
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'after_work downloaded ok' $LOGDIR/subscribe_cdnld_f21_*.log | wc -l`"
