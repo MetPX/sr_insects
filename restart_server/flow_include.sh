@@ -331,14 +331,23 @@ function countall {
 
   countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
   totcpelle04p="${tot}"
-  countthem "`grep -a 'post_rate_limit' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
 
+  countthem "`grep -a 'post_rate_limit' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
   totcpelle04_rl="${tot}"
 
+  if [[ ${totcpelle04_rl} == 0 ]]; then 
+      countthem "`grep -a 'messageRateMax' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
+      totcpelle04_rl="${tot}"
+  fi
   countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_pelle_dd2_f05_*.log | wc -l`"
   totcpelle05p="${tot}"
   countthem "`grep -a 'post_rate_limit' $LOGDIR/${LGPFX}cpost_pelle_dd2_f05_*.log | wc -l`"
   totcpelle05_rl="${tot}"
+
+  if [[ ${totcpelle05_rl} == 0 ]]; then 
+      countthem "`grep -a 'messageRateMax' $LOGDIR/${LGPFX}cpost_pelle_dd2_f05_*.log | wc -l`"
+      totcpelle05_rl="${tot}"
+  fi
 
   countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f14_*.log | grep -v \"directory\" | wc -l`"
   totcvan14p="${tot}"
