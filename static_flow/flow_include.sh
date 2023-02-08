@@ -294,7 +294,7 @@ function countall {
   countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | grep \"directory\" | grep -v \"link\" | wc -l`"
   totdirshimpost1="${tot}"
 
-  totshimpost=$((${totfileshimpost1}+${totlinkshimpost1}+${totdirshimpost1}))
+  totshimpost1=$((${totfileshimpost1}+${totlinkshimpost1}+${totdirshimpost1}))
 
   #countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
   if [ "${sarra_py_version:0:1}" == "3" ]; then

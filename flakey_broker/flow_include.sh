@@ -322,7 +322,7 @@ function countall {
   staticfilecount="`find ${SAMPLEDATA} -type f | grep -v reject | wc -l`"
   rejectfilecount="`find ${SAMPLEDATA} -type f | grep reject | wc -l`"
 
-  if [ "${sarra_py_version}" > "3.00.25" ]; then
+  if [[ "${sarra_py_version}" > "3.00.25" ]]; then
       staticfilecount=$((${staticfilecount}+${staticdircount}))
       echo "FIXME: yes dir events"
   else
