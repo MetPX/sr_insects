@@ -176,8 +176,8 @@ echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid"
 flowpostpid=$!
 
 if [ ! "$SARRA_LIB" ]; then
-    $POST -c t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd1_f00_01.log 2>&1 &
-    $POST -c t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd2_f00_01.log 2>&1 &
+    bash -c '$POST -c t_dd1_f00.conf ${SAMPLEDATA}' >$LOGDIR/${LGPFX}post_t_dd1_f00_01.log 2>&1 &
+    bash -c '$POST -c t_dd2_f00.conf ${SAMPLEDATA}' >$LOGDIR/${LGPFX}post_t_dd2_f00_01.log 2>&1 &
 else
     "$SARRA_LIB"/sr_post.py -c t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd1_f00_01.log 2>&1 &
     "$SARRA_LIB"/sr_post.py -c t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd2_f00_01.log 2>&1 &

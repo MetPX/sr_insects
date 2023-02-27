@@ -226,14 +226,16 @@ function countall {
   totfileamqp="${tot}"
 
   if [[ "${sarra_py_version}" > "3.00.25" ]]; then
+      countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep \'m, | wc -l`"
+      totdirsent="${tot}"
       countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep \'directory\' | wc -l`"
-       totdirsent="${tot}"
+      totdirsent=$((${totdirsent}+${tot}))
   else
        totdirsent=0
   fi
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -v \'directory\' | wc -l`"
+      countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -v \'directory\' | grep -v \'m, | wc -l`"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
   fi
