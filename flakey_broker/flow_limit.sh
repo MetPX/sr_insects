@@ -14,8 +14,13 @@ function swap_poll {
 }
 
 
-if [ "${sarra_py_version:0:1}" == "3" -a "`COLUMNS=200 sr3 show sarra/download_f20 | grep broker=  | sed 's/.*broker=//;s/:.*//' | head -1`" = 'mqtt' ]; then
-    mqpbroker=mosquitto
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+    broker_protocol=`sr3 show sarra/download_f20 | awk " /\'broker\':/ { print; }; " |  sed "s/.*broker.: .//;s/:.*//"`
+    if [ "$broker_protocol" = "mqtt" ]; then
+        mqpbroker=mosquitto
+    else
+        mqpbroker=rabbitmq-server
+    fi
 else
     mqpbroker=rabbitmq-server
 fi
