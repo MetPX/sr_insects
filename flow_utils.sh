@@ -105,6 +105,12 @@ function qchk {
     # 2 - Description string.
     # 3 - query
     #
+
+    echo "list the queues extant:"
+    rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues
+    echo "list the queues extant:"
+    rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list bindings
+
     queue_cnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=1; }; END { print t; };'`"
 
     if [ "$queue_cnt" -ge $1 ]; then
@@ -130,6 +136,9 @@ function xchk {
     else
         exex=flow_lists/exchanges_expected.txt
     fi
+    echo "list the exchanges extant:"
+    rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list exchanges
+
     rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list exchanges | grep -v '^name' | grep -v amq\. | grep -v direct| sort >$exnow
 
     x_cnt="`wc -l <$exnow`"
