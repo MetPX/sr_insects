@@ -294,8 +294,13 @@ function countall {
   totlinkshimpost1="${tot}"
   countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | grep \"link\" | grep \"directory\" | wc -l`"
   totlinkdirshimpost1="${tot}"
-  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | grep \"directory\" | grep -v \"link\" | wc -l`"
+
+  # unknown reason the linkdir one comes out zero when in a single quoted line... so make a file and wc that.
+  grep -a '\[INFO\] published:' $srposterlog | grep shim | grep \"directory\" | grep -v \"link\" >${LOGDIR}/linkdirshimposts.log
+  countthem "`wc -l <${LOGDIR}/linkdirshimposts.log`"
   totdirshimpost1="${tot}"
+
+  #echo "hoho! totdirshimpost1=${totdirshimpost1} totlinkdirshimpost=${totlinkdirshimpost1} totfileshimpost1=${totfileshimpost1} totlinkshimpost1=${totlinkshimpost1} "
 
   totshimpost1=$((${totfileshimpost1}+${totlinkshimpost1}+${totdirshimpost1}))
 
