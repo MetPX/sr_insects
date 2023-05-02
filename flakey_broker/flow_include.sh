@@ -295,13 +295,22 @@ function countall {
   fi
   totpost1="${tot}"
 
-  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | grep -v \"link\" | grep -v \"directory\" | wc -l`"
+  shimpostlog=${LOGDIR}/allshimposts.log
+
+  grep -a '\[INFO\] published:' $srposterlog | grep shim >$shimpostlog
+
+  countthem "`grep -a -v \"link\" ${shimpostlog} | grep -a -v \"directory\" | wc -l`"
   totfileshimpost1="${tot}"
-  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | grep \"link\" | grep -v \"directory\" | wc -l`"
+  countthem "`grep -a \"link\" ${shimpostlog} | grep -a -v \"directory\" | wc -l`"
   totlinkshimpost1="${tot}"
-  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | grep \"link\" | grep \"directory\" | wc -l`"
+
+
+  grep -a \"link\" ${shimpostlog} | grep -a \"directory\" >${LOGDIR}/totlinkdirshimpost.log
+  countthem "`wc -l <${LOGDIR}/totlinkdirshimpost.log`"
   totlinkdirshimpost1="${tot}"
-  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | grep \"directory\" | grep -v \"link\" | wc -l`"
+
+  grep -a \"directory\" ${shimpostlog} | grep -a -v \"link\" >${LOGDIR}/totdirshimpost1.log
+  countthem "`wc -l <${LOGDIR}/totdirshimpost1.log`"
   totdirshimpost1="${tot}"
 
   totshimpost=$((${totfileshimpost1}+${totlinkshimpost1}+${totdirshimpost1}))
@@ -356,12 +365,9 @@ function countall {
   countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | grep -v \"directory\" | wc -l`"
   totcvan15p="${tot}"
 
-echo "hoho veille ... sarra_c_version=${sarra_c_version}"
   if [[ "${sarra_c_version}" > "3.22.12p1" ]]; then
-      echo "hoho veille new"
       countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v \"directory\" | awk '{ print $8 }' | wc -l`"
   else
-      echo "hoho veille old"
       countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $7 }' | sort -u |wc -l`"
   fi
   totcveille="${tot}"
