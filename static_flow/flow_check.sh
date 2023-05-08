@@ -252,7 +252,8 @@ if [[ "${sarra_py_version}" > "3.00.25" ]]; then
     calcres "${totpost1}" "${totlinkshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should post about the same number of links as shim_f63\t (${totlinkshimpost1})"
     # FIXME: the following test should be zero, but it isn't... in flakey it is zero, which is correct... very confusing. 
     #calcres "${staticdircount}" "${totlinkdirshimpost1}" "static tree\t (${staticdircount}) should have a post for every linked directories by shim_f63\t (${totlinkdirshimpost1})"
-    calcres "${staticdircount}" "${totdirshimpost1}" "static tree\t (${staticdircount}) should have a post for every real directories by shim_f63\t (${totdirshimpost1})"
+    twostaticdir=$(( ${staticdircount} * 2 ))
+    calcres "${twostaticdir}" "${totdirshimpost1}" "static tree\t (${staticdircount}) directoiries should be posted twice: for 1st copy and linked_dir by shim_f63\t (${totdirshimpost1})"
 else
     doubletotpost=$(( ${totpost1}*2 ))
     calcres "${doubletotpost}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should have about half the number of items as shim_f63\t (${totshimpost1})"
