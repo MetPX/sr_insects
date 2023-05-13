@@ -460,7 +460,7 @@ function countall {
   countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep \"directory\" | wc -l`"
   totcveilledir="${tot}"
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v \"directory\" | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | wc -l`"
   totcveillefile="${tot}"
 
   totcveille=$((${totcveillefile}+${totcveilledir}))
