@@ -366,6 +366,9 @@ function countall {
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'do_download downloaded ok' $LOGDIR/${LGPFX}subscribe_cfile_f44_*.log | wc -l`"
+      # zero byte files should not be counted.
+      zerobytefilesxferred="`grep 0--1 $LOGDIR/${LGPFX}subscribe_cfile_f44_*.log | wc -l`"
+      tot=$((${tot}-${zerobytefilesxferred}))
   else
       countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/${LGPFX}subscribe_cfile_f44_*.log | wc -l`"
   fi
