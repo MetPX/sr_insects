@@ -42,5 +42,10 @@ while [ $queued_msgcnt -gt 0 ]; do
         wait_retry
 done
 
+sleepytime=60
+printf ¨\nwaiting $sleepytime for things to settle out\n¨
+sleep $sleepytime
+
+
 printf "\n\nflow test stopped. \n\n"
 
