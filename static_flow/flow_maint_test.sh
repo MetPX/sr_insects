@@ -42,7 +42,7 @@ qchk 15 "queues existing after declare"
 xchk "exchanges extant after declare"
 
 printf "ls ${HOME}: `ls ${HOME}`\n\n" 
-pyexamples=${HOME}/sarracenia/sarracenia/examples
+pyexamples=${HOME}/work/sarracenia/sarracenia/examples
 if [ ! -d "${map}" ]; then
     pyexamples=${HOME}/Sarracenia/sr3/sarracenia/examples
     if [ ! -d "${map}" ]; then
