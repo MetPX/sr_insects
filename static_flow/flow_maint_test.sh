@@ -41,13 +41,15 @@ qchk 15 "queues existing after declare"
 
 xchk "exchanges extant after declare"
 
+printf "ls ${HOME}: `ls ${HOME}`\n\n" 
 pyexamples=${HOME}/sarracenia/sarracenia/examples
 if [ ! -d "${map}" ]; then
     pyexamples=${HOME}/Sarracenia/sr3/sarracenia/examples
-else
-   wget https://github.com/MetPX/sarracenia/blob/main/sarracenia/examples/moth_api_producer.py >./moth_api_producer.py
-   wget https://github.com/MetPX/sarracenia/blob/main/sarracenia/examples/moth_api_producer.py >./moth_api_consumer.py
-   pyexamples=`pwd`
+    if [ ! -d "${map}" ]; then
+        wget https://github.com/MetPX/sarracenia/blob/main/sarracenia/examples/moth_api_producer.py >./moth_api_producer.py
+        wget https://github.com/MetPX/sarracenia/blob/main/sarracenia/examples/moth_api_consumer.py >./moth_api_consumer.py
+        pyexamples=`pwd`
+    fi
 fi
 
 printf "running the python example from ($pyexamples}\n\n"
