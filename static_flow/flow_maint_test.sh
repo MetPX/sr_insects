@@ -41,6 +41,31 @@ qchk 15 "queues existing after declare"
 
 xchk "exchanges extant after declare"
 
+pyexamples=${HOME}/sarracenia/sarracenia/examples
+if [ ! -d "${map}" ]; then
+    pyexamples=${HOME}/Sarracenia/sr3/sarracenia/examples
+else
+   wget https://github.com/MetPX/sarracenia/blob/main/sarracenia/examples/moth_api_producer.py >./moth_api_producer.py
+   wget https://github.com/MetPX/sarracenia/blob/main/sarracenia/examples/moth_api_producer.py >./moth_api_consumer.py
+   pyexamples=`pwd`
+fi
+
+printf "running the python example from ($pyexamples}\n\n"
+python3 ${pyexamples}/moth_api_producer.py amqp://bunnymaster:"${adminpw}"@localhost
+
+python3 ${pyexamples}/moth_api_consumer.py 
+consumed_message_count=$?
+
+calcres "${consumed_message_count}" 5 "moth_api_consumer.py example should consume 5 messages."
+
+sleep 5
+
+posted_message_count="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk 'BEGIN { t=0; }; ( NR > 1 ) { t+=$2; } END { print t; };'`"
+
+printf "count of messages queued is: ${posted_message_count}\n\n" 
+
+calcres "${posted_message_count}" 1 "moth_api_producer.py should have posted 1 message"
+
 echo "now remove all server-side resources with cleanup"
 sr3 --dangerWillRobinson cleanup
 
