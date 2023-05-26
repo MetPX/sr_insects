@@ -43,9 +43,9 @@ xchk "exchanges extant after declare"
 
 printf "ls ${HOME}: `ls ${HOME}`\n\n" 
 pyexamples=${HOME}/work/sarracenia/sarracenia/examples
-if [ ! -d "${map}" ]; then
+if [ ! -d "${pyexamples}" ]; then
     pyexamples=${HOME}/Sarracenia/sr3/sarracenia/examples
-    if [ ! -d "${map}" ]; then
+    if [ ! -d "${pyexamples}" ]; then
         wget https://github.com/MetPX/sarracenia/blob/main/sarracenia/examples/moth_api_producer.py >./moth_api_producer.py
         wget https://github.com/MetPX/sarracenia/blob/main/sarracenia/examples/moth_api_consumer.py >./moth_api_consumer.py
         pyexamples=`pwd`
@@ -53,6 +53,7 @@ if [ ! -d "${map}" ]; then
 fi
 
 printf "running the python example from ($pyexamples}\n\n"
+echo " running: python3 ${pyexamples}/moth_api_producer.py amqp://bunnymaster:${adminpw}@localhost  "
 python3 ${pyexamples}/moth_api_producer.py amqp://bunnymaster:"${adminpw}"@localhost
 
 python3 ${pyexamples}/moth_api_consumer.py 
