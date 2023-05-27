@@ -42,15 +42,15 @@ qchk 15 "queues existing after declare"
 xchk "exchanges extant after declare"
 
 printf "ls ${HOME}: `ls ${HOME}`\n\n" 
-pyexamples=${HOME}/work/sarracenia/sarracenia/examples
+pyexamples=${HOME}/work/sarracenia/examples
 if [ ! -d "${pyexamples}" ]; then
     pyexamples=${HOME}/Sarracenia/sr3/sarracenia/examples
     if [ ! -d "${pyexamples}" ]; then
 	if [ ! "${GITHUB_BASE_REF}"]; then
             GITHUB_BASE_REF=v03_wip
 	fi
-        wget -o moth_api_producer.py https://github.com/MetPX/sarracenia/blob/${GITHUB_BASE_REF}/sarracenia/examples/moth_api_producer.py 
-        wget -o moth_api_consumer.py https://github.com/MetPX/sarracenia/blob/${GITHUB_BASE_REF}/sarracenia/examples/moth_api_consumer.py 
+        wget https://github.com/MetPX/sarracenia/blob/${GITHUB_BASE_REF}/sarracenia/examples/moth_api_producer.py 
+        wget https://github.com/MetPX/sarracenia/blob/${GITHUB_BASE_REF}/sarracenia/examples/moth_api_consumer.py 
         pyexamples=`pwd`
     fi
 fi
