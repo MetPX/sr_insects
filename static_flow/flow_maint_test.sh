@@ -46,8 +46,11 @@ pyexamples=${HOME}/work/sarracenia/sarracenia/examples
 if [ ! -d "${pyexamples}" ]; then
     pyexamples=${HOME}/Sarracenia/sr3/sarracenia/examples
     if [ ! -d "${pyexamples}" ]; then
-        wget https://github.com/MetPX/sarracenia/blob/main/sarracenia/examples/moth_api_producer.py >./moth_api_producer.py
-        wget https://github.com/MetPX/sarracenia/blob/main/sarracenia/examples/moth_api_consumer.py >./moth_api_consumer.py
+	if [ ! "${GITHUB_BASE_REF}"]; then
+            GITHUB_BASE_REF=v03_wip
+	fi
+        wget https://github.com/MetPX/sarracenia/blob/${GITHUB_BASE_REF}/sarracenia/examples/moth_api_producer.py >./moth_api_producer.py
+        wget https://github.com/MetPX/sarracenia/blob/${GITHUB_BASE_REF}/sarracenia/examples/moth_api_consumer.py >./moth_api_consumer.py
         pyexamples=`pwd`
     fi
 fi
