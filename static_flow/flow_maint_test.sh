@@ -41,9 +41,8 @@ qchk 15 "queues existing after declare"
 
 xchk "exchanges extant after declare"
 
-printf "ls ${HOME}: `ls ${HOME}`\n\n" 
-printf "ls ${HOME}/work: `ls ${HOME}/work`\n\n" 
-printf "ls ${HOME}/work/sarracenia: `ls ${HOME}/work/sarracenia`\n\n" 
+echo "amqps://anonymous:anonymous@hpfx.collab.science.gc.ca" >>~/.config/sr3/credentials.conf
+printf "ls ${HOME}/work/sarracenia/sarracenia: `ls ${HOME}/work/sarracenia/sarracenia`\n\n" 
 pyexamples=${HOME}/work/sarracenia/examples
 if [ ! -d "${pyexamples}" ]; then
     pyexamples=${HOME}/Sarracenia/sr3/sarracenia/examples
@@ -53,6 +52,7 @@ if [ ! -d "${pyexamples}" ]; then
 	fi
 	wget https://raw.githubusercontent.com/MetPX/sarracenia/${GITHUB_BASE_REF}/sarracenia/examples/moth_api_consumer.py
 	wget https://raw.githubusercontent.com/MetPX/sarracenia/${GITHUB_BASE_REF}/sarracenia/examples/moth_api_producer.py
+	wget https://raw.githubusercontent.com/MetPX/sarracenia/${GITHUB_BASE_REF}/sarracenia/examples/flow_api_consumer.py
         pyexamples=`pwd`
     fi
 fi
@@ -64,7 +64,12 @@ python3 ${pyexamples}/moth_api_producer.py amqp://bunnymaster:"${adminpw}"@local
 python3 ${pyexamples}/moth_api_consumer.py 
 consumed_message_count=$?
 
+
 calcres "${consumed_message_count}" 5 "moth_api_consumer.py example should consume 5 messages."
+
+flow_consumed="`python3 ${pyexamples}/flow_api_consumer.py |& awk ' /messages received/ { print $8; }; ' | sed 's/,//'`"
+
+calcres "${flow_consumed}" 5 "flow_api_consumer.py should consume 5 messages, found ${flow_consumed}"
 
 sleep 5
 
