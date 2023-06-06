@@ -288,15 +288,16 @@ function countall {
   fi
   totpost1="${tot}"
 
-  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | grep -v \"link\" | grep -v \"directory\" | wc -l`"
+
+  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep -v \"link\" | grep -v \"directory\" | wc -l`"
   totfileshimpost1="${tot}"
-  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | grep \"link\" | grep -v \"directory\" | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep \"link\" | grep -v \"directory\" | wc -l`"
   totlinkshimpost1="${tot}"
-  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | grep \"link\" | grep \"directory\" | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep \"link\" | grep \"directory\" | wc -l`"
   totlinkdirshimpost1="${tot}"
 
   # unknown reason the linkdir one comes out zero when in a single quoted line... so make a file and wc that.
-  grep -a '\[INFO\] published:' $srposterlog | grep shim | grep \"directory\" | grep -v \"link\" >${LOGDIR}/linkdirshimposts.log
+  grep -a '\[INFO\] published:' $srposterlog | grep \"directory\" | grep -v \"link\" >${LOGDIR}/linkdirshimposts.log
   countthem "`wc -l <${LOGDIR}/linkdirshimposts.log`"
   totdirshimpost1="${tot}"
 
