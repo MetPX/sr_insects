@@ -24,3 +24,5 @@ reject .*/hourly/.*
 reject .*/today/.*
 reject .*/yesterday/.*
 reject .*swob.xml.*
+
+reject .*/radar/volume-scans/.*
