@@ -490,6 +490,13 @@ function countall {
   fi
   totcclean="${tot}"
 
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+      totcclean_skipped=0
+  else
+      countthem "`grep -a 'done message skipped' $LOGDIR/sr_subscribe_cclean_*.log | wc -l`"
+      totcclean_skipped="${tot}"
+  fi
+
 messages_unacked="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} list queues name messages_unacknowledged | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$4; }; END { print t; };'`"
 messages_ready="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} list queues name messages_ready | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$4; }; END { print t; };'`"
   # flags when two lines include *msg_log received* (with no other message between them) indicating no user will know what happenned.

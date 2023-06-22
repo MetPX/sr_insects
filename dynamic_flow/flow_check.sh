@@ -231,7 +231,16 @@ echo "                 | poll       routing | polling the sent_by_tsource2send/ 
 echo
 t7=$((${totsendall}-${totsendremoved}))
 calcres "${totpoll1}" "${t7}"         "tot ${LGPFX}poll 1 f62\t (${totpoll1}) should as many as were sent (minus removes) ${LGPFX}sender\t (${t7})"
-calcres "${totsubq}" "${totpoll1}"  "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
+
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+
+    calcres "${totsubq}" "${totpoll1}"  "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
+else
+    t8=$((${totpoll1}*2))
+    calcres "${totsubq}" "${t8}"  "${LGPFX}subscribe q_f71\t (${totsubq}) should have double the number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
+
+fi
+
 echo
 echo "                 | flow_post  routing | shim library and ls manual posting of contents of /sent_by_tsource2send directory"
 echo
@@ -271,7 +280,11 @@ echo
 
   totcvan=$(( ${totcvan14p} + ${totcvan15p} ))
   calcres  ${totcvan} ${totcdnld} "cdnld_f21 subscribe downloaded ($totcdnld) the same number of files that was published by both van_14 and van_15 ($totcvan)"
+if [ "${sarra_py_version:0:1}" == "3" ]; then
   calcres ${totcclean} ${totcvan} "${LGPFX}subscribe cclean_f91\t (${totcclean}) should have deleted as many files as went through van\t (${totcvan})"
+else
+  calcres ${totcclean_skipped} ${totcvan} "${LGPFX}subscribe cclean_f91\t (${totcclean_skipped}) should have skipped as many files as went through van\t (${totcvan})"
+fi
   t4=$(( ${totcclean} + ${totcvan} ))
   calcres ${totcveillefile} ${t4} "veille_f34 should post as many files ($totcveillefile} as went through van (${totcvan}) and clean  ($totcclean))"
   t5=$(( $totcveillefile / 2 ))
