@@ -287,9 +287,11 @@ else
 fi
   t4=$(( ${totcclean} + ${totcvan} ))
   calcres ${totcveillefile} ${t4} "veille_f34 should post as many files ($totcveillefile} as went through van (${totcvan}) and clean  ($totcclean))"
-  t5=$(( $totcveillefile / 2 ))
-  calcres  ${t5} ${totcdnld} "veille_f34 should post twice as many files (${totcveillefile}) as subscribe cdnld_f21 downloaded (${totcdnld})"
-  calcres  ${t5} ${totcfile} "veille_f34 should post twice as many files ($totcveillefile) as subscribe cfile_f44 downloaded ($totcfile)"
+
+  # once the v03 formats changed with fileOp and identity, the v2 sarrac isn't uptodate, will give false failures.
+  #t5=$(( $totcveillefile / 2 ))
+  #calcres  ${t5} ${totcdnld} "veille_f34 should post twice as many files (${totcveillefile}) as subscribe cdnld_f21 downloaded (${totcdnld})"
+  #calcres  ${t5} ${totcfile} "veille_f34 should post twice as many files ($totcveillefile) as subscribe cfile_f44 downloaded ($totcfile)"
 
 fi
 
