@@ -286,8 +286,10 @@ echo "                 | C          routing |"
 
 fi
 
-zerowanted  "${messages_unacked}" "${maxshovel}" "there should be no unacknowledged messages left, but there are ${messages_unacked}"
-zerowanted  "${messages_ready}" "${maxshovel}" "there should be no messages ready to be consumed but there are ${messages_ready}"
+if [ "$MQP" == "amqp" ]; then
+  zerowanted  "${messages_unacked}" "${maxshovel}" "there should be no unacknowledged messages left, but there are ${messages_unacked}"
+  zerowanted  "${messages_ready}" "${maxshovel}" "there should be no messages ready to be consumed but there are ${messages_ready}"
+fi
 
 
 echo "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
