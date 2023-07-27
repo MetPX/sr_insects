@@ -17,7 +17,7 @@ function swap_poll {
 
 if [ "${sarra_py_version:0:1}" == "3" ]; then
     #broker_protocol=`sr3 show sarra/download_f20 | awk " /\'broker\':/ { print; }; " |  sed "s/.*broker.: .//;s/:.*//"`
-    broker_protocol="`grep MQP ~/.config/sr3/default.conf | sed 's/.*MQP=//'`"
+    broker_protocol="`grep '^declare env MQP' ~/.config/sr3/default.conf | sed 's/.*MQP=//'`"
     if [ "$broker_protocol" = "mqtt" ]; then
         mqpbroker=mosquitto
     else
