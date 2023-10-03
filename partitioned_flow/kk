@@ -1,0 +1,1148 @@
+{
+
+
+
+"Processes" : { 
+
+
+"714625": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "poll/sftp_f63"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 3.93,
+  "user": 0.98
+ },
+ "create_time": 1692335293.38,
+ "memory": {
+  "data": 34775040,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 33929216,
+  "rss": 46583808,
+  "shared": 13893632,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 33419264,
+  "vms": 82423808
+ },
+ "name": "sr3_poll.py",
+ "pid": 714625,
+ "username": "peter"
+},"714626": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "poll/sftp_f62"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 17.82,
+  "user": 153.21
+ },
+ "create_time": 1692335293.38,
+ "memory": {
+  "data": 59064320,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 42233856,
+  "rss": 54640640,
+  "shared": 13762560,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 41730048,
+  "vms": 240357376
+ },
+ "name": "sr3_poll.py",
+ "pid": 714626,
+ "username": "peter"
+},"714627": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "report/tsarra_f20"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.1,
+  "user": 0.46
+ },
+ "create_time": 1692335293.38,
+ "memory": {
+  "data": 25030656,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 24810496,
+  "rss": 37597184,
+  "shared": 13369344,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 24522752,
+  "vms": 71905280
+ },
+ "name": "sr3_report.py",
+ "pid": 714627,
+ "username": "peter"
+},"714628": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "sarra/download_f20"
+ ],
+ "cpu": {
+  "children_system": 0.59,
+  "children_user": 1.13,
+  "iowait": 0.0,
+  "system": 0.58,
+  "user": 3.03
+ },
+ "create_time": 1692335293.38,
+ "memory": {
+  "data": 28782592,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 27276288,
+  "rss": 39743488,
+  "shared": 13369344,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 26980352,
+  "vms": 75657216
+ },
+ "name": "sr3_sarra.py",
+ "pid": 714628,
+ "username": "peter"
+},"714629": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "sender/tsource2send_f50"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.99,
+  "user": 5.41
+ },
+ "create_time": 1692335293.38,
+ "memory": {
+  "data": 46366720,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 28209152,
+  "rss": 40181760,
+  "shared": 13107200,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 27934720,
+  "vms": 227037184
+ },
+ "name": "sr3_sender.py",
+ "pid": 714629,
+ "username": "peter"
+},"714630": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "shovel/rabbitmqtt_f22"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.21,
+  "user": 1.33
+ },
+ "create_time": 1692335293.38,
+ "memory": {
+  "data": 26537984,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 25756672,
+  "rss": 38019072,
+  "shared": 13107200,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 25489408,
+  "vms": 73412608
+ },
+ "name": "sr3_shovel.py",
+ "pid": 714630,
+ "username": "peter"
+},"714631": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "subscribe/rabbitmqtt_f31"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.21,
+  "user": 1.25
+ },
+ "create_time": 1692335293.38,
+ "memory": {
+  "data": 26562560,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 25645056,
+  "rss": 38363136,
+  "shared": 13238272,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 25378816,
+  "vms": 73437184
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714631,
+ "username": "peter"
+},"714632": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "subscribe/cfile_f44"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.37,
+  "user": 3.42
+ },
+ "create_time": 1692335293.38,
+ "memory": {
+  "data": 29376512,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 28105728,
+  "rss": 45899776,
+  "shared": 18874368,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 27443200,
+  "vms": 83501056
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714632,
+ "username": "peter"
+},"714633": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "subscribe/u_sftp_f60"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.28,
+  "user": 1.13
+ },
+ "create_time": 1692335293.38,
+ "memory": {
+  "data": 26558464,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 25673728,
+  "rss": 38240256,
+  "shared": 13238272,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 25391104,
+  "vms": 73433088
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714633,
+ "username": "peter"
+},"714634": {
+ "claimed": true,
+ "cmdline": [
+  "sr3_cpost",
+  "start",
+  "veille_f34"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.2,
+  "user": 0.1
+ },
+ "create_time": 1692335293.39,
+ "memory": {
+  "data": 8400896,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 3505152,
+  "rss": 6959104,
+  "shared": 3932160,
+  "swap": 0,
+  "text": 20480,
+  "uss": 3383296,
+  "vms": 16322560
+ },
+ "name": "sr3_cpost",
+ "pid": 714634,
+ "username": "peter"
+},"714635": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "subscribe/mirror_f80"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.8,
+  "user": 4.13
+ },
+ "create_time": 1692335293.39,
+ "memory": {
+  "data": 29995008,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 28208128,
+  "rss": 45342720,
+  "shared": 18743296,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 27541504,
+  "vms": 84119552
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714635,
+ "username": "peter"
+},"714636": {
+ "claimed": true,
+ "cmdline": [
+  "sr3_cpump",
+  "start",
+  "xvan_f15"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.06,
+  "user": 0.07
+ },
+ "create_time": 1692335293.39,
+ "memory": {
+  "data": 8835072,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 3445760,
+  "rss": 4943872,
+  "shared": 1835008,
+  "swap": 0,
+  "text": 8192,
+  "uss": 3330048,
+  "vms": 16740352
+ },
+ "name": "sr3_cpump",
+ "pid": 714636,
+ "username": "peter"
+},"714637": {
+ "claimed": true,
+ "cmdline": [
+  "sr3_cpump",
+  "start",
+  "xvan_f14"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.12,
+  "user": 0.08
+ },
+ "create_time": 1692335293.39,
+ "memory": {
+  "data": 9379840,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 3970048,
+  "rss": 7434240,
+  "shared": 4063232,
+  "swap": 0,
+  "text": 8192,
+  "uss": 3821568,
+  "vms": 17285120
+ },
+ "name": "sr3_cpump",
+ "pid": 714637,
+ "username": "peter"
+},"714638": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "subscribe/ftp_f70"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.69,
+  "user": 2.29
+ },
+ "create_time": 1692335293.4,
+ "memory": {
+  "data": 26386432,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 25592832,
+  "rss": 38064128,
+  "shared": 13238272,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 25321472,
+  "vms": 73261056
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714638,
+ "username": "peter"
+},"714639": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "subscribe/hpfx_amis"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 1.64,
+  "user": 9.61
+ },
+ "create_time": 1692335293.42,
+ "memory": {
+  "data": 29995008,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 28763136,
+  "rss": 46923776,
+  "shared": 19529728,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 28004352,
+  "vms": 84140032
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714639,
+ "username": "peter"
+},"714640": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "2",
+  "start",
+  "subscribe/hpfx_amis"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 1.18,
+  "user": 7.63
+ },
+ "create_time": 1692335293.43,
+ "memory": {
+  "data": 30253056,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 28654592,
+  "rss": 46649344,
+  "shared": 19398656,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 27893760,
+  "vms": 84398080
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714640,
+ "username": "peter"
+},"714641": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "3",
+  "start",
+  "subscribe/hpfx_amis"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 1.48,
+  "user": 8.75
+ },
+ "create_time": 1692335293.45,
+ "memory": {
+  "data": 30113792,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 30173184,
+  "rss": 48517120,
+  "shared": 20709376,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 29425664,
+  "vms": 84258816
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714641,
+ "username": "peter"
+},"714645": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "4",
+  "start",
+  "subscribe/hpfx_amis"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 1.51,
+  "user": 8.98
+ },
+ "create_time": 1692335293.45,
+ "memory": {
+  "data": 30261248,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 28751872,
+  "rss": 46665728,
+  "shared": 19398656,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 27996160,
+  "vms": 84406272
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714645,
+ "username": "peter"
+},"714650": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "5",
+  "start",
+  "subscribe/hpfx_amis"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 1.09,
+  "user": 6.8
+ },
+ "create_time": 1692335293.46,
+ "memory": {
+  "data": 30093312,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 28759040,
+  "rss": 46981120,
+  "shared": 19660800,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 28004352,
+  "vms": 84238336
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714650,
+ "username": "peter"
+},"714658": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "subscribe/cp_f61"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.21,
+  "user": 1.22
+ },
+ "create_time": 1692335293.49,
+ "memory": {
+  "data": 26566656,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 25653248,
+  "rss": 38117376,
+  "shared": 13107200,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 25387008,
+  "vms": 73441280
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714658,
+ "username": "peter"
+},"714666": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "subscribe/q_f71"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.66,
+  "user": 3.6
+ },
+ "create_time": 1692335293.53,
+ "memory": {
+  "data": 56582144,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 30010368,
+  "rss": 47112192,
+  "shared": 18612224,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 29343744,
+  "vms": 311398400
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714666,
+ "username": "peter"
+},"714668": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "2",
+  "start",
+  "subscribe/q_f71"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.65,
+  "user": 2.82
+ },
+ "create_time": 1692335293.54,
+ "memory": {
+  "data": 55549952,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 29104128,
+  "rss": 46575616,
+  "shared": 18874368,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 28422144,
+  "vms": 310407168
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714668,
+ "username": "peter"
+},"714673": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "3",
+  "start",
+  "subscribe/q_f71"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.58,
+  "user": 2.83
+ },
+ "create_time": 1692335293.56,
+ "memory": {
+  "data": 56045568,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 29652992,
+  "rss": 47157248,
+  "shared": 18743296,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 28983296,
+  "vms": 310935552
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714673,
+ "username": "peter"
+},"714675": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "4",
+  "start",
+  "subscribe/q_f71"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.59,
+  "user": 3.17
+ },
+ "create_time": 1692335293.56,
+ "memory": {
+  "data": 56033280,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 29504512,
+  "rss": 47198208,
+  "shared": 19136512,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 28823552,
+  "vms": 310956032
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714675,
+ "username": "peter"
+},"714679": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "5",
+  "start",
+  "subscribe/q_f71"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.51,
+  "user": 3.14
+ },
+ "create_time": 1692335293.58,
+ "memory": {
+  "data": 56299520,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 29946880,
+  "rss": 47321088,
+  "shared": 19005440,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 29261824,
+  "vms": 311099392
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714679,
+ "username": "peter"
+},"714682": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "subscribe/amqp_f30"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.59,
+  "user": 2.3
+ },
+ "create_time": 1692335293.6,
+ "memory": {
+  "data": 26529792,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 25736192,
+  "rss": 38199296,
+  "shared": 13238272,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 25444352,
+  "vms": 73404416
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714682,
+ "username": "peter"
+},"714685": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "subscribe/cdnld_f21"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.51,
+  "user": 4.25
+ },
+ "create_time": 1692335293.62,
+ "memory": {
+  "data": 29675520,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 28095488,
+  "rss": 45993984,
+  "shared": 19005440,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 27410432,
+  "vms": 83800064
+ },
+ "name": "sr3_subscribe.py",
+ "pid": 714685,
+ "username": "peter"
+},"714686": {
+ "claimed": true,
+ "cmdline": [
+  "/usr/bin/python3",
+  "/home/peter/Sarracenia/sr3/sarracenia/instance.py",
+  "--no",
+  "1",
+  "start",
+  "watch/f40"
+ ],
+ "cpu": {
+  "children_system": 0.0,
+  "children_user": 0.0,
+  "iowait": 0.0,
+  "system": 0.63,
+  "user": 6.28
+ },
+ "create_time": 1692335293.63,
+ "memory": {
+  "data": 63430656,
+  "dirty": 0,
+  "lib": 0,
+  "pss": 36463616,
+  "rss": 53956608,
+  "shared": 18874368,
+  "swap": 0,
+  "text": 2822144,
+  "uss": 35786752,
+  "vms": 318488576
+ },
+ "name": "sr3_watch.py",
+ "pid": 714686,
+ "username": "peter"
+}
+
+
+"Configs" : {
+
+
+	"cpost": { 
+		"veille_f34" : {"status": "running", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} ,
+		"pelle_dd2_f05" : {"status": "stopped", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} ,
+		"pelle_dd1_f04" : {"status": "stopped", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} },
+	"cpump": { 
+		"xvan_f14" : {"status": "hung", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} ,
+		"xvan_f15" : {"status": "hung", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} },
+	"flow": { 
+},
+	"poll": { 
+		"sftp_f63" : {"status": "waitVip", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} ,
+		"sftp_f62" : {"status": "running", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} },
+	"post": { 
+		"t_dd1_f00" : {"status": "stopped", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} ,
+		"test2_f61" : {"status": "stopped", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} ,
+		"t_dd2_f00" : {"status": "stopped", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} ,
+		"shim_f63" : {"status": "stopped", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} },
+	"report": { 
+		"tsarra_f20" : {"status": "running", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} },
+	"sarra": { 
+		"download_f20" : {"status": "running", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} },
+	"sender": { 
+		"tsource2send_f50" : {"status": "running", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} },
+	"shovel": { 
+		"rabbitmqtt_f22" : {"status": "running", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} },
+	"subscribe": { 
+		"rabbitmqtt_f31" : {"status": "running", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} ,
+		"cfile_f44" : {"status": "running", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} ,
+		"u_sftp_f60" : {"status": "running", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} ,
+		"mirror_f80" : {"status": "running", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} ,
+		"ftp_f70" : {"status": "running", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} ,
+		"hpfx_amis" : {"status": "running", "options": {"omitted": "use show"}, "instances": 5, "credentials": ["omitted"]} ,
+		"cp_f61" : {"status": "running", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} ,
+		"q_f71" : {"status": "running", "options": {"omitted": "use show"}, "instances": 5, "credentials": ["omitted"]} ,
+		"amqp_f30" : {"status": "running", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} ,
+		"cdnld_f21" : {"status": "running", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} },
+	"watch": { 
+		"f40" : {"status": "running", "options": {"omitted": "use show"}, "instances": 1, "credentials": ["omitted"]} },
+	"winnow": { 
+}},
+
+"States": { 
+
+
+	"cpost": { 
+		"pelle_dd1_f04" :  {"instance_pids": {}, "queueName": null, "has_state": false, "noVip": null, "logAge": {"1": 2321.6723487377167}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 0, "rss": 0, "vms": 0, "user_cpu": 0.0, "system_cpu": 0.0}} 
+,
+		"NONE" :  {"instance_pids": {}, "queueName": null, "status": "removed", "has_state": false, "noVip": null} 
+,
+		"veille_f34" :  {"instance_pids": {"1": 714634}, "queueName": null, "has_state": false, "noVip": null, "instance_metrics": {"1": {"context": {"rxGoodCount": 0, "rxBadCount": 0, "rejectCount": 0, "txGoodCount": 0, "last_housekeeping": 1692337394.648303}, "status": {"mtime": 1692337615.6942108}}}, "logAge": {"1": 221.7214207649231}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337394.648303, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 3383296, "rss": 6959104, "vms": 16322560, "user_cpu": 0.1, "system_cpu": 0.2}} 
+,
+		"pelle_dd2_f05" :  {"instance_pids": {}, "queueName": null, "has_state": false, "noVip": null, "logAge": {"1": 2321.716349363327}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 0, "rss": 0, "vms": 0, "user_cpu": 0.0, "system_cpu": 0.0}} 
+	},
+	"cpump": { 
+		"xvan_f15" :  {"instance_pids": {"1": 714636}, "queueName": "q_tfeed_cpump.xvan_f15.20170965.03497402", "has_state": false, "noVip": null, "logAge": {"1": 2321.1083419322968}, "missing_instances": [], "hung_instances": [1], "resource_usage": {"uss": 3330048, "rss": 4943872, "vms": 16740352, "user_cpu": 0.07, "system_cpu": 0.06}} 
+,
+		"xvan_f14" :  {"instance_pids": {"1": 714637}, "queueName": "q_tfeed_cpump.xvan_f14.79059044.03876095", "has_state": false, "noVip": null, "logAge": {"1": 2320.3403322696686}, "missing_instances": [], "hung_instances": [1], "resource_usage": {"uss": 3821568, "rss": 7434240, "vms": 17285120, "user_cpu": 0.08, "system_cpu": 0.12}} 
+,
+		"NONE" :  {"instance_pids": {}, "queueName": null, "status": "removed", "has_state": false, "noVip": null} 
+	},
+	"flow": { 
+	},
+	"poll": { 
+		"sftp_f62" :  {"instance_pids": {"1": 714626}, "queueName": "q_tsource_poll.sftp_f62.15496024.92485307", "has_state": false, "noVip": null, "instance_metrics": {"1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337445.9764893, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337745.9764893, "msgRate": 248.20742955299136, "current_sleep": 10.0}, "post.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 42540}, "poll": {"transferRxBytes": 0}, "status": {"mtime": 1692337616.3422194}}}, "logAge": {"1": 170.38873100280762}, "metrics": {"byteRate": 0, "rejectCount": 42540, "last_housekeeping": 1692337445.9764893, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 41730048, "rss": 54640640, "vms": 240357376, "user_cpu": 153.21, "system_cpu": 17.82}} 
+,
+		"sftp_f63" :  {"instance_pids": {"1": 714625}, "queueName": "q_tsource_poll.sftp_f63.67944374.11728880", "has_state": false, "noVip": "1692335295.004051", "logAge": {"1": 215.2013328075409}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 33419264, "rss": 46583808, "vms": 82423808, "user_cpu": 0.98, "system_cpu": 3.93}} 
+	},
+	"post": { 
+		"t_dd1_f00" :  {"instance_pids": {}, "queueName": null, "has_state": false, "noVip": null, "instance_metrics": {"0": {"flow": {"stop_requested": true, "last_housekeeping": 1692335293.4854362, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "msgRate": 269.5801104927678, "current_sleep": -2}, "post.message": {"connected": true, "disconnectLast": 1692335295.6309605, "disconnectTime": 0.002006053924560547, "disconnectCount": 1, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 574843, "txGoodCount": 1419, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 3.1566662788391113, "lagTotal": 3803.61195230484, "lagMessageCount": 1419, "rejectCount": 10}, "status": {"mtime": 1692335298.784391}}}, "logAge": {"1": 2317.5802981853485}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 0, "rss": 0, "vms": 0, "user_cpu": 0.0, "system_cpu": 0.0}} 
+,
+		"shim_f63" :  {"instance_pids": {}, "queueName": null, "has_state": false, "noVip": null, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 0, "rss": 0, "vms": 0, "user_cpu": 0.0, "system_cpu": 0.0}} 
+,
+		"test2_f61" :  {"instance_pids": {}, "queueName": null, "has_state": false, "noVip": null, "instance_metrics": {"0": {"flow": {"stop_requested": true, "last_housekeeping": 1692335323.6992147, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "msgRate": 539.5507993525716, "current_sleep": -2}, "post.message": {"connected": true, "disconnectLast": 1692335323.7341774, "disconnectTime": 0.002690553665161133, "disconnectCount": 1, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 34080, "txGoodCount": 78, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0.11185908317565918, "lagTotal": 4.677770614624023, "lagMessageCount": 78, "rejectCount": 0}, "status": {"mtime": 1692335323.8407004}}}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 0, "rss": 0, "vms": 0, "user_cpu": 0.0, "system_cpu": 0.0}} 
+,
+		"t_dd2_f00" :  {"instance_pids": {}, "queueName": null, "has_state": false, "noVip": null, "instance_metrics": {"0": {"flow": {"stop_requested": true, "last_housekeeping": 1692335293.4785042, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "msgRate": 272.5674287848083, "current_sleep": -2}, "post.message": {"connected": true, "disconnectLast": 1692335295.6304255, "disconnectTime": 0.002560138702392578, "disconnectCount": 1, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 574597, "txGoodCount": 1419, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 3.095411539077759, "lagTotal": 3768.7154915332794, "lagMessageCount": 1419, "rejectCount": 10}, "status": {"mtime": 1692335298.7203903}}}, "logAge": {"1": 2317.6482989788055}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 0, "rss": 0, "vms": 0, "user_cpu": 0.0, "system_cpu": 0.0}} 
+	},
+	"report": { 
+		"tsarra_f20" :  {"instance_pids": {"1": 714627}, "queueName": "q_tfeed_report.tsarra_f20.29177501.19025037", "has_state": false, "noVip": null, "instance_metrics": {"1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337403.5292287, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337703.5292287, "msgRate": 0.00043096462074928627, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "status": {"mtime": 1692337616.3422194}}}, "logAge": {"1": 212.84130096435547}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337403.5292287, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 24522752, "rss": 37597184, "vms": 71905280, "user_cpu": 0.46, "system_cpu": 0.1}} 
+	},
+	"sarra": { 
+		"download_f20" :  {"instance_pids": {"1": 714628}, "queueName": "q_tfeed_sarra.download_f20.82220366.18908557", "has_state": false, "noVip": null, "instance_metrics": {"1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337595.6298654, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337655.6298654, "msgRate": 1.2261253722768333, "current_sleep": 6.4}, "post.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 1419861.6653696499}, "status": {"mtime": 1692337614.8421996}}}, "logAge": {"1": 1.5264897346496582}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337595.6298654, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 26980352, "rss": 39743488, "vms": 75657216, "user_cpu": 3.03, "system_cpu": 0.58}} 
+	},
+	"sender": { 
+		"tsource2send_f50" :  {"instance_pids": {"1": 714629}, "queueName": "q_tsource_sender.tsource2send_f50.41542793.22086458", "has_state": false, "noVip": null, "instance_metrics": {"1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337403.5287895, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337703.5287895, "msgRate": 0.6137168728927876, "current_sleep": 6.4}, "post.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 80063851.35483871}, "status": {"mtime": 1692337614.8782}}}, "logAge": {"1": 1.4904892444610596}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337403.5287895, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 27934720, "rss": 40181760, "vms": 227037184, "user_cpu": 5.41, "system_cpu": 0.99}} 
+	},
+	"shovel": { 
+		"rabbitmqtt_f22" :  {"instance_pids": {"1": 714630}, "queueName": "q_tsource_shovel.rabbitmqtt_f22.56498606.55227391", "has_state": false, "noVip": null, "instance_metrics": {"1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337401.6482944, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337701.6482944, "msgRate": 0.6129267801113404, "current_sleep": 6.4}, "post.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "status": {"mtime": 1692337614.4141939}}}, "logAge": {"1": 1.9544954299926758}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337401.6482944, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 25489408, "rss": 38019072, "vms": 73412608, "user_cpu": 1.33, "system_cpu": 0.21}} 
+	},
+	"subscribe": { 
+		"web_hungry" :  {"instance_pids": {}, "queueName": "q_anonymous_subscribe.web_hungry.72994649.59972887", "status": "removed", "has_state": false, "noVip": null} 
+,
+		"hpfx_amis" :  {"instance_pids": {"3": 714641, "2": 714640, "4": 714645, "5": 714650, "1": 714639}, "queueName": "q_anonymous_subscribe.hpfx_amis.63551780.29192638", "has_state": false, "noVip": null, "instance_metrics": {"2": {"flow": {"stop_requested": false, "last_housekeeping": 1692337424.4263675, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 64752, "transferTxBytes": 0, "transferRxFiles": 81, "transferTxFiles": 0, "next_housekeeping": 1692337724.4263675, "msgRate": 0.4719021120216805, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 11272, "rxGoodCount": 81, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 7.49097204208374, "lagTotal": 215.21507239341736, "lagMessageCount": 81, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 2567005.7267759563}, "status": {"mtime": 1692337614.278192}}, "1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337405.0643978, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 15520, "transferTxBytes": 0, "transferRxFiles": 45, "transferTxFiles": 0, "next_housekeeping": 1692337705.0643978, "msgRate": 0.6127959496242422, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 6259, "rxGoodCount": 45, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 7.377157211303711, "lagTotal": 108.6485595703125, "lagMessageCount": 45, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 1786581.3984732823}, "status": {"mtime": 1692337614.2621918}}, "0": {"flow": {"stop_requested": true, "last_housekeeping": 1692238144.4784622, "transferConnected": true, "transferConnectStart": 1692238148.0347462, "transferConnectTime": 2.8959105014801025, "transferRxBytes": 1356, "transferTxBytes": 0, "transferRxFiles": 7, "transferTxFiles": 0, "msgRate": 2.6889130204653346, "current_sleep": 0.8}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 970, "rxGoodCount": 7, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 3.1565592288970947, "lagTotal": 9.28438425064087, "lagMessageCount": 7, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 1223338.6666666667}, "status": {"mtime": 1692238148.0295062}}, "3": {"flow": {"stop_requested": false, "last_housekeeping": 1692337416.6219864, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 42451, "transferTxBytes": 0, "transferRxFiles": 104, "transferTxFiles": 0, "next_housekeeping": 1692337716.6219864, "msgRate": 0.5475489106706697, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 14451, "rxGoodCount": 104, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 7.032098770141602, "lagTotal": 253.1626422405243, "lagMessageCount": 104, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 987847.6602316602}, "status": {"mtime": 1692337615.794212}}, "5": {"flow": {"stop_requested": false, "last_housekeeping": 1692337424.3547666, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 22073, "transferTxBytes": 0, "transferRxFiles": 64, "transferTxFiles": 0, "next_housekeeping": 1692337724.3547666, "msgRate": 0.42788362949400954, "current_sleep": 0.1}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 8910, "rxGoodCount": 64, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 10.163041591644287, "lagTotal": 187.11249470710754, "lagMessageCount": 64, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 1009360.9626016261}, "status": {"mtime": 1692337616.2022173}}, "4": {"flow": {"stop_requested": false, "last_housekeeping": 1692337413.713633, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 8622, "transferTxBytes": 0, "transferRxFiles": 42, "transferTxFiles": 0, "next_housekeeping": 1692337713.713633, "msgRate": 0.5639277052480655, "current_sleep": 3.2}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 5843, "rxGoodCount": 42, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 6.9870123863220215, "lagTotal": 91.27107906341553, "lagMessageCount": 42, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 1349890.9425287356}, "status": {"mtime": 1692337616.0942159}}}, "logAge": {"1": 32.034891843795776, "5": 0.18647217750549316, "2": 32.03089189529419, "3": 34.770928144454956, "4": 4.530529260635376}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337405.0643978, "rxByteCount": 46735, "rxGoodCount": 336, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 10.163041591644287, "lagTotal": 855.4098479747772, "lagMessageCount": 336, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 153418, "transferRxFiles": 336, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 141324288, "rss": 235737088, "vms": 421441536, "user_cpu": 41.769999999999996, "system_cpu": 6.8999999999999995}} 
+,
+		"cfile_f44" :  {"instance_pids": {"1": 714632}, "queueName": "q_tfeed_subscribe.cfile_f44.95480148.96212319", "has_state": false, "noVip": null, "instance_metrics": {"1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337400.4049337, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337700.4049337, "msgRate": 0.6421903451305465, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 60358656.0}, "status": {"mtime": 1692337611.690158}}}, "logAge": {"1": 4.6785314083099365}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337400.4049337, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 27443200, "rss": 45899776, "vms": 83501056, "user_cpu": 3.42, "system_cpu": 0.37}} 
+,
+		"mirror_f80" :  {"instance_pids": {"1": 714635}, "queueName": "q_tsource_subscribe.mirror_f80.32562569.08396926", "has_state": false, "noVip": null, "instance_metrics": {"1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337402.253085, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337702.253085, "msgRate": 1.2231406210898874, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 4156338.3172413795}, "status": {"mtime": 1692337614.266192}}}, "logAge": {"1": 214.11731815338135}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337402.253085, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 27541504, "rss": 45342720, "vms": 84119552, "user_cpu": 4.13, "system_cpu": 0.8}} 
+,
+		"tsunami" :  {"instance_pids": {}, "queueName": "q_anonymous_subscribe.tsunami.44130742.58093304", "status": "removed", "has_state": false, "noVip": null} 
+,
+		"ftp_f70" :  {"instance_pids": {"1": 714638}, "queueName": "q_tsource_subscribe.ftp_f70.54410586.50007061", "has_state": false, "noVip": null, "instance_metrics": {"1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337403.9808066, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337703.9808066, "msgRate": 0.4793190975322559, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 6809819.841807909}, "status": {"mtime": 1692337614.8261993}}}, "logAge": {"1": 1.542490005493164}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337403.9808066, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 25321472, "rss": 38064128, "vms": 73261056, "user_cpu": 2.29, "system_cpu": 0.69}} 
+,
+		"flow_demo" :  {"instance_pids": {}, "queueName": "q_anonymous.subscriber_test2", "status": "removed", "has_state": false, "noVip": null, "instance_metrics": {"0": {"flow": {"stop_requested": true, "last_housekeeping": 1687202619.4086704, "transferConnected": true, "transferConnectStart": 1687202619.9445, "transferConnectTime": 0.5186672210693359, "transferRxBytes": 46361, "transferTxBytes": 0, "transferRxFiles": 5, "transferTxFiles": 0, "msgRate": 11.200466429742907, "current_sleep": 0.1}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 730, "rxGoodCount": 5, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 1499.9188470840454, "lagTotal": 7498.568261861801, "lagMessageCount": 5, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 2696338.285714286}, "status": {"mtime": 1687202619.9406805}}}} 
+,
+		"cp_f61" :  {"instance_pids": {"1": 714658}, "queueName": "q_tsource_subscribe.cp_f61.03141726.86019283", "has_state": false, "noVip": null, "instance_metrics": {"1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337403.526572, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337703.526572, "msgRate": 0.6124980532568292, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 268397325.96363637}, "status": {"mtime": 1692337616.3582194}}}, "logAge": {"1": 212.84530115127563}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337403.526572, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 25387008, "rss": 38117376, "vms": 73441280, "user_cpu": 1.22, "system_cpu": 0.21}} 
+,
+		"amqp_f30" :  {"instance_pids": {"1": 714682}, "queueName": "q_tsub_subscribe.amqp_f30.84725152.98673613", "has_state": false, "noVip": null, "instance_metrics": {"1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337403.4726808, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337703.4726808, "msgRate": 0.612042342754633, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 31024742.4}, "status": {"mtime": 1692337616.3342192}}}, "logAge": {"1": 0.0344700813293457}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337403.4726808, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 25444352, "rss": 38199296, "vms": 73404416, "user_cpu": 2.3, "system_cpu": 0.59}} 
+,
+		"u_sftp_f60" :  {"instance_pids": {"1": 714633}, "queueName": "q_tsource_subscribe.u_sftp_f60.30149011.35319611", "has_state": false, "noVip": null, "instance_metrics": {"1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337403.5286455, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337703.5286455, "msgRate": 0.6137061321567806, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 249496105.8253521}, "status": {"mtime": 1692337614.8822}}}, "logAge": {"1": 212.84130096435547}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337403.5286455, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 25391104, "rss": 38240256, "vms": 73433088, "user_cpu": 1.13, "system_cpu": 0.28}} 
+,
+		"q_f71" :  {"instance_pids": {"4": 714675, "1": 714666, "2": 714668, "3": 714673, "5": 714679}, "queueName": "q_tsource_subscribe.q_f71.38732328.60557658", "has_state": false, "noVip": null, "instance_metrics": {"4": {"flow": {"stop_requested": false, "last_housekeeping": 1692337421.7371817, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337721.7371817, "msgRate": 0.13092490986002678, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 1119696.8069565217}, "status": {"mtime": 1692337615.3822067}}, "2": {"flow": {"stop_requested": false, "last_housekeeping": 1692337423.8213515, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337723.8213515, "msgRate": 0.13108457000589882, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 283517.41324041813}, "status": {"mtime": 1692337615.9822145}}, "5": {"flow": {"stop_requested": false, "last_housekeeping": 1692337417.6605186, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337717.6605186, "msgRate": 0.11638080721992919, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 2045715.1955150666}, "status": {"mtime": 1692337616.1422167}}, "3": {"flow": {"stop_requested": false, "last_housekeeping": 1692337422.1566377, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337722.1566377, "msgRate": 0.08740898496822432, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 1457437.198938992}, "status": {"mtime": 1692337615.7782118}}, "1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337400.708747, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337700.708747, "msgRate": 0.15243684614172098, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 1617272.7180783818}, "status": {"mtime": 1692337611.994162}}}, "logAge": {"3": 0.586477518081665, "2": 0.3864748477935791, "1": 4.374527215957642, "5": 0.2264726161956787, "4": 0.9864826202392578}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337400.708747, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 144834560, "rss": 235364352, "vms": 1554796544, "user_cpu": 15.56, "system_cpu": 2.99}} 
+,
+		"cdnld_f21" :  {"instance_pids": {"1": 714685}, "queueName": "q_tfeed_subscribe.cdnld_f21.33315843.44917621", "has_state": false, "noVip": null, "instance_metrics": {"1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337404.1069567, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337704.1069567, "msgRate": 0.747987574746258, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 32325974.761506274}, "status": {"mtime": 1692337607.6861053}}}, "logAge": {"1": 3.678518056869507}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337404.1069567, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 27410432, "rss": 45993984, "vms": 83800064, "user_cpu": 4.25, "system_cpu": 0.51}} 
+,
+		"rabbitmqtt_f31" :  {"instance_pids": {"1": 714631}, "queueName": "q_tsub_subscribe.rabbitmqtt_f31.79767125.27261202", "has_state": false, "noVip": null, "instance_metrics": {"1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337401.650451, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337701.650451, "msgRate": 0.6129034072990632, "current_sleep": 6.4}, "gather.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "sarracenia.transfer": {"byteRateInstant": 275922484.635514}, "status": {"mtime": 1692337614.4821947}}}, "logAge": {"1": 214.72132635116577}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337401.650451, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 25378816, "rss": 38363136, "vms": 73437184, "user_cpu": 1.25, "system_cpu": 0.21}} 
+	},
+	"watch": { 
+		"f40" :  {"instance_pids": {"1": 714686}, "queueName": null, "has_state": false, "noVip": null, "instance_metrics": {"1": {"flow": {"stop_requested": false, "last_housekeeping": 1692337576.358947, "transferConnected": false, "transferConnectStart": 0, "transferConnectTime": 0, "transferRxBytes": 0, "transferTxBytes": 0, "transferRxFiles": 0, "transferTxFiles": 0, "next_housekeeping": 1692337636.358947, "msgRate": 1.0908041306806586, "current_sleep": 5}, "post.message": {"connected": true, "disconnectLast": 0, "disconnectTime": 0, "disconnectCount": 0, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0}, "retry": {"msgs_in_download_retry": 0, "msgs_in_post_retry": 0}, "log": {"lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "rejectCount": 0}, "status": {"mtime": 1692337616.3622196}}}, "logAge": {"1": 0.0064697265625}, "metrics": {"byteRate": 0, "rejectCount": 0, "last_housekeeping": 1692337576.358947, "rxByteCount": 0, "rxGoodCount": 0, "rxBadCount": 0, "txByteCount": 0, "txGoodCount": 0, "txBadCount": 0, "lagMax": 0, "lagTotal": 0, "lagMessageCount": 0, "disconnectTime": 0.0, "transferConnectTime": 0.0, "transferRxBytes": 0, "transferRxFiles": 0, "transferTxBytes": 0, "transferTxFiles": 0, "msgs_in_post_retry": 0, "msgs_in_download_retry": 0}, "missing_instances": [], "hung_instances": [], "resource_usage": {"uss": 35786752, "rss": 53956608, "vms": 318488576, "user_cpu": 6.28, "system_cpu": 0.63}} 
+	},
+	"winnow": { 
+	}},
+
+
+"Bindings": { 
+
+
+
+"host":{
+	"localhost": { 
+
+
+		"exchanges": { "xcvan00":  ["q_tfeed_cpump.xvan_f14.79059044.03876095"] ,
+"xcvan01":  ["q_tfeed_cpump.xvan_f15.20170965.03497402"] ,
+"xs_tsource_poll":  ["q_tsource_poll.sftp_f63.67944374.11728880", "q_tsource_poll.sftp_f62.15496024.92485307", "q_tsource_subscribe.q_f71.38732328.60557658"] ,
+"xsarra":  ["q_tfeed_report.tsarra_f20.29177501.19025037", "q_tfeed_sarra.download_f20.82220366.18908557"] ,
+"xs_tsource":  ["q_tsource_sender.tsource2send_f50.41542793.22086458", "q_tsource_shovel.rabbitmqtt_f22.56498606.55227391"] ,
+"xs_mqtt_public":  ["q_tsub_subscribe.rabbitmqtt_f31.79767125.27261202"] ,
+"xcpublic":  ["q_tfeed_subscribe.cfile_f44.95480148.96212319"] ,
+"xs_tsource_output":  ["q_tsource_subscribe.u_sftp_f60.30149011.35319611", "q_tsource_subscribe.cp_f61.03141726.86019283"] ,
+"xs_tsource_shim":  ["q_tsource_subscribe.mirror_f80.32562569.08396926"] ,
+"xs_tsource_post":  ["q_tsource_subscribe.ftp_f70.54410586.50007061"] ,
+"xflow_public":  ["q_tsub_subscribe.amqp_f30.84725152.98673613"] ,
+"xcsarra":  ["q_tfeed_subscribe.cdnld_f21.33315843.44917621"] },
+		"queues": {
+	"q_tfeed_cpump.xvan_f14.79059044.03876095":  "['cpump/xvan_f14']" ,
+	"q_tfeed_cpump.xvan_f15.20170965.03497402":  "['cpump/xvan_f15']" ,
+	"q_tsource_poll.sftp_f63.67944374.11728880":  "['poll/sftp_f63']" ,
+	"q_tsource_poll.sftp_f62.15496024.92485307":  "['poll/sftp_f62']" ,
+	"q_tfeed_report.tsarra_f20.29177501.19025037":  "['report/tsarra_f20']" ,
+	"q_tfeed_sarra.download_f20.82220366.18908557":  "['sarra/download_f20']" ,
+	"q_tsource_sender.tsource2send_f50.41542793.22086458":  "['sender/tsource2send_f50']" ,
+	"q_tsource_shovel.rabbitmqtt_f22.56498606.55227391":  "['shovel/rabbitmqtt_f22']" ,
+	"q_tsub_subscribe.rabbitmqtt_f31.79767125.27261202":  "['subscribe/rabbitmqtt_f31']" ,
+	"q_tfeed_subscribe.cfile_f44.95480148.96212319":  "['subscribe/cfile_f44']" ,
+	"q_tsource_subscribe.u_sftp_f60.30149011.35319611":  "['subscribe/u_sftp_f60']" ,
+	"q_tsource_subscribe.mirror_f80.32562569.08396926":  "['subscribe/mirror_f80']" ,
+	"q_tsource_subscribe.ftp_f70.54410586.50007061":  "['subscribe/ftp_f70']" ,
+	"q_tsource_subscribe.cp_f61.03141726.86019283":  "['subscribe/cp_f61']" ,
+	"q_tsource_subscribe.q_f71.38732328.60557658":  "['subscribe/q_f71']" ,
+	"q_tsub_subscribe.amqp_f30.84725152.98673613":  "['subscribe/amqp_f30']" ,
+	"q_tfeed_subscribe.cdnld_f21.33315843.44917621":  "['subscribe/cdnld_f21']"  
+}
+},
+"hpfx.collab.science.gc.ca": { 
+
+
+		"exchanges": { "xpublic":  ["q_anonymous_subscribe.hpfx_amis.63551780.29192638"] },
+		"queues": {
+	"q_anonymous_subscribe.hpfx_amis.63551780.29192638":  "['subscribe/hpfx_amis']"  
+}
+}}
+},
+"nbroker summaries": {
+
+
+
+"broker": {
+"localhost":{
+
+"URL": "admin: amqp://bunnymaster@localhost",
+"exchanges": [ "xcvan00-1" ,
+"xcvan01-1" ,
+"xs_tsource_poll-3" ,
+"xsarra-2" ,
+"xs_tsource-2" ,
+"xs_mqtt_public-1" ,
+"xcpublic-1" ,
+"xs_tsource_output-2" ,
+"xs_tsource_shim-1" ,
+"xs_tsource_post-1" ,
+"xflow_public-1" ,
+"xcsarra-1" ],"queues": ["q_tfeed_cpump.xvan_f14.79059044.03876095-1" ,
+"q_tfeed_cpump.xvan_f15.20170965.03497402-1" ,
+"q_tsource_poll.sftp_f63.67944374.11728880-1" ,
+"q_tsource_poll.sftp_f62.15496024.92485307-1" ,
+"q_tfeed_report.tsarra_f20.29177501.19025037-1" ,
+"q_tfeed_sarra.download_f20.82220366.18908557-1" ,
+"q_tsource_sender.tsource2send_f50.41542793.22086458-1" ,
+"q_tsource_shovel.rabbitmqtt_f22.56498606.55227391-1" ,
+"q_tsub_subscribe.rabbitmqtt_f31.79767125.27261202-1" ,
+"q_tfeed_subscribe.cfile_f44.95480148.96212319-1" ,
+"q_tsource_subscribe.u_sftp_f60.30149011.35319611-1" ,
+"q_tsource_subscribe.mirror_f80.32562569.08396926-1" ,
+"q_tsource_subscribe.ftp_f70.54410586.50007061-1" ,
+"q_tsource_subscribe.cp_f61.03141726.86019283-1" ,
+"q_tsource_subscribe.q_f71.38732328.60557658-1" ,
+"q_tsub_subscribe.amqp_f30.84725152.98673613-1" ,
+"q_tfeed_subscribe.cdnld_f21.33315843.44917621-1" ]
+},
+"hpfx.collab.science.gc.ca":{
+
+"URL": "admin: none",
+"exchanges": [ "xpublic-1" ],"queues": ["q_anonymous_subscribe.hpfx_amis.63551780.29192638-1" ]
+}}
+},
+
+"Missing instances" : [
+
+
+] }
+
