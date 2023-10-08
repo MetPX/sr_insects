@@ -7,7 +7,7 @@
 
 """
 
-import http.server
+import RangeHTTPServer
 import socketserver
 import sys
 
@@ -16,7 +16,8 @@ PORT = 8001
 if len(sys.argv) > 1:
    PORT=int(sys.argv[1])
 
-Handler = http.server.SimpleHTTPRequestHandler
+#Handler = http.server.SimpleHTTPRequestHandler
+Handler = RangeHTTPServer.RangeRequestHandler
 
 httpd = socketserver.TCPServer(("", PORT), Handler)
 
