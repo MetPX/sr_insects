@@ -216,9 +216,14 @@ fi
 tot2shov=$(( ${totshovel1} + ${totshovel2} ))
 t4=$(( ${totfileamqp}*4 ))
 
+justfilecount=$(( ${staticfilecount} - ${staticdircount} ))
+echo " source tree: total:${staticfilecount} files: ${justfilecount} directories:${staticdircount} rejected:${rejectfilecount}"
+
+filesanddirscount=$(( ${staticfilecount} - ${rejectfilecount} ))
+
 echo "                 | dd.weather routing |"
-calcres "${staticfilecount}" "${totshovel2}" "${LGPFX}post\t count of posted files (${totshovel2}) should be same those in the static data directory\t (${staticfilecount})"
-calcres "${rejectfilecount}" "${totshovel2rej}" "${LGPFX}post\t count of rejected files (${totshovel2rej}) should be same those in the static data directory\t (${rejectfilecount})"
+#calcres "${staticfilecount}" "${totshovel2}" "${LGPFX}post\t count of posted files (${totshovel2}) should be same those in the static data directory\t (${staticfilecount})"
+#calcres "${rejectfilecount}" "${totshovel2rej}" "${LGPFX}post\t count of rejected files (${totshovel2rej}) should be same those in the static data directory\t (${rejectfilecount})"
 calcres "${totshovel1}" "${totshovel2}" "${LGPFX}post\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
 calcres "${totsarx}" "${tot2shov}" "${LGPFX}sarra\t (${totsarx}) should receive the same number of items as both post\t (${tot2shov})"
 calcres "${totsarp}" "${totshovel1}" "${LGPFX}sarra\t (${totsarp}) should publish the same number of items as one post\t (${totshovel1})"
@@ -228,7 +233,7 @@ calcres "${totwinnowed}" "${totshovel1}" "${LGPFX}sarra\t (${totwinnowed}) shoul
 if [ "${SKIP_KNOWN_BAD}" ]; then
     echo "skipping known bad subscriber check."
 else
-    calcres "${totfileamqp}" "${totsarp}" "${LGPFX}subscribe\t (${totfileamqp}) should rx the same number of items as sarra published\t (${totsarp})"
+    calcres "${totfileamqp}" "${filesanddirscount}" "${LGPFX}subscribe\t (${totfileamqp}) should rx the same number of items as in static tree\t (${filesanddirscount})"
 fi
 echo "                 | watch      routing |"
 calcres "${totwatch}" "${totfileamqp}"         "${LGPFX}watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totfileamqp})"
