@@ -137,6 +137,7 @@ function comparetree {
 }
 
 printf "checking trees...\n"
+checktree ../samples/data
 checktree ${testdocroot}/downloaded_by_sub_amqp
 checktree ${testdocroot}/downloaded_by_sub_cp
 checktree ${testdocroot}/downloaded_by_sub_rabbitmqtt
