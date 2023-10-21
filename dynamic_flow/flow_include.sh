@@ -295,20 +295,20 @@ function countall {
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'log after_post posted' "$LOGDIR"/watch_f40_*.log | wc -l`"
       totwatch=${tot}
-      countthem "`grep -aE 'log after_post posted.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v "'remove'[,:] " | grep -v "\'newname\': " | wc -l`"
+      countthem "`grep -aE 'log after_post posted.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v " remove " | grep -v "\'newname\': " | wc -l`"
       totwatchmoved=${tot}
-      countthem "`grep -aE 'log after_post posted.*.directory.:' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v "'remove'[,:] " | wc -l`"
+      countthem "`grep -aE 'log after_post posted.*.directory.:' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v " remove " | wc -l`"
       totwatchdir=${tot}
-      countthem "`grep -aE 'log after_post posted.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v "'remove'[,:] " | wc -l`"
+      countthem "`grep -aE 'log after_post posted.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v " remove " | wc -l`"
       totwatchhlinked=${tot}
-      countthem "`grep -aE 'log after_post posted.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v "'remove'[,:] " | wc -l`"
+      countthem "`grep -aE 'log after_post posted.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v " remove " | wc -l`"
       totwatchslinked=${tot}
       # rm's one per file renamed,    so totwatchmoved...
       # one per file or link created.     + totwatchhlinked+totwatchslinked
       # ... but renames will also have some normals? + totwatchnormal 
-      countthem "`egrep -aE "log after_post posted.*'remove'[,:]" "$LOGDIR"/${LGPFX}watch_f40_*.log | grep "'directory':" | wc -l`"
+      countthem "`egrep -aE "log after_post posted.* remove " "$LOGDIR"/${LGPFX}watch_f40_*.log | grep " directory " | wc -l`"
       totwatchrmdirs=${tot}
-      countthem "`egrep -aE "log after_post posted.*'remove'[,:]" "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v "'directory':" | wc -l`"
+      countthem "`egrep -aE "log after_post posted.* remove " "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v " directory " | wc -l`"
       totwatchrmfiles=${tot}
       totwatchremoved=$((${totwatchrmfiles}+${totwatchrmdirs}))
 
