@@ -29,6 +29,13 @@ except:
     print('missing python paramiko library (for scp/sftp testing)')
     sys.exit(10)
 
+try:
+    import RangeHTTPServer
+
+except: 
+    print('missing python RangeHTTPServer library (for block partitioned transfers)')
+    sys.exit(10)
+
 
 
 print('OK requisite python modules for testing seem to be present')
