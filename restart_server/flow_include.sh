@@ -193,7 +193,7 @@ function countall {
 
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep 'log after_post posted' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v \'directory\' | wc -l`"
+       countthem "`grep 'log after_post posted' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v directory | wc -l`"
   else
        countthem "`grep '\[INFO\] post_log' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
   fi
@@ -221,14 +221,14 @@ function countall {
   totfileamqp="${tot}"
 
   if [[ "${sarra_py_version}" > "3.00.25" ]]; then
-      countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep \'directory\' | wc -l`"
+      countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep directory | wc -l`"
       totdirsent="${tot}"
   else
       totdirsent=0
   fi
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -v \'directory\' | wc -l`"
+      countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -v directory | wc -l`"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
   fi
@@ -352,14 +352,14 @@ function countall {
       totcpelle05_rl="${tot}"
   fi
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f14_*.log | grep -v \"directory\" | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f14_*.log | grep -v directory | wc -l`"
   totcvan14p="${tot}"
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | grep -v \"directory\" | wc -l`"
+  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | grep -v directory | wc -l`"
   totcvan15p="${tot}"
 
   if [[ "${sarra_c_version}" > "3.22.12p1" ]]; then
-      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
+      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v directory | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
   else
       countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $7 }' | sort -u |wc -l`"
   fi
