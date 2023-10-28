@@ -297,7 +297,7 @@ function countall {
       totwatch=${tot}
       countthem "`grep -aE 'log after_post posted.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v " remove " | grep -v "\'newname\': " | wc -l`"
       totwatchmoved=${tot}
-      countthem "`grep -aE 'log after_post posted.*.directory.:' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v " remove " | wc -l`"
+      countthem "`grep -aE 'log after_post posted.* directory ' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v " remove " | wc -l`"
       totwatchdir=${tot}
       countthem "`grep -aE 'log after_post posted.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v " remove " | wc -l`"
       totwatchhlinked=${tot}
