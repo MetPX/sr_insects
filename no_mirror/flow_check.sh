@@ -148,7 +148,7 @@ checktree ${testdocroot}/cfile
 checktree ${testdocroot}/cfr
 
 checktree ${testdocroot}/sarra_download_f20
-checktree ${testdocroot}/sent_by_tsource2send
+checktree ${testdocroot}/sent_by_tsource2send/deeper/than/flat/sender
 
 if [[ -z "$skip_summaries" ]]; then
     # PAS performance summaries
@@ -190,14 +190,14 @@ printf "\t\tTEST RESULTS\n\n"
 logPermCheck
 
 echo "                 | content of subdirs of ${testdocroot} |"
-comparetree sarra_download_f20 sent_by_tsource2send
+comparetree sarra_download_f20 sender
 
 comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
 comparetree downloaded_by_sub_cp downloaded_by_sub_rabbitmqtt
 comparetree downloaded_by_sub_rabbitmqtt downloaded_by_sub_u
 comparetree downloaded_by_sub_u posted_by_shim
 comparetree downloaded_by_sub_amqp linked_by_shim
-comparetree posted_by_shim sent_by_tsource2send
+comparetree posted_by_shim sender
 
 if [ "${SKIP_KNOWN_BAD}" ]; then
    echo "skipping one known bad v2 comparison."
