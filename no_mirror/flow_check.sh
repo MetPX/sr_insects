@@ -141,9 +141,12 @@ checktree ${testdocroot}/downloaded_by_sub_amqp
 checktree ${testdocroot}/downloaded_by_sub_cp
 checktree ${testdocroot}/downloaded_by_sub_rabbitmqtt
 checktree ${testdocroot}/downloaded_by_sub_u
-checktree ${testdocroot}/posted_by_shim
+
+# these are not flat, tree written by sender.
+#checktree ${testdocroot}/posted_by_shim
+#checktree ${testdocroot}/mirror/linked_by_shim
+
 checktree ${testdocroot}/recd_by_srpoll_test1
-checktree ${testdocroot}/mirror/linked_by_shim
 checktree ${testdocroot}/cfile
 checktree ${testdocroot}/cfr
 
@@ -195,9 +198,11 @@ comparetree sarra_download_f20 sender
 comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
 comparetree downloaded_by_sub_cp downloaded_by_sub_rabbitmqtt
 comparetree downloaded_by_sub_rabbitmqtt downloaded_by_sub_u
-comparetree downloaded_by_sub_u posted_by_shim
-comparetree downloaded_by_sub_amqp linked_by_shim
-comparetree posted_by_shim sender
+
+# shim looking at sftp sender tree which is deep, not flat, so not the same as others.
+#comparetree downloaded_by_sub_u posted_by_shim
+#comparetree downloaded_by_sub_amqp linked_by_shim
+#comparetree posted_by_shim sender
 
 if [ "${SKIP_KNOWN_BAD}" ]; then
    echo "skipping one known bad v2 comparison."
