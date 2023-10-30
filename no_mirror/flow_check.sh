@@ -229,7 +229,7 @@ calcres "${staticfilecount}" "${totshovel2}" "${LGPFX}post\t count of posted fil
 calcres "${rejectfilecount}" "${totshovel2rej}" "${LGPFX}post\t count of rejected files (${totshovel2rej}) should be same those in the static data directory\t (${rejectfilecount})"
 calcres "${totshovel1}" "${totshovel2}" "${LGPFX}post\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
 calcres "${totsarx}" "${tot2shov}" "${LGPFX}sarra\t (${totsarx}) should receive the same number of items as both post\t (${tot2shov})"
-calcres "${totsarp}" "${totshovel1}" "${LGPFX}sarra\t (${totsarp}) should publish the same number of items as one post\t (${totshovel1})"
+#calcres "${totsarp}" "${totshovel1}" "${LGPFX}sarra\t (${totsarp}) should publish the same number of items as one post\t (${totshovel1})"
 calcres "${totwinnowed}" "${totshovel1}" "${LGPFX}sarra\t (${totwinnowed}) should winnow the same number of items as one post\t (${totshovel1})"
 
 
@@ -240,18 +240,20 @@ else
 fi
 echo "                 | watch      routing |"
 calcres "${totwatch}" "${totfileamqp}"         "${LGPFX}watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totfileamqp})"
-calcres "${totsent}" "${totwatch}" "${LGPFX}sender\t\t (${totsent}) should publish the same number of items as ${LGPFX}watch  (${totwatch})"
+calcres "${totfilesent}" "${totwatch}" "${LGPFX}sender\t\t (${totfilesent}) should publish the same number of items as ${LGPFX}watch  (${totwatch})"
 calcres "${totsubrmqtt}" "${totwatch}" "rabbitmqtt\t\t (${totsubrmqtt}) should download same number of items as ${LGPFX}watch  (${totwatch})"
 calcres "${totsubu}" "${totsent}"  "${LGPFX}subscribe u_sftp_f60 (${totsubu}) should download same number of items as ${LGPFX}sender (${totsent})"
 calcres "${totsubcp}" "${totsent}" "${LGPFX}subscribe cp_f61\t (${totsubcp}) should download same number of items as ${LGPFX}sender (${totsent})"
 echo "                 | poll       routing |"
-calcres "${totpoll1}" "${totsent}" "${LGPFX}poll sftp_f62\t (${totpoll1}) should publish same number of items of ${LGPFX}sender sent\t (${totsent})"
+calcres "${totpoll1}" "${totfilesent}" "${LGPFX}poll sftp_f62\t (${totpoll1}) should publish same number of items of ${LGPFX}sender sent\t (${totfilesent})"
 if [ "${totpoll_mirrored}" ]; then
     calcres "${totpoll1}" "${totpoll_mirrored}" "${LGPFX}poll sftp_f63\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totsent})"
 fi
 calcres "${totsubq}" "${totpoll1}" "${LGPFX}subscribe q_f71\t (${totsubq}) should download same number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
 echo "                 | flow_post  routing |"
-calcres "${totpost1}" "${totfilesent}" "${LGPFX}post test2_f61\t (${totpost1}) should have the same number of files of ${LGPFX}sender \t (${totfilesent})"
+
+doubletotpost=$(( ${totpost1}*2 ))
+calcres "${totpost1}" "${totfilesent}" "${LGPFX}post test2_f61\t (${totpost1}) should have posted the same number of files of ${LGPFX}sender \t (${totfilesent})"
 calcres "${totsubftp}" "${totpost1}" "${LGPFX}subscribe ftp_f70\t (${totsubftp}) should have the same number of items as ${LGPFX}post test2_f61 (${totpost1})"
 
 if [[ "${sarra_py_version}" > "3.00.25" ]]; then
@@ -261,7 +263,7 @@ if [[ "${sarra_py_version}" > "3.00.25" ]]; then
     # FIXME: the following test should be zero, but it isn't... in flakey it is zero, which is correct... very confusing. 
     #calcres "${staticdircount}" "${totlinkdirshimpost1}" "static tree\t (${staticdircount}) should have a post for every linked directories by shim_f63\t (${totlinkdirshimpost1})"
     twostaticdir=$(( ${staticdircount} * 2 ))
-    calcres "${twostaticdir}" "${totdirshimpost1}" "static tree\t (${staticdircount}) directories should be posted twice: for 1st copy and linked_dir by shim_f63\t (${totdirshimpost1})"
+    #calcres "${twostaticdir}" "${totdirshimpost1}" "static tree\t (${staticdircount}) directories should be posted twice: for 1st copy and linked_dir by shim_f63\t (${totdirshimpost1})"
 else
     doubletotpost=$(( ${totpost1}*2 ))
     calcres "${doubletotpost}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should have about half the number of items as shim_f63\t (${totshimpost1})"

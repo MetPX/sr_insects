@@ -220,7 +220,7 @@ function countall {
   totmsgamqp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-	  countthem "`grep -aE 'after_work (directory|downloaded) ok:' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
+	  countthem "`grep -aE 'after_work downloaded ok:' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] file_log downloaded to:' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
   fi
@@ -311,7 +311,7 @@ function countall {
       totsarx="${tot}"
       countthem "`grep -a 'rejected: 304 Not modified' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
       totsarx=$((${totsarx}+${tot}))
-      countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+      countthem "`grep -a 'log after_post posted to .* file .*' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
       totsarp="${tot}"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
