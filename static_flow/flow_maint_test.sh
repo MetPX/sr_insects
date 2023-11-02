@@ -48,7 +48,7 @@ if [ ! -d "${pyexamples}" ]; then
     pyexamples=${HOME}/Sarracenia/sr3/sarracenia/examples
     if [ ! -d "${pyexamples}" ]; then
 	if [ ! "${GITHUB_BASE_REF}"]; then
-            GITHUB_BASE_REF=v03_wip
+            GITHUB_BASE_REF=development
 	fi
 	wget https://raw.githubusercontent.com/MetPX/sarracenia/${GITHUB_BASE_REF}/sarracenia/examples/moth_api_consumer.py
 	wget https://raw.githubusercontent.com/MetPX/sarracenia/${GITHUB_BASE_REF}/sarracenia/examples/moth_api_producer.py
