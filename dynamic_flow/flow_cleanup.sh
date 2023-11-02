@@ -107,6 +107,7 @@ sr_action "Removing flow configs..." remove " " ">> $flowlogcleanup 2>\\&1" "$fl
 echo "Removing flow config logs..."
 if [ "${sarra_py_version:0:1}" == "3" ]; then
     echo $flow_configs |  sed 's/ / ;\n rm -f /g' | sed '1 s|^| rm -f |' | sed '/^ rm -f post/d' | sed 's+/+_+g' | sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].log\*/g' | (cd $LOGDIR; sh )
+    echo $flow_configs |  sed 's/ / ;\n rm -f /g' | sed '1 s|^| rm -f |' | sed 's+/+_+g' |  sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].json\*/g'| (cd ${LOGDIR}/../metrics; sh )
 
 else
     echo $flow_configs |  sed 's/ / ;\n rm -f sr_/g' | sed '1 s|^| rm -f sr_|' | sed '/^ rm -f sr_post/d' | sed 's+/+_+g' | sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].log\*/g' | (cd $LOGDIR; sh )
