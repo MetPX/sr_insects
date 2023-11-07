@@ -6,7 +6,7 @@
 reject .*\/\.tar
 # GRIB files will overwhelm a small server.
 reject .*\/grib2\/.*
-reject .*\.grib2\/.*
+reject .*\.grib2.*
 # large netcdf files as well.
 reject .*\/model_.*
 # radar imagery
