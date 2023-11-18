@@ -76,11 +76,14 @@ function sr_action {
     
     echo $msg
     if [ "${sarra_py_version:0:1}" == "3" ]; then
+
+	count="`sr3 status | grep stop | wc -l`"
+
         if [ "$SARRA_LIB" ]; then
-            ${SARRA_LIB}/sr3.py --dangerWillRobinson $action $files 
+            ${SARRA_LIB}/sr3.py --dangerWillRobinson $count $action $files 
         else
             echo sr3 $action $files
-            sr3 --dangerWillRobinson $action $files 
+            sr3 --dangerWillRobinson $count $action $files 
         fi
     else
         if [ "$SARRAC_LIB" ]; then
