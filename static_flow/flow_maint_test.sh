@@ -79,15 +79,18 @@ printf "count of messages queued is: ${posted_message_count}\n\n"
 
 calcres "${posted_message_count}" 1 "moth_api_producer.py should have posted 1 message"
 
+sr3 stop
+
+config_cnt="`sr3 status | grep stop | wc -l`" 
 echo "now remove all server-side resources with cleanup"
-sr3 --dangerWillRobinson cleanup
+sr3 --dangerWillRobinson ${config_cnt} cleanup
 
 queue_cnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=1; }; END { print t; };'`"
 
 zeroreallyok "${system_queue_count}" "$queue_cnt" "Expected ${system_queue_count} but there are ${queue_cnt}... only system queues should be here."
 
 configs_extant="`sr3 status | awk  '/^(cpost|cpump|poll|post|report|sarra|sender|shovel|subscribe|watch|flow)/ { print $1; }'  | wc -l`"
-sr3 --dangerWillRobinson remove
+sr3 --dangerWillRobinson ${configs_extant} remove
 
 configs_extant_after="`sr3 status | awk  '/^(cpost|cpump|poll|post|report|sarra|sender|shovel|subscribe|watch|flow)/ { print $1; }'  | wc -l`"
 
