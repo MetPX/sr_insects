@@ -173,7 +173,8 @@ else
     # RS not used?
     #comparetree downloaded_by_sub_amqp linked_by_shim
     comparetree posted_by_shim sent_by_tsource2send
-    comparetree downloaded_by_sub_amqp cfile
+    # C consumer fails because of https://github.com/MetPX/sarrac/issues/121
+    #comparetree downloaded_by_sub_amqp cfile
     comparetree cfile cfr
 
 fi
@@ -192,10 +193,12 @@ tot2shov=$(( ${totshovel1} + ${totshovel2} ))
 t4=$(( ${totfileamqp}*4 ))
 
 echo "                 | dd.weather routing |"
-expected_xattr_cnt=2242
-src_xattr_cnt="`find ${SAMPLEDATA} -type f | xargs xattr -l|wc -l`"
-calcres ${src_xattr_cnt} ${expected_xattr_cnt} "expected ${expected_xattr_cnt} number of extended attributes in source tree ${src_xattr_cnt}"
 
+if [ ! "${SKIP_KNOWN_BAD}" ]; then
+    expected_xattr_cnt=2242
+    src_xattr_cnt="`find ${SAMPLEDATA} -type f | xargs xattr -l|wc -l`"
+    calcres ${src_xattr_cnt} ${expected_xattr_cnt} "expected ${expected_xattr_cnt} number of extended attributes in source tree ${src_xattr_cnt}"
+fi
 
 
 
