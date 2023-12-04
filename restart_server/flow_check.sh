@@ -172,7 +172,9 @@ else
     # RS not used?
     #comparetree downloaded_by_sub_amqp linked_by_shim
     comparetree posted_by_shim sent_by_tsource2send
-    comparetree downloaded_by_sub_amqp cfile
+
+    # PAS C consumer fails because of https://github.com/MetPX/sarrac/issues/121
+    #comparetree downloaded_by_sub_amqp cfile
     comparetree cfile cfr
 
 fi
