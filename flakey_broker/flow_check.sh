@@ -196,7 +196,7 @@ echo "                 | dd.weather routing |"
 
 if [ ! "${SKIP_KNOWN_BAD}" ]; then
     expected_xattr_cnt=2242
-    src_xattr_cnt="`find ${SAMPLEDATA} -type f | xargs xattr -l|wc -l`"
+    src_xattr_cnt="`find ${SAMPLEDATA} -type f | xargs xattr -l|  grep ': user.sr_.*: '| wc -l`"
     calcres ${src_xattr_cnt} ${expected_xattr_cnt} "expected ${expected_xattr_cnt} number of extended attributes in source tree ${src_xattr_cnt}"
 fi
 
