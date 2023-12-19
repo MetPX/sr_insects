@@ -150,7 +150,7 @@ checktree ${testdocroot}/recd_by_srpoll_test1
 checktree ${testdocroot}/cfile
 checktree ${testdocroot}/cfr
 
-checktree ${testdocroot}/sarra_download_f20
+checktree ${testdocroot}/sarra_download_f20/tsource
 checktree ${testdocroot}/sent_by_tsource2send/deeper/than/flat/sender
 
 if [[ -z "$skip_summaries" ]]; then
@@ -193,7 +193,7 @@ printf "\t\tTEST RESULTS\n\n"
 logPermCheck
 
 echo "                 | content of subdirs of ${testdocroot} |"
-comparetree sarra_download_f20 sender
+comparetree tsource sender
 
 comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
 comparetree downloaded_by_sub_cp downloaded_by_sub_rabbitmqtt
