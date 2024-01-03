@@ -82,8 +82,8 @@ function sr_action {
         if [ "$SARRA_LIB" ]; then
             ${SARRA_LIB}/sr3.py --dangerWillRobinson $count $action $files 
         else
-            echo sr3 $action $files
-            sr3 --dangerWillRobinson $count $action $files 
+            echo sr3 --dangerWillRobinson ${count} $action $files
+            sr3 --dangerWillRobinson ${count} $action $files 
         fi
     else
         if [ "$SARRAC_LIB" ]; then
