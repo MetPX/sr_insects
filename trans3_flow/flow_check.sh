@@ -1,5 +1,7 @@
 #!/bin/bash
 
+flow_test_name="`basename pwd`"
+
 # parse arguments
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -137,7 +139,7 @@ zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we do
 #calcres ${totpost1} ${totsubu} "post test2_f61 ${totpost1} and subscribe u_sftp_f60 ${totsubu} run together. Should be about the same."
 
 
-tallyres "${tno}" "${passedno}" "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
+tallyres "${tno}" "${passedno}" "Overall ${flow_test_name} ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 results=$?
 
 if (("${missed_dispositions}">0)); then

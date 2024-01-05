@@ -12,7 +12,7 @@ countall
 
 snum=1
 
-printf "Initial v3 sample building sample size ${totsarra} need at least ${smin} \n"
+printf "Initial ${flow_test_name} v3 sample building sample size ${totsarra} need at least ${smin} \n"
 
 while [ "${totsarra}" == 0 ]; do
    sleep 10
@@ -137,5 +137,5 @@ echo "No messages left in queues... wait 2* maximum heartbeat ( ${need_to_wait} 
 
 sleep ${need_to_wait}
 
-printf "\n\nflow test v3 stopped at $totsarra (limit: $smin)\n\n"
+printf "\n\nflow test ${flow_test_name} v3 stopped at $totsarra (limit: $smin)\n\n"
 

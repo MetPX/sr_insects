@@ -24,7 +24,7 @@ while [ "${totsarra}" == 0 ]; do
    sleep 10
    countthem "`grep post_log "$LOGDIR"/sr_sarra_download_f20_0?.log | grep -v DEBUG | wc -l`"
    totsarra="${tot}"
-   printf "Waiting to start...\n"
+   printf "Waiting to start ${flow_test_name}...\n"
 done
 
 while [ $totsarra -lt $smin ]; do
@@ -62,7 +62,7 @@ while [ $totsarra -lt $smin ]; do
    sleep 45
    countall
 
-   printf  "Sample now: %6d Missed_dispositions:%d\n"  "$totsarra" "$missed_dispositions"
+   printf  "Sample ${flow_test_name} now: %6d Missed_dispositions:%d\n"  "$totsarra" "$missed_dispositions"
 
 done
 printf  "\nSufficient!\n" 
@@ -141,5 +141,5 @@ echo "No messages left in queues... wait 2* maximum heartbeat ( ${need_to_wait} 
 
 sleep ${need_to_wait}
 
-printf "\n\nflow test stopped at $totsarra (limit: $smin)\n\n"
+printf "\n\nflow test ${flow_test_name} stopped at $totsarra (limit: $smin)\n\n"
 

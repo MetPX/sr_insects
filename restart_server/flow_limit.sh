@@ -148,7 +148,7 @@ queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv l
 while [ $queued_msgcnt -gt 0 ]; do
         queues_with_msgs="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ && ( $2 > 0 ) { print $1; };' | sed ':a;N;$!ba;s/\\n/, /g' `"
 	printf "%s" "$queues_with_msgs" > /tmp/rstest
-        printf "Still %4s messages (in queues: %s) flowing, waiting...\n" "$queued_msgcnt" "$queues_with_msgs"
+        printf "${flow_test_name} Still %4s messages (in queues: %s) flowing, waiting...\n" "$queued_msgcnt" "$queues_with_msgs"
         sleep 10
         queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };'`"
 done
@@ -158,5 +158,5 @@ echo "No messages left in queues... wait 3* maximum heartbeat ( ${need_to_wait} 
 
 sleep ${need_to_wait}
 
-printf "\n\nflow test stopped. \n\n"
+printf "\n\nflow test ${flow_test_name} stopped. \n\n"
 

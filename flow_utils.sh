@@ -3,6 +3,9 @@
 #SR_TEST_CONFIGS=`sr_subscribe list | awk '  / examples:/ { print $4; }; '`
 #export SR_TEST_CONFIGS=`dirname ${SR_TEST_CONFIGS}`
 
+flow_test_name="`pwd`"
+flow_test_name="`basename ${flow_test_name}`"
+
 ../prereq.sh  >/tmp/prereq.log
 
 if [ $? -ne 0 ]; then

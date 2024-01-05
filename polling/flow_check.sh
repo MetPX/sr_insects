@@ -1,5 +1,7 @@
 #!/bin/bash
 
+flow_test_name="`basename pwd`"
+
 # parse arguments
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -99,7 +101,7 @@ calcres ${staticfilecount} ${totpollsftp} "files sr_polled by SFTP (${totpollsft
 calcres ${totpollftp}    ${totsubftp} "sr_subscribe\t (${totsubftp}) should as many as polled (FTP)\t (${totpollftp})"
 calcres ${totpollsftp}    ${totsubsftp} "sr_subscribe\t (${totsubsftp}) should as many as polled (SFTP)\t (${totpollsftp})"
 
-tallyres ${tno} ${passedno} "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
+tallyres ${tno} ${passedno} "Overall ${flow_test_name} ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 results=$?
 
 if (("${missed_dispositions}">0)); then
