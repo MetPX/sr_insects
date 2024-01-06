@@ -57,13 +57,13 @@ except:
     logdir = str(pathlib.Path.home()) + '/.cache/${SR_DEV_APPNAME}/log'
 
 
-cachedir  = cachedir.replace(' ','\ ')
+cachedir  = cachedir.replace(' ',r'\ ')
 print('export CACHEDIR=%s'% cachedir)
 
-confdir = confdir.replace(' ','\ ')
+confdir = confdir.replace(' ',r'\ ')
 print('export CONFDIR=%s'% confdir)
 
-logdir  = logdir.replace(' ','\ ')
+logdir  = logdir.replace(' ',r'\ ')
 print('export LOGDIR=%s'% logdir)
 
 EOF
