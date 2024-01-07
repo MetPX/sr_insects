@@ -241,7 +241,7 @@ function countall {
   totsent=$((${totfilesent}+${totdirsent}))
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="directory\ ok:|downloaded\ ok:|filtered\ ok:|written\ from\ message\ ok:"
+      all_events="directory ok:|downloaded ok:|filtered ok:|written from message ok:"
       countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
   else
       no_hardlink_events='downloaded to:|symlinked to|removed|written from message'
@@ -256,7 +256,7 @@ function countall {
   totsubcp="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      all_events="directory\ ok:|downloaded\ ok:|filtered\ ok:|written\ from\ message\ ok:"
+      all_events="directory ok:|downloaded ok:|filtered ok:|written from message ok:"
       countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
   else
       countthem "`grep -aE "$no_hardlink_events" "$LOGDIR"/${LGPFX}subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
