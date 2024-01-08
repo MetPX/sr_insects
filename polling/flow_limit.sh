@@ -11,7 +11,7 @@ stalled=0
 stalled_value=-1
 retry_msgcnt="`cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2>/dev/null | sort -u | wc -l`"
 while [ $retry_msgcnt -gt 0 ]; do
-        printf "Still %4s messages to retry, waiting...\n" "$retry_msgcnt"
+        printf "${flow_test_name} Still %4s messages to retry, waiting...\n" "$retry_msgcnt"
         sleep 10
         retry_msgcnt="`cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2> /dev/null | sort -u | wc -l`"
 
@@ -32,10 +32,10 @@ done
 queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };'`"
 while [ $queued_msgcnt -gt 0 ]; do
         queues_with_msgs="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ && ( $2 > 0 ) { print $1; };'`"
-        printf "Still %4s messages (in queues: %s) flowing, waiting...\n" "$queued_msgcnt" "$queues_with_messages"
+        printf "${flow_test_name} Still %4s messages (in queues: %s) flowing, waiting...\n" "$queued_msgcnt" "$queues_with_messages"
         sleep 10
         queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };'`"
 done
 
-printf "\n\nflow test stopped. \n\n"
+printf "\n\nflow test ${flow_test_name} stopped. \n\n"
 

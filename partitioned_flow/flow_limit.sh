@@ -12,7 +12,7 @@ stalled=0
 stalled_value=-1
 retry_msgcnt="`cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2>/dev/null | sort -u | wc -l`"
 while [ $retry_msgcnt -gt 0 ]; do
-        printf "Still %4s messages to retry, waiting...\n" "$retry_msgcnt"
+        printf "${flow_test_name} Still %4s messages to retry, waiting...\n" "$retry_msgcnt"
         sleep 10
         retry_msgcnt="`cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2> /dev/null | sort -u | wc -l`"
 
@@ -47,5 +47,5 @@ printf ¨\nwaiting $sleepytime for things to settle out\n¨
 sleep $sleepytime
 
 
-printf "\n\nflow test stopped. \n\n"
+printf "\n\nflow test ${flow_test_name} stopped. \n\n"
 

@@ -241,16 +241,16 @@ function countall {
       countthem "`grep -a 'clean_f92 after_accept unlink' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | wc -l`"
       totclean2unlinked=${tot}
 
-      countthem "`grep -a 'clean_f92 after_accept unlink' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep -v '\.(moved|hlink|slink)' | wc -l`"
+      countthem "`grep -a 'clean_f92 after_accept unlink' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | grep -Ev '\.(moved|hlink|slink)' | wc -l`"
       totclean2unlinknormal=${tot}
 
-      countthem "`grep -a 'clean_f92 after_accept unlink' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep '\.moved' | wc -l`"
+      countthem "`grep -a 'clean_f92 after_accept unlink' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | grep -E '\.moved' | wc -l`"
       totclean2unlinkmoved=${tot}
 
-      countthem "`grep -a 'clean_f92 after_accept unlink' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep '\.hlink' | wc -l`"
+      countthem "`grep -a 'clean_f92 after_accept unlink' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | grep -E '\.hlink' | wc -l`"
       totclean2unlinkhlinked=${tot}
 
-      countthem "`grep -a 'clean_f92 after_accept unlink' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep '\.slink' | wc -l`"
+      countthem "`grep -a 'clean_f92 after_accept unlink' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | grep -E '\.slink' | wc -l`"
       totclean2unlinkslinked=${tot}
 
   else
@@ -268,16 +268,16 @@ function countall {
       countthem "`grep -aE '\[INFO\] unlinked [1-3] ' "$LOGDIR"/sr_shovel_pclean_f92*.log | wc -l`"
       totclean2unlinked=${tot}
 
-      countthem "`grep -a '\[INFO\] unlinked [1-3] ' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep -v '\.(moved|hlink|slink)' | wc -l`"
+      countthem "`grep -a '\[INFO\] unlinked [1-3] ' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | grep -Ev '\.(moved|hlink|slink)' | wc -l`"
       totclean2unlinknormal=${tot}
 
-      countthem "`grep -a '\[INFO\] unlinked [1-3] ' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep '\.moved' | wc -l`"
+      countthem "`grep -a '\[INFO\] unlinked [1-3] ' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | grep -E '\.moved' | wc -l`"
       totclean2unlinkmoved=${tot}
 
-      countthem "`grep -a '\[INFO\] unlinked [1-3] ' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep '\.hlink' | wc -l`"
+      countthem "`grep -a '\[INFO\] unlinked [1-3] ' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | grep -E '\.hlink' | wc -l`"
       totclean2unlinkhlinked=${tot}
 
-      countthem "`grep -a '\[INFO\] unlinked [1-3] ' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | egrep '\.slink' | wc -l`"
+      countthem "`grep -a '\[INFO\] unlinked [1-3] ' "$LOGDIR"/${LGPFX}shovel_pclean_f92_*.log | grep -E '\.slink' | wc -l`"
       totclean2unlinkslinked=${tot}
 
 
@@ -295,20 +295,20 @@ function countall {
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'log after_post posted' "$LOGDIR"/watch_f40_*.log | wc -l`"
       totwatch=${tot}
-      countthem "`grep -aE 'log after_post posted.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v " remove " | grep -v "\'newname\': " | wc -l`"
+      countthem "`grep -aE 'log after_post posted.*\.moved' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -Ev " remove " | grep -v "\'newname\': " | wc -l`"
       totwatchmoved=${tot}
-      countthem "`grep -aE 'log after_post posted.* directory ' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v " remove " | wc -l`"
+      countthem "`grep -aE 'log after_post posted.* directory ' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -Ev " remove " | wc -l`"
       totwatchdir=${tot}
-      countthem "`grep -aE 'log after_post posted.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v " remove " | wc -l`"
+      countthem "`grep -aE 'log after_post posted.*\.hlink' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -Ev " remove " | wc -l`"
       totwatchhlinked=${tot}
-      countthem "`grep -aE 'log after_post posted.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log | egrep -v " remove " | wc -l`"
+      countthem "`grep -aE 'log after_post posted.*\.slink' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -Ev " remove " | wc -l`"
       totwatchslinked=${tot}
       # rm's one per file renamed,    so totwatchmoved...
       # one per file or link created.     + totwatchhlinked+totwatchslinked
       # ... but renames will also have some normals? + totwatchnormal 
-      countthem "`egrep -aE "log after_post posted.* remove " "$LOGDIR"/${LGPFX}watch_f40_*.log | grep " directory " | wc -l`"
+      countthem "`grep -aE "log after_post posted.* remove " "$LOGDIR"/${LGPFX}watch_f40_*.log | grep " directory " | wc -l`"
       totwatchrmdirs=${tot}
-      countthem "`egrep -aE "log after_post posted.* remove " "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v " directory " | wc -l`"
+      countthem "`grep -aE "log after_post posted.* remove " "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v " directory " | wc -l`"
       totwatchrmfiles=${tot}
       totwatchremoved=$((${totwatchrmfiles}+${totwatchrmdirs}))
 

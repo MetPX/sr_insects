@@ -203,7 +203,7 @@ else
 fi
 
 if [ $passed_checks = $count_of_checks ]; then
-   echo "Overall: PASSED $passed_checks/$count_of_checks checks passed!"
+   echo "Overall ${flow_test_name}: PASSED $passed_checks/$count_of_checks checks passed!"
 else
-   echo "Overall: FAILED $passed_checks/$count_of_checks passed."
+   echo "Overall ${flow_test_name}: FAILED $passed_checks/$count_of_checks passed."
 fi

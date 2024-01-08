@@ -18,6 +18,7 @@ set -- "${POSITIONAL[@]}"
 . ./flow_include.sh
 countall
 
+
 function summarize_performance {
     path="$LOGDIR"/$1
     shift
@@ -300,7 +301,7 @@ fi
 zerowanted  "${messages_unacked}" "${maxshovel}" "broker unacknowledged messages"
 zerowanted  "${messages_ready}" "${maxshovel}" "broker messages ready to be consumed (queued but not consumed)"
 
-tallyres ${tno} ${passedno} "Overall ${passedno} of ${tno} passed (sample size: $totsarra) !"
+tallyres ${tno} ${passedno} "Overall ${flow_test_name} ${passedno} of ${tno} passed (sample size: $totsarra) !"
 results=$?
 
 if (("${missed_dispositions}">0)); then

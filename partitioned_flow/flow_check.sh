@@ -1,5 +1,7 @@
 #!/bin/bash
 
+flow_test_name="`basename pwd`"
+
 # parse arguments
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -298,7 +300,7 @@ if [ "$MQP" == "amqp" ]; then
 fi
 
 
-echo "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
+echo "Overall ${flow_test_name} ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 
 #tallyres "${tno}" "${passedno}" "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 

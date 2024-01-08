@@ -3,6 +3,9 @@
 #SR_TEST_CONFIGS=`sr_subscribe list | awk '  / examples:/ { print $4; }; '`
 #export SR_TEST_CONFIGS=`dirname ${SR_TEST_CONFIGS}`
 
+flow_test_name="`pwd`"
+flow_test_name="`basename ${flow_test_name}`"
+
 ../prereq.sh  >/tmp/prereq.log
 
 if [ $? -ne 0 ]; then
@@ -54,13 +57,13 @@ except:
     logdir = str(pathlib.Path.home()) + '/.cache/${SR_DEV_APPNAME}/log'
 
 
-cachedir  = cachedir.replace(' ','\ ')
+cachedir  = cachedir.replace(' ',r'\ ')
 print('export CACHEDIR=%s'% cachedir)
 
-confdir = confdir.replace(' ','\ ')
+confdir = confdir.replace(' ',r'\ ')
 print('export CONFDIR=%s'% confdir)
 
-logdir  = logdir.replace(' ','\ ')
+logdir  = logdir.replace(' ',r'\ ')
 print('export LOGDIR=%s'% logdir)
 
 EOF

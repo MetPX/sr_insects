@@ -35,7 +35,7 @@ done
 queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };'`"
 while [ $queued_msgcnt -gt 0 ]; do
         queues_with_msgs="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ && ( $2 > 0 ) { print $1; };' | sed ':a;N;$!ba;s/\\n/, /g' `"
-        printf "Still %4s messages (in queues: %s) flowing, waiting...\n" "$queued_msgcnt" "$queues_with_msgs"
+        printf "${flow_test_name} Still %4s messages (in queues: %s) flowing, waiting...\n" "$queued_msgcnt" "$queues_with_msgs"
         sleep 10
         queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };'`"
 
@@ -47,5 +47,5 @@ printf ¨\nwaiting $sleepytime for things to settle out\n¨
 sleep $sleepytime
 
 
-printf "\n\nflow test stopped. \n\n"
+printf "\n\nflow test ${flow_test_name} stopped. \n\n"
 
