@@ -1,0 +1,72 @@
+fpcn48 cwao 050300
+ultraviolet (uv) index forecast for canadian cities issued by environment canada
+at 10 pm est saturday 4 january 2020 for sunday.
+
+uv index is related to sky conditions and precipitations.
+uv index would be higher than stated during sunny breaks or if weather
+conditions improve.
+
+all times are in local time.
+
+sunday
+location       weather forecast             uv index  category   time above 3
+
+iqaluit        mainly sunny                 0         low        none
+resolute       a few clouds                 0         low        none
+inuvik         partly cloudy                0         low        none
+rankin inlet   mainly cloudy                0         low        none
+yellowknife    a mix of sun and cloud       0         low        none
+whitehorse     a mix of sun and cloud       0         low        none
+vancouver      periods of rain              1         low        none
+victoria       chance of showers            1         low        none
+kamloops       a few showers                0         low        none
+nanaimo        showers                      0         low        none
+port hardy     chance of showers            0         low        none
+prince rupert  rain showers or flurries     0         low        none
+kelowna        rain showers or flurries     0         low        none
+prince george  periods of snow and rain     0         low        none
+cranbrook      flurries or rain showers     1         low        none
+castlegar      snow                         0         low        none
+edmonton       sunny                        1         low        none
+calgary        sunny                        1         low        none
+lethbridge     sunny                        1         low        none
+red deer       mainly sunny                 1         low        none
+medicine hat   sunny                        1         low        none
+banff          flurries                     1         low        none
+grande prairie a mix of sun and cloud       1         low        none
+saskatoon      sunny                        1         low        none
+regina         sunny                        1         low        none
+yorkton        clearing                     1         low        none
+thompson       periods of snow              0         low        none
+winnipeg       flurries                     1         low        none
+thunder bay    snow                         0         low        none
+sudbury        snow                         1         low        none
+windsor        a few flurries               1         low        none
+toronto        chance of snow               1         low        none
+barrie         flurries                     1         low        none
+london         snow                         1         low        none
+ottawa         a mix of sun and cloud       1         low        none
+kingston       a mix of sun and cloud       1         low        none
+montreal       a few flurries               1         low        none
+sherbrooke     light snow                   0         low        none
+quebec         snow                         1         low        none
+ste-adele      a few flurries               1         low        none
+fredericton    periods of snow              0         low        none
+saint john nb  periods of snow              0         low        none
+sydney         snow and blowing snow        0         low        none
+halifax        snow                         0         low        none
+charlottetown  periods of snow              0         low        none
+st. john's nf  snow and blowing snow        0         low        none
+goose bay      a mix of sun and cloud       1         low        none
+
+uv categories      uv index range (rounded values)
+
+extreme                 11 or higher
+very high                8 to 10
+high                     6 to 7
+moderate                 3 to 5
+low                      2 or less
+
+for sun protection tips you can visit environment canada's web site at
+www.canada.ca/uv-index.
+
