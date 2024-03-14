@@ -288,13 +288,13 @@ function countall {
   fi
   totpost1="${tot}"
 
-  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | grep -v \"link\" | grep -v \"directory\" | wc -l`"
+  countthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep shim | grep -v \"link\" | grep -v \"directory\" | wc -l`"
   totfileshimpost1="${tot}"
-  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | grep \"link\" | grep -v \"directory\" | wc -l`"
+  countthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep shim | grep \"link\" | grep -v \"directory\" | wc -l`"
   totlinkshimpost1="${tot}"
-  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | grep \"link\" | grep \"directory\" | wc -l`"
+  countthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep shim | grep \"link\" | grep \"directory\" | wc -l`"
   totlinkdirshimpost1="${tot}"
-  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | grep \"directory\" | grep -v \"link\" | wc -l`"
+  countthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep shim | grep \"directory\" | grep -v \"link\" | wc -l`"
   totdirshimpost1="${tot}"
 
   totshimpost=$((${totfileshimpost1}+${totlinkshimpost1}+${totdirshimpost1}))
@@ -332,7 +332,7 @@ function countall {
   rejectfilecount="`find ${SAMPLEDATA} -type f | grep reject | wc -l`"
 
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
   totcpelle04p="${tot}"
 
   countthem "`grep -a 'post_rate_limit' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
@@ -342,7 +342,7 @@ function countall {
       countthem "`grep -a 'messageRateMax' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
       totcpelle04_rl="${tot}"
   fi
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_pelle_dd2_f05_*.log | wc -l`"
+  countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/${LGPFX}cpost_pelle_dd2_f05_*.log | wc -l`"
   totcpelle05p="${tot}"
   countthem "`grep -a 'post_rate_limit' $LOGDIR/${LGPFX}cpost_pelle_dd2_f05_*.log | wc -l`"
   totcpelle05_rl="${tot}"
@@ -352,14 +352,14 @@ function countall {
       totcpelle05_rl="${tot}"
   fi
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f14_*.log | grep -v directory | wc -l`"
+  countthem "`grep -a '\[INFO\] cpump published:' $LOGDIR/${LGPFX}cpump_xvan_f14_*.log | grep -v directory | wc -l`"
   totcvan14p="${tot}"
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | grep -v directory | wc -l`"
+  countthem "`grep -a '\[INFO\] cpump published:' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | grep -v directory | wc -l`"
   totcvan15p="${tot}"
 
   if [[ "${sarra_c_version}" > "3.22.12p1" ]]; then
-      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v directory | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
+      countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v directory | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
   else
       countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $7 }' | sort -u |wc -l`"
   fi
