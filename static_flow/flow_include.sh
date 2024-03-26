@@ -164,6 +164,7 @@ function sumlogshistory {
   fi
 }
 
+
 function countall {
 
   sumlogs msg_total $LOGDIR/${LGPFX}report_tsarra_f20_*.log
@@ -175,7 +176,6 @@ function countall {
        countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_post_t_dd1_f00_*.log | wc -l`"
   fi
   totshovel1="${tot}"
-
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -a 'log after_post posted' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
@@ -204,17 +204,18 @@ function countall {
   fi
   totfilewatch="${tot}"
 
-
-
-  if [[ "${sarra_py_version}" > "3.00.25" ]]; then
-       countthem "`grep 'after_work directory ok' "$LOGDIR"/${LGPFX}watch_f40_*.log | awk ' { print $8; } ' | sort -u  | wc -l`"
+  if [[ "${sarra_py_version}" > "3.00.52" ]]; then
+      countthem "`grep -a 'a directory with' ${LOGDIR}/${LGPFX}watch_f40_*.log | wc -l`"
+      totdirwatch="${tot}"
+  elif [[ "${sarra_py_version}" > "3.00.25" ]]; then
+       countthem "`grep -a 'after_work directory ok' ${LOGDIR}/${LGPFX}watch_f40_*.log | awk ' { print $8; } ' | sort -u  | wc -l`"
        totdirwatch="${tot}"
   else
+       echo "sr3 version too old to produce directory posts"
        totdirwatch=0
   fi
 
   totwatch=$((${totfilewatch}+${totdirwatch}))
-
 
   sumlogs msg_total $LOGDIR/${LGPFX}subscribe_amqp_f30_*.log
   totmsgamqp="${tot}"
@@ -256,7 +257,6 @@ function countall {
   countthem "`grep -aE "directory\ ok:" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
   totsubmqttDir="${tot}"
 
-  
   countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_u_sftp_f60_*.log | grep -v DEBUG | wc -l`"
   totsubu="${tot}"
   countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_cp_f61_*.log | grep -v DEBUG | wc -l`"
@@ -279,7 +279,6 @@ function countall {
        countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}poll_sftp_f62_*.log | wc -l`"
        totpoll1="${tot}"
   fi
-  
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -a 'log after_post posted' $srposterlog | grep -v shim | wc -l`"
@@ -392,9 +391,7 @@ function countall {
   # flags when two lines include *msg_log received* (with no other message between them) indicating no user will know what happenned.
   awk 'BEGIN { lr=0; }; /msg_log received/ { lr++; print lr, FILENAME, $0 ; next; }; { lr=0; } '  $LOGDIR/${LGPFX}subscribe_*_f??_??.log  | grep -v '^1 ' >$missedreport
   missed_dispositions="`wc -l <$missedreport`"
-
 }
 
 messages_unacked="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} list queues name messages_unacknowledged | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$4; }; END { print t; };'`"
 messages_ready="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} list queues name messages_ready | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$4; }; END { print t; };'`"
- 
