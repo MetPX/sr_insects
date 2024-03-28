@@ -203,6 +203,10 @@ function countall {
   if [[ "${sarra_py_version}" > "3.00.52" ]]; then
       countthem "`grep 'after_post posted .* a directory' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
       totdirwatch="${tot}"
+
+      countthem "`sr3 status | grep -a 'wVip' | wc -l `"
+      totwvip="${tot}"
+
   elif [[ "${sarra_py_version}" > "3.00.25" ]]; then
       countthem "`grep 'after_work directory ok' "$LOGDIR"/${LGPFX}watch_f40_*.log | awk ' { print $8; } ' | sort -u  | wc -l`"
       totdirwatch="${tot}"

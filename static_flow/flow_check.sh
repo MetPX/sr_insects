@@ -293,6 +293,9 @@ if [ "$MQP" == "amqp" ]; then
   zerowanted  "${messages_ready}" "${maxshovel}" "there should be no messages ready to be consumed but there are ${messages_ready}"
 fi
 
+if [ "${totwvip}" ]; then
+  calcres "${totwvip}" 1 "there should be 1 process in wVip state"
+fi
 
 echo "Overall ${flow_test_name} ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 
