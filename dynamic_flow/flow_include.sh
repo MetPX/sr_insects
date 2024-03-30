@@ -419,12 +419,15 @@ function countall {
   fi
   totpost1="${tot}"
 
-  countthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep shim | wc -l`"
-  totshimpost1="${tot}"
-
   if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep shim | wc -l`"
+      totshimpost1="${tot}"
+
       countthem "`grep -a 'log after_post posted' "$LOGDIR"/sarra_download_f20_*.log | wc -l`"
   else
+      countthem "`grep -a '\[INFO\] published:' $srposterlog | grep shim | wc -l`"
+      totshimpost1="${tot}"
+
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sr_sarra_download_f20_*.log | wc -l`"
   fi
   totsarp="${tot}"
@@ -439,8 +442,6 @@ function countall {
   countthem "`grep -a '\[INFO\] rejecting ' $LOGDIR/${LGPFX}cpump_pelle_dd1_f04_*.log | wc -l`"
   totcpelle04rej="${tot}"
 
-  countthem "`grep -a '\[INFO\] cpump published:' $LOGDIR/${LGPFX}cpump_pelle_dd1_f04_*.log | wc -l`"
-  totcpelle04p="${tot}"
 
   countthem "`grep -a '\[INFO\] received:' $LOGDIR/${LGPFX}cpump_pelle_dd2_f05_*.log | wc -l`"
   totcpelle05r="${tot}"
@@ -448,28 +449,49 @@ function countall {
   countthem "`grep -a '\[INFO\] rejecting ' $LOGDIR/${LGPFX}cpump_pelle_dd2_f05_*.log | wc -l`"
   totcpelle05rej="${tot}"
 
-  countthem "`grep -a '\[INFO\] cpump published:' $LOGDIR/${LGPFX}cpump_pelle_dd2_f05_*.log | wc -l`"
-  totcpelle05p="${tot}"
-
-  countthem "`grep -a '\[INFO\] cpump published:' $LOGDIR/${LGPFX}cpump_xvan_f14_*.log | wc -l`"
-  totcvan14p="${tot}"
-
-  countthem "`grep -a '\[INFO\] cpump published:' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | wc -l`"
-  totcvan15p="${tot}"
-
-  countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep \"directory\" | wc -l`"
-  totcveilledir="${tot}"
-
-  countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | wc -l`"
-  totcveillefile="${tot}"
-
-  totcveille=$((${totcveillefile}+${totcveilledir}))
-
   if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -a '\[INFO\] cpump published:' $LOGDIR/${LGPFX}cpump_pelle_dd1_f04_*.log | wc -l`"
+      totcpelle04p="${tot}"
+
+      countthem "`grep -a '\[INFO\] cpump published:' $LOGDIR/${LGPFX}cpump_pelle_dd2_f05_*.log | wc -l`"
+      totcpelle05p="${tot}"
+
+      countthem "`grep -a '\[INFO\] cpump published:' $LOGDIR/${LGPFX}cpump_xvan_f14_*.log | wc -l`"
+      totcvan14p="${tot}"
+
+      countthem "`grep -a '\[INFO\] cpump published:' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | wc -l`"
+      totcvan15p="${tot}"
+
+      countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep \"directory\" | wc -l`"
+      totcveilledir="${tot}"
+
+      countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | wc -l`"
+      totcveillefile="${tot}"
+
       countthem "`grep -a 'after_work downloaded ok' $LOGDIR/subscribe_cdnld_f21_*.log | wc -l`"
   else
+      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_pelle_dd1_f04_*.log | wc -l`"
+      totcpelle04p="${tot}"
+
+      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_pelle_dd2_f05_*.log | wc -l`"
+      totcpelle05p="${tot}"
+
+      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f14_*.log | wc -l`"
+      totcvan14p="${tot}"
+
+      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | wc -l`"
+      totcvan15p="${tot}"
+
+      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep \"directory\" | wc -l`"
+      totcveilledir="${tot}"
+
+      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | wc -l`"
+      totcveillefile="${tot}"
+
       countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/sr_subscribe_cdnld_f21_*.log | wc -l`"
   fi
+
+  totcveille=$((${totcveillefile}+${totcveilledir}))
   totcdnld="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
