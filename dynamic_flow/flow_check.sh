@@ -184,7 +184,7 @@ echo
 echo "                 | watch      routing | watching files that arrive in downloaded_by_sub_amqp"
 echo
 
-if [ "${V2_SKIP_KNOWN_BAD}" ]; then
+if [ ! "${V2_SKIP_KNOWN_BAD}" ]; then
    puf=9 # pclean_unlink_factor (how many files are created and unlinked per file downloaded.)
    t8=$(( ${totfileamqp}*${puf} ))
    calcres "${totremoved}"    "${t8}" "${LGPFX}shovel pclean_f92\t (${totremoved}) should have removed ${puf} times the number of files downloaded\t (${totfileamqp})"
@@ -233,14 +233,8 @@ echo
 t7=$((${totsendall}-${totsendremoved}))
 calcres "${totpoll1}" "${t7}"         "tot ${LGPFX}poll 1 f62\t (${totpoll1}) should as many as were sent (minus removes) ${LGPFX}sender\t (${t7})"
 
-if [ "${sarra_py_version:0:1}" == "3" ]; then
 
-    calcres "${totsubq}" "${totpoll1}"  "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
-else
-    t8=$((${totpoll1}*2))
-    calcres "${totsubq}" "${t8}"  "${LGPFX}subscribe q_f71\t (${totsubq}) should have double the number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
-
-fi
+calcres "${totsubq}" "${totpoll1}"  "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
 
 echo
 echo "                 | flow_post  routing | shim library and ls manual posting of contents of /sent_by_tsource2send directory"
