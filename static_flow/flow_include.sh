@@ -351,7 +351,7 @@ function countall {
 
   rejectfilecount="`find ${SAMPLEDATA} -type f | grep reject | wc -l`"
 
-  if [[ "${sarra_c_version}" > "3.51" ]]; then
+  if [[ "${sarra_c_version}" > "3.00.51" ]]; then
       countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
       totcpelle04p="${tot}"
 
