@@ -57,7 +57,7 @@ while [ "${totsarra}" -lt "${smin}" ]; do
    sleep 45
    countall
 
-   printf  "Sample now: %6d Missed_dispositions:%d\n"  "$totsarra" "$missed_dispositions"
+   printf  "Sample now: %6d (stopping at: %d) Missed_dispositions:%d\n"  "$totsarra" "${smin}" "$missed_dispositions"
 
 done
 printf  "\nSufficient!\n" 

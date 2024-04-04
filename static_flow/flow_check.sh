@@ -29,7 +29,7 @@ function summarize_performance {
        best_fn=''
        printf "\n\t$i\n\n"
        for j in ${path}_${i}_*.log; do
-           msg="`grep ${pattern} ${j} | tail -1`"
+           msg="`grep -a ${pattern} ${j} | tail -1`"
            if [[ -z "$msg" ]]; then
                continue
            fi
@@ -48,7 +48,7 @@ function summarize_logs {
     printf "\n$1 Summary:\n"
     input_size=${#1}
     fcl="$LOGDIR"/flowcheck_$1_logged.txt
-    msg_counts=`grep -h -o "\[$1\] *.*" "$LOGDIR"/*.log | sort | uniq -c -w"$((input_size+20))" | sort -n -r`
+    msg_counts=`grep -a -h -o "\[$1\] *.*" "$LOGDIR"/*.log | sort | uniq -c -w"$((input_size+20))" | sort -n -r`
     echo '' > ${fcl}
 
     if [[ -z $msg_counts ]]; then
@@ -60,7 +60,7 @@ function summarize_logs {
             count=`echo ${msg_line} | awk '{print $1}'`
             msg=`echo ${msg_line} | sed "s/^ *[0-9]* \[$1\] *//g"`
             pattern="\[$1\] *${msg}"
-            filelist=($(grep -l ${pattern::$((input_size + 22))} "$LOGDIR"/*.log))
+            filelist=($(grep -a -l ${pattern::$((input_size + 22))} "$LOGDIR"/*.log))
             if [[ ${filelist[@]} ]]; then
                 first_filename=`basename ${filelist[0]} | sed 's/ /\n/g' | sed 's|.*\/||g' | sed 's/_[0-9][0-9]\.log\|.log//g' | uniq`
                 files_nb=${#filelist[@]}
@@ -70,13 +70,13 @@ function summarize_logs {
             fi
        done
        IFS=${backup_ifs}
-       result=`grep -c $1 ${fcl}`
+       result=`grep -a -c $1 ${fcl}`
        if [[ ${result} -gt 10 ]]; then
-           grep $1 ${fcl} | head | column -t -s $'\u2620' | cut -c -130
+           grep -a $1 ${fcl} | head | column -t -s $'\u2620' | cut -c -130
            echo
            echo "More than 10 TYPES OF $1S found... for the rest, have a look at $fcl for details"
        else
-           grep $1 ${fcl} | column -t -s $'\u2620' | cut -c -130
+           grep -a $1 ${fcl} | column -t -s $'\u2620' | cut -c -130
        fi
     fi
 }
@@ -100,9 +100,9 @@ function logPermCheck {
     tno=$((${tno}+1))
 
     #looking into the configs for chmod_log commands if they exist
-    perms="`grep chmod_log config -r`"
-    file1=`grep chmod_log config -r | cut -f2 -d"/"`
-    file2=`grep chmod_log config -r | cut -f3 -d"/" | cut -f1 -d"."`
+    perms="`grep -a chmod_log config -r`"
+    file1=`grep -a chmod_log config -r | cut -f2 -d"/"`
+    file2=`grep -a chmod_log config -r | cut -f3 -d"/" | cut -f1 -d"."`
 
     #finding the log related to the config file
     if [ "${sarra_py_version:0:1}" == "3" ]; then
@@ -162,11 +162,11 @@ if [[ -z "$skip_summaries" ]]; then
     echo
 
     if [[ ! "$SARRA_LIB" ]]; then
-       echo NB retries for ${LGPFX}subscribe amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
-       echo NB retries for ${LGPFX}sender    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
+       echo NB retries for ${LGPFX}subscribe amqp_f30 `grep -a Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
+       echo NB retries for ${LGPFX}sender    `grep -a Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
     else
-       echo NB retries for "$SARRA_LIB"/${LGPFX}subscribe.py amqp_f30 `grep Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
-       echo NB retries for "$SARRA_LIB"/${LGPFX}sender.py    `grep Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
+       echo NB retries for "$SARRA_LIB"/${LGPFX}subscribe.py amqp_f30 `grep -a Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
+       echo NB retries for "$SARRA_LIB"/${LGPFX}sender.py    `grep -a Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
     fi
 
     summarize_logs ERROR
@@ -293,6 +293,9 @@ if [ "$MQP" == "amqp" ]; then
   zerowanted  "${messages_ready}" "${maxshovel}" "there should be no messages ready to be consumed but there are ${messages_ready}"
 fi
 
+if [ "${totwvip}" ]; then
+  calcres "${totwvip}" 1 "there should be 1 process in wVip state"
+fi
 
 echo "Overall ${flow_test_name} ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 

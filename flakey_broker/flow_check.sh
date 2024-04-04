@@ -279,6 +279,11 @@ fi
 zerowanted  "${messages_unacked}" "${maxshovel}" "there should be no unacknowledged messages left, but there are ${messages_unacked}"
 zerowanted  "${messages_ready}" "${maxshovel}" "there should be no messages ready to be consumed but there are ${messages_ready}"
 
+if [ "${totwvip}" ]; then
+    calcres "${totwvip}" 1 "there should be 1 process in wVip state"
+fi
+
+
 tallyres ${tno} ${passedno} "Overall ${flow_test_name} ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 results=$?
 
