@@ -67,7 +67,7 @@ consumed_message_count=$?
 
 calcres "${consumed_message_count}" 5 "moth_api_consumer.py example should consume 5 messages."
 
-flow_consumed="`python3 ${pyexamples}/flow_api_consumer.py |& awk ' /messages received/ { print $8; }; ' | sed 's/,//'`"
+flow_consumed="`python3 ${pyexamples}/flow_api_consumer.py |& awk ' /messages received/ { print $8; exit; }; ' | sed 's/,//'`"
 
 calcres "${flow_consumed}" 5 "flow_api_consumer.py should consume 5 messages, found ${flow_consumed}"
 
