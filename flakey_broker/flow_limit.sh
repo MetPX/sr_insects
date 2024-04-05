@@ -4,7 +4,8 @@
 
 function swap_poll {
    if [ "${sarra_py_version:0:1}" == "3" ]; then
-      echo "switching active poll config"
+
+      echo "switching active poll config: polls in wVip `sr3 status | grep -a 'wVip' | wc -l`"
       sr3 stop poll/sftp_f62 poll/sftp_f63
       mv ~/.config/sr3/poll/sftp_f62.conf ~/.config/sr3/poll_save.conf
       cp ~/.config/sr3/poll/sftp_f63.conf ~/.config/sr3/poll/sftp_f62.conf
