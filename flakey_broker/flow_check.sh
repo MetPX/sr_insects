@@ -21,6 +21,8 @@ set -- "${POSITIONAL[@]}"
 
 countall
 
+sr3 status
+
 function summarize_performance {
     path="$LOGDIR"/$1
     shift

@@ -199,7 +199,14 @@ function countall {
   fi
   totfilewatch="${tot}"
 
-  if [[ "${sarra_py_version}" > "3.00.25" ]]; then
+   if [[ "${sarra_py_version}" > "3.00.52" ]]; then
+      countthem "`grep -a 'a directory with' ${LOGDIR}/${LGPFX}watch_f40_*.log | wc -l`"
+      totdirwatch="${tot}"
+
+      countthem "`sr3 status | grep -a 'wVip' | wc -l `"
+      totwvip="${tot}"
+
+  elif [[ "${sarra_py_version}" > "3.00.25" ]]; then
        countthem "`grep 'after_work directory ok' "$LOGDIR"/${LGPFX}watch_f40_*.log | awk ' { print $8; } ' | sort -u  | wc -l`"
        totdirwatch="${tot}"
   else
