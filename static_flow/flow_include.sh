@@ -205,7 +205,7 @@ function countall {
   totfilewatch="${tot}"
 
   if [[ "${sarra_py_version}" > "3.00.52" ]]; then
-      countthem "`grep -ae 'a directory relPath' ${LOGDIR}/${LGPFX}watch_f40_*.log | wc -l`"
+      countthem "`grep -a 'a directory with' ${LOGDIR}/${LGPFX}watch_f40_*.log | wc -l`"
       totdirwatch="${tot}"
 
       countthem "`sr3 status | grep -a 'wVip' | wc -l `"
