@@ -75,9 +75,13 @@ echo "Adding restart server flow test configurations..."
 cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sarra
 cd ..
 if [ "${sarra_py_version:0:1}" == "3" ]; then
-   for i in ${flow_configs}; do
-      sr3 convert $i
-   done
+   if [  "${sarra_py_version:5:2}" -ge "54" ]; then 
+       sr3 convert ${flow_configs}
+   else
+       for i in ${flow_configs}; do
+           sr3 convert $i
+       done
+   fi
 fi
 
 if [ "$1" == "config" ]; then
