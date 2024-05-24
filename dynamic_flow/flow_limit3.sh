@@ -28,28 +28,23 @@ while [ "${totsarra}" -lt "${smin}" ]; do
 
        if [ "`sr3 status shovel/t_dd1_f00 |& tail -1 | awk ' { print $2 } '`" == 'stopped' ]; then 
           echo "Starting shovels and waiting..."
-          sr3 start shovel/t_dd1_f00 &
-          sr3 start shovel/t_dd2_f00
           if [ "$SARRAC_LIB" ]; then
+             sr3 start shovel/t_dd1_f00 shovel/t_dd2_f00 shovel/t_dd2_f00
              "$SARRAC_LIB"/sr3_cpump start pelle_dd1_f04 &
              "$SARRAC_LIB"/sr3_cpump start pelle_dd2_f05             
           elif [ "${C_ALSO}" ]; then
-             sr3_cpump start pelle_dd1_f04 &
-             sr3_cpump start pelle_dd2_f05
+             sr3 start shovel/t_dd1_f00 shovel/t_dd2_f00 shovel/t_dd2_f00 cpump/pelle_dd1_f04 cpump/pelle_dd2_f05
           fi
        fi
    else
        
        if [ "`"$SARRA_LIB"/sr.py status shovel/t_dd1_f00 |& tail -1 | awk ' { print $2 } '`" == 'stopped' ]; then 
           echo "Starting shovels and waiting..."
-          "$SARRA_LIB"/sr.py start shovel/t_dd1_f00 &
-          "$SARRA_LIB"/sr.py start shovel/t_dd2_f00 
           if [ "$SARRAC_LIB" ]; then
              "$SARRAC_LIB"/sr3_cpump start pelle_dd1_f04 &
              "$SARRAC_LIB"/sr3_cpump start pelle_dd2_f05  
           elif [ "${C_ALSO}" ]; then
-             sr3_cpump start pelle_dd1_f04 &
-             sr3_cpump start pelle_dd2_f05
+             "$SARRA_LIB"/sr.py start shovel/t_dd1_f00 shovel/t_dd2_f00 cpump/pelle_dd1_f04 cpump/pelle_dd2_f05
           fi  
        fi
    fi
@@ -66,14 +61,12 @@ printf  "\nSufficient!\n"
 if [ ! "$SARRA_LIB" ]; then
    if [ "`sr3 status shovel/t_dd1_f00 |& tail -1 | awk ' { print $2 } '`" != 'stopped' ]; then 
        echo "Stopping shovels and waiting..."
-       sr3 stop shovel/t_dd2_f00
-       sr3 stop shovel/t_dd1_f00 
+       sr3 stop shovel/t_dd2_f00 shovel/t_dd1_f00 
    fi
 else 
    if [ "`$SARRA_LIB/sr.py statis shovel/t_dd1_f00|& tail -1 | awk ' { print $2 } '`" != 'stopped' ]; then
        echo "Stopping shovels and waiting..."
-       "$SARRA_LIB"/sr.py stop shovel/t_dd2_f00
-       "$SARRA_LIB"/sr.py stop shovel/t_dd1_f00
+       "$SARRA_LIB"/sr.py stop shovel/t_dd2_f00 shovel/t_dd1_f00
    fi
 fi
 
@@ -81,8 +74,7 @@ if [ "$SARRAC_LIB" ]; then
    "$SARRAC_LIB"/sr3_cpump stop pelle_dd1_f04
    "$SARRAC_LIB"/sr3_cpump stop pelle_dd2_f05
 elif [ "${C_ALSO}" ]; then
-   sr3_cpump stop pelle_dd1_f04
-   sr3_cpump stop pelle_dd2_f05
+   sr3 stop cpump/pelle_dd1_f04 cpump/pelle_dd2_f05
 fi
 
 sleep 10
