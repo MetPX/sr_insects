@@ -207,6 +207,10 @@ abit=20
 echo "waiting a bit $abit to let processing get started..."
 sleep $abit
 
+# For the watch. To notice the new files after it's been started.
+cp -r ${SAMPLEDATA}/20200105/WXO-DD/bulletins/alphanumeric/* $testdocroot/bulletins_to_post/bulletins/
+
+
 if [ $passed_checks = $count_of_checks ]; then
    echo "Overall ${flow_test_name}: PASSED $passed_checks/$count_of_checks checks passed!"
 else
