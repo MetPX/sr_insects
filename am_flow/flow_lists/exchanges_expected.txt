@@ -1,0 +1,3 @@
+xs_tsource_am topic
+xs_tfeed_am topic
+xpublic	topic
