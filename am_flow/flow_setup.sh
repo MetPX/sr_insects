@@ -56,19 +56,25 @@ mkdir -p "$HOME/.config/sarra" 2> /dev/null
 #flow_configs="`cd ${SR_CONFIG_EXAMPLES}; ls */*f[0-9][0-9].conf; ls */*f[0-9][0-9].inc`"
 flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*.inc; ls */*.conf;`"
 
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+    cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sr3
+    cd ..
+fi
+
+######## No need to convert the configs. They are already in v3. ########
 # echo "Adding AM flow test configurations..."
 if [ "$1" != "skipconfig" ]; then 
-   cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sarra
-   cd ..
-   if [ "${sarra_py_version:0:1}" == "3" ]; then
-     if [  "${sarra_py_version:5:2}" -ge "54" ]; then
-        sr3 convert ${flow_configs}
-     else
-        for i in ${flow_configs}; do
-            sr3 convert $i
-        done
-     fi
-   fi
+#   cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sarra
+#   cd ..
+#   if [ "${sarra_py_version:0:1}" == "3" ]; then
+#     if [  "${sarra_py_version:5:2}" -ge "54" ]; then
+#        sr3 convert ${flow_configs}
+#     else
+#        for i in ${flow_configs}; do
+#            sr3 convert $i
+#        done
+#     fi
+#   fi
 
    if [ "$1" == "config" ]; then
        exit 0
@@ -77,8 +83,6 @@ fi
 
 passed_checks=0
 count_of_checks=0
-
-#xchk 8 "only rabbitmq default systems exchanges should be present."
 
 # ensure users have exchanges:
 
