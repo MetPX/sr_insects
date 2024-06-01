@@ -122,6 +122,12 @@ if [ "$1" != "skipconfig" ]; then
     fi
 fi
 
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+   # remove all metrics files
+   sr3 show |& grep metricsFilename | sed "s/'//g" | sed 's/,//' | awk '{print $2};' | xargs rm -f
+
+fi
+
 rm $LOGDIR/${LGPFX}post_t_dd?_f00_01.log $LOGDIR/${LGPFX}post_shim_f63_01.log $LOGDIR/${LGPFX}post_test2_f61_01.log
 rm $LOGDIR/flowcheck*.txt
 rm $LOGDIR/flowsetup_f00.log
