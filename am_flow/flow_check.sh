@@ -139,34 +139,39 @@ function comparetree {
 }
 
 printf "checking trees...\n"
-checktree ${testdocroot}/downloaded_by_sub_amqp
-checktree ${testdocroot}/downloaded_by_sub_cp
-checktree ${testdocroot}/downloaded_by_sub_rabbitmqtt
-checktree ${testdocroot}/downloaded_by_sub_u
-checktree ${testdocroot}/posted_by_shim
-checktree ${testdocroot}/recd_by_srpoll_test1
-checktree ${testdocroot}/sent_by_tsource2send
-checktree ${testdocroot}/mirror/linked_by_shim
-checktree ${testdocroot}/cfile
-checktree ${testdocroot}/cfr
+# Remove special characters
+# for bulletinsdir in bulletins_to_{download,post,send} bulletins_subscribe
+# do
+# 	files2sed=$(find ${testdocroot}/$bulletinsdir -type f )
+# 	for bulletin in $files2sed
+# 	do
+# 		sed -i $'s/^M//g' $bulletin
+# 	done
+# done
+
+checktree ${testdocroot}/bulletins_to_download
+checktree ${testdocroot}/bulletins_subscribe
+checktree ${testdocroot}/bulletins_to_post
+checktree ${testdocroot}/bulletins_to_send
+
 
 
 if [[ -z "$skip_summaries" ]]; then
     # PAS performance summaries
     printf "\nDownload Performance Summaries:\tLOGDIR=$LOGDIR\n"
-    summarize_performance ${LGPFX}shovel msg_total: rabbitmqtt_f22
-    summarize_performance ${LGPFX}subscribe file_total: cdnld_f21 amqp_f30 cfile_f44 u_sftp_f60 ftp_f70 q_f71
+    summarize_performance ${LGPFX}sender msg_total: am_send_f04
+    summarize_performance ${LGPFX}subscribe file_total: bulletin_subscribe_f05
 
     echo
     # MG shows retries
     echo
 
     if [[ ! "$SARRA_LIB" ]]; then
-       echo NB retries for ${LGPFX}subscribe amqp_f30 `grep -a Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
+       echo NB retries for ${LGPFX}subscribe `grep -a Retrying "$LOGDIR"/${LGPFX}subscribe*.log | wc -l`
        echo NB retries for ${LGPFX}sender    `grep -a Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
-    else
-       echo NB retries for "$SARRA_LIB"/${LGPFX}subscribe.py amqp_f30 `grep -a Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
-       echo NB retries for "$SARRA_LIB"/${LGPFX}sender.py    `grep -a Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
+    # else
+    #    echo NB retries for "$SARRA_LIB"/${LGPFX}subscribe.py amqp_f30 `grep -a Retrying "$LOGDIR"/${LGPFX}subscribe_amqp_f30*.log | wc -l`
+    #    echo NB retries for "$SARRA_LIB"/${LGPFX}sender.py    `grep -a Retrying "$LOGDIR"/${LGPFX}sender*.log | wc -l`
     fi
 
     summarize_logs ERROR
@@ -178,12 +183,12 @@ passedno=0
 tno=0
 
 
-if [[ "${totshovel2}" -gt "${totshovel1}" ]]; then
-   maxshovel=${totshovel2}
-else 
-   maxshovel=${totshovel1}
-fi
-printf "\n\tMaximum of the shovels is: ${maxshovel}\n\n"
+# if [[ "${totshovel2}" -gt "${totshovel1}" ]]; then
+#    maxshovel=${totshovel2}
+# else 
+#    maxshovel=${totshovel1}
+# fi
+# printf "\n\tMaximum of the shovels is: ${maxshovel}\n\n"
 
 
 printf "\t\tTEST RESULTS\n\n"
@@ -191,19 +196,19 @@ printf "\t\tTEST RESULTS\n\n"
 logPermCheck
 
 echo "                 | content of subdirs of ${testdocroot} |"
-comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
-comparetree downloaded_by_sub_cp downloaded_by_sub_rabbitmqtt
-comparetree downloaded_by_sub_rabbitmqtt downloaded_by_sub_u
-comparetree downloaded_by_sub_u posted_by_shim
-comparetree downloaded_by_sub_amqp linked_by_shim
-comparetree posted_by_shim sent_by_tsource2send
+comparetree downloaded_by_sub_subscribe_bulletin downloaded_by_flow
+# comparetree downloaded_by_sub_cp downloaded_by_sub_rabbitmqtt
+# comparetree downloaded_by_sub_rabbitmqtt downloaded_by_sub_u
+# comparetree downloaded_by_sub_u posted_by_shim
+# comparetree downloaded_by_sub_amqp linked_by_shim
+# comparetree posted_by_shim sent_by_tsource2send
 
 if [ "${SKIP_KNOWN_BAD}" ]; then
    echo "skipping one known bad v2 comparison."
 else
    comparetree downloaded_by_sub_amqp cfile
 fi 
-comparetree cfile cfr
+# comparetree cfile cfr
 
 echo "broker state:"
 if [[ ${messages_unacked} > 0 ]] || [[ ${messages_ready} > 0 ]]; then
@@ -275,27 +280,27 @@ zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we do
 # tallyres ${totcpelle04r} ${totcpelle04p} "pump pelle_dd1_f04 (c shovel) should publish (${totcpelle04p}) as many messages as are received (${totcpelle04r})"
 # tallyres ${totcpelle05r} ${totcpelle05p} "pump pelle_dd2_f05 (c shovel) should publish (${totcpelle05p}) as many messages as are received (${totcpelle05r})"
 
-if [[ "$C_ALSO" || -d "$SARRAC_LIB" ]]; then
-
-echo "                 | C          routing |"
-  calcres  ${totcpelle04p} ${totcpelle05p} "cpost both pelles should post the same number of messages (${totcpelle05p}) (${totcpelle04p})"
-
-  totcvan=$(( ${totcvan14p} + ${totcvan15p} ))
-  calcres  ${totcvan} ${totcdnld} "cdnld_f21 subscribe downloaded ($totcdnld) the same number of files that was published by both van_14 and van_15 ($totcvan)"
-  t5=$(( $totcveille / 2 ))
-  calcres  "${totcveille}" "${totcdnld}" "veille_f34 should post as many files ($totcveille) as subscribe cdnld_f21 downloaded ($totcdnld)"
-  calcres  "${totcveille}" "${totcfile}" "veille_f34 should post as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
-
-fi
+# if [[ "$C_ALSO" || -d "$SARRAC_LIB" ]]; then
+# 
+# echo "                 | C          routing |"
+#   calcres  ${totcpelle04p} ${totcpelle05p} "cpost both pelles should post the same number of messages (${totcpelle05p}) (${totcpelle04p})"
+# 
+#   totcvan=$(( ${totcvan14p} + ${totcvan15p} ))
+#   calcres  ${totcvan} ${totcdnld} "cdnld_f21 subscribe downloaded ($totcdnld) the same number of files that was published by both van_14 and van_15 ($totcvan)"
+#   t5=$(( $totcveille / 2 ))
+#   calcres  "${totcveille}" "${totcdnld}" "veille_f34 should post as many files ($totcveille) as subscribe cdnld_f21 downloaded ($totcdnld)"
+#   calcres  "${totcveille}" "${totcfile}" "veille_f34 should post as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
+# 
+# fi
 
 if [ "$MQP" == "amqp" ]; then
   zerowanted  "${messages_unacked}" "${maxshovel}" "there should be no unacknowledged messages left, but there are ${messages_unacked}"
   zerowanted  "${messages_ready}" "${maxshovel}" "there should be no messages ready to be consumed but there are ${messages_ready}"
 fi
 
-if [ "${totwvip}" ]; then
-  calcres "${totwvip}" 1 "there should be 1 process in wVip state"
-fi
+# if [ "${totwvip}" ]; then
+#   calcres "${totwvip}" 1 "there should be 1 process in wVip state"
+# fi
 
 echo "Overall ${flow_test_name} ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 

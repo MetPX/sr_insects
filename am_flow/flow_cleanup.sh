@@ -122,12 +122,6 @@ if [ "$1" != "skipconfig" ]; then
     fi
 fi
 
-rm $LOGDIR/${LGPFX}post_t_dd?_f00_01.log $LOGDIR/${LGPFX}post_shim_f63_01.log $LOGDIR/${LGPFX}post_test2_f61_01.log
-rm $LOGDIR/flowcheck*.txt
-rm $LOGDIR/flowsetup_f00.log
-rm $LOGDIR/sr_audit*.log*
-rm $LOGDIR/trivialupstreamhttpserver_f00.log
-
 echo "Removing flow cache/state files ..."
 echo $flow_configs | sed 's/ / ; rm $CACHEDIR\//g' | sed 's/^/rm $CACHEDIR\//' | sed 's+\.conf+/*+g' | sh - 2>/dev/null
 echo "$CACHEDIR/*_unit_test" |  sed 's/ / ; rm -rf /g' | sed 's/^/rm -rf /' | sh
