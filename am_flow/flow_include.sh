@@ -167,8 +167,8 @@ function sumlogshistory {
 
 function countall {
 
-  sumlogs msg_total $LOGDIR/${LGPFX}report_tsarra_f20_*.log
-  totsarra="${tot}"
+#   sumlogs msg_total $LOGDIR/${LGPFX}report_tsarra_f20_*.log
+#   totsarra="${tot}"
 
 #   if [ "${sarra_py_version:0:1}" == "3" ]; then
 #        countthem "`grep -a 'log after_post posted' "$LOGDIR"/post_t_dd1_f00_*.log | wc -l`"
@@ -202,14 +202,14 @@ function countall {
   fi
   totfilewatch="${tot}"
 
-  if [[ "${sarra_py_version}" > "3.00.52" ]]; then
-      countthem "`grep -a 'a directory with' ${LOGDIR}/${LGPFX}watch_watch-dir_f03_*.log | wc -l`"
-      totdirwatch="${tot}"
+  # if [[ "${sarra_py_version}" > "3.00.52" ]]; then
+  #     countthem "`grep -a 'a directory with' ${LOGDIR}/${LGPFX}watch_watch-dir_f03_*.log | wc -l`"
+  #     totdirwatch="${tot}"
 
-      countthem "`sr3 status | grep -a 'wVip' | wc -l `"
-      totwvip="${tot}"
+  #     countthem "`sr3 status | grep -a 'wVip' | wc -l `"
+  #     totwvip="${tot}"
 
-  elif [[ "${sarra_py_version}" > "3.00.25" ]]; then
+  if [[ "${sarra_py_version}" > "3.00.25" ]]; then
        countthem "`grep -a 'after_work directory ok' ${LOGDIR}/${LGPFX}watch_watch-dir_f03_*.log | awk ' { print $8; } ' | sort -u  | wc -l`"
        totdirwatch="${tot}"
   else
@@ -221,15 +221,15 @@ function countall {
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}flow_amserver-flow_f01_*.log | grep -v directory | wc -l`"
+       totflowp="${tot}"
   fi
-  totfileflow="${tot}"
 
   if [[ "${sarra_py_version}" > "3.00.53" ]]; then
        countthem "`grep -a 'after_work flowed ok' ${LOGDIR}/${LGPFX}flow_amserver-flow_f01_*.log | awk ' { print $8; } ' | sort -u  | wc -l`"
-       totdirflow="${tot}"
+       totflowd="${tot}"
   else
        echo "sr3 version too old to produce directory posts"
-       totdirwatch=0
+       totdirflow=0
   fi
 
   totwatch=$((${totfilewatch}+${totdirwatch}))
@@ -245,17 +245,21 @@ function countall {
 #   totfileamqp="${tot}"
 
   if [[ "${sarra_py_version}" > "3.00.25" ]]; then
-      countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_am_send_f04_*.log | grep \'m, | wc -l`"
-      totdirsent="${tot}"
-      countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_am_send_f04_*.log | grep directory | wc -l`"
-      totdirsent=$((${totdirsent}+${tot}))
+#       countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_am_send_f04_*.log | grep \'m, | wc -l`"
+#       totdirsent="${tot}"
+#       countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_am_send_f04_*.log | grep directory | wc -l`"
+#       totdirsent=$((${totdirsent}+${tot}))
+# 
+      countthem "`grep -a 'after_accept accepted' "$LOGDIR"/${LGPFX}sender_am_send_f04_*.log | wc -l`"
+      totsentx="${tot}"
+
   fi
 
-  if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_am_send_f04_*.log | grep -v directory | grep -v \'m, | wc -l`"
-  fi
+#   if [ "${sarra_py_version:0:1}" == "3" ]; then
+#       countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_am_send_f04_*.log | grep -v directory | grep -v \'m, | wc -l`"
+#   fi
   totfilesent="${tot}"
-  totsent=$((${totfilesent}+${totdirsent}))
+#   totsent=$((${totfilesent}+${totdirsent}))
 
 #   if [ "${sarra_py_version:0:1}" == "3" ]; then
 #       all_events="directory\ ok:|downloaded\ ok:|filtered\ ok:|written\ from\ message\ ok:"
@@ -326,15 +330,15 @@ function countall {
 # 
 #   totshimpost1=$((${totfileshimpost1}+${totlinkshimpost1}+${totdirshimpost1}))
 # 
-#   #countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
-#   if [ "${sarra_py_version:0:1}" == "3" ]; then
-#       countthem "`grep -a 'after_accept accepted:' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
-#       totsarx="${tot}"
-#       countthem "`grep -a 'rejected: 304 Not modified' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
-#       totsarx=$((${totsarx}+${tot}))
-#       countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
-#       totsarp="${tot}"
-#   fi
+  #countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+  if [ "${sarra_py_version:0:1}" == "3" ]; then
+      countthem "`grep -a 'filter  urlToMatch:' "$LOGDIR"/${LGPFX}sarra_get_from-watch_f02_*.log | wc -l`"
+      totsarx="${tot}"
+      countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sarra_get_from-watch_f02_*.log | wc -l`"
+      totsarp="${tot}"
+      countthem "`grep -aE 'after_work downloaded ok' $LOGDIR/${LGPFX}sarra_get_from-watch_f02_*.log | wc -l`"
+      totsard="${tot}"
+  fi
 # 
 #   if [[ ! "$C_ALSO" && ! -d "$SARRAC_LIB" ]]; then
 #      return
@@ -342,9 +346,9 @@ function countall {
 
   #staticfilecount="`ls -lR ${SAMPLEDATA} | grep '^-r' | grep -v reject | wc -l`"
 
-  staticdircount="`find ${SAMPLEDATA}/* -type d | grep -v reject | wc -l`"
+  staticdircount="`find ${SAMPLEDATA}/20200105/WXO-DD/bulletins/alphanumeric/20200105 -type d | grep -v SACN[34] | grep -v KWAL | wc -l`"
   
-  staticfilecount="`find ${SAMPLEDATA} -type f | grep -v reject | wc -l`"
+  staticfilecount="`find ${SAMPLEDATA}/20200105/WXO-DD/bulletins/alphanumeric/20200105 -type f | grep -v SACN[34] | grep -v KWAL | wc -l`"
 
   if [[ "${sarra_py_version}" > "3.00.25" ]]; then
       staticfilecount=$((${staticfilecount}+${staticdircount}))
@@ -388,9 +392,7 @@ function countall {
 #   fi
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -aE 'after_work downloaded ok' $LOGDIR/${LGPFX}subscribe_bulletin_subscribe_f05_*.log | wc -l`"
-  else
-      countthem "`grep -a '\[INFO\] file_log downloaded ' $LOGDIR/${LGPFX}subscribe_bulletin_subscribe_f05_*.log | wc -l`"
+      countthem "`grep -aE 'after_work written from message ok' $LOGDIR/${LGPFX}subscribe_bulletin_subscribe_f05_*.log | wc -l`"
   fi
   totsub="${tot}"
 
