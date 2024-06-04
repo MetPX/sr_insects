@@ -218,14 +218,6 @@ passedno=0
 tno=0
 
 
-# if [[ "${totshovel2}" -gt "${totshovel1}" ]]; then
-#    maxshovel=${totshovel2}
-# else 
-#    maxshovel=${totshovel1}
-# fi
-# printf "\n\tMaximum of the shovels is: ${maxshovel}\n\n"
-
-
 printf "\t\tTEST RESULTS\n\n"
 
 logPermCheck
@@ -236,13 +228,6 @@ echo "                 | content of subdirs of ${testdocroot} |"
 comparetree_md5 bulletins_to_send bulletins_subscribe
 comparetree_fn bulletins_to_send bulletins_subscribe
 
-# if [ "${SKIP_KNOWN_BAD}" ]; then
-#    echo "skipping one known bad v2 comparison."
-# else
-#    comparetree downloaded_by_sub_amqp cfile
-# fi 
-# comparetree cfile cfr
-
 echo "broker state:"
 if [[ ${messages_unacked} > 0 ]] || [[ ${messages_ready} > 0 ]]; then
 
@@ -251,25 +236,6 @@ if [[ ${messages_unacked} > 0 ]] || [[ ${messages_ready} > 0 ]]; then
 
 fi
 
-
-
-# tot2shov=$(( ${totshovel1} + ${totshovel2} ))
-# t4=$(( ${totfileamqp}*4 ))
-# 
-# echo "                 | dd.weather routing |"
-# calcres "${staticfilecount}" "${totshovel2}" "${LGPFX}post\t count of posted files (${totshovel2}) should be same those in the static data directory\t (${staticfilecount})"
-# calcres "${rejectfilecount}" "${totshovel2rej}" "${LGPFX}post\t count of rejected files (${totshovel2rej}) should be same those in the static data directory\t (${rejectfilecount})"
-# calcres "${totshovel1}" "${totshovel2}" "${LGPFX}post\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
-# calcres "${totsarx}" "${tot2shov}" "${LGPFX}sarra\t (${totsarx}) should receive the same number of items as both post\t (${tot2shov})"
-# calcres "${totsarp}" "${totshovel1}" "${LGPFX}sarra\t (${totsarp}) should publish the same number of items as one post\t (${totshovel1})"
-# calcres "${totwinnowed}" "${totshovel1}" "${LGPFX}sarra\t (${totwinnowed}) should winnow the same number of items as one post\t (${totshovel1})"
-
-
-# if [ "${SKIP_KNOWN_BAD}" ]; then
-#     echo "skipping known bad subscriber check."
-# else
-#     calcres "${totfileamqp}" "${totsarp}" "${LGPFX}subscribe\t (${totfileamqp}) should rx the same number of items as sarra published\t (${totsarp})"
-# fi
 echo "                 | Message posting |"
 calcres "${totwatch}" "${totsarx}"         "${LGPFX}watch\t\t (${totwatch}) should post be the same as the messages filtered by the sarra\t\t  (${totsarx})"
 calcres "${totsarp}" "${totsentx}" "${LGPFX}sarra\t\t (${totsarp}) should publish the same number of items as ${LGPFX}sender accepts  (${totsentx})"
@@ -277,62 +243,15 @@ calcres "${totsentx}" "${totflowp}" "sender\t\t (${totsentx}) should post same n
 echo "                 | Downloaded files |"
 calcres "${totsard}" "${totflowd}" "${LGPFX}sarra\t (${totsard}) should download same number of files as ${LGPFX}flow downloads\t (${totflowd})"
 calcres "${totflowd}" "${totsub}" "${LGPFX}flow\t (${totflowd}) should download same number of files as ${LGPFX}subscribe downloads (${totsub})"
-# echo "                 | flow_post  routing |"
-# calcres "${totpost1}" "${totfilesent}" "${LGPFX}post test2_f61\t (${totpost1}) should have the same number of files of ${LGPFX}sender \t (${totfilesent})"
-# calcres "${totsubftp}" "${totpost1}" "${LGPFX}subscribe ftp_f70\t (${totsubftp}) should have the same number of items as ${LGPFX}post test2_f61 (${totpost1})"
-# 
-# if [[ "${sarra_py_version}" > "3.00.25" ]]; then
-#   
-#     calcres "${totpost1}" "${totfileshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should post about the same number of files as shim_f63\t (${totfileshimpost1})"
-#     calcres "${totpost1}" "${totlinkshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should post about the same number of links as shim_f63\t (${totlinkshimpost1})"
-#     # FIXME: the following test should be zero, but it isn't... in flakey it is zero, which is correct... very confusing. 
-#     #calcres "${staticdircount}" "${totlinkdirshimpost1}" "static tree\t (${staticdircount}) should have a post for every linked directories by shim_f63\t (${totlinkdirshimpost1})"
-#     twostaticdir=$(( ${staticdircount} * 2 ))
-#     calcres "${twostaticdir}" "${totdirshimpost1}" "static tree\t (${staticdircount}) directories should be posted twice: for 1st copy and linked_dir by shim_f63\t (${totdirshimpost1})"
-# else
-#     doubletotpost=$(( ${totpost1}*2 ))
-#     calcres "${doubletotpost}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should have about half the number of items as shim_f63\t (${totshimpost1})"
-# fi
-# 
-# echo "                 | py infos   routing |"
-#zerowanted "${totauditkills}" "${CONFIG_COUNT}" "sr_audit should not have killed anything. It killed ${totauditkills} processes" 
 zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."
-# check removed because of issue #294
-#calcres ${totshortened} ${totfileamqp} \
-#   "count of truncated headers (${totshortened}) and subscribed messages (${totmsgamqp}) should have about the same number of items"
-
-# these almost never are the same, and it's a problem with the post test. so failures here almost always false negative.
-#calcres ${totpost1} ${totsubu} "post test2_f61 ${totpost1} and subscribe u_sftp_f60 ${totsubu} run together. Should be about the same."
-
-# because of accept/reject filters, these numbers are never similar, so these tests are wrong.
-# tallyres ${totcpelle04r} ${totcpelle04p} "pump pelle_dd1_f04 (c shovel) should publish (${totcpelle04p}) as many messages as are received (${totcpelle04r})"
-# tallyres ${totcpelle05r} ${totcpelle05p} "pump pelle_dd2_f05 (c shovel) should publish (${totcpelle05p}) as many messages as are received (${totcpelle05r})"
-
-# if [[ "$C_ALSO" || -d "$SARRAC_LIB" ]]; then
-# 
-# echo "                 | C          routing |"
-#   calcres  ${totcpelle04p} ${totcpelle05p} "cpost both pelles should post the same number of messages (${totcpelle05p}) (${totcpelle04p})"
-# 
-#   totcvan=$(( ${totcvan14p} + ${totcvan15p} ))
-#   calcres  ${totcvan} ${totcdnld} "cdnld_f21 subscribe downloaded ($totcdnld) the same number of files that was published by both van_14 and van_15 ($totcvan)"
-#   t5=$(( $totcveille / 2 ))
-#   calcres  "${totcveille}" "${totcdnld}" "veille_f34 should post as many files ($totcveille) as subscribe cdnld_f21 downloaded ($totcdnld)"
-#   calcres  "${totcveille}" "${totcfile}" "veille_f34 should post as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
-# 
-# fi
 
 if [ "$MQP" == "amqp" ]; then
     zerowanted  "${messages_unacked}" "${maxshovel}" "there should be no unacknowledged messages left, but there are ${messages_unacked}"
     zerowanted  "${messages_ready}" "${maxshovel}" "there should be no messages ready to be consumed but there are ${messages_ready}"
 fi
 
-# if [ "${totwvip}" ]; then
-#   calcres "${totwvip}" 1 "there should be 1 process in wVip state"
-# fi
-
 echo "Overall ${flow_test_name} ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 
-#tallyres "${tno}" "${passedno}" "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 
 if [ "${passedno}" -gt 0 -a "${passedno}" -eq "${tno}" ]; then
    results=0

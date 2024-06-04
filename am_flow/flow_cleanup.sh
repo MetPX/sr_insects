@@ -49,31 +49,6 @@ if [ -f .httpserverpid ]; then
   fi
 fi
 
-# echo "Cleanup trivial ftp server... "
-# if [ -f .ftpserverpid ]; then
-#    ftpserverpid="`cat .ftpserverpid`"
-#    if [ "${ftpserverpid}" -a "`ps ax | awk ' $1 == '${ftpserverpid}' { print $1; }; '`" ]; then
-#        kill $ftpserverpid
-#        echo "Ftp server stopped."
-#        sleep 2
-#    else
-#        echo "No properly started ftp server found running from pid file"
-#    fi
-# 
-#    echo "If other ftp servers with lost pid kill them"
-#    pgrep -al python3 | grep pyftpdlib.py | grep -v grep  | xargs -n1 kill 2> /dev/null
-# 
-#    if [ "`netstat -an | grep LISTEN | grep 2121`" ]; then
-#        pid="`ps ax | grep ftpdlib | grep -v grep| awk '{print $1;};'`" 
-#        echo "Killing rogue ftp server on port 2121 found at pid=$pid"
-#        if [ "$pid" ]; then
-#           kill -9 $pid
-#        else
-#           echo "ERROR: could not find FTP server, but it's running. Look out!"
-#        fi
-#   fi
-# fi
-
 echo "Cleanup flow_post... "
 if [ -f .flowpostpid ]; then
    flowpostpid="`cat .flowpostpid`"
