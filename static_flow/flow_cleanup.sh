@@ -116,10 +116,17 @@ echo "Removing flow config logs..."
 if [ "$1" != "skipconfig" ]; then
     if [ "${sarra_py_version:0:1}" == "3" ]; then
         echo $flow_configs |  sed 's/ / ;\n rm -f /g' | sed '1 s|^| rm -f |' | sed '/^ rm -f post/d' | sed 's+/+_+g' | sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].log\*/g' | (cd $LOGDIR; sh )
-	echo $flow_configs |  sed 's/ / ;\n rm -f /g' | sed '1 s|^| rm -f |' | sed 's+/+_+g' |  sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].json\*/g'| (cd ${LOGDIR}/../metrics; sh )
+
+	rm ${LOGHOSTDIR}/sarra_download_f20*.log
     else
         echo $flow_configs |  sed 's/ / ;\n rm -f sr_/g' | sed '1 s|^| rm -f sr_|' | sed '/^ rm -f sr_post/d' | sed 's+/+_+g' | sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].log\*/g' | (cd $LOGDIR; sh )
     fi
+fi
+
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+   # remove all metrics files
+   #echo $flow_configs |  sed 's/ / ;\n rm -f /g' | sed '1 s|^| rm -f |' | sed 's+/+_+g' |  sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].json\*/g'| (cd ${LOGDIR}/../metrics; sh )
+   sr3 show  '*/*_f[0-9][0-9]' |& grep metricsFilename | sed "s/'//g" | sed 's/,//' | sed 's/_00.json/_[0-9][0-9].json*/' | awk '{print $2};' | xargs rm -f
 fi
 
 rm $LOGDIR/${LGPFX}post_t_dd?_f00_01.log $LOGDIR/${LGPFX}post_shim_f63_01.log $LOGDIR/${LGPFX}post_test2_f61_01.log
