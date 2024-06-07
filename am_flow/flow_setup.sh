@@ -39,7 +39,7 @@ if [ ! -d "$testdocroot" ]; then
   mkdir $testdocroot
   cp -r testree/* $testdocroot
   mkdir $testdocroot/bulletins_to_download
-  mkdir $testdocroot/bulletins_to_post
+  mkdir -p $testdocroot/bulletins_to_post/bulletins
 fi
 
 lo="`netstat -an | grep '127.0.0.1:8001'|wc -l`"
