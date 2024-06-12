@@ -198,15 +198,20 @@ function countall {
 
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -a 'log after_post posted' "$LOGDIR"/watch_f40_*.log | grep -v \'directory\' | wc -l`"
+       countthem "`grep -a 'log after_post posted' "$LOGDIR"/watch_f40_*.log | grep -v directory | wc -l`"
   else
        countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/watch_f40_*.log | wc -l`"
   fi
   totfilewatch="${tot}"
 
+  if [[ "${sarra_py_version}" > "3.00.52" ]]; then
+      countthem "`grep -a 'a directory with' ${LOGDIR}/watch_f40_*.log | wc -l`"
+      totdirwatch="${tot}"
 
+      countthem "`sr3 status | grep -a 'wVip' | wc -l `"
+      totwvip="${tot}"
 
-  if [[ "${sarra_py_version}" > "3.00.25" ]]; then
+  elif [[ "${sarra_py_version}" > "3.00.25" ]]; then
        countthem "`grep 'after_work directory ok' "$LOGDIR"/watch_f40_*.log | awk ' { print $8; } ' | sort -u  | wc -l`"
        totdirwatch="${tot}"
   else
