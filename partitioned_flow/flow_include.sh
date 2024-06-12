@@ -234,14 +234,14 @@ function countall {
   if [[ "${sarra_py_version}" > "3.00.25" ]]; then
       countthem "`grep -a 'log after_post posted' "$LOGDIR"/sender_tsource2send_f50_*.log | grep \'m, | wc -l`"
       totdirsent="${tot}"
-      countthem "`grep -a 'log after_post posted' "$LOGDIR"/sender_tsource2send_f50_*.log | grep \'directory\' | wc -l`"
+      countthem "`grep -a 'log after_post posted' "$LOGDIR"/sender_tsource2send_f50_*.log | grep directory | wc -l`"
       totdirsent=$((${totdirsent}+${tot}))
   else
        totdirsent=0
   fi
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      countthem "`grep -a 'log after_post posted' "$LOGDIR"/sender_tsource2send_f50_*.log | grep -v \'directory\' | grep -v \'m, | wc -l`"
+      countthem "`grep -a 'log after_post posted' "$LOGDIR"/sender_tsource2send_f50_*.log | grep -v directory | grep -v \'m, | wc -l`"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/sender_tsource2send_f50_*.log | wc -l`"
   fi
@@ -294,15 +294,15 @@ function countall {
   totpost1="${tot}"
 
 
-  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep -v \"link\" | grep -v \"directory\" | wc -l`"
+  countthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep -v \"link\" | grep -v \"directory\" | wc -l`"
   totfileshimpost1="${tot}"
-  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep \"link\" | grep -v \"directory\" | wc -l`"
+  countthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep \"link\" | grep -v \"directory\" | wc -l`"
   totlinkshimpost1="${tot}"
-  countthem "`grep -a '\[INFO\] published:' $srposterlog | grep \"link\" | grep \"directory\" | wc -l`"
+  countthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep \"link\" | grep \"directory\" | wc -l`"
   totlinkdirshimpost1="${tot}"
 
   # unknown reason the linkdir one comes out zero when in a single quoted line... so make a file and wc that.
-  grep -a '\[INFO\] published:' $srposterlog | grep \"directory\" | grep -v \"link\" >${LOGDIR}/linkdirshimposts.log
+  grep -a '\[INFO\] shim published:' $srposterlog | grep \"directory\" | grep -v \"link\" >${LOGDIR}/linkdirshimposts.log
   countthem "`wc -l <${LOGDIR}/linkdirshimposts.log`"
   totdirshimpost1="${tot}"
 
@@ -344,24 +344,40 @@ function countall {
 
   rejectfilecount="`find ${SAMPLEDATA} -type f | grep reject | wc -l`"
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/cpost_pelle_dd1_f04_*.log | wc -l`"
-  totcpelle04p="${tot}"
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/cpost_pelle_dd2_f05_*.log | wc -l`"
-  totcpelle05p="${tot}"
+  if [[ "${sarra_c_version}" > "3.22.51" ]]; then
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/cpump_xvan_f14_*.log | grep -v \"directory\" | wc -l`"
-  totcvan14p="${tot}"
+     countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/cpost_pelle_dd1_f04_*.log | wc -l`"
+     totcpelle04p="${tot}"
 
-  countthem "`grep -a '\[INFO\] published:' $LOGDIR/cpump_xvan_f15_*.log | grep -v \"directory\" | wc -l`"
-  totcvan15p="${tot}"
+     countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/cpost_pelle_dd2_f05_*.log | wc -l`"
+     totcpelle05p="${tot}"
 
-  if [[ "${sarra_c_version}" > "3.22.12p1" ]]; then
-      countthem "`grep -a '\[INFO\] published:' $LOGDIR/cpost_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
+     countthem "`grep -a '\[INFO\] cpump published:' $LOGDIR/cpump_xvan_f14_*.log | grep -v \"directory\" | wc -l`"
+     totcvan14p="${tot}"
+
+     countthem "`grep -a '\[INFO\] cpump published:' $LOGDIR/cpump_xvan_f15_*.log | grep -v \"directory\" | wc -l`"
+     totcvan15p="${tot}"
+
+     countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/cpost_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
+     totcveille="${tot}"
   else
-      countthem "`grep -a '\[INFO\] published:' $LOGDIR/cpost_veille_f34_*.log | awk '{ print $7 }' | sort -u |wc -l`"
+     countthem "`grep -a '\[INFO\] published:' $LOGDIR/cpost_pelle_dd1_f04_*.log | wc -l`"
+     totcpelle04p="${tot}"
+
+     countthem "`grep -a '\[INFO\] published:' $LOGDIR/cpost_pelle_dd2_f05_*.log | wc -l`"
+     totcpelle05p="${tot}"
+
+     countthem "`grep -a '\[INFO\] published:' $LOGDIR/cpump_xvan_f14_*.log | grep -v \"directory\" | wc -l`"
+     totcvan14p="${tot}"
+
+     countthem "`grep -a '\[INFO\] published:' $LOGDIR/cpump_xvan_f15_*.log | grep -v \"directory\" | wc -l`"
+     totcvan15p="${tot}"
+
+     countthem "`grep -a '\[INFO\] published:' $LOGDIR/cpost_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
+     totcveille="${tot}"
   fi
-  totcveille="${tot}"
+
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -aE 'after_work downloaded ok' $LOGDIR/subscribe_cdnld_f21_*.log | wc -l`"
