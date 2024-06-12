@@ -180,15 +180,15 @@ echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid"
 flowpostpid=$!
 
 if [ ! "$SARRA_LIB" ]; then
-    bash -c '$POST -c t_dd1_f00.conf ${SAMPLEDATA}' >$LOGDIR/${LGPFX}post_t_dd1_f00_01.log 2>&1 &
-    bash -c '$POST -c t_dd2_f00.conf ${SAMPLEDATA}' >$LOGDIR/${LGPFX}post_t_dd2_f00_01.log 2>&1 &
+    bash -c '$POST -c t_dd1_f00.conf ${SAMPLEDATA}' >$LOGDIR/post_t_dd1_f00_01.log 2>&1 &
+    bash -c '$POST -c t_dd2_f00.conf ${SAMPLEDATA}' >$LOGDIR/post_t_dd2_f00_01.log 2>&1 &
 else
-    "$SARRA_LIB"/sr_post.py -c t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd1_f00_01.log 2>&1 &
-    "$SARRA_LIB"/sr_post.py -c t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd2_f00_01.log 2>&1 &
+    "$SARRA_LIB"/sr_post.py -c t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/post_t_dd1_f00_01.log 2>&1 &
+    "$SARRA_LIB"/sr_post.py -c t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/post_t_dd2_f00_01.log 2>&1 &
 fi
 
-$CPOST -c pelle_dd1_f04.conf >$LOGDIR/${LGPFX}cpost_pelle_dd1_f04_01.log 2>&1 &
-$CPOST -c pelle_dd2_f05.conf >$LOGDIR/${LGPFX}cpost_pelle_dd2_f05_01.log 2>&1 &
+$CPOST -c pelle_dd1_f04.conf >$LOGDIR/cpost_pelle_dd1_f04_01.log 2>&1 &
+$CPOST -c pelle_dd2_f05.conf >$LOGDIR/cpost_pelle_dd2_f05_01.log 2>&1 &
 
 echo "posting complete: `date +${SR_DATE_FMT}`"
 
