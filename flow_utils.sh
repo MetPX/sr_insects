@@ -48,6 +48,7 @@ try:
     cachedir  = appdirs.user_cache_dir('${SR_DEV_APPNAME}','MetPX')
     confdir = appdirs.user_config_dir('${SR_DEV_APPNAME}','MetPX')
     logdir  = appdirs.user_log_dir('${SR_DEV_APPNAME}','MetPX')
+    loghostdir  = logdir.replace( 'log', "${HOSTNAME}/log" )
 
 except:
 
@@ -55,6 +56,7 @@ except:
     cachedir = str(pathlib.Path.home()) + '/.cache/${SR_DEV_APPNAME}'
     confdir = str(pathlib.Path.home()) + '/.config/${SR_DEV_APPNAME}'
     logdir = str(pathlib.Path.home()) + '/.cache/${SR_DEV_APPNAME}/log'
+    loghostdir = str(pathlib.Path.home()) + '/.cache/${SR_DEV_APPNAME}/${HOSTNAME}/log'
 
 
 cachedir  = cachedir.replace(' ',r'\ ')
@@ -65,6 +67,9 @@ print('export CONFDIR=%s'% confdir)
 
 logdir  = logdir.replace(' ',r'\ ')
 print('export LOGDIR=%s'% logdir)
+
+loghostdir  = loghostdir.replace(' ',r'\ ')
+print('export LOGHOSTDIR=%s'% loghostdir)
 
 EOF
 }

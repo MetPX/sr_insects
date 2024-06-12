@@ -49,31 +49,6 @@ if [ -f .httpserverpid ]; then
   fi
 fi
 
-echo "Cleanup trivial ftp server... "
-if [ -f .ftpserverpid ]; then
-   ftpserverpid="`cat .ftpserverpid`"
-   if [ "${ftpserverpid}" -a "`ps ax | awk ' $1 == '${ftpserverpid}' { print $1; }; '`" ]; then
-       kill $ftpserverpid
-       echo "Ftp server stopped."
-       sleep 2
-   else
-       echo "No properly started ftp server found running from pid file"
-   fi
-
-   echo "If other ftp servers with lost pid kill them"
-   pgrep -al python3 | grep pyftpdlib.py | grep -v grep  | xargs -n1 kill 2> /dev/null
-
-   if [ "`netstat -an | grep LISTEN | grep 2121`" ]; then
-       pid="`ps ax | grep ftpdlib | grep -v grep| awk '{print $1;};'`" 
-       echo "Killing rogue ftp server on port 2121 found at pid=$pid"
-       if [ "$pid" ]; then
-          kill -9 $pid
-       else
-          echo "ERROR: could not find FTP server, but it's running. Look out!"
-       fi
-  fi
-fi
-
 echo "Cleanup flow_post... "
 if [ -f .flowpostpid ]; then
    flowpostpid="`cat .flowpostpid`"
@@ -91,7 +66,7 @@ if [ -f .flowpostpid ]; then
 fi
 
 # This where we start cleaning the cache
-remove_if_present=".ftpserverpid .httpserverpid aaa.conf bbb.inc checksum_AHAH.py sr_http.test.anonymous $exnow $missedreport $srposterlog $trivialftplog $trivialhttplog"
+remove_if_present=".ftpserverpid .httpserverpid aaa.conf bbb.inc checksum_AHAH.py sr_http.test.anonymous $exnow $missedreport $srposterlog $trivialhttplog"
 rm -f ${remove_if_present}
 
 queues_to_delete="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' ( NR > 1 )  && /\.sr_.*_f[0-9][0-9].*/ { print $1; }; '`"
@@ -116,24 +91,11 @@ echo "Removing flow config logs..."
 if [ "$1" != "skipconfig" ]; then
     if [ "${sarra_py_version:0:1}" == "3" ]; then
         echo $flow_configs |  sed 's/ / ;\n rm -f /g' | sed '1 s|^| rm -f |' | sed '/^ rm -f post/d' | sed 's+/+_+g' | sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].log\*/g' | (cd $LOGDIR; sh )
-
-	rm ${LOGHOSTDIR}/sarra_download_f20*.log
+	echo $flow_configs |  sed 's/ / ;\n rm -f /g' | sed '1 s|^| rm -f |' | sed 's+/+_+g' |  sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].json\*/g'| (cd ${LOGDIR}/../metrics; sh )
     else
         echo $flow_configs |  sed 's/ / ;\n rm -f sr_/g' | sed '1 s|^| rm -f sr_|' | sed '/^ rm -f sr_post/d' | sed 's+/+_+g' | sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].log\*/g' | (cd $LOGDIR; sh )
     fi
 fi
-
-if [ "${sarra_py_version:0:1}" == "3" ]; then
-   # remove all metrics files
-   #echo $flow_configs |  sed 's/ / ;\n rm -f /g' | sed '1 s|^| rm -f |' | sed 's+/+_+g' |  sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].json\*/g'| (cd ${LOGDIR}/../metrics; sh )
-   sr3 show  '*/*_f[0-9][0-9]' |& grep metricsFilename | sed "s/'//g" | sed 's/,//' | sed 's/_00.json/_[0-9][0-9].json*/' | awk '{print $2};' | xargs rm -f
-fi
-
-rm $LOGDIR/${LGPFX}post_t_dd?_f00_01.log $LOGDIR/${LGPFX}post_shim_f63_01.log $LOGDIR/${LGPFX}post_test2_f61_01.log
-rm $LOGDIR/flowcheck*.txt
-rm $LOGDIR/flowsetup_f00.log
-rm $LOGDIR/sr_audit*.log*
-rm $LOGDIR/trivialupstreamhttpserver_f00.log
 
 echo "Removing flow cache/state files ..."
 echo $flow_configs | sed 's/ / ; rm $CACHEDIR\//g' | sed 's/^/rm $CACHEDIR\//' | sed 's+\.conf+/*+g' | sh - 2>/dev/null
