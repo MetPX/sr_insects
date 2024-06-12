@@ -222,8 +222,6 @@ t4=$(( ${totfileamqp}*4 ))
 justfilecount=$(( ${staticfilecount} - ${staticdircount} ))
 echo " source tree: total:${staticfilecount} files: ${justfilecount} directories:${staticdircount} rejected:${rejectfilecount}"
 
-filesanddirscount=$(( ${staticfilecount} - ${rejectfilecount} ))
-
 echo "                 | dd.weather routing |"
 #calcres "${staticfilecount}" "${totshovel2}" "${LGPFX}post\t count of posted files (${totshovel2}) should be same those in the static data directory\t (${staticfilecount})"
 #calcres "${rejectfilecount}" "${totshovel2rej}" "${LGPFX}post\t count of rejected files (${totshovel2rej}) should be same those in the static data directory\t (${rejectfilecount})"
@@ -236,7 +234,7 @@ calcres "${totwinnowed}" "${totshovel1}" "${LGPFX}sarra\t (${totwinnowed}) shoul
 if [ "${SKIP_KNOWN_BAD}" ]; then
     echo "skipping known bad subscriber check."
 else
-    calcres "${totfileamqp}" "${filesanddirscount}" "${LGPFX}subscribe\t (${totfileamqp}) should rx the same number of items as in static tree\t (${filesanddirscount})"
+    calcres "${totfileamqp}" "${staticfilecount}" "${LGPFX}subscribe\t (${totfileamqp}) should rx the same number of items as in static tree\t (${staticfilecount})"
 fi
 echo "                 | watch      routing |"
 calcres "${totwatch}" "${totfileamqp}"         "${LGPFX}watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totfileamqp})"
