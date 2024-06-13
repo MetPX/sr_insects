@@ -115,7 +115,7 @@ running=1
 count=0
 while [ $running -gt 0 ]; do
   # can have sr_post or sr3_post
-  running="`ps ax | grep sr*_post | grep t_dd | wc -l`"
+  running="`ps ax | grep -aE '(sr_post|sr3_post)' | grep t_dd | wc -l`"
   printf "Still posting... %d\n" $count
   count=$((${count}+1))
   sleep 10
