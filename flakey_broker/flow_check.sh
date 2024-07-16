@@ -180,6 +180,7 @@ else
     # C consumer fails because of https://github.com/MetPX/sarrac/issues/121
     #comparetree downloaded_by_sub_amqp cfile
     comparetree cfile cfr
+    comparetree downloaded_by_sub_amqp recd_by_srpoll_test1
 
 fi
 
