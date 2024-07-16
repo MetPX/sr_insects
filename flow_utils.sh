@@ -128,7 +128,7 @@ function qchk {
         echo "OK, as expected $1 $2"
         passed_checks=$((${passed_checks}+1))
     else
-        echo "FAILED, expected $1, but there are $queue_cnt $2"
+        echo "NOTICE: expected $1, but there are $queue_cnt $2"
     fi
 
     count_of_checks=$((${count_of_checks}+1))
@@ -159,7 +159,7 @@ function xchk {
         echo "OK, as expected $expected_cnt $1"
         passed_checks=$((${passed_checks}+1))
     else
-        echo "FAILED, expected $expected_cnt, but there are $x_cnt $1"
+        echo "NOTICE: expected $expected_cnt, but there are $x_cnt $1"
         printf "Missing exchanges: %s\n" "`comm -23 $exex $exnow`"
     fi
     if [ "$x_cnt" -gt $expected_cnt ]; then
