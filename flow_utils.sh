@@ -38,6 +38,7 @@ if [ ! "${SR_DEV_APPNAME}" ]; then
 fi
 
 export SR_DATE_FMT='%Y%m%dT%H%M%s'
+NODENAME="`hostname -s`"
 
 function application_dirs {
 python3 << EOF
@@ -48,7 +49,7 @@ try:
     cachedir  = appdirs.user_cache_dir('${SR_DEV_APPNAME}','MetPX')
     confdir = appdirs.user_config_dir('${SR_DEV_APPNAME}','MetPX')
     logdir  = appdirs.user_log_dir('${SR_DEV_APPNAME}','MetPX')
-    loghostdir  = logdir.replace( 'log', "${HOSTNAME}/log" )
+    loghostdir  = logdir.replace( 'log', "${NODENAME}/log" )
 
 except:
 
@@ -56,7 +57,7 @@ except:
     cachedir = str(pathlib.Path.home()) + '/.cache/${SR_DEV_APPNAME}'
     confdir = str(pathlib.Path.home()) + '/.config/${SR_DEV_APPNAME}'
     logdir = str(pathlib.Path.home()) + '/.cache/${SR_DEV_APPNAME}/log'
-    loghostdir = str(pathlib.Path.home()) + '/.cache/${SR_DEV_APPNAME}/${HOSTNAME}/log'
+    loghostdir = str(pathlib.Path.home()) + '/.cache/${SR_DEV_APPNAME}/${NODENAME}/log'
 
 
 cachedir  = cachedir.replace(' ',r'\ ')
