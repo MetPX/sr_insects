@@ -72,10 +72,15 @@ function do_sr_post {
 
    echo  "FIXME: sarra_py_version=${sarra_py_version} POST=${POST}"
 
-   if [ "${POST:2:1}" == "3" ]; then
-      SHIMLIB="libsr3shim.so.1.0.0"
+   if [[ ${sarra_c_version} > "3.24.06" ]]; then
+           lib_version="${sarra_c_version}"
    else
-      SHIMLIB="libsrshim.so.1.0.0"
+           lib_version="1.0.0"
+   fi
+   if [ "${POST:2:1}" == "3" ]; then
+      SHIMLIB="libsr3shim.so.${lib_version}"
+   else
+      SHIMLIB="libsrshim.so.${lib_version}"
    fi
    printf "FIXME POST=${POST} \n" 
 
