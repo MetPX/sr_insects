@@ -67,13 +67,17 @@ function do_sr_post {
    # | sed '/slink$/d' | sed '/moved$/d' | sed '/hlink$/d' | sed '/tmp$/d'
 
 
-   if [ "${sarra_py_version:0:1}" == "3" ]; then
-      POST=sr3_post
-      SHIMLIB="libsr3shim.so.1.0.0"
+   if [[ ${sarra_c_version} > "3.24.06" ]]; then
+           lib_version="${sarra_c_version}"
    else
-      POST=sr_post
-      SHIMLIB="libsrshim.so.1.0.0"
+           lib_version="1.0.0"
    fi
+   if [ "${POST:2:1}" == "3" ]; then
+      SHIMLIB="libsr3shim.so.${lib_version}"
+   else
+      SHIMLIB="libsrshim.so.${lib_version}"
+   fi
+
 
    if [ ! "$SARRA_LIB" ]; then
     $POST -c test2_f61.conf -p $srpostdelta
