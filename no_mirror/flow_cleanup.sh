@@ -7,7 +7,12 @@ export TESTDIR="`pwd`"
 
 flowlogcleanup="$LOGDIR/flowcleanup_f99.log"
 touch $flowlogcleanup
-flow_configs="audit/ `cd $CONFDIR; ls */*f[0-9][0-9].conf 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
+
+if [ "${sarra_py_version:0:1}" == "3" ]; then
+    flow_configs="`cd $CONFDIR; ls */*f[0-9][0-9].conf 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
+else
+    flow_configs="audit/ `cd $CONFDIR; ls */*f[0-9][0-9].conf 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
+fi
 flow_configs="`echo ${flow_configs} | tr '\n' ' '`"
 
 echo remove x attributes added by post then calculating checksums. in ${SAMPLEDATA}

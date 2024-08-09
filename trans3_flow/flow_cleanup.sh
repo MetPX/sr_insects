@@ -7,7 +7,7 @@ export TESTDIR="`pwd`"
 
 flowlogcleanup="$LOGDIR/flowcleanup_f99.log"
 touch $flowlogcleanup
-flow_configs="audit/ `cd $CONFDIR; ls */*f[0-9][0-9].conf 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
+flow_configs="`cd $CONFDIR; ls */*f[0-9][0-9].conf 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
 flow_configs="`echo ${flow_configs} | tr '\n' ' '`"
 
 if [ `find ${SAMPLEDATA} -type f | xargs xattr -l|wc -l` ]; then 

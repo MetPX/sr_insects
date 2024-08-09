@@ -7,7 +7,7 @@ export TESTDIR="`pwd`"
 
 flowlogcleanup="$LOGDIR/flowcleanup_f99.log"
 touch $flowlogcleanup
-flow_configs="audit/ `cd $CONFDIR; ls */*f[0-9][0-9].conf 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
+flow_configs="`cd $CONFDIR; ls */*f[0-9][0-9].conf 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
 flow_configs="`echo ${flow_configs} | tr '\n' ' '`"
 
 echo remove x attributes added by post then calculating checksums. in ${SAMPLEDATA}
@@ -82,7 +82,7 @@ for exchange in $exchanges_to_delete ; do
    rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv delete exchange name=${exchange} >>$flowlogcleanup 2>&1
 done
 
-flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf 2>/dev/null; ls */*f[0-9][0-9].inc 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
+flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf 2>/dev/null; 2>/dev/null`"
 flow_configs="`echo ${flow_configs} | tr '\n' ' '`"
 
 sr_action "Removing flow configs..." remove " " ">> $flowlogcleanup 2>\\&1" "$flow_configs"
