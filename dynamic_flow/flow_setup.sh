@@ -182,10 +182,6 @@ fi
 # then it will hang.  going sequentially means the other component never gets launched, so it's a deadlock
 # and just hangs forever.
 
-#flow_configs="audit/ `cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf | grep -v '^post'; ls poll/pulse.conf`"
-#sr_action "Starting up all components..." start " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
-#echo "Done."
-
 # In the replacement below, using just plain *sr start*  all the processes are launched 
 # at once, and reaped as they finish. so no deadlocks occur.
 # 
