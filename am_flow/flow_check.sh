@@ -243,11 +243,11 @@ calcres "${totsentx}" "${totflowp}" "sender\t\t (${totsentx}) should post same n
 echo "                 | Downloaded files |"
 calcres "${totsard}" "${totflowd}" "${LGPFX}sarra\t (${totsard}) should download same number of files as ${LGPFX}flow downloads\t (${totflowd})"
 calcres "${totflowd}" "${totsub}" "${LGPFX}flow\t (${totflowd}) should download same number of files as ${LGPFX}subscribe downloads (${totsub})"
-zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."
+zerowanted "${missed_dispositions}" "${bulletin_count}" "messages received that we don't know what happened."
 
 if [ "$MQP" == "amqp" ]; then
-    zerowanted  "${messages_unacked}" "${maxshovel}" "there should be no unacknowledged messages left, but there are ${messages_unacked}"
-    zerowanted  "${messages_ready}" "${maxshovel}" "there should be no messages ready to be consumed but there are ${messages_ready}"
+    zerowanted  "${messages_unacked}" "${bulletin_count}" "there should be no unacknowledged messages left, but there are ${messages_unacked}"
+    zerowanted  "${messages_ready}" "${bulletin_count}" "there should be no messages ready to be consumed but there are ${messages_ready}"
 fi
 
 echo "Overall ${flow_test_name} ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
