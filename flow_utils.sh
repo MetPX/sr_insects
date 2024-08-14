@@ -25,6 +25,7 @@ export TESTDIR="`pwd`"
 SAMPLEDATA="`dirname $TESTDIR`"
 export SAMPLEDATA=${SAMPLEDATA}/samples/data
 
+
 SR_TEST_CONFIGS=${TESTDIR}/config
 
 CONFIG_COUNT="`find ${SR_TEST_CONFIGS} -type f -name '*.conf' | wc -l`"
@@ -232,3 +233,6 @@ missedreport="$LOGDIR/missed_dispositions.report"
 trivialhttplog="$LOGDIR/trivialhttpserver_f00.log"
 trivialftplog="$LOGDIR/trivialftpserver_f00.log"
 trivialupstreamhttplog="$LOGDIR/trivialupstreamhttpserver_f00.log"
+
+
+MQP="`grep -v '^#' ~/.config/sr3/default.conf | grep 'declare env MQP=' | sed 's/.*MQP=//'`"
