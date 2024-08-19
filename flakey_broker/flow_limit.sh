@@ -111,7 +111,7 @@ stalled_value=-1
 retry_msgcnt="`cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2>/dev/null | sort -u | wc -l`"
 while [ $retry_msgcnt -gt 0 ]; do
         printf "${flow_test_name} Still %4s messages to retry, waiting...\n" "$retry_msgcnt"
-        sleep 10
+        sleep 30
         retry_msgcnt="`cat "$CACHEDIR"/*/*_f[0-9][0-9]/*retry* 2> /dev/null | sort -u | wc -l`"
 
         if [ "${stalled_value}" == "${retry_msgcnt}" ]; then
