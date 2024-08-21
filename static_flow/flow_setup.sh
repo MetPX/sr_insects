@@ -74,6 +74,10 @@ if [ "$1" != "skipconfig" ]; then
             sr3 convert $i
         done
      fi
+     for c in ${flow_configs}; do
+	 echo rm ${HOME}/.config/sarra/${c}
+	 rm ${HOME}/.config/sarra/${c}
+     done
    fi
 
    if [ "$1" == "config" ]; then
