@@ -122,10 +122,10 @@ echo "Removing flow config logs..."
 if [ "$1" != "skipconfig" ]; then
     if [ "${sarra_py_version:0:1}" == "3" ]; then
         echo $flow_configs |  sed 's/ / ;\n rm -f /g' | sed '1 s|^| rm -f |' | sed '/^ rm -f post/d' | sed 's+/+_+g' | sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].log\*/g' | (cd $LOGDIR; sh )
-
-	rm ${LOGHOSTDIR}/sarra_download_f20*.log
+	rm ${LOGHOSTDIR}/sarra_download_f20*.log*
     else
         echo $flow_configs |  sed 's/ / ;\n rm -f sr_/g' | sed '1 s|^| rm -f sr_|' | sed '/^ rm -f sr_post/d' | sed 's+/+_+g' | sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].log\*/g' | (cd $LOGDIR; sh )
+	rm ${LOGHOSTDIR}/sr_sarra_download_f20*.log*
     fi
 fi
 
