@@ -246,7 +246,9 @@ calcres "${totpost1}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) 
 echo
 echo "                 | py infos   routing |"
 echo
-zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."
+if [ ! "${V2_SKIP_KNOWN_BAD}" ]; then
+   zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."
+fi
 
 # check removed because of issue #294
 #calcres ${totshortened} ${totfileamqp} \
