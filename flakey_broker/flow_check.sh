@@ -223,9 +223,9 @@ calcres ${totsubu}    ${totsent}    "${LGPFX}subscribe u_sftp_f60 (${totsubu}) s
 calcres ${totsubcp}   ${totsent}    "${LGPFX}subscribe cp_f61\t (${totsubcp}) should have the same number of items as ${LGPFX}sender (${totsent})"
 echo "                 | poll       routing |"
 printf " poll sftp_f62 posted $totpoll2  sftp_f63 posted $totpoll3 \n" 
-calcres ${totpoll}   ${totsent}         "${LGPFX}poll sftp_f62+3\t (${totpoll}) should have the same number of items of ${LGPFX}sender\t (${totsent})"
+calcres ${totpoll_unique}   ${totsent}         "${LGPFX}poll sftp_f62+3\t (${totpoll_unique}) should have the same number of items of ${LGPFX}sender\t (${totsent})"
 if [ "${totpoll_mirrored}" ]; then
-    calcres "${totpoll}" "${totpoll_mirrored}" "${LGPFX}poll sftp_f62+3\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totpoll})"
+    calcres "${totpoll_unique}" "${totpoll_mirrored}" "${LGPFX}poll sftp_f62+3\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totpoll_unique})"
 fi
 
 calcres ${totsubq}    ${totpoll}   "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll sftp_f62+3 (${totpoll})"
