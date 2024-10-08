@@ -280,12 +280,13 @@ function countall {
   totsubq="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
-       countthem "`grep -aE 'log after_post posted' "$LOGDIR"/${LGPFX}poll_sftp_f62_*.log | wc -l`"
+       countthem "`grep -aE 'log after_post posted' "$LOGDIR"/poll_sftp_f62_*.log | wc -l`"
        totpoll2="${tot}"
-       countthem "`grep -aE 'log after_post posted' "$LOGDIR"/${LGPFX}poll_sftp_f63_*.log | wc -l`"
+       countthem "`grep -aE 'log after_post posted' "$LOGDIR"/poll_sftp_f63_*.log | wc -l`"
        totpoll3="${tot}"
        totpoll=$(( ${totpoll2} + ${totpoll3} ))
-       totpoll_mirrored="`grep -a ', now saved' "$LOGDIR"/${LGPFX}poll_sftp_f6*_*.log | awk ' { print $18 } '|tail -1`"
+       totpoll_unique="`grep -aE 'log after_post posted' $LOGDIR/poll_sftp_f6?_*.log | awk '{ print $18; }' | sort -u | wc -l`"
+       totpoll_mirrored="`grep -a ', now saved' "$LOGDIR"/poll_sftp_f6*_*.log | awk ' { print $18 } '|tail -1`"
   else
        countthem "`grep -aE '\[INFO\] post_log' "$LOGDIR"/${LGPFX}poll_sftp_f62_*.log | wc -l`"
        totpoll2="${tot}"
