@@ -87,7 +87,7 @@ function sr_action {
     echo $msg
     if [ "${sarra_py_version:0:1}" == "3" ]; then
 
-	count="`sr3 status |  awk ' ( $2 == "stop" ) { print; }; ' | wc -l`"
+	    count="`sr3 status 2>/dev/null |  awk ' ( $2 ~ /(fore|hung|idle|lag|retr|run|stby|stop|wVip)/ ) { print; }; ' | wc -l`"
 
         if [ "$SARRA_LIB" ]; then
             ${SARRA_LIB}/sr3.py --dangerWillRobinson $count $action $files 
