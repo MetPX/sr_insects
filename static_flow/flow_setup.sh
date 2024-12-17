@@ -61,6 +61,7 @@ mkdir -p "$HOME/.config/sarra" 2> /dev/null
 
 #flow_configs="`cd ${SR_CONFIG_EXAMPLES}; ls */*f[0-9][0-9].conf; ls */*f[0-9][0-9].inc`"
 flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].inc; ls */*f[0-9][0-9].conf;`"
+flow_config_count="`echo $flow_configs | wc -w`"
 
 echo "Adding static flow test configurations..."
 if [ "$1" != "skipconfig" ]; then 
@@ -68,7 +69,7 @@ if [ "$1" != "skipconfig" ]; then
    cd ..
    if [ "${sarra_py_version:0:1}" == "3" ]; then
      if [  "${sarra_py_version:5:2}" -ge "54" ]; then
-        sr3 convert ${flow_configs}
+        sr3 --wololo --dangerWillRobinson=${flow_config_count} convert ${flow_configs}
      else
         for i in ${flow_configs}; do
             sr3 convert $i
