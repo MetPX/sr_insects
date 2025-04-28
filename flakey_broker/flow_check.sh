@@ -105,11 +105,12 @@ function comparetree {
 
   tno=$((${tno}+1))
   SUMDIR=${LOGDIR}/sums
-  diff ${SUMDIR}/${1}.txt ${SUMDIR}/${2}.txt >/dev/null 2>&1 
+  DIFF=hoho.diff
+  diff ${SUMDIR}/${1}.txt ${SUMDIR}/${2}.txt >${DIFF} 2>&1 
   result=$?
 
   if [ $result -gt 0 ]; then
-     printf "test %d FAILURE: compare contents of ${1} and ${2} differ\n" $tno
+     printf "test %d FAILURE: compare contents of ${1} and ${2} had `wc -l ${DIFF}| awk '{print $1;};'` differences\n" $tno
   else
      printf "test %d success: compare contents of ${1} and ${2} are the same\n" $tno
      passedno=$((${passedno}+1))
@@ -241,7 +242,7 @@ if [[ "${sarra_py_version}" > "3.00.25" ]]; then
     # FIXME: there are zero of these, I think this test is just wrong.
     #calcres "${staticdircount}" "${totlinkdirshimpost1}" "static tree\t (${staticdircount}) should have a post for every linked directories by shim_f63\t (${totlinkdirshimpost1})"
     twostaticdir=$(( ${staticdircount} * 2 ))
-    calcres "${twostaticdir}" "${totdirshimpost1}" "static tree\t (${staticdircount}) directoiries should be posted twice: for 1st copy and linked_dir by shim_f63\t (${totdirshimpost1})"
+    calcres "${twostaticdir}" "${totdirshimpost1}" "static tree\t (${staticdircount}) directories should be posted twice: for 1st copy and linked_dir by shim_f63\t (${totdirshimpost1})"
     #calcres "${staticdircount}" "${totdirshimpost1}" "static tree\t (${staticdircount}) should have a post for every directories by shim_f63\t (${totdirshimpost1})"
 else
     doubletotpost=$(( ${totpost1}*2 ))

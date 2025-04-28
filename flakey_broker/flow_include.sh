@@ -187,8 +187,8 @@ function countall {
        totshovel2="${tot}"
        countthem "`grep -a 'reject: mask=' "$LOGDIR"/${LGPFX}post_t_dd2_f00_*.log | wc -l`"
        totshovel2rej="${tot}"
-  countthem "`grep rejected  "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
-  totwinnowed="${tot}"
+       countthem "`grep rejected  "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
+       totwinnowed="${tot}"
   fi
 
 
