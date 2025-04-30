@@ -234,9 +234,11 @@ else
     calcres "${totfileamqp}" "${totsarp}" "${LGPFX}subscribe\t (${totfileamqp}) should rx the same number of items as sarra published\t (${totsarp})"
 fi
 echo "                 | watch      routing |"
-calcres "${totwatch}" "${totfileamqp}"         "${LGPFX}watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totfileamqp})"
-calcres "${totsent}" "${totwatch}" "${LGPFX}sender\t\t (${totsent}) should publish the same number of items as ${LGPFX}watch  (${totwatch})"
-calcres "${totsubrmqtt}" "${totwatch}" "rabbitmqtt\t\t (${totsubrmqtt}) should download same number of items as ${LGPFX}watch  (${totwatch})"
+totdoublepost=$(( ${totfileamqp}*2 ))
+calcres "${totwatch}" "${totdoublepost}"         "${LGPFX}watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totdoublepost})"
+tothalfwatch=$(( ${totwatch}/2 ))
+calcres "${totsent}" "${tothalfwatch}" "${LGPFX}sender\t\t (${totsent}) should publish half the number of items as ${LGPFX}watch  (${totwatch})"
+calcres "${totsubrmqtt}" "${tothalfwatch}" "rabbitmqtt\t\t (${totsubrmqtt}) should download half the number of items as ${LGPFX}watch  (${totwatch})"
 calcres "${totsubu}" "${totsent}"  "${LGPFX}subscribe u_sftp_f60 (${totsubu}) should download same number of items as ${LGPFX}sender (${totsent})"
 calcres "${totsubcp}" "${totsent}" "${LGPFX}subscribe cp_f61\t (${totsubcp}) should download same number of items as ${LGPFX}sender (${totsent})"
 echo "                 | poll       routing |"
