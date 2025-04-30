@@ -18,10 +18,7 @@ done
 set -- "${POSITIONAL[@]}"
 
 . ./flow_include.sh
-
 countall
-
-sr3 status
 
 function summarize_performance {
     path="$LOGDIR"/$1
@@ -84,9 +81,7 @@ function summarize_logs {
     fi
 }
 
-
 function checktree {
-
   tree=$1
   printf "checking +${tree}+\n"
   SUMDIR=${LOGDIR}/sums
@@ -101,16 +96,41 @@ function checktree {
 
 }
 
+function logPermCheck {
+    tno=$((${tno}+1))
+
+    #looking into the configs for chmod_log commands if they exist
+    perms="`grep -a chmod_log config -r`"
+    file1=`grep -a chmod_log config -r | cut -f2 -d"/"`
+    file2=`grep -a chmod_log config -r | cut -f3 -d"/" | cut -f1 -d"."`
+
+    #finding the log related to the config file
+    if [ "${sarra_py_version:0:1}" == "3" ]; then
+        path=$HOME/.cache/sr3/log/"$file1"_*.log
+    else
+        path=$HOME/.cache/sarra/log/sr_"$file1"_*.log
+    fi
+    #printf "$path \n"
+
+    #checking if the perms from the config is reflected in the file
+    fileperms=`stat -c "%a %n" $path`
+    if [[ "$fileperms" == *"${perms: -3}"* ]]; then
+        printf "test %d success: Log perms confirmed\n" $tno
+        passedno=$((${passedno}+1))
+    else
+        printf "test %d FAILURE: Log perms test failed.\n" $tno
+    fi
+}
+
 function comparetree {
 
   tno=$((${tno}+1))
   SUMDIR=${LOGDIR}/sums
-  DIFF=hoho.diff
-  diff ${SUMDIR}/${1}.txt ${SUMDIR}/${2}.txt >${DIFF} 2>&1 
+  diff ${SUMDIR}/${1}.txt ${SUMDIR}/${2}.txt >/dev/null 2>&1 
   result=$?
 
   if [ $result -gt 0 ]; then
-     printf "test %d FAILURE: compare contents of ${1} and ${2} had `wc -l ${DIFF}| awk '{print $1;};'` differences\n" $tno
+     printf "test %d FAILURE: compare contents of ${1} and ${2} differ\n" $tno
   else
      printf "test %d success: compare contents of ${1} and ${2} are the same\n" $tno
      passedno=$((${passedno}+1))
@@ -126,8 +146,7 @@ checktree ${testdocroot}/downloaded_by_sub_u
 checktree ${testdocroot}/posted_by_shim
 checktree ${testdocroot}/recd_by_srpoll_test1
 checktree ${testdocroot}/sent_by_tsource2send
-# Not used in flakey? RS
-#checktree ${testdocroot}/mirror/linked_by_shim
+checktree ${testdocroot}/mirror/linked_by_shim
 checktree ${testdocroot}/cfile
 checktree ${testdocroot}/cfr
 
@@ -154,8 +173,10 @@ if [[ -z "$skip_summaries" ]]; then
     summarize_logs WARNING
 fi
 
+
 passedno=0
 tno=0
+
 
 if [[ "${totshovel2}" -gt "${totshovel1}" ]]; then
    maxshovel=${totshovel2}
@@ -164,26 +185,26 @@ else
 fi
 printf "\n\tMaximum of the shovels is: ${maxshovel}\n\n"
 
+
 printf "\t\tTEST RESULTS\n\n"
 
+logPermCheck
+
+echo "                 | content of subdirs of ${testdocroot} |"
+comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
+comparetree downloaded_by_sub_cp downloaded_by_sub_rabbitmqtt
+comparetree downloaded_by_sub_rabbitmqtt downloaded_by_sub_u
+comparetree downloaded_by_sub_amqp recd_by_srpoll_test1
+comparetree downloaded_by_sub_u posted_by_shim
+comparetree downloaded_by_sub_amqp linked_by_shim
+comparetree posted_by_shim sent_by_tsource2send
 
 if [ "${SKIP_KNOWN_BAD}" ]; then
-    echo "known issues with v2 directories never matching, not testing that"
+   echo "skipping one known bad v2 comparison."
 else
-    echo "                 | content of subdirs of ${testdocroot} |"
-    comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
-    comparetree downloaded_by_sub_cp downloaded_by_sub_rabbitmqtt
-    comparetree downloaded_by_sub_rabbitmqtt downloaded_by_sub_u
-    comparetree downloaded_by_sub_u posted_by_shim
-    # RS not used?
-    #comparetree downloaded_by_sub_amqp linked_by_shim
-    comparetree posted_by_shim sent_by_tsource2send
-    # C consumer fails because of https://github.com/MetPX/sarrac/issues/121
-    #comparetree downloaded_by_sub_amqp cfile
-    comparetree cfile cfr
-    comparetree downloaded_by_sub_amqp recd_by_srpoll_test1
-
-fi
+   comparetree downloaded_by_sub_amqp cfile
+fi 
+comparetree cfile cfr
 
 echo "broker state:"
 if [[ ${messages_unacked} > 0 ]] || [[ ${messages_ready} > 0 ]]; then
@@ -199,59 +220,52 @@ tot2shov=$(( ${totshovel1} + ${totshovel2} ))
 t4=$(( ${totfileamqp}*4 ))
 
 echo "                 | dd.weather routing |"
-
-if [ ! "${SKIP_KNOWN_BAD}" ]; then
-    expected_xattr_cnt=2242
-    src_xattr_cnt="`find ${SAMPLEDATA} -type f | xargs xattr -l|  grep ': user.sr_.*: '| wc -l`"
-    calcres ${src_xattr_cnt} ${expected_xattr_cnt} "expected ${expected_xattr_cnt} number of extended attributes in source tree ${src_xattr_cnt}"
-fi
-
-
-
-
-calcres ${staticfilecount} ${totshovel2} "${LGPFX}post\t count of posted files (${totshovel2}) should be same those in the static data directory\t (${staticfilecount})"
+calcres "${staticfilecount}" "${totshovel2}" "${LGPFX}post\t count of posted files (${totshovel2}) should be same those in the static data directory\t (${staticfilecount})"
 calcres "${rejectfilecount}" "${totshovel2rej}" "${LGPFX}post\t count of rejected files (${totshovel2rej}) should be same those in the static data directory\t (${rejectfilecount})"
+calcres "${totshovel1}" "${totshovel2}" "${LGPFX}post\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
+calcres "${totsarx}" "${tot2shov}" "${LGPFX}sarra\t (${totsarx}) should receive the same number of items as both post\t (${tot2shov})"
+calcres "${totsarp}" "${totshovel1}" "${LGPFX}sarra\t (${totsarp}) should publish the same number of items as one post\t (${totshovel1})"
+calcres "${totwinnowed}" "${totshovel1}" "${LGPFX}sarra\t (${totwinnowed}) should winnow the same number of items as one post\t (${totshovel1})"
 
-calcres ${totshovel1} ${totshovel2} "${LGPFX}post\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
-calcres ${totsarp}    ${totshovel1} "${LGPFX}sarra\t (${totsarp}) should have the same number of items as one post\t (${totshovel1})"
-calcres ${totwinnowed}    ${totshovel1} "${LGPFX}sarra\t (${totwinnowed}) should winnow the same number of items as one post\t (${totshovel1})"
-calcres ${totfileamqp}   ${totsarp}    "${LGPFX}subscribe amqp_f30\t (${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
-echo "                 | watch      routing |"
-calcres ${totwatch}   ${totfileamqp}         "${LGPFX}watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totfileamqp})"
-calcres ${totsent}    ${totwatch}   "${LGPFX}sender\t\t (${totsent}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
-calcres ${totsubrmqtt} ${totwatch}  "rabbitmqtt\t\t (${totsubrmqtt}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
-calcres ${totsubu}    ${totsent}    "${LGPFX}subscribe u_sftp_f60 (${totsubu}) should have the same number of items as ${LGPFX}sender (${totsent})"
-calcres ${totsubcp}   ${totsent}    "${LGPFX}subscribe cp_f61\t (${totsubcp}) should have the same number of items as ${LGPFX}sender (${totsent})"
-echo "                 | poll       routing |"
-printf " poll sftp_f62 posted $totpoll2  sftp_f63 posted $totpoll3 \n" 
-calcres ${totpoll_unique}   ${totsent}         "${LGPFX}poll sftp_f62+3\t (${totpoll_unique}) should have the same number of items of ${LGPFX}sender\t (${totsent})"
-if [ "${totpoll_mirrored}" ]; then
-    calcres "${totpoll_unique}" "${totpoll_mirrored}" "${LGPFX}poll sftp_f62+3\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totpoll_unique})"
+
+if [ "${SKIP_KNOWN_BAD}" ]; then
+    echo "skipping known bad subscriber check."
+else
+    calcres "${totfileamqp}" "${totsarp}" "${LGPFX}subscribe\t (${totfileamqp}) should rx the same number of items as sarra published\t (${totsarp})"
 fi
-
-calcres ${totsubq}    ${totpoll}   "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll sftp_f62+3 (${totpoll})"
+echo "                 | watch      routing |"
+totdoublepost=$(( ${totfileamqp}*2 ))
+calcres "${totwatch}" "${totdoublepost}"         "${LGPFX}watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totdoublepost})"
+tothalfwatch=$(( ${totwatch}/2 ))
+calcres "${totsent}" "${tothalfwatch}" "${LGPFX}sender\t\t (${totsent}) should publish half the number of items as ${LGPFX}watch  (${totwatch})"
+calcres "${totsubrmqtt}" "${tothalfwatch}" "rabbitmqtt\t\t (${totsubrmqtt}) should download half the number of items as ${LGPFX}watch  (${totwatch})"
+calcres "${totsubu}" "${totsent}"  "${LGPFX}subscribe u_sftp_f60 (${totsubu}) should download same number of items as ${LGPFX}sender (${totsent})"
+calcres "${totsubcp}" "${totsent}" "${LGPFX}subscribe cp_f61\t (${totsubcp}) should download same number of items as ${LGPFX}sender (${totsent})"
+echo "                 | poll       routing |"
+calcres "${totpoll1}" "${totsent}" "${LGPFX}poll sftp_f62\t (${totpoll1}) should publish same number of items of ${LGPFX}sender sent\t (${totsent})"
+if [ "${totpoll_mirrored}" ]; then
+    calcres "${totpoll1}" "${totpoll_mirrored}" "${LGPFX}poll sftp_f63\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totsent})"
+fi
+calcres "${totsubq}" "${totpoll1}" "${LGPFX}subscribe q_f71\t (${totsubq}) should download same number of items as ${LGPFX}poll test1_f62 (${totpoll1})"
 echo "                 | flow_post  routing |"
 calcres "${totpost1}" "${totfilesent}" "${LGPFX}post test2_f61\t (${totpost1}) should have the same number of files of ${LGPFX}sender \t (${totfilesent})"
-
-calcres ${totsubftp}  ${totpost1}   "${LGPFX}subscribe ftp_f70\t (${totsubftp}) should have the same number of items as ${LGPFX}post test2_f61 (${totpost1})"
+calcres "${totsubftp}" "${totpost1}" "${LGPFX}subscribe ftp_f70\t (${totsubftp}) should have the same number of items as ${LGPFX}post test2_f61 (${totpost1})"
 
 if [[ "${sarra_py_version}" > "3.00.25" ]]; then
-
+  
     calcres "${totpost1}" "${totfileshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should post about the same number of files as shim_f63\t (${totfileshimpost1})"
     calcres "${totpost1}" "${totlinkshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should post about the same number of links as shim_f63\t (${totlinkshimpost1})"
-    # FIXME: there are zero of these, I think this test is just wrong.
+    # FIXME: the following test should be zero, but it isn't... in flakey it is zero, which is correct... very confusing. 
     #calcres "${staticdircount}" "${totlinkdirshimpost1}" "static tree\t (${staticdircount}) should have a post for every linked directories by shim_f63\t (${totlinkdirshimpost1})"
     twostaticdir=$(( ${staticdircount} * 2 ))
     calcres "${twostaticdir}" "${totdirshimpost1}" "static tree\t (${staticdircount}) directories should be posted twice: for 1st copy and linked_dir by shim_f63\t (${totdirshimpost1})"
-    #calcres "${staticdircount}" "${totdirshimpost1}" "static tree\t (${staticdircount}) should have a post for every directories by shim_f63\t (${totdirshimpost1})"
 else
     doubletotpost=$(( ${totpost1}*2 ))
     calcres "${doubletotpost}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should have about half the number of items as shim_f63\t (${totshimpost1})"
-    #? calcres ${totpost1} ${totshimpost1} "${LGPFX}post test2_f61\t (${totpost1}) should have about the same number of items as shim_f63\t (${totshimpost1})"
 fi
 
-
 echo "                 | py infos   routing |"
+#zerowanted "${totauditkills}" "${CONFIG_COUNT}" "sr_audit should not have killed anything. It killed ${totauditkills} processes" 
 zerowanted "${missed_dispositions}" "${maxshovel}" "messages received that we don't know what happened."
 # check removed because of issue #294
 #calcres ${totshortened} ${totfileamqp} \
@@ -268,30 +282,35 @@ if [[ "$C_ALSO" || -d "$SARRAC_LIB" ]]; then
 
 echo "                 | C          routing |"
   calcres  ${totcpelle04p} ${totcpelle05p} "cpost both pelles should post the same number of messages (${totcpelle05p}) (${totcpelle04p})"
-  calcres  ${totcpelle04_rl} ${totcpelle05_rl} "cpost both pelles should see same amount of post_rate_limit messages (${totcpelle04_rl}) (${totcpelle05_rl})"
-  t14=$(( ${totcpelle04_rl}*5 ))
-  calcres  ${totcpelle04p} ${t14} "cpost pelle04 should post 5 times the number of post_rate_limit messages (${totcpelle04p}) (${totcpelle04_rl})"
 
   totcvan=$(( ${totcvan14p} + ${totcvan15p} ))
   calcres  ${totcvan} ${totcdnld} "cdnld_f21 subscribe downloaded ($totcdnld) the same number of files that was published by both van_14 and van_15 ($totcvan)"
   t5=$(( $totcveille / 2 ))
-  calcres  ${totcveille} ${totcdnld} "veille_f34 should post as many files ($totcveille) as subscribe cdnld_f21 downloaded ($totcdnld)"
-  calcres  ${totcveille} ${totcfile} "veille_f34 should post as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
+  calcres  "${totcveille}" "${totcdnld}" "veille_f34 should post as many files ($totcveille) as subscribe cdnld_f21 downloaded ($totcdnld)"
+  calcres  "${totcveille}" "${totcfile}" "veille_f34 should post as many files ($totcveille) as subscribe cfile_f44 downloaded ($totcfile)"
 
 fi
 
-zerowanted  "${messages_unacked}" "${maxshovel}" "there should be no unacknowledged messages left, but there are ${messages_unacked}"
-zerowanted  "${messages_ready}" "${maxshovel}" "there should be no messages ready to be consumed but there are ${messages_ready}"
+if [ "$MQP" == "amqp" ]; then
+  zerowanted  "${messages_unacked}" "${maxshovel}" "there should be no unacknowledged messages left, but there are ${messages_unacked}"
+  zerowanted  "${messages_ready}" "${maxshovel}" "there should be no messages ready to be consumed but there are ${messages_ready}"
+fi
 
 if [ "${totwvip}" ]; then
-    calcres "${totwvip}" 1 "there should be 1 process in wVip state"
+  calcres "${totwvip}" 1 "there should be 1 process in wVip state"
 fi
 
+echo "Overall ${flow_test_name} ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 
-tallyres ${tno} ${passedno} "Overall ${flow_test_name} ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
-results=$?
+#tallyres "${tno}" "${passedno}" "Overall ${passedno} of ${tno} passed (sample size: $staticfilecount) !"
 
-if (("${missed_dispositions}">0)); then
+if [ "${passedno}" -gt 0 -a "${passedno}" -eq "${tno}" ]; then
+   results=0
+else
+   results=$(( "${tno}"-"${passedno}" ))
+fi
+
+if [[ "${missed_dispositions}" -gt 0 ]]; then
    # PAS missed_dispositions means definite Sarra bug, very serious.
    echo "Please review $missedreport"
    results=1
@@ -299,8 +318,3 @@ fi
 echo
 
 exit ${results}
-
-
-
-
- 

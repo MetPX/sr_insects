@@ -311,7 +311,7 @@ function countall {
       totsarx="${tot}"
       countthem "`grep -a 'rejected: 304 Not modified' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
       totsarx=$((${totsarx}+${tot}))
-      countthem "`grep -a 'log after_post posted to .* file .*' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+      countthem "`grep -aE 'log after_post posted to .* file .*' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
       totsarp="${tot}"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
