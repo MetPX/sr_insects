@@ -143,4 +143,19 @@ if [ -f .httpdocroot ]; then
       rm -rf $httpdr
    fi
 fi
+
+sanity_pids="`ps ax | grep -v awk | awk '/while true; do sr3 sanity; sleep/ { print $1; }'`"
+if [ "${sanity_pids}" ]; then
+   echo "terminating sanity daemon: ${sanity_pids}"
+   kill ${sanity_pids}
+   sleep 2
+   sanity_pids="`ps ax | grep -v awk | awk '/while true; do sr3 sanity; sleep/ { print $1; }'`"
+   if [ "${sanity_pids}" ]; then
+       echo "SIGKILLING sanity daemon: ${sanity_pids}"
+       kill -9 ${sanity_pids}
+   fi
+fi
+
+
 echo "Done!"
+
