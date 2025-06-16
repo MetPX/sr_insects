@@ -78,7 +78,7 @@ for include_file in ${flow_includes}; do
 done
 
 if [ "${sarra_py_version:0:1}" == "3" ]; then
-   if [  "${sarra_py_version:5:2}" -ge "54" ]; then
+   if [  "${sarra_py_version:5:2}" -ge "54" -o "${sarra_py_version:2:2}" -gt "00" ]; then
        # first run it and expect failure because we need dangerWillRobinson
        # If you are really sure, use --dangerWillRobinson=29 
 
