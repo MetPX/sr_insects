@@ -10,6 +10,7 @@ touch $flowlogcleanup
 
 if [ "${sarra_py_version:0:1}" == "3" ]; then
     flow_configs="`cd $CONFDIR; ls */*f[0-9][0-9].conf 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
+    flow_includes="`cd $CONFDIR; ls */*f[0-9][0-9].inc 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
 else
     flow_configs="audit/ `cd $CONFDIR; ls */*f[0-9][0-9].conf 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
 fi
@@ -108,6 +109,10 @@ flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf 2>/dev/null; ls */*
 flow_configs="`echo ${flow_configs} | tr '\n' ' '`"
 
 sr_action "Removing flow configs..." remove " " ">> $flowlogcleanup 2>\\&1" "$flow_configs"
+
+for include_file in ${flow_includes}; do
+    rm ~/.config/sr3/${include_file}
+done
 
 echo "Removing flow config logs..."
 if [ "${sarra_py_version:0:1}" == "3" ]; then
