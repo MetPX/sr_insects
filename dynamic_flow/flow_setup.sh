@@ -27,6 +27,7 @@ testhost=localhost
 sftpuser=`whoami`
 flowsetuplog="$LOGDIR/flowsetup_f00.log"
 
+nohup bash -c "while true; do sr3 sanity; sleep 3; done" >>~/.cache/sr3/log/sr_sanity.log 2>&1  &
 
 if [ -d $LOGDIR ]; then
     logs2remove=$(find "$LOGDIR" -iname "*.txt" -o -iname "*f[0-9][0-9]*.log")
@@ -60,7 +61,8 @@ done
 mkdir -p "$CONFDIR" 2> /dev/null
 
 #flow_configs="`cd ${SR_CONFIG_EXAMPLES}; ls */*f[0-9][0-9].conf; ls */*f[0-9][0-9].inc`"
-flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].inc; ls */*f[0-9][0-9].conf`"
+flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf`"
+flow_includes="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].inc`"
 #sr_action "Adding flow test configurations..." add " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
 
 #if [ "${sarra_py_version:0:1}" == "3" ]; then
@@ -71,19 +73,24 @@ flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].inc; ls */*f[0-9][0-9].c
    cd ..
 #fi
 
+for include_file in ${flow_includes}; do
+   cp ${include_file} ~/.config/sarra
+done
+
 if [ "${sarra_py_version:0:1}" == "3" ]; then
-   if [  "${sarra_py_version:5:2}" -ge "54" ]; then
+   if [  "${sarra_py_version:5:2}" -ge "54" -o "${sarra_py_version:2:2}" -gt "00" ]; then
        # first run it and expect failure because we need dangerWillRobinson
        # If you are really sure, use --dangerWillRobinson=29 
 
-       config_count=$(sr3 --wololo convert ${flow_configs} |& grep dangerWillRobinson | tail -n1 | sed 's/.*dangerWillRobinson=//g')
-       sr3 --wololo --dangerWillRobinson="${config_count}" convert ${flow_configs}
+       config_count=$(sr3 --wololo convert ${flow_configs} ${flow_includes} |& grep dangerWillRobinson | tail -n1 | sed 's/.*dangerWillRobinson=//g')
+       sr3 --wololo --dangerWillRobinson="${config_count}" convert ${flow_configs} ${flow_includes}
+
    else
        for i in ${flow_configs}; do
            sr3 convert $i
        done
    fi
-   for c in ${flow_configs}; do
+   for c in "${flow_configs} ${flow_includes}"; do
        echo rm ${HOME}/.config/sarra/${c}
        rm ${HOME}/.config/sarra/${c}
    done

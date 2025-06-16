@@ -20,6 +20,8 @@ testhost=localhost
 sftpuser=`whoami`
 flowsetuplog="$LOGDIR/flowsetup_f00.log"
 
+nohup bash -c "while true; do sr3 sanity; sleep 3; done" >>~/.cache/sr3/log/sr_sanity.log 2>&1  &
+
 
 if [ -d $LOGDIR ]; then
     logs2remove=$(find "$LOGDIR" -iname "*.txt" -o -iname "*f[0-9][0-9]*.log")
@@ -75,7 +77,7 @@ echo "Adding flakey broker flow test configurations..."
 cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sarra
 cd ..
 if [ "${sarra_py_version:0:1}" == "3" ]; then
-   if [  "${sarra_py_version:5:2}" -ge "54" ]; then
+   if [  "${sarra_py_version:5:2}" -ge "54" -o "${sarra_py_version:2:2}" -gt "00" ]; then
        sr3 convert ${flow_configs}
    else
        for i in ${flow_configs}; do

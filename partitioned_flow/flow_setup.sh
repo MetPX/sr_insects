@@ -67,7 +67,7 @@ if [ "$1" != "skipconfig" ]; then
    cd ${SR_TEST_CONFIGS} ; cp -r *  ${HOME}/.config/sarra
    cd ..
    if [ "${sarra_py_version:0:1}" == "3" ]; then
-      if [  "${sarra_py_version:5:2}" -ge "54" ]; then
+      if [  "${sarra_py_version:5:2}" -ge "54" -o "${sarra_py_version:2:2}" -gt "00" ]; then
           sr3 convert ${flow_configs}
       else
           for i in ${flow_configs}; do

@@ -10,6 +10,7 @@ touch $flowlogcleanup
 
 if [ "${sarra_py_version:0:1}" == "3" ]; then
     flow_configs="`cd $CONFDIR; ls */*f[0-9][0-9].conf 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
+    flow_includes="`cd $CONFDIR; ls */*f[0-9][0-9].inc 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
 else
     flow_configs="audit/ `cd $CONFDIR; ls */*f[0-9][0-9].conf 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
 fi
@@ -104,10 +105,14 @@ for exchange in $exchanges_to_delete ; do
 done
 
 echo "SR_CONFIG=${SR_TEST_CONFIGS} "
-flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf 2>/dev/null; ls */*f[0-9][0-9].inc 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
+flow_configs="`cd ${SR_TEST_CONFIGS}; ls */*f[0-9][0-9].conf 2>/dev/null; 2>/dev/null; ls poll/pulse.conf 2>/dev/null`"
 flow_configs="`echo ${flow_configs} | tr '\n' ' '`"
 
 sr_action "Removing flow configs..." remove " " ">> $flowlogcleanup 2>\\&1" "$flow_configs"
+
+for include_file in ${flow_includes}; do
+    rm ~/.config/sr3/${include_file}
+done
 
 echo "Removing flow config logs..."
 if [ "${sarra_py_version:0:1}" == "3" ]; then
@@ -130,5 +135,18 @@ if [ -f .httpdocroot ]; then
       rm -rf $httpdr
    fi
 fi
+
+sanity_pids="`ps ax | grep -v awk | awk '/while true; do sr3 sanity; sleep/ { print $1; }'`"
+if [ "${sanity_pids}" ]; then
+   echo "terminating sanity daemon: ${sanity_pids}"
+   kill ${sanity_pids}
+   sleep 2
+   sanity_pids="`ps ax | grep -v awk | awk '/while true; do sr3 sanity; sleep/ { print $1; }'`"
+   if [ "${sanity_pids}" ]; then
+       echo "SIGKILLING sanity daemon: ${sanity_pids}"
+       kill -9 ${sanity_pids}
+   fi
+fi
+
 echo "Done!"
 exit 0
