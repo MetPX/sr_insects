@@ -82,7 +82,7 @@ if [ "${sarra_py_version:0:1}" == "3" ]; then
        # first run it and expect failure because we need dangerWillRobinson
        # If you are really sure, use --dangerWillRobinson=29 
 
-       config_count=$(sr3 --wololo convert ${flow_configs} |& grep dangerWillRobinson | tail -n1 | sed 's/.*dangerWillRobinson=//g')
+       config_count=$(sr3 --wololo convert ${flow_configs} ${flow_includes} |& grep dangerWillRobinson | tail -n1 | sed 's/.*dangerWillRobinson=//g')
        sr3 --wololo --dangerWillRobinson="${config_count}" convert ${flow_configs} ${flow_includes}
 
    else
