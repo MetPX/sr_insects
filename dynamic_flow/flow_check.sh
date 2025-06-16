@@ -307,4 +307,5 @@ if (("${missed_dispositions}">0)); then
 fi
 echo
 
+date
 exit ${results}

@@ -5,7 +5,7 @@
 if [ "$1" ]; then
    smin=$1
 else
-   smin=700
+   smin=400
 fi
 
 if [ "${sarra_py_version:0:1}" == "3" ]; then
