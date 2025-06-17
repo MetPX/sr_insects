@@ -286,9 +286,6 @@ if (("${missed_dispositions}">0)); then
 fi
 echo
 
+timestamp_summarize
+
 exit ${results}
-
-
-
-
- 

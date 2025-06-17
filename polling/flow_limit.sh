@@ -37,5 +37,8 @@ while [ $queued_msgcnt -gt 0 ]; do
         queued_msgcnt="`rabbitmqadmin -H localhost -u bunnymaster -p ${adminpw} -f tsv list queues | awk ' BEGIN {t=0;} (NR > 1)  && /_f[0-9][0-9]/ { t+=$2; }; END { print t; };'`"
 done
 
+date +'%s' >"${LOGDIR}/timestamp_end.txt"
+
+
 printf "\n\nflow test ${flow_test_name} stopped. \n\n"
 

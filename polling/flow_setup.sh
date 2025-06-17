@@ -29,6 +29,8 @@ if [ -d $LOGDIR ]; then
     fi
 fi
 
+date +'%s' >"${LOGDIR}/timestamp_start.txt"
+
 if [ ! -d "$testdocroot" ]; then
   mkdir $testdocroot
   cp -r testree/* $testdocroot

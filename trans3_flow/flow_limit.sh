@@ -42,5 +42,9 @@ while [ $queued_msgcnt -gt 0 ]; do
         wait_retry
 done
 
+date +'%s' >"${LOGDIR}/timestamp_end.txt"
+
+
+
 printf "\n\nflow test ${flow_test_name} stopped.\n\n"
 
