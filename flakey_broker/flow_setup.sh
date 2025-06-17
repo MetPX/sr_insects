@@ -20,6 +20,7 @@ testhost=localhost
 sftpuser=`whoami`
 flowsetuplog="$LOGDIR/flowsetup_f00.log"
 
+
 nohup bash -c "while true; do sr3 sanity; sleep 3; done" >>~/.cache/sr3/log/sr_sanity.log 2>&1  &
 
 
@@ -30,6 +31,8 @@ if [ -d $LOGDIR ]; then
        rm $logs2remove
     fi
 fi
+
+date +'%s' >"${LOGDIR}/timestamp_start.txt"
 
 if [ ! -d "$testdocroot" ]; then
   mkdir $testdocroot

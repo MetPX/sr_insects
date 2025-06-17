@@ -321,4 +321,6 @@ if [[ "${missed_dispositions}" -gt 0 ]]; then
 fi
 echo
 
+timestamp_summarize
+
 exit ${results}

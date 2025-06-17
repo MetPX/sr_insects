@@ -172,6 +172,20 @@ function xchk {
 
 }
 
+function timestamp_summarize {
+  # print how long the test took
+  # each test should write a timestamp at beginning and end to the log directory.
+  # this function prints the difference between the two timestamp files.
+
+  beginning=`cat $LOGDIR/timestamp_start.txt`
+  ending=`cat $LOGDIR/timestamp_end.txt`
+
+  duration=$(( ${ending} - ${beginning}))
+
+  printf "test ran for $duration seconds\n"
+
+}
+
 
 # Code execution shared by more than 1 flow test script
 
