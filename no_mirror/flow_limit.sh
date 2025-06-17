@@ -46,6 +46,9 @@ sleepytime=300
 printf ¨\nwaiting $sleepytime for things to settle out\n¨
 sleep $sleepytime
 
+date +'%s' >"${LOGDIR}/timestamp_end.txt"
+
+
 
 printf "\n\nflow test ${flow_test_name} stopped. \n\n"
 
