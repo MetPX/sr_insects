@@ -217,36 +217,36 @@ calcres ${totsarp}    ${totshovel1} "${LGPFX}sarra\t (${totsarp}) should have th
 calcres ${totwinnowed}    ${totshovel1} "${LGPFX}sarra\t (${totwinnowed}) should winnow the same number of items as one post\t (${totshovel1})"
 calcres ${totfileamqp}   ${totsarp}    "${LGPFX}subscribe amqp_f30\t (${totfileamqp}) should have the same number of items as sarra\t\t (${totsarp})"
 echo "                 | watch      routing |"
-calcres ${totwatch}   ${totfileamqp}         "${LGPFX}watch\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totfileamqp})"
-calcres ${totsent}    ${totwatch}   "${LGPFX}sender\t\t (${totsent}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
+calcres ${totwatch}   ${totfileamqp}         "${LGPFX}watch\t\t\t (${totwatch}) should be the same as subscribe amqp_f30\t\t  (${totfileamqp})"
+calcres ${totsent}    ${totwatch}   "${LGPFX}sender\t\t\t (${totsent}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
 calcres ${totsubrmqtt} ${totwatch}  "rabbitmqtt\t\t (${totsubrmqtt}) should have the same number of items as ${LGPFX}watch  (${totwatch})"
-calcres ${totsubu}    ${totsent}    "${LGPFX}subscribe u_sftp_f60 (${totsubu}) should have the same number of items as ${LGPFX}sender (${totsent})"
+calcres ${totsubu}    ${totsent}    "${LGPFX}subscribe u_sftp_f60\t (${totsubu}) should have the same number of items as ${LGPFX}sender (${totsent})"
 calcres ${totsubcp}   ${totsent}    "${LGPFX}subscribe cp_f61\t (${totsubcp}) should have the same number of items as ${LGPFX}sender (${totsent})"
 echo "                 | poll       routing |"
-printf " poll sftp_f62 posted $totpoll2  sftp_f63 posted $totpoll3 \n" 
+printf " poll sftp_f62 posted $totpoll2   sftp_f63 posted $totpoll3   total posted: $totpoll   # of duplicates posted: $totpoll_dupes \n" 
 calcres ${totpoll_unique}   ${totsent}         "${LGPFX}poll sftp_f62+3\t (${totpoll_unique}) should have the same number of items of ${LGPFX}sender\t (${totsent})"
 if [ "${totpoll_mirrored}" ]; then
     calcres "${totpoll_unique}" "${totpoll_mirrored}" "${LGPFX}poll sftp_f62+3\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totpoll_unique})"
 fi
 
-calcres ${totsubq}    ${totpoll}   "${LGPFX}subscribe q_f71\t (${totsubq}) should have the same number of items as ${LGPFX}poll sftp_f62+3 (${totpoll})"
+calcres ${totsubq_uniq}    ${totpoll}   "${LGPFX}subscribe q_f71\t (${totsubq_uniq}) should have the same number of items as ${LGPFX}poll sftp_f62+3 (${totpoll})"
 echo "                 | flow_post  routing |"
-calcres "${totpost1}" "${totfilesent}" "${LGPFX}post test2_f61\t (${totpost1}) should have the same number of files of ${LGPFX}sender \t (${totfilesent})"
+calcres "${totpost1}" "${totfilesent}" "${LGPFX}post test2_f61\t\t (${totpost1}) should have the same number of files of ${LGPFX}sender \t (${totfilesent})"
 
 calcres ${totsubftp}  ${totpost1}   "${LGPFX}subscribe ftp_f70\t (${totsubftp}) should have the same number of items as ${LGPFX}post test2_f61 (${totpost1})"
 
 if [[ "${sarra_py_version}" > "3.00.25" ]]; then
 
-    calcres "${totpost1}" "${totfileshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should post about the same number of files as shim_f63\t (${totfileshimpost1})"
-    calcres "${totpost1}" "${totlinkshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should post about the same number of links as shim_f63\t (${totlinkshimpost1})"
+    calcres "${totpost1}" "${totfileshimpost1}" "${LGPFX}post test2_f61\t\t (${totpost1}) should post about the same number of files as shim_f63\t (${totfileshimpost1})"
+    calcres "${totpost1}" "${totlinkshimpost1}" "${LGPFX}post test2_f61\t\t (${totpost1}) should post about the same number of links as shim_f63\t (${totlinkshimpost1})"
     # FIXME: there are zero of these, I think this test is just wrong.
     #calcres "${staticdircount}" "${totlinkdirshimpost1}" "static tree\t (${staticdircount}) should have a post for every linked directories by shim_f63\t (${totlinkdirshimpost1})"
     twostaticdir=$(( ${staticdircount} * 2 ))
-    calcres "${twostaticdir}" "${totdirshimpost1}" "static tree\t (${staticdircount}) directories should be posted twice: for 1st copy and linked_dir by shim_f63\t (${totdirshimpost1})"
+    calcres "${twostaticdir}" "${totdirshimpost1}" "static tree\t\t (${staticdircount}) directories should be posted twice: for 1st copy and linked_dir by shim_f63\t (${totdirshimpost1})"
     #calcres "${staticdircount}" "${totdirshimpost1}" "static tree\t (${staticdircount}) should have a post for every directories by shim_f63\t (${totdirshimpost1})"
 else
     doubletotpost=$(( ${totpost1}*2 ))
-    calcres "${doubletotpost}" "${totshimpost1}" "${LGPFX}post test2_f61\t (${totpost1}) should have about half the number of items as shim_f63\t (${totshimpost1})"
+    calcres "${doubletotpost}" "${totshimpost1}" "${LGPFX}post test2_f61\t\t (${totpost1}) should have about half the number of items as shim_f63\t (${totshimpost1})"
     #? calcres ${totpost1} ${totshimpost1} "${LGPFX}post test2_f61\t (${totpost1}) should have about the same number of items as shim_f63\t (${totshimpost1})"
 fi
 

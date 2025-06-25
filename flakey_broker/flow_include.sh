@@ -278,6 +278,11 @@ function countall {
   #i
   countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
   totsubq="${tot}"
+  countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | grep -v DEBUG | sed 's/.*ok://g' | sort | uniq | wc -l`"
+  # need to use uniq because 1) we use uniq values from the poll and 2) subscribe might process some messages twice, if the broker
+  # goes down before the subscriber can ack them -- the messages will get re-delivered by the broker even if they've already been
+  # successfully "worked" by the subscriber.
+  totsubq_uniq="${tot}"
 
   if [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -aE 'log after_post posted' "$LOGDIR"/poll_sftp_f62_*.log | wc -l`"
@@ -287,6 +292,7 @@ function countall {
        totpoll=$(( ${totpoll2} + ${totpoll3} ))
        totpoll_unique="`grep -aE 'log after_post posted' $LOGDIR/poll_sftp_f6?_*.log | sed 's/.*relPath: //g' | awk '{ print $1 }' | sort -u | wc -l`"
        totpoll_mirrored="`grep -a ', now saved' "$LOGDIR"/poll_sftp_f6*_*.log | awk ' { print $18 } '|tail -1`"
+       totpoll_dupes=$(( ${totpoll} - ${totpoll_unique} ))
   else
        countthem "`grep -aE '\[INFO\] post_log' "$LOGDIR"/${LGPFX}poll_sftp_f62_*.log | wc -l`"
        totpoll2="${tot}"
