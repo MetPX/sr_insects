@@ -180,11 +180,11 @@ function countall {
   if [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -a 'log after_post posted' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
        totshovel2="${tot}"
-       countthem "`grep -a 'rejected: 404 mask=' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
+       countthem "`grep -a 'rejected:.*404.*mask=' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
        totshovel2rej="${tot}"
 
        #countthem "`grep -a after_work\ rejected  "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
-       countthem "`grep -a 'rejected: 304 Not modified' "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+       countthem "`grep -a 'rejected:.*304.*Not modified' "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
        totwinnowed="${tot}"
   else
        countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_post_t_dd2_f00_*.log | wc -l`"
@@ -321,7 +321,7 @@ function countall {
   if [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'after_accept accepted:' "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
       totsarx="${tot}"
-      countthem "`grep -a 'rejected: 304 Not modified' "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+      countthem "`grep -a 'rejected:.*304.*Not modified' "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
       totsarx=$((${totsarx}+${tot}))
       countthem "`grep -a 'log after_post posted' "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
       totsarp="${tot}"
