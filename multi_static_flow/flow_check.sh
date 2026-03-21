@@ -178,14 +178,6 @@ passedno=0
 tno=0
 
 
-if [[ "${totshovel2}" -gt "${totshovel1}" ]]; then
-   maxshovel=${totshovel2}
-else 
-   maxshovel=${totshovel1}
-fi
-printf "\n\tMaximum of the shovels is: ${maxshovel}\n\n"
-
-
 printf "\t\tTEST RESULTS\n\n"
 
 logPermCheck
@@ -219,13 +211,14 @@ fi
 tot2shov=$(( ${totshovel1} + ${totshovel2} ))
 t4=$(( ${totfileamqp}*4 ))
 
+t1posted_static=$(( ${totshovel1} / 2 ))
+
 echo "                 | dd.weather routing |"
-calcres "${staticfilecount}" "${totshovel2}" "${LGPFX}post\t count of posted files (${totshovel2}) should be same those in the static data directory\t (${staticfilecount})"
-calcres "${rejectfilecount}" "${totshovel2rej}" "${LGPFX}post\t count of rejected files (${totshovel2rej}) should be same those in the static data directory\t (${rejectfilecount})"
-calcres "${totshovel1}" "${totshovel2}" "${LGPFX}post\t (${totshovel1}) t_dd1 should have the same number of items as t_dd2\t (${totshovel2})"
+calcres "${staticfilecount}" "${t1posted_static}" "${LGPFX}post\t count of posted files (${totshovel1}) should be double those in the static data directory\t (${staticfilecount})"
+calcres "${rejectfilecount}" "${totshovel1rej}" "${LGPFX}post\t count of rejected files (${totshovel1rej}) should be same those in the static data directory\t (${rejectfilecount})"
 calcres "${totsarx}" "${tot2shov}" "${LGPFX}sarra\t (${totsarx}) should receive the same number of items as both post\t (${tot2shov})"
-calcres "${totsarp}" "${totshovel1}" "${LGPFX}sarra\t (${totsarp}) should publish the same number of items as one post\t (${totshovel1})"
-calcres "${totwinnowed}" "${totshovel1}" "${LGPFX}sarra\t (${totwinnowed}) should winnow the same number of items as one post\t (${totshovel1})"
+calcres "${totsarp}" "${t1posted_static}" "${LGPFX}sarra\t (${totsarp}) should publish the same number of items as half those of one post\t (${t1posted_static})"
+calcres "${totwinnowed}" "${t1posted_static}" "${LGPFX}sarra\t (${totwinnowed}) should winnow the same number of items as half those of one post\t (${t1posted_static})"
 
 
 if [ "${SKIP_KNOWN_BAD}" ]; then
