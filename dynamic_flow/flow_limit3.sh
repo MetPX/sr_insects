@@ -129,5 +129,7 @@ echo "No messages left in queues... wait 2* maximum heartbeat ( ${need_to_wait} 
 
 sleep ${need_to_wait}
 
+date +'%s' >"${LOGDIR}/timestamp_end.txt"
+
 printf "\n\nflow test ${flow_test_name} v3 stopped at $totsarra (limit: $smin)\n\n"
 
