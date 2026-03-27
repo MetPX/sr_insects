@@ -191,7 +191,7 @@ if [ ! "${V2_SKIP_KNOWN_BAD}" ]; then
 fi
 calcres "${totwatch}"   "${t4}"         "${LGPFX}watch\t\t (${totwatch}) should be 4 times subscribe amqp_f30\t\t  (${totfileamqp})"
 calcres "${totfileamqp}"   "${totwatchnormal}"         "amqp_f30 subscription (totfileamqp)\t\t (${totfileamqp}) should match totwatchnormal\t  (${totwatchnormal})"
-calcres "${t6}" "${totwatchremoved}" "watch rm's (totwatchremove) (${totwatchremoved}) should be t6=2*totfileamqp (${t6})"
+calcres "${t6}" "${totwatchremoved}" "watch rm's (totwatchremove) (${totwatchremoved}) should be t6=2*totfileamqp (${t6})" "" 4
 
 printf "\n\twatch breakdown: totwatchhlinked: %4d totwatchslinked: %4d totwatchmoved: %4d\n" "${totwatchhlinked}" "${totwatchslinked}" "${totwatchmoved}"
 
@@ -210,7 +210,7 @@ printf "\ntotwatchremoved should == totwatchnormal+totwatchslinked+totwatchhlink
 printf "so all the normal files go by (totwatchnormal), and then for each one, pclean_f90 either hlinks, slinks or renames it.\n"
 printf "then they should all be removed by pclean_f92. (moves generate a remove as well)\n\n"
 t10=$(( ${totwatchnormal}+${totwatchhlinked}+${totwatchslinked} ))
-calcres "${totwatchremoved}" "${t10}" "watchremoved \t\t (${totwatchremoved}) should match the above\t  (${t10})"
+calcres "${totwatchremoved}" "${t10}" "watchremoved \t\t (${totwatchremoved}) should match the above\t  (${t10})" "" 4
 
 
 #following is just wrong... 

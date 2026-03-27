@@ -106,6 +106,21 @@ else
 	swap_poll
 fi
 
+# wait for all sr3 processes to be running after final restart
+for attempt in $(seq 1 6); do
+    not_running=$(sr3 status 2>&1 | grep -c 'stopped\|missing' || true)
+    if [ "$not_running" -eq 0 ]; then
+        echo "all sr3 processes running after restart"
+        break
+    fi
+    echo "waiting for $not_running processes to start (attempt $attempt)..."
+    sleep 10
+done
+
+if [ "$not_running" -gt 0 ]; then
+    echo "WARNING: $not_running processes still not running after 60s settling time"
+fi
+
 countall
 
 #optional... look for posting processes to still be running?
