@@ -117,6 +117,10 @@ for attempt in $(seq 1 6); do
     sleep 10
 done
 
+if [ "$not_running" -gt 0 ]; then
+    echo "WARNING: $not_running processes still not running after 60s settling time"
+fi
+
 countall
 
 #optional... look for posting processes to still be running?
