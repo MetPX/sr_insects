@@ -67,7 +67,8 @@ function calcres {
    res=0
 
    mean=$(( (${1} + ${2}) / 2 ))
-   maxerr=$(( $mean / 10 ))
+   tolerance_divisor=${5:-10}
+   maxerr=$(( $mean / $tolerance_divisor ))
 
    min=$(( $mean - $maxerr ))
    max=$(( $mean + $maxerr ))

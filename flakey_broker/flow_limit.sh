@@ -88,7 +88,18 @@ else
 	sudo systemctl start $mqpbroker
 fi
 
-swap_poll 
+swap_poll
+
+# wait for all sr3 processes to reconnect after final broker restart
+for attempt in $(seq 1 6); do
+    not_running=$(sr3 status 2>&1 | grep -c 'stopped\|missing' || true)
+    if [ "$not_running" -eq 0 ]; then
+        echo "all sr3 processes running after broker restart"
+        break
+    fi
+    echo "waiting for $not_running processes to reconnect (attempt $attempt)..."
+    sleep 10
+done
 
 countall
 
