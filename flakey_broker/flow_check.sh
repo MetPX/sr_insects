@@ -106,7 +106,8 @@ function comparetree {
   tno=$((${tno}+1))
   SUMDIR=${LOGDIR}/sums
   diff ${SUMDIR}/${1}.txt ${SUMDIR}/${2}.txt >"${LOGDIR}/comparetree_${1}_${2}.diff" 2>&1
-  ndiffs=$(grep -c '^[<>]' "${LOGDIR}/comparetree_${1}_${2}.diff" 2>/dev/null || echo 0)
+  ndiffs=$(grep -c '^[<>]' "${LOGDIR}/comparetree_${1}_${2}.diff" 2>/dev/null)
+  ndiffs=${ndiffs:-0}
 
   if [ "${ndiffs}" -gt 3 ]; then
      printf "test %d FAILURE: compare contents of ${1} and ${2} had ${ndiffs} differences (tolerance: 3)\n" $tno
