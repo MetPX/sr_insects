@@ -113,10 +113,8 @@ if [ "${sarra_rs_version}" ]; then
    printf "NOTE! RUST DECLARE USERS NOT IMPLEMENTED YET\n"
    export SR_DEV_APPNAME=sr3rs
    sr3rs --users declare
-fi
-
-if [ "${sarra_py_version:0:1}" == "3" ]; then
-    sr_action --users declare
+elif [ "${sarra_py_version:0:1}" == "3" ]; then
+    sr3_action --users declare 
 else
     if [ ! "$SARRA_LIB" ]; then
         sr_audit -debug -users foreground >>$flowsetuplog 2>&1
