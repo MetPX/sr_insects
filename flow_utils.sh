@@ -31,7 +31,9 @@ SR_TEST_CONFIGS=${TESTDIR}/config
 CONFIG_COUNT="`find ${SR_TEST_CONFIGS} -type f -name '*.conf' | wc -l`"
 
 if [ ! "${SR_DEV_APPNAME}" ]; then
-    if [ "${sarra_py_version:0:1}" == "3" ]; then
+    if [ "${sarra_rs_version}" ]; then
+        export SR_DEV_APPNAME=sr3rs
+    elif [ "${sarra_py_version:0:1}" == "3" ]; then
         export SR_DEV_APPNAME=sr3
     else   
         export SR_DEV_APPNAME=sarra
@@ -87,13 +89,13 @@ function sr_action {
     echo $msg
     if [ "${sarra_py_version:0:1}" == "3" ]; then
 
-	    count="`sr3 status 2>/dev/null |  awk ' ( $2 ~ /(fore|hung|idle|inte|lag|new|retr|run|stby|stop|wVip)/ ) { print; }; ' | wc -l`"
+	    count="`${SR_DEV_APPNAME} status 2>/dev/null |  awk ' ( $2 ~ /(fore|hung|idle|inte|lag|new|retr|run|stby|stop|wVip)/ ) { print; }; ' | wc -l`"
 
         if [ "$SARRA_LIB" ]; then
             ${SARRA_LIB}/sr3.py --dangerWillRobinson $count $action $files 
         else
-            echo sr3 --dangerWillRobinson ${count} $action $files
-            sr3 --dangerWillRobinson ${count} $action $files 
+            echo ${SR_DEV_APPNAME} --dangerWillRobinson ${count} $action $files
+            ${SR_DEV_APPNAME} --dangerWillRobinson ${count} $action $files 
         fi
     else
         if [ "$SARRAC_LIB" ]; then
@@ -249,4 +251,6 @@ trivialftplog="$LOGDIR/trivialftpserver_f00.log"
 trivialupstreamhttplog="$LOGDIR/trivialupstreamhttpserver_f00.log"
 
 
-MQP="`grep -v '^#' ~/.config/sr3/default.conf | grep 'declare env MQP=' | sed 's/.*MQP=//'`"
+MQP="`grep -v '^#' ~/.config/${SR_DEV_APPNAME}/default.conf | grep 'declare env MQP=' | sed 's/.*MQP=//'`"
+
+

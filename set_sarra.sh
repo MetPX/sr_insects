@@ -1,4 +1,3 @@
-
 if [ ! "$sarra_py_version" ]; then
     if which sr3 >/dev/null; then
         sarra_py_version="`sr3 -v| grep -v DEVELOPMENT 2>/dev/null`"
@@ -46,3 +45,14 @@ fi
 
 export sarra_py_version
 export sarra_c_version
+
+if [ ! "${sarra_rs_version}" ]; then
+    if which sr3rs >/dev/null; then
+        sarra_rs_version="`sr3rs --version| awk '{print $2}'`"
+    fi
+fi
+
+if [ "${sarra_rs_version}" ]; then
+   export LGPFX=""
+   export SR_DEV_APPNAME=sr3rs
+fi

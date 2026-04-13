@@ -15,6 +15,10 @@ else
 fi
 flow_configs="`echo ${flow_configs} | tr '\n' ' '`"
 
+if [ "${sarra_rs_version}" ]; then
+ flow_configs="`echo ${flow_configs} | sed 's+cpost/veille_f34+watch/veille_f34+' `"
+fi
+
 echo remove x attributes added by post then calculating checksums. in ${SAMPLEDATA}
 if [ `find ${SAMPLEDATA} -type f | xargs xattr -l|wc -l` ]; then 
   find ${SAMPLEDATA} -type f | xargs xattr -d user.sr_mtime >&/dev/null
@@ -132,7 +136,7 @@ fi
 if [ "${sarra_py_version:0:1}" == "3" ]; then
    # remove all metrics files
    #echo $flow_configs |  sed 's/ / ;\n rm -f /g' | sed '1 s|^| rm -f |' | sed 's+/+_+g' |  sed '/conf[ ;]*$/!d' | sed 's/\.conf/_[0-9][0-9].json\*/g'| (cd ${LOGDIR}/../metrics; sh )
-   sr3 show  '*/*_f[0-9][0-9]' |& grep metricsFilename | sed "s/'//g" | sed 's/,//' | sed 's/_00.json/_[0-9][0-9].json*/' | awk '{print $2};' | xargs rm -f
+   ${SR_DEV_APPNAME} show  '*/*_f[0-9][0-9]' |& grep metricsFilename | sed "s/'//g" | sed 's/,//' | sed 's/_00.json/_[0-9][0-9].json*/' | awk '{print $2};' | xargs rm -f
 fi
 
 rm $LOGDIR/${LGPFX}post_t_dd?_f00_01.log $LOGDIR/${LGPFX}post_shim_f63_01.log $LOGDIR/${LGPFX}post_test2_f61_01.log
@@ -154,15 +158,15 @@ if [ -f .httpdocroot ]; then
    fi
 fi
 
-sanity_pids="`ps ax | grep -v awk | awk '/while true; do sr3 sanity; sleep/ { print $1; }'`"
-if [ "${sanity_pids}" ]; then
-   echo "terminating sanity daemon: ${sanity_pids}"
-   kill ${sanity_pids}
-   sleep 2
-   sanity_pids="`ps ax | grep -v awk | awk '/while true; do sr3 sanity; sleep/ { print $1; }'`"
-   if [ "${sanity_pids}" ]; then
-       echo "SIGKILLING sanity daemon: ${sanity_pids}"
-       kill -9 ${sanity_pids}
-   fi
-fi
+#sanity_pids="`ps ax | grep -v awk | awk '/while true; do ${SR_DEV_APPNAME} sanity; sleep/ { print $1; }'`"
+#if [ "${sanity_pids}" ]; then
+#   echo "terminating sanity daemon: ${sanity_pids}"
+#   kill ${sanity_pids}
+#   sleep 2
+#   sanity_pids="`ps ax | grep -v awk | awk '/while true; do ${SR_DEV_APPNAME} sanity; sleep/ { print $1; }'`"
+#   if [ "${sanity_pids}" ]; then
+#       echo "SIGKILLING sanity daemon: ${sanity_pids}"
+#       kill -9 ${sanity_pids}
+#   fi
+#fi
 echo "Done!"

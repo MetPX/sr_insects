@@ -2,10 +2,14 @@
 
 . ../flow_utils.sh
 
-C_ALSO="`which sr_cpost`"
+if [ ! "${sarra_rs_version}" ]; then
+  C_ALSO="`which sr_cpost`"
 
-if [ ! "${C_ALSO}" ]; then
-   C_ALSO="`which sr3_cpost`"
+  if [ ! "${C_ALSO}" ]; then
+     C_ALSO="`which sr3_cpost`"
+  fi
+else
+  C_ALSO="`which sr3rs_post`"
 fi
 
 # The directory we run the flow test scripts in...
@@ -208,7 +212,7 @@ function countall {
       countthem "`grep -a 'after_post posted .* a directory with' ${LOGDIR}/${LGPFX}watch_f40_*.log | wc -l`"
       totdirwatch="${tot}"
 
-      countthem "`sr3 status | grep -a 'wVip' | wc -l `"
+      countthem "`${SR_DEV_APPNAME} status | grep -a 'wVip' | wc -l `"
       totwvip="${tot}"
 
   elif [[ "${sarra_py_version}" > "3.00.25" ]]; then
@@ -364,7 +368,11 @@ function countall {
       countthem "`grep -a '\[INFO\] cpump published:' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | grep -v \"directory\" | wc -l`"
       totcvan15p="${tot}"
 
-      countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
+      if [ "${sarra_rs_version}" ]; then
+          countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
+      else
+          countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/${LGPFX}watch_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
+      fi
       totcveille="${tot}"
   else
       countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
@@ -379,7 +387,11 @@ function countall {
       countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | grep -v \"directory\" | wc -l`"
       totcvan15p="${tot}"
 
-      countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $7 }' | sort -u |wc -l`"
+      if [ "${sarra_rs_version}" ]; then
+          countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | awk '{ print $7 }' | sort -u |wc -l`"
+      else
+          countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}watch_veille_f34_*.log | awk '{ print $7 }' | sort -u |wc -l`"
+      fi
       totcveille="${tot}"
   fi
 

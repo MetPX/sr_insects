@@ -18,6 +18,8 @@
 #export PYTHONPATH="`pwd`/../"
 . ../flow_utils.sh
 
+pushd .
+
 echo "FIXME sarra_py_version=${sarra_py_version}"
 export sarra_py_version=${sarra_py_version}
 
@@ -26,7 +28,9 @@ testhost=localhost
 sftpuser=`whoami`
 flowsetuplog="$LOGDIR/flowsetup_f00.log"
 
-nohup bash -c "while true; do sr3 sanity; sleep 3; done" >>~/.cache/sr3/log/sr_sanity.log 2>&1  &
+if [ ! "${sarra_rs_version}" ]; then
+   nohup bash -c "while true; do sr3 sanity; sleep 3; done" >>~/.cache/sr3/log/sr_sanity.log 2>&1  &
+fi
 
 if [ -d $LOGDIR ]; then
     logs2remove=$(find "$LOGDIR" -iname "*.txt" -o -iname "*f[0-9][0-9]*.log")
@@ -88,6 +92,15 @@ if [ "$1" != "skipconfig" ]; then
        exit 0
    fi
 fi
+if [ "${sarra_rs_version}" ]; then
+   mkdir ~/.config/sr3rs
+   cd ~/.config/sr3; tar -cf - * | (cd ../sr3rs; tar -xf - )
+   cd ~/.config; mv sr3/cpost/veille_f34.conf sr3rs/watch/veille_f34.conf
+   flow_configs="`echo ${flow_configs} | sed 's+cpost/veille_f34+watch/veille_f34+' `"
+   #cd ~/.config; cp sr3rs/cpost/shim_f61.conf sr3/cpost/veille_f34.conf
+fi
+
+popd
 
 passed_checks=0
 count_of_checks=0
@@ -97,7 +110,11 @@ count_of_checks=0
 # ensure users have exchanges:
 
 echo "Initializing with sr_audit... takes a minute or two"
-if [ "${sarra_py_version:0:1}" == "3" ]; then
+
+if [ "${sarra_rs_version}" ]; then
+   printf "NOTE! RUST DECLARE USERS NOT IMPLEMENTED YET\n"
+   sr3rs --users declare
+elif [ "${sarra_py_version:0:1}" == "3" ]; then
     sr3 --users declare 
 else
     if [ ! "$SARRA_LIB" ]; then
@@ -105,6 +122,12 @@ else
     else
         "$SARRA_LIB"/sr_audit.py -debug -users foreground >>$flowsetuplog 2>&1
     fi
+fi
+
+if [ "${sarra_rs_version}" ]; then
+   sr3 --dangerWillRobinson=24 cleanup
+   printf "NOTE! RUST DECLARE USERS NOT IMPLEMENTED YET\n"
+   sr3rs declare
 fi
 
 # Check queues and exchanges
@@ -172,7 +195,11 @@ echo $MAX_MESSAGES
 fi
 
 echo "starting to post: `date +${SR_DATE_FMT}`"
-if [ "${sarra_py_version:0:1}" == "3" ]; then
+if [ "${sarra_rs_version}" ]; then
+   POST=sr3rs_post
+   CPOST=sr3rs_post
+   LGPFX=''
+elif [ "${sarra_py_version:0:1}" == "3" ]; then
    POST=sr3_post
    CPOST=sr3_cpost
    LGPFX=''
@@ -183,6 +210,7 @@ else
 fi
 export POST CPOST LGPFX
 
+echo "POST=${POST}, CPOST=${CPOST} "
 echo "Starting flow_post on: $testdocroot, saving pid in .flowpostpid"
 ./flow_post.sh >$srposterlog 2>&1 &
 flowpostpid=$!
@@ -201,7 +229,10 @@ $CPOST -c pelle_dd2_f05.conf >$LOGDIR/${LGPFX}cpost_pelle_dd2_f05_01.log 2>&1 &
 echo "posting complete: `date +${SR_DATE_FMT}`"
 
 echo "sr starting "
-if [ "${sarra_py_version:0:1}" == "3" ]; then
+if [ "${sarra_rs_version}" ]; then
+   sr3rs start
+   ret=$?
+elif [ "${sarra_py_version:0:1}" == "3" ]; then
    sr3 start
    ret=$?
 else
@@ -226,4 +257,3 @@ if [ $passed_checks = $count_of_checks ]; then
 else
    echo "Overall ${flow_test_name}: FAILED $passed_checks/$count_of_checks passed."
 fi
-
