@@ -76,10 +76,10 @@ if [ "$1" != "skipconfig" ]; then
    cd ..
    if [ "${sarra_py_version:0:1}" == "3" ]; then
      if [  "${sarra_py_version:5:2}" -ge "54" -o "${sarra_py_version:2:2}" -gt "00" ]; then
-        sr3 --wololo --dangerWillRobinson=${flow_config_count} convert ${flow_configs}
+        SR_DEV_APPNAME=sr3 sr3 --wololo --dangerWillRobinson=${flow_config_count} convert ${flow_configs}
      else
         for i in ${flow_configs}; do
-            sr3 convert $i
+            SR_DEV_APPNAME=sr3 sr3 convert $i
         done
      fi
      for c in ${flow_configs}; do
@@ -88,16 +88,17 @@ if [ "$1" != "skipconfig" ]; then
      done
    fi
 
-   if [ "$1" == "config" ]; then
-       exit 0
-   fi
 fi
 if [ "${sarra_rs_version}" ]; then
    mkdir ~/.config/sr3rs
    cd ~/.config/sr3; tar -cf - * | (cd ../sr3rs; tar -xf - )
-   cd ~/.config; mv sr3/cpost/veille_f34.conf sr3rs/watch/veille_f34.conf
+   cd ~/.config/sr3rs; mv cpost/veille_f34.conf watch/
    flow_configs="`echo ${flow_configs} | sed 's+cpost/veille_f34+watch/veille_f34+' `"
    #cd ~/.config; cp sr3rs/cpost/shim_f61.conf sr3/cpost/veille_f34.conf
+fi
+
+if [ "$1" == "config" ]; then
+    exit 0
 fi
 
 popd
