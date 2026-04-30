@@ -90,9 +90,7 @@ function checktree {
   fi
 
   report=${SUMDIR}/`basename ${tree}`.txt
-  #if [ ! -f ${report} ]; then
-  (cd ${tree}; find . \! -type d | xargs md5sum ) | sort > ${report}
-  #fi
+  (cd ${tree}; find . \! -type d | xargs md5sum ) | grep -v reject | sort > ${report}
 
 }
 
@@ -139,6 +137,7 @@ function comparetree {
 }
 
 printf "checking trees...\n"
+checktree ${SAMPLEDATA}
 checktree ${testdocroot}/downloaded_by_sub_amqp
 checktree ${testdocroot}/downloaded_by_sub_cp
 checktree ${testdocroot}/downloaded_by_sub_rabbitmqtt
@@ -191,6 +190,7 @@ printf "\t\tTEST RESULTS\n\n"
 logPermCheck
 
 echo "                 | content of subdirs of ${testdocroot} |"
+comparetree data downloaded_by_sub_amqp
 comparetree downloaded_by_sub_amqp downloaded_by_sub_cp
 comparetree downloaded_by_sub_cp downloaded_by_sub_rabbitmqtt
 comparetree downloaded_by_sub_rabbitmqtt downloaded_by_sub_u
