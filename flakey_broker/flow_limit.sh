@@ -99,7 +99,7 @@ running=1
 count=0
 while [ $running -gt 0 ]; do
   # can have sr_post or sr3_post
-  running="`ps ax | grep -aE '(sr_post|sr3_post)' | grep t_dd | wc -l`"
+  running="`ps ax | grep -aE '(sr_post|sr3_post)' | grep -E "t_dd|test2_f61" | wc -l`"
   printf "${flow_test_name} ${running} processes still posting... %d\n" $count
   count=$((${count}+1))
   sleep 10
