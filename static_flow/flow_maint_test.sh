@@ -56,10 +56,11 @@ if [ ! -d "${pyexamples}" ]; then
 	    # Fetching is what a developer running this outside Actions needs.
 	    # GITHUB_HEAD_REF is set on pull_request events only and names a branch
 	    # in the head repository, while the URL below is hardcoded to MetPX, so
-	    # for a pull request in any other repository that ref does not resolve.
-	    # Settle the ref once against a file that exists on every branch, so a
-	    # genuinely missing example still fails loudly instead of being
-	    # silently replaced by the copy on development.
+	    # for a pull request from a fork that ref resolves only if MetPX carries
+	    # a branch of the same name: usually it 404s, and where it does collide
+	    # it silently yields the wrong examples. Settle the ref once against a
+	    # file that exists on every branch, so a genuinely missing example still
+	    # fails loudly instead of being replaced by the copy on development.
 	    if [ ! "${GITHUB_HEAD_REF}" ]; then
 		GITHUB_HEAD_REF=development
 	    fi
