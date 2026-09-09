@@ -106,6 +106,9 @@ else
 	swap_poll
 fi
 
+# Touch back files in the directory the watch accesses. Make sure all files are posted and none are missed. See https://github.com/MetPX/sr_insects/issues/91
+find $testdocroot/downloaded_by_sub_amqp/ -type f -exec touch {} +
+
 countall
 
 #optional... look for posting processes to still be running?
