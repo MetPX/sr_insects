@@ -115,6 +115,8 @@ echo "Initializing with sr_audit... takes a minute or two"
 if [ "${sarra_rs_version}" ]; then
    printf "NOTE! RUST DECLARE USERS NOT IMPLEMENTED YET\n"
    sr3rs --users declare
+fi
+
 if [ "${sarra_py_version:0:1}" == "3" ]; then
     sr_action --users declare
 else
