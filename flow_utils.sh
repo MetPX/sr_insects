@@ -87,7 +87,11 @@ function sr_action {
     files=$5
     
     echo $msg
-    if [ "${sarra_py_version:0:1}" == "3" ]; then
+    if [ "${sarra_rs_version}" ]; then
+        count="`${SR_DEV_APPNAME} status 2>/dev/null |  awk ' ( $2 ~ /(fore|hung|idle|inte|lag|new|retr|run|stby|stop|wVip)/ ) { print; }; ' | wc -l`"
+	echo "Rust count is ${count}"
+        ${SR_DEV_APPNAME} --dangerWillRobinson ${count} $action $files 
+    elif [ "${sarra_py_version:0:1}" == "3" ]; then
 
 	    count="`${SR_DEV_APPNAME} status 2>/dev/null |  awk ' ( $2 ~ /(fore|hung|idle|inte|lag|new|retr|run|stby|stop|wVip)/ ) { print; }; ' | wc -l`"
 

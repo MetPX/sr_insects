@@ -174,14 +174,26 @@ function countall {
   sumlogs msg_total $LOGDIR/${LGPFX}report_tsarra_f20_*.log
   totsarra="${tot}"
 
-  if [ "${sarra_py_version:0:1}" == "3" ]; then
+  if [ "${sarra_rs_version}" ]; then
+       countthem "`grep -a 'flow posting message' "$LOGDIR"/post_t_dd1_f00_*.log | wc -l`"
+  elif [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -a 'log after_post posted' "$LOGDIR"/post_t_dd1_f00_*.log | wc -l`"
   else
        countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/sr_post_t_dd1_f00_*.log | wc -l`"
   fi
   totshovel1="${tot}"
 
-  if [ "${sarra_py_version:0:1}" == "3" ]; then
+  if [ "${sarra_rs_version}" ]; then
+       countthem "`grep -a 'flow posting message' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
+       totshovel2="${tot}"
+
+       countthem "`grep -a '::log rejected: relPath:' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
+       totshovel2rej="${tot}"
+
+       #countthem "`grep -a after_work\ rejected  "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
+       countthem "`grep -a 'rejected:.*304.*Not modified' "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+       totwinnowed="${tot}"
+  elif [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -a 'log after_post posted' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
        totshovel2="${tot}"
        countthem "`grep -a 'rejected:.*404.*mask=' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
