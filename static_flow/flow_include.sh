@@ -213,14 +213,19 @@ function countall {
   fi
 
 
-  if [ "${sarra_py_version:0:1}" == "3" ]; then
+  if [ "${sarra_rs_version}" ]; then
+       countthem "`grep -a 'flow posting message' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v directory | wc -l`"
+  elif [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep -v directory | wc -l`"
   else
        countthem "`grep -a '\[INFO\] post_log' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
   fi
   totfilewatch="${tot}"
 
-  if [[ "${sarra_py_version}" > "3.00.52" ]]; then
+  if [ "${sarra_rs_version}" ]; then
+      countthem "`grep -a 'flow posting message' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep directory | wc -l`"
+      totdirwatch="${tot}"
+  elif [[ "${sarra_py_version}" > "3.00.52" ]]; then
       countthem "`grep -a 'after_post posted .* a directory with' ${LOGDIR}/${LGPFX}watch_f40_*.log | wc -l`"
       totdirwatch="${tot}"
 
@@ -240,7 +245,9 @@ function countall {
   sumlogs msg_total $LOGDIR/${LGPFX}subscribe_amqp_f30_*.log
   totmsgamqp="${tot}"
 
-  if [ "${sarra_py_version:0:1}" == "3" ]; then
+  if [ "${sarra_rs_version}" ]; then
+	  countthem "`grep -aE 'flow::log worked ok' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
+  elif [ "${sarra_py_version:0:1}" == "3" ]; then
 	  countthem "`grep -aE 'after_work (directory|downloaded) ok:' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
   else
       countthem "`grep -a '\[INFO\] file_log downloaded to:' "$LOGDIR"/${LGPFX}subscribe_amqp_f30_*.log | wc -l`"
@@ -334,7 +341,14 @@ function countall {
   totshimpost1=$((${totfileshimpost1}+${totlinkshimpost1}+${totdirshimpost1}))
 
   #countthem "`grep -a '\[INFO\] post_log notice' "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
-  if [ "${sarra_py_version:0:1}" == "3" ]; then
+  if [ "${sarra_rs_version}" ]; then
+      countthem "`grep -a 'flow::log accepted:' "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+      totsarx="${tot}"
+      countthem "`grep -a 'rejected:.*304.*Not modified' "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+      totsarx=$((${totsarx}+${tot}))
+      countthem "`grep -a 'flow posting message' "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+      totsarp="${tot}"
+  elif [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'after_accept accepted:' "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
       totsarx="${tot}"
       countthem "`grep -a 'rejected:.*304.*Not modified' "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
