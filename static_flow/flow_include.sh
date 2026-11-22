@@ -465,7 +465,7 @@ function countall {
   fi
 
   if [ "${sarra_rs_version}" ]; then
-      countthem "`grep -aE \"after_work downloaded ok" $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
+      countthem "`grep -aE \"after_work downloaded ok\" $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
   elif [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -aE 'after_work downloaded ok' $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
   else
