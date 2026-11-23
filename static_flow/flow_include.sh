@@ -188,7 +188,7 @@ function countall {
        countthem "`grep -a 'flow posting message' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
        totshovel2="${tot}"
 
-       countthem "`grep -a '::log rejected: relPath:' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
+       countthem "`grep -a '::log rejected: a file' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
        totshovel2rej="${tot}"
 
        #countthem "`grep -a after_work\ rejected  "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
@@ -256,7 +256,7 @@ function countall {
   totfileamqp="${tot}"
 
   if [ "${sarra_rs_version}" ]; then
-      countthem "`grep -a 'flow posting message' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
+      countthem "`grep -a 'flow posting message' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep directory | wc -l`"
       totdirsent=$((${tot}))
   elif [[ "${sarra_py_version}" > "3.00.25" ]]; then
       countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep \'m, | wc -l`"
@@ -267,7 +267,9 @@ function countall {
        totdirsent=0
   fi
 
-  if [ "${sarra_py_version:0:1}" == "3" ]; then
+  if [ "${sarra_rs_version}" ]; then
+      countthem "`grep -a 'flow posting message' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -v directory | grep -v \'m, | wc -l`"
+  elif [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | grep -v directory | grep -v \'m, | wc -l`"
   else
       countthem "`grep -a '\[INFO\] post_log notice' "$LOGDIR"/${LGPFX}sender_tsource2send_f50_*.log | wc -l`"
@@ -276,7 +278,7 @@ function countall {
   totsent=$((${totfilesent}+${totdirsent}))
 
   if [ "${sarra_rs_version}" ]; then
-      all_events="WORK: (created directory|downloaded)"
+      all_events='directory ok|after_work written from message ok'
       countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | wc -l`"
   elif [ "${sarra_py_version:0:1}" == "3" ]; then
       all_events="directory\ ok:|downloaded\ ok:|filtered\ ok:|written\ from\ message\ ok:"
@@ -333,7 +335,7 @@ function countall {
        totfileshimpost1="${tot}"
        countthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep \"link\" | grep -v \"directory\" | wc -l`"
        totlinkshimpost1="${tot}"
-       countthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep \"link\" | grep \"directory\" | wc -l`"
+       eountthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep \"link\" | grep \"directory\" | wc -l`"
        totlinkdirshimpost1="${tot}"
 
   elif [ "${sarra_py_version:0:1}" == "3" ]; then
