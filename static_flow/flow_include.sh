@@ -278,7 +278,7 @@ function countall {
   totsent=$((${totfilesent}+${totdirsent}))
 
   if [ "${sarra_rs_version}" ]; then
-      all_events='directory ok|after_work written from message ok'
+      all_events='after_work (linked|directory|downloaded|removed|written from message) ok'
       countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | wc -l`"
   elif [ "${sarra_py_version:0:1}" == "3" ]; then
       all_events="directory\ ok:|downloaded\ ok:|filtered\ ok:|written\ from\ message\ ok:"
@@ -291,7 +291,7 @@ function countall {
   totsubrmqtt="${tot}"
 
   if [ "${sarra_rs_version}" ]; then
-      countthem "`grep -aE "WORK: created directory:" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | wc -l`"
+      countthem "`grep -aE "directory ok:" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | wc -l`"
       totsubmqttDir="${tot}"
   else
       countthem "`grep -aE "directory\ ok:" "$LOGDIR"/${LGPFX}subscribe_rabbitmqtt_f31_*.log | grep -v DEBUG | wc -l`"
