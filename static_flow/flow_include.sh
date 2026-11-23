@@ -335,7 +335,7 @@ function countall {
        totfileshimpost1="${tot}"
        countthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep \"link\" | grep -v \"directory\" | wc -l`"
        totlinkshimpost1="${tot}"
-       eountthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep \"link\" | grep \"directory\" | wc -l`"
+       countthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep \"link\" | grep \"directory\" | wc -l`"
        totlinkdirshimpost1="${tot}"
 
   elif [ "${sarra_py_version:0:1}" == "3" ]; then
