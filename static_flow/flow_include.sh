@@ -311,6 +311,7 @@ function countall {
       countthem "`grep -aE "$no_hardlink_events" "$LOGDIR"/${LGPFX}subscribe_ftp_f70_*.log | grep -v DEBUG | wc -l`"
   fi
   totsubftp="${tot}"
+
   countthem "`grep -aE "$all_events" "$LOGDIR"/${LGPFX}subscribe_q_f71_*.log | grep -v DEBUG | wc -l`"
   totsubq="${tot}"
 
@@ -425,11 +426,7 @@ function countall {
       countthem "`grep -a 'flow posting message' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | grep -v \"directory\" | wc -l`"
       totcvan15p="${tot}"
 
-      if [ "${sarra_rs_version}" ]; then
-          countthem "`grep -a 'flow posting message' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
-      else
-          countthem "`grep -a 'flow posting message' $LOGDIR/${LGPFX}watch_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
-      fi
+      countthem "`grep -a 'flow posting message' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
       totcveille="${tot}"
   elif [[ "${sarra_c_version}" > "3.00.51" ]]; then
       countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
@@ -444,11 +441,7 @@ function countall {
       countthem "`grep -a '\[INFO\] cpump published:' $LOGDIR/${LGPFX}cpump_xvan_f15_*.log | grep -v \"directory\" | wc -l`"
       totcvan15p="${tot}"
 
-      if [ "${sarra_rs_version}" ]; then
-          countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/${LGPFX}cpost_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
-      else
-          countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/${LGPFX}watch_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
-      fi
+      countthem "`grep -a '\[INFO\] cpost published:' $LOGDIR/${LGPFX}watch_veille_f34_*.log | grep -v \"directory\" | grep -v '\"size\":\"0\"' | awk '{ print $8 }' | wc -l`"
       totcveille="${tot}"
   else
       countthem "`grep -a '\[INFO\] published:' $LOGDIR/${LGPFX}cpost_pelle_dd1_f04_*.log | wc -l`"
@@ -472,7 +465,7 @@ function countall {
   fi
 
   if [ "${sarra_rs_version}" ]; then
-      countthem "`grep -aE 'log downloaded ok' $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
+      countthem "`grep -aE \"after_work downloaded ok" $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
   elif [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -aE 'after_work downloaded ok' $LOGDIR/${LGPFX}subscribe_cdnld_f21_*.log | wc -l`"
   else
