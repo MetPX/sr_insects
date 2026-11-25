@@ -187,8 +187,8 @@ function countall {
        countthem "`grep -a '::log rejected: a file' "$LOGDIR"/post_t_dd2_f00_*.log | wc -l`"
        totshovel2rej="${tot}"
    
-       #countthem "`grep -a after_work\ rejected  "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
-       countthem "`grep -a 'rejected:.*304.*Not modified' "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+       #countthem "`grep -a after_work\ rejected  "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | grep -v DEBUG | wc -l`"
+       countthem "`grep -a 'rejected:.*304.*Not modified' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
        totwinnowed="${tot}"
 
   elif [ "${sarra_py_version:0:1}" == "3" ]; then
@@ -386,7 +386,7 @@ function countall {
 
 
   if [ "${sarra_rs_version}" ]; then
-      countthem "`grep -a 'flow posting message' "$LOGHOSTDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
+      countthem "`grep -a 'flow posting message' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"
       totsarp="${tot}"
   elif [ "${sarra_py_version:0:1}" == "3" ]; then
       countthem "`grep -a 'log after_post posted' "$LOGDIR"/${LGPFX}sarra_download_f20_*.log | wc -l`"

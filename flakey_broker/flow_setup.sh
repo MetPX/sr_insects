@@ -15,6 +15,7 @@
 #export PYTHONPATH="`pwd`/../"
 . ../flow_utils.sh
 
+testrundir=`pwd`
 testdocroot="$HOME/sarra_devdocroot"
 testhost=localhost
 sftpuser=`whoami`
@@ -134,8 +135,6 @@ xchk "exchanges for flow test created"
 if [ "$1" = "declare" ]; then
    exit 0
 fi
-
-testrundir="`pwd`"
 
 echo "Starting trivial upstream http server on: $SAMPLEDATA, saving pid in .upstreamhttpserverpid"
 cd ${SAMPLEDATA}
