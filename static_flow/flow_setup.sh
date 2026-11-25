@@ -42,18 +42,16 @@ fi
 
 date +'%s' >"${LOGDIR}/timestamp_start.txt"
 
-if [ ! -d "$testdocroot" ]; then
-  mkdir $testdocroot
-  cp -r testree/* $testdocroot
-  mkdir $testdocroot/downloaded_by_sub_amqp
-  mkdir $testdocroot/downloaded_by_sub_u
-  mkdir $testdocroot/sent_by_tsource2send
-  mkdir $testdocroot/recd_by_srpoll_test1
-  mkdir $testdocroot/posted_by_srpost_test2
-  mkdir $testdocroot/posted_by_shim
-  mkdir $testdocroot/cfr
-  mkdir $testdocroot/cfile
-fi
+mkdir -p $testdocroot
+cp -r testree/* $testdocroot
+mkdir -p $testdocroot/downloaded_by_sub_amqp
+mkdir -p $testdocroot/downloaded_by_sub_u
+mkdir -p $testdocroot/sent_by_tsource2send
+mkdir -p $testdocroot/recd_by_srpoll_test1
+mkdir -p $testdocroot/posted_by_srpost_test2
+mkdir -p $testdocroot/posted_by_shim
+mkdir -p $testdocroot/cfr
+mkdir -p $testdocroot/cfile
 
 lo="`netstat -an | grep '127.0.0.1:8001'|wc -l`"
 while [ ${lo} -gt 0 ]; do
