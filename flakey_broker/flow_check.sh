@@ -223,13 +223,13 @@ calcres ${totsubrmqtt} ${totwatch}  "rabbitmqtt\t\t (${totsubrmqtt}) should have
 calcres ${totsubu}    ${totsent}    "${LGPFX}subscribe u_sftp_f60\t (${totsubu}) should have the same number of items as ${LGPFX}sender (${totsent})"
 calcres ${totsubcp}   ${totsent}    "${LGPFX}subscribe cp_f61\t (${totsubcp}) should have the same number of items as ${LGPFX}sender (${totsent})"
 echo "                 | poll       routing |"
-printf " poll sftp_f62 posted $totpoll2   sftp_f63 posted $totpoll3   total posted: $totpoll   # of duplicates posted: $totpoll_dupes \n" 
-calcres ${totpoll_unique}   ${totsent}         "${LGPFX}poll sftp_f62+3\t (${totpoll_unique}) should have the same number of items of ${LGPFX}sender\t (${totsent})"
+printf " poll sftp_f62 posted ${totpoll2:-0}   sftp_f63 posted $totpoll3   total posted: $totpoll   # of duplicates posted: $totpoll_dupes \n" 
+calcres ${totpoll_unique:-0}   ${totsent:-0}         "${LGPFX}poll sftp_f62+3\t (${totpoll_unique}) should have the same number of items of ${LGPFX}sender\t (${totsent})"
 if [ "${totpoll_mirrored}" ]; then
-    calcres "${totpoll_unique}" "${totpoll_mirrored}" "${LGPFX}poll sftp_f62+3\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totpoll_unique})"
+    calcres "${totpoll_unique:-0}" "${totpoll_mirrored:-0}" "${LGPFX}poll sftp_f62+3\t (${totpoll_mirrored}) should see the same number of items as ${LGPFX}poll sftp_f62 posted\t (${totpoll_unique})"
 fi
 
-calcres ${totsubq_uniq}    ${totpoll}   "${LGPFX}subscribe q_f71\t (${totsubq_uniq}) should have the same number of items as ${LGPFX}poll sftp_f62+3 (${totpoll})"
+calcres ${totsubq_uniq:-0}    ${totpoll:-0}   "${LGPFX}subscribe q_f71\t (${totsubq_uniq}) should have the same number of items as ${LGPFX}poll sftp_f62+3 (${totpoll})"
 echo "                 | flow_post  routing |"
 calcres "${totpost1}" "${totfilesent}" "${LGPFX}post test2_f61\t\t (${totpost1}) should have the same number of files of ${LGPFX}sender \t (${totfilesent})"
 

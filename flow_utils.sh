@@ -163,14 +163,14 @@ function xchk {
     x_cnt="`wc -l <$exnow`"
     expected_cnt="`wc -l <$exex`"
 
-    if [ "$x_cnt" -ge $expected_cnt ]; then
+    if [ "${x_cnt:-0}" -ge "${expected_cnt:-0}" ]; then
         echo "OK, as expected $expected_cnt $1"
         passed_checks=$((${passed_checks}+1))
     else
         echo "NOTICE: expected $expected_cnt, but there are $x_cnt $1"
         printf "Missing exchanges: %s\n" "`comm -23 $exex $exnow`"
     fi
-    if [ "$x_cnt" -gt $expected_cnt ]; then
+    if [ "${x_cnt:-0}" -gt "${expected_cnt:-0}" ]; then
         printf "NOTE: Extra exchanges: %s\n" "`comm -13 $exex $exnow`"
     fi
 

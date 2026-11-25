@@ -110,7 +110,6 @@ count_of_checks=0
 echo "Initializing with sr_audit... takes a minute or two"
 
 if [ "${sarra_rs_version}" ]; then
-   printf "NOTE! RUST DECLARE USERS NOT IMPLEMENTED YET\n"
    export SR_DEV_APPNAME=sr3rs
    sr3rs --users declare
 elif [ "${sarra_py_version:0:1}" == "3" ]; then
@@ -123,11 +122,10 @@ else
     fi
 fi
 
-if [ "${sarra_rs_version}" ]; then
-   sr3 --dangerWillRobinson=24 cleanup
-   printf "NOTE! RUST DECLARE USERS NOT IMPLEMENTED YET\n"
-   sr3rs declare
-fi
+#if [ "${sarra_rs_version}" ]; then
+#   sr3rs --dangerWillRobinson=24 cleanup
+#   sr3rs declare
+#fi
 
 # Check queues and exchanges
 qchk 15 "queues existing after 1st audit"

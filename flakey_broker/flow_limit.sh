@@ -3,7 +3,14 @@
 . ./flow_include.sh
 
 function swap_poll {
-   if [ "${sarra_py_version:0:1}" == "3" ]; then
+   if [ "${sarra_rs_version}" ]; then
+      sr3rs stop poll/sftp_f62 poll/sftp_f63
+      mv ~/.config/sr3rs/poll/sftp_f62.conf ~/.config/sr3rs/poll_save.conf
+      cp ~/.config/sr3rs/poll/sftp_f63.conf ~/.config/sr3rs/poll/sftp_f62.conf
+      mv ~/.config/sr3rs/poll_save.conf ~/.config/sr3rs/poll/sftp_f63.conf 
+      sr3rs start poll/sftp_f62 poll/sftp_f63
+
+   elif [ "${sarra_py_version:0:1}" == "3" ]; then
 
       echo "switching active poll config: polls in wVip `sr3 status | grep -a 'wVip' | wc -l`"
       sr3 stop poll/sftp_f62 poll/sftp_f63

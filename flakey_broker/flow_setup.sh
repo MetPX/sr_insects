@@ -20,8 +20,9 @@ testhost=localhost
 sftpuser=`whoami`
 flowsetuplog="$LOGDIR/flowsetup_f00.log"
 
-
-nohup bash -c "while true; do sr3 sanity; sleep 3; done" >>~/.cache/sr3/log/sr_sanity.log 2>&1  &
+if [ ! "${sarra_rs_version}" ]; then
+    nohup bash -c "while true; do sr3 sanity; sleep 3; done" >>~/.cache/sr3/log/sr_sanity.log 2>&1  &
+fi
 
 
 if [ -d $LOGDIR ]; then
@@ -93,6 +94,13 @@ if [ "${sarra_py_version:0:1}" == "3" ]; then
    done
 fi
 
+if [ "${sarra_rs_version}" ]; then
+   mkdir ~/.config/sr3rs
+   cd ~/.config/sr3; tar -cf - * | (cd ../sr3rs; tar -xf - )
+   flow_configs="`echo ${flow_configs}`"
+   #cd ~/.config; cp sr3rs/cpost/shim_f61.conf sr3/cpost/veille_f34.conf
+fi
+
 if [ "$1" == "config" ]; then
     exit 0
 fi
@@ -105,7 +113,11 @@ count_of_checks=0
 # ensure users have exchanges:
 
 echo "Initializing with sr_audit... takes a minute or two"
-if [ "${sarra_py_version:0:1}" == "3" ]; then
+
+if [ "${sarra_rs_version}" ]; then
+   export SR_DEV_APPNAME=sr3rs
+   sr3rs --users declare
+elif [ "${sarra_py_version:0:1}" == "3" ]; then
     sr_action --users declare
 else
     if [ ! "$SARRA_LIB" ]; then
@@ -181,7 +193,11 @@ fi
 #sr_action "Starting up all components..." start " " ">> $flowsetuplog 2>\\&1" "$flow_configs"
 #echo "Done."
 
-if [ "${sarra_py_version:0:1}" == "3" ]; then
+
+if [ "${sarra_rs_version}" ]; then
+   POST=sr3rs_post
+   CPOST=sr3rs_post
+elif [ "${sarra_py_version:0:1}" == "3" ]; then
     POST=sr3_post
     CPOST=sr3_cpost
 else
@@ -209,7 +225,10 @@ $CPOST -config pelle_dd2_f05.conf >$LOGDIR/${LGPFX}cpost_pelle_dd2_f05_01.log 2>
 echo "posting complete: `date +${SR_DATE_FMT}`"
 
 echo "sr starting "
-if [ "${sarra_py_version:0:1}" == "3" ]; then
+if [ "${sarra_rs_version}" ]; then
+   sr3rs start
+   ret=$?
+elif [ "${sarra_py_version:0:1}" == "3" ]; then
     sr3 start
     ret=$?
 else
