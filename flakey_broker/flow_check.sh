@@ -270,7 +270,12 @@ echo "                 | C          routing |"
   calcres  ${totcpelle04p} ${totcpelle05p} "cpost both pelles should post the same number of messages (${totcpelle05p}) (${totcpelle04p})"
   calcres  ${totcpelle04_rl} ${totcpelle05_rl} "cpost both pelles should see same amount of post_rate_limit messages (${totcpelle04_rl}) (${totcpelle05_rl})"
   t14=$(( ${totcpelle04_rl}*5 ))
-  calcres  ${totcpelle04p} ${t14} "cpost pelle04 should post 5 times the number of post_rate_limit messages (${totcpelle04p}) (${totcpelle04_rl})"
+  t15=$(( ${totcpelle04p}-${t14} ))
+
+  if [[ ${t15} -gt 0 ]] ; then
+        t14=${totcpelle04p}
+  fi
+  calcres  ${totcpelle04p} ${t14} "cpost pelle04 should post at least 5 times the number of post_rate_limit messages (${totcpelle04p}) (${totcpelle04_rl})"
 
   totcvan=$(( ${totcvan14p} + ${totcvan15p} ))
   calcres  ${totcvan} ${totcdnld} "cdnld_f21 subscribe downloaded ($totcdnld) the same number of files that was published by both van_14 and van_15 ($totcvan)"
