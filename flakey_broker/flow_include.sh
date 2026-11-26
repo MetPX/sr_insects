@@ -358,6 +358,7 @@ function countall {
   if [ "${sarra_rs_version}" ]; then
        countthem "`grep -a 'flow posting message' $srposterlog | grep -v shim | wc -l`"
        totpost1="${tot}"
+       grep -a '\[INFO\] shim published:' $srposterlog | grep shim >$shimpostlog
 
        countthem "`grep -a '\[INFO\] shim published:' $srposterlog | grep -v \"link\" | grep -v \"directory\" | wc -l`"
        totfileshimpost1="${tot}"
