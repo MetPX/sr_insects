@@ -320,13 +320,28 @@ function countall {
   if [ "${sarra_rs_version}" ]; then
        countthem "`grep -a 'flow posting message' "$LOGDIR"/${LGPFX}poll_sftp_f62_*.log | wc -l`"
        totpoll1="${tot}"
-       totpoll_mirrored="`grep -a ', now saved' "$LOGDIR"/${LGPFX}poll_sftp_f63_*.log | awk ' { print $18 } '|tail -1`"
+       totpoll_mirrored="`grep -a ', now saved' "$LOGDIR"/${LGPFX}poll_sftp_f6*_*.log | sort | awk ' { print $16 } '|tail -1`"
+
+       countthem "`grep -aE 'flow posting message' "$LOGDIR"/poll_sftp_f62_*.log | wc -l`"
+       totpoll2="${tot}"
+
+       countthem "`grep -aE 'flow posting message' "$LOGDIR"/poll_sftp_f63_*.log | wc -l`"
+       totpoll3="${tot}"
+       totpoll=$(( ${totpoll2} + ${totpoll3} ))
+
+       totpoll_unique="`grep -aE 'flow posting message' $LOGDIR/poll_sftp_f6?_*.log |  sed 's/.*rel_path: "//' | sed 's/,.*//' | sort -u | wc -l`"
+
+       totpoll_mirrored="`grep -a ', now saved' "$LOGDIR"/poll_sftp_f6*_*.log | awk ' { print $18 } '|tail -1`"
+       totpoll_dupes=$(( ${totpoll} - ${totpoll_unique} ))
+
+
   elif [ "${sarra_py_version:0:1}" == "3" ]; then
        countthem "`grep -aE 'log after_post posted' "$LOGDIR"/poll_sftp_f62_*.log | wc -l`"
        totpoll2="${tot}"
        countthem "`grep -aE 'log after_post posted' "$LOGDIR"/poll_sftp_f63_*.log | wc -l`"
        totpoll3="${tot}"
        totpoll=$(( ${totpoll2} + ${totpoll3} ))
+
        totpoll_unique="`grep -aE 'log after_post posted' $LOGDIR/poll_sftp_f6?_*.log | sed 's/.*relPath: //g' | awk '{ print $1 }' | sort -u | wc -l`"
        totpoll_mirrored="`grep -a ', now saved' "$LOGDIR"/poll_sftp_f6*_*.log | awk ' { print $18 } '|tail -1`"
        totpoll_dupes=$(( ${totpoll} - ${totpoll_unique} ))

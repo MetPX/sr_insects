@@ -214,12 +214,12 @@ if [ ! "$SARRA_LIB" ]; then
     $POST --config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd1_f00_01.log 2>&1 &
     $POST --config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd2_f00_01.log 2>&1 &
 else
-    "$SARRA_LIB"/${LGPFX}post.py -config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd1_f00_01.log 2>&1 &
-    "$SARRA_LIB"/${LGPFX}post.py -config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd2_f00_01.log 2>&1 &
+    "$SARRA_LIB"/${LGPFX}post.py --config t_dd1_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd1_f00_01.log 2>&1 &
+    "$SARRA_LIB"/${LGPFX}post.py --config t_dd2_f00.conf ${SAMPLEDATA} >$LOGDIR/${LGPFX}post_t_dd2_f00_01.log 2>&1 &
 fi
 
-$CPOST -config pelle_dd1_f04.conf >$LOGDIR/${LGPFX}cpost_pelle_dd1_f04_01.log 2>&1 &
-$CPOST -config pelle_dd2_f05.conf >$LOGDIR/${LGPFX}cpost_pelle_dd2_f05_01.log 2>&1 &
+$CPOST --config pelle_dd1_f04.conf >$LOGDIR/${LGPFX}cpost_pelle_dd1_f04_01.log 2>&1 &
+$CPOST --config pelle_dd2_f05.conf >$LOGDIR/${LGPFX}cpost_pelle_dd2_f05_01.log 2>&1 &
 
 echo "posting complete: `date +${SR_DATE_FMT}`"
 
