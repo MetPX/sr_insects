@@ -21,7 +21,13 @@ set -- "${POSITIONAL[@]}"
 
 countall
 
-sr3 status
+if [ "${sarra_rs_version}" ]; then
+    sr3rs status
+elif [ "${sarra_py_version:0:1}" == "3" ]; then
+    sr3 status
+else 
+    sr status
+fi
 
 function summarize_performance {
     path="$LOGDIR"/$1
