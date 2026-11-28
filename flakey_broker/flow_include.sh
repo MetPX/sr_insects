@@ -221,6 +221,9 @@ function countall {
   if [ "${sarra_rs_version}" ]; then
       countthem "`grep -a 'flow posting message' "$LOGDIR"/${LGPFX}watch_f40_*.log | grep directory | wc -l`"
       totdirwatch="${tot}"
+
+      countthem "`sr3 status | grep -a 'wVip' | wc -l `"
+      totwvip="${tot}"
   elif [[ "${sarra_py_version}" > "3.00.52" ]]; then
       countthem "`grep 'after_post posted .* a directory' "$LOGDIR"/${LGPFX}watch_f40_*.log | wc -l`"
       totdirwatch="${tot}"
@@ -331,7 +334,6 @@ function countall {
 
        totpoll_unique="`grep -aE 'flow posting message' $LOGDIR/poll_sftp_f6?_*.log |  sed 's/.*rel_path: "//' | sed 's/,.*//' | sort -u | wc -l`"
 
-       totpoll_mirrored="`grep -a ', now saved' "$LOGDIR"/poll_sftp_f6*_*.log | awk ' { print $18 } '|tail -1`"
        totpoll_dupes=$(( ${totpoll} - ${totpoll_unique} ))
 
 
