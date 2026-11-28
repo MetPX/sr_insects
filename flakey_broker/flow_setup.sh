@@ -21,6 +21,8 @@ testhost=localhost
 sftpuser=`whoami`
 flowsetuplog="$LOGDIR/flowsetup_f00.log"
 
+sudo bash -c "echo priming sudo before start"
+
 if [ ! "${sarra_rs_version}" ]; then
     nohup bash -c "while true; do sr3 sanity; sleep 3; done" >>~/.cache/sr3/log/sr_sanity.log 2>&1  &
 fi
